@@ -149,3 +149,15 @@
     align-items: stretch;
   }
 }
+
+/* "Estudar a matéria inteira" — a opção mais ampla, no topo da lista.
+   Ganha um fio embaixo para não ser lida como só mais um dos 15 assuntos:
+   ela é de outra natureza, e a separação diz isso sem precisar de rótulo. */
+.materiaInteira {
+  border-bottom: 1px solid var(--line-soft);
+  border-radius: 8px 8px 0 0;
+  margin-bottom: 4px;
+  padding-bottom: 11px;
+}
+.materiaInteira .rotulo { font-weight: 600; color: var(--text); }
+.materiaInteira:disabled { opacity: .5; }

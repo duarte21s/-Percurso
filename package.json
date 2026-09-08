@@ -18,7 +18,8 @@
     "checar-mola": "node scripts/checar-mola.mjs",
     "checar-video-scroll": "node scripts/checar-video-scroll.mjs",
     "checar-prova": "node scripts/checar-prova.mjs",
-    "checar-treino": "node scripts/checar-treino.mjs"
+    "checar-treino": "node scripts/checar-treino.mjs",
+    "checar-temas": "node scripts/checar-contagem-temas.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.116.0",

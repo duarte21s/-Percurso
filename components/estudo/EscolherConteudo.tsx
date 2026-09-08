@@ -85,8 +85,18 @@ export function EscolherConteudo({
   const teto = Math.min(45, Math.max(3, disponiveis));
   const pedido = Math.min(quantidade, teto);
 
-  async function estudar() {
-    if (!materiaId || temas.length === 0) return;
+  /** Quantas questões comentadas a matéria inteira tem. */
+  function totalDaMateria(idMateria: string, topicos: readonly (readonly [string, number])[]) {
+    return topicos.reduce((n, [titulo]) => n + contagem(idMateria, titulo).comentadas, 0);
+  }
+
+  /* Monta a sessão. `temas` vazio significa MATÉRIA INTEIRA — a API sempre
+     aceitou isso (`if (temas.length > 0)` antes de filtrar), mas a tela nunca
+     ofereceu: o botão só habilitava com conteúdo escolhido, então era
+     obrigatório entrar na matéria e catar assunto por assunto para estudar
+     algo. Quem quer só "praticar matemática" não tinha caminho. */
+  async function abrirSessao(idMateria: string, listaTemas: string[], quantas: number) {
+    if (!idMateria) return;
     setIndo(true);
     setErro(null);
     try {
@@ -94,9 +104,9 @@ export function EscolherConteudo({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          materia: materiaId,
-          temas,
-          quantidade: pedido,
+          materia: idMateria,
+          temas: listaTemas,
+          quantidade: quantas,
         }),
       });
       const dados = await r.json();
@@ -170,6 +180,35 @@ export function EscolherConteudo({
               <div className="subject-body">
                 <div>
                   <div className="subject-topics">
+                    {/* Estudar a matéria inteira, sem escolher assunto.
+                        Fica no TOPO da lista porque é a opção mais ampla, e
+                        porque quem abriu a matéria já demonstrou querer ela —
+                        obrigar a catar 15 assuntos antes de poder começar era
+                        pedir uma segunda decisão que ninguém tinha tomado. */}
+                    <button
+                      type="button"
+                      className={`topic ${css.topico} ${css.materiaInteira}`}
+                      onClick={() =>
+                        void abrirSessao(m.id, [], Math.min(quantidade, totalMateria))
+                      }
+                      disabled={indo || totalMateria === 0}
+                      title={
+                        totalMateria === 0
+                          ? "Esta matéria ainda não tem questão comentada"
+                          : `${totalMateria} questões comentadas na matéria inteira`
+                      }
+                    >
+                      <span className="n">★</span>
+                      <span className={css.rotulo}>
+                        Estudar a matéria inteira
+                      </span>
+                      <span className={css.contagem}>
+                        {totalMateria === 0
+                          ? "—"
+                          : `${totalMateria} questões`}
+                      </span>
+                    </button>
+
                     {m.topicos.map(([titulo], i) => {
                       const c = contagem(m.id, titulo);
                       const disponivel = c.comentadas;
@@ -243,8 +282,8 @@ export function EscolherConteudo({
         <button
           type="button"
           className="btn btn-primary"
-          onClick={estudar}
-          disabled={indo || temas.length === 0 || disponiveis === 0}
+          onClick={() => void abrirSessao(materiaId!, temas, pedido)}
+          disabled={indo || !materiaId || temas.length === 0 || disponiveis === 0}
         >
           {indo ? "Montando…" : "Estudar agora"}
           {!indo && <span className="arrow">→</span>}
