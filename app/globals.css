@@ -72,6 +72,18 @@
   --color-faded-surface: #fafafc;
   --color-electric-blue: #0071e3;
   --color-link-blue: #0066cc;
+  /* Base editorial usada na área de estudos: papel, grafite e linha. */
+  --color-page-canvas: #fafafa;
+  --color-hairline-border: #e5e7eb;
+  --color-card-surface: #ededed;
+  --color-divider-mid: #dadada;
+  --color-graphite: #242424;
+  --color-ink-black: #171717;
+  --color-pencil: #5c5c5c;
+  --color-faint-graphite: #a3a3a3;
+  --font-inter: "Inter", var(--fonte-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-instrument-serif: var(--fonte-display), "Fraunces", Georgia, serif;
+  --font-fragment-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --font-sf-pro-display: "SF Pro Display", var(--fonte-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-sf-pro-text: "SF Pro Text", var(--fonte-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --text-micro: 12px;
@@ -96,10 +108,10 @@
   --spacing-48: 48px;
   --spacing-80: 80px;
   --spacing-120: 120px;
-  --radius-cards: 28px;
+  --radius-cards: 24px;
   --radius-links: 10px;
   --radius-badges: 36px;
-  --radius-buttons: 980px;
+  --radius-buttons: 16px;
   --motion-response: .4s;
   --motion-press: .1s;
 
@@ -2446,8 +2458,8 @@ body { background: var(--fundo); }
 .section-head { margin-bottom: clamp(30px, 4vw, 52px); }
 .title {
   max-width: 18ch;
-  font-family: var(--sans);
-  font-weight: 680;
+  font-family: var(--font-instrument-serif);
+  font-weight: 560;
   letter-spacing: -.045em;
   color: var(--texto);
 }

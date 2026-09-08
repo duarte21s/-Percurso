@@ -7,6 +7,7 @@ import { checaLembreteChama } from "@/lib/notificacoes";
 import { CardChama } from "@/components/comunidade/CardChama";
 import { RevelarGrade } from "@/components/ui/RevelarGrade";
 import type { Simulado } from "@/lib/tipos";
+import css from "./dashboard.module.css";
 
 export const metadata: Metadata = {
   title: "Visão geral · Percurso",
@@ -49,15 +50,6 @@ const ATALHOS = [
   },
 ];
 
-const cartao: React.CSSProperties = {
-  display: "block",
-  padding: "20px 21px",
-  border: "1px solid var(--borda)",
-  borderRadius: 18,
-  background: "var(--surface)",
-  boxShadow: "0 12px 34px rgba(18, 60, 42, .045)",
-};
-
 export default async function Dashboard() {
   // Pelo guarda comum, e não por checagem própria: é ele que também derruba a
   // sessão de visitante cujo tempo acabou.
@@ -95,35 +87,35 @@ export default async function Dashboard() {
   const anonimo = !user.email;
 
   return (
-    <main className="section" style={{ paddingTop: 40 }}>
-      <div className="wrap">
-        <div className="section-head">
-          <div className="head-left">
-            <span className="eyebrow">Visão geral</span>
-            <h2 className="title">
+    <main className={css.dashboard}>
+      <div className={`wrap ${css.conteudo}`}>
+        <div className={css.hero}>
+          <div>
+            <span className={css.kicker}>Visão geral</span>
+            <h1 className={css.titulo}>
               Olá, <em>{nome}</em>.
-            </h2>
-            <p className="lede">
-              {emAndamento
-                ? "Você tem uma sessão de estudo aberta. Continue de onde parou — nada se perdeu."
-                : "Um resumo do seu estudo. Cada bloco leva à ferramenta completa."}
-            </p>
+            </h1>
           </div>
+          <p className={css.lede}>
+            {emAndamento
+              ? "Você tem uma sessão de estudo aberta. Continue de onde parou — nada se perdeu."
+              : "Um resumo do seu estudo. Cada bloco leva à ferramenta completa."}
+          </p>
         </div>
 
         {anonimo && (
-          <div className="q-explain" style={{ marginBottom: 30, marginTop: 0 }}>
+          <div className={`q-explain ${css.aviso}`}>
             <strong>Você entrou como visitante.</strong> O progresso está sendo
             salvo, mas essa sessão é anônima: se você perder o acesso a este
             navegador, não há e-mail para recuperar a conta.
           </div>
         )}
 
-        <div style={{ marginBottom: 26 }}>
+        <div className={css.chama}>
           <CardChama estado={chama} sessaoAberta={Boolean(emAndamento)} />
         </div>
 
-        <RevelarGrade className="stats" style={{ marginBottom: 26 }}>
+        <RevelarGrade className={`stats ${css.stats}`}>
           <div className="stat">
             <div className="stat-num">{concluidos.length}</div>
             <div className="stat-label">Sessões concluídas</div>
@@ -146,7 +138,7 @@ export default async function Dashboard() {
         </RevelarGrade>
 
         {(emAndamento || provaAberta) && (
-          <div className="uni-tools" style={{ marginBottom: 26 }}>
+          <div className={css.continuar}>
             {emAndamento && (
               <Link href={`/app/questoes?sessao=${encodeURIComponent(emAndamento.id)}`} className="btn btn-primary">
                 Continuar estudando <span className="arrow">→</span>
@@ -163,48 +155,28 @@ export default async function Dashboard() {
           </div>
         )}
 
-        <RevelarGrade
-          style={{
-            display: "grid",
-            gap: 12,
-            gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
-            marginBottom: 40,
-          }}
-        >
+        <RevelarGrade className={css.atalhos}>
           {ATALHOS.map((a) => (
-            <Link key={a.href} href={a.href} style={cartao}>
-              <strong style={{ display: "block", fontSize: 14, marginBottom: 4 }}>
-                {a.titulo} <span className="arrow">→</span>
+            <Link key={a.href} href={a.href} className={css.atalho}>
+              <strong className={css.atalhoTitulo}>
+                {a.titulo} <span className={css.seta}>→</span>
               </strong>
-              <span
-                className="dim"
-                style={{ fontSize: 12.5, lineHeight: 1.5 }}
-              >
-                {a.texto}
-              </span>
+              <span className={css.atalhoTexto}>{a.texto}</span>
             </Link>
           ))}
         </RevelarGrade>
 
-        <div
-          style={{
-            display: "flex",
-            alignItems: "baseline",
-            justifyContent: "space-between",
-            margin: "0 0 18px",
-          }}
-        >
-          <h3 style={{ fontSize: 15, fontWeight: 600 }}>Histórico recente</h3>
+        <div className={css.historicoTopo}>
+          <h2 className={css.historicoTitulo}>Histórico recente</h2>
           <Link
             href="/app/desempenho"
-            className="dim"
-            style={{ color: "var(--accent-2)", fontSize: 13 }}
+            className={css.verTudo}
           >
             Ver tudo →
           </Link>
         </div>
 
-        <div className="uni-table">
+        <div className={`uni-table ${css.tabela}`}>
           <div className="uni-scroll">
             <table className="uni">
               <thead>

@@ -108,7 +108,8 @@ export function SidebarApp({ nome }: Props) {
             aria-expanded={contaAberta}
             onClick={() => setContaAberta((v) => !v)}
           >
-            {nome}
+            <span className={css.nomeConta}>{nome}</span>
+            <span className={css.contaMobile} aria-hidden="true">Conta</span>
           </button>
 
           {contaAberta && (

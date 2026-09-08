@@ -1,235 +1,289 @@
-/* Navegação da área autenticada — faixa no TOPO.
-   Era uma coluna fixa de 248px à esquerda; virou barra horizontal com as
-   ferramentas numa cápsula. Usa os tokens do globals.css — mesma identidade
-   do site. */
-
-.wrap { min-height: 100vh; }
+.wrap {
+  min-height: 100vh;
+  --bg: #fafafa;
+  --bg-2: #f3f3f1;
+  --surface: #fafafa;
+  --surface-2: #ededed;
+  --surface-3: #e4e4e1;
+  --line: #e5e5e1;
+  --line-soft: rgba(23, 23, 23, .08);
+  --line-strong: rgba(23, 23, 23, .2);
+  --text: #171717;
+  --text-2: #5c5c5c;
+  --text-3: #6b6b68;
+  --accent: #242424;
+  --accent-2: #171717;
+  --accent-dim: rgba(36, 36, 36, .07);
+  --accent-line: rgba(36, 36, 36, .28);
+  --sobre-accent: #fafafa;
+  --verde-profundo: #171717;
+  --verde-principal: #242424;
+  --verde-suave: #a3a3a3;
+  --menta: #ededed;
+  --fundo: #fafafa;
+  --texto: #171717;
+  --texto-secundario: #5c5c5c;
+  --borda: #e5e5e1;
+  --elev-1: none;
+  --elev-2: none;
+  --elev-3: none;
+}
 
 .topo {
   position: sticky;
   top: 0;
   z-index: 60;
-  background: var(--material-chrome);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--line-soft);
+  background: color-mix(in srgb, var(--fundo) 92%, transparent);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--borda);
 }
-
 .topoLinha {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 12px clamp(16px, 3vw, 30px) 0;
+  padding: 13px clamp(16px, 3vw, 30px) 0;
 }
-
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
-  font-weight: 600;
-  font-size: 15px;
+  gap: 10px;
   color: var(--text);
+  font-family: var(--serif);
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: -.035em;
   white-space: nowrap;
 }
 .brand small {
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  padding-left: 9px;
+  border-left: 1px solid var(--borda);
   color: var(--text-3);
+  font-family: var(--sans);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
 }
 .brandMark {
-  width: 26px;
-  height: 26px;
+  width: 29px;
+  height: 29px;
   display: grid;
   place-items: center;
   border: 1px solid var(--line-strong);
-  border-radius: 7px;
-  background: var(--surface-2);
+  border-radius: 9px;
+  background: transparent;
+  color: var(--text);
   flex: none;
 }
-.brandMark svg { width: 14px; height: 14px; }
+.brandMark svg { width: 15px; height: 15px; }
 
 .topoAcoes {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
-
 .conta {
-  padding: 8px 15px;
-  border-radius: 99px;
-  corner-shape: round;
-  border: 1px solid var(--line);
+  min-height: 38px;
+  max-width: 24ch;
+  padding: 8px 14px;
+  overflow: hidden;
+  border: 1px solid var(--borda);
+  border-radius: 16px;
   background: transparent;
   color: var(--text-2);
-  font: inherit;
-  font-size: 13.5px;
-  font-weight: 500;
-  cursor: pointer;
-  max-width: 26ch;
-  overflow: hidden;
+  font: 500 13px/1.2 var(--sans);
   text-overflow: ellipsis;
   white-space: nowrap;
-  transition: color .24s var(--ease), border-color .24s var(--ease),
-              background .24s var(--ease), transform .16s var(--ease);
+  cursor: pointer;
+  transition: color .2s var(--ease), background .2s var(--ease), transform .12s var(--ease);
 }
-.conta:hover { color: var(--text); border-color: var(--line-strong); }
-.conta:active { transform: scale(.97); transition-duration: .09s; }
-.conta:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-
-.backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-}
+.conta:hover { color: var(--text); background: var(--surface-2); }
+.conta:active { transform: scale(.97); }
+.conta:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+.contaMobile { display: none; }
+.backdrop { position: fixed; inset: 0; z-index: 1; }
 .menuConta {
   position: absolute;
-  top: calc(100% + 8px);
   right: 0;
+  bottom: calc(100% + 8px);
   z-index: 2;
   min-width: 190px;
   display: flex;
   flex-direction: column;
   padding: 6px;
-  border-radius: var(--r);
-  border: 1px solid var(--line);
+  border: 1px solid var(--borda);
+  border-radius: 16px;
   background: var(--surface);
-  box-shadow: var(--elev-2);
-  /* Nasce do botão que o abriu, não do próprio centro. */
-  transform-origin: top right;
+  transform-origin: bottom right;
 }
 .itemConta {
   display: block;
   width: 100%;
-  text-align: left;
   padding: 10px 12px;
   border: 0;
-  border-radius: var(--r-sm);
+  border-radius: 10px;
   background: transparent;
   color: var(--text-2);
-  font: inherit;
-  font-size: 14px;
+  font: 500 14px/1.2 var(--sans);
+  text-align: left;
   cursor: pointer;
-  transition: color .2s var(--ease), background .2s var(--ease);
 }
-.itemConta:hover { color: var(--text); background: var(--surface-2); }
-.itemConta:active { background: var(--surface-3); transition-duration: .09s; }
+.itemConta:hover,
 .itemConta[aria-current="page"] { color: var(--text); background: var(--surface-2); }
 
-/* ---------- trilha das ferramentas ---------- */
-/* A casca rola; a cápsula por dentro tem a largura do conteúdo. Separar as
-   duas é o que permite o indicador se posicionar por `offsetLeft` sem que a
-   rolagem interfira. */
 .trilhaCasca {
-  padding: 10px clamp(16px, 3vw, 30px) 12px;
+  display: flex;
+  justify-content: safe center;
+  padding: 10px clamp(16px, 3vw, 30px) 13px;
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scrollbar-width: none;
-  display: flex;
-  /* `safe center` e não `center`: centralizar dentro de um contêiner que rola
-     é a armadilha clássica — quando o conteúdo passa da largura, ele transborda
-     para os DOIS lados, e o que sai pela esquerda fica inalcançável, porque não
-     existe rolagem negativa. As primeiras abas simplesmente somem.
-
-     A palavra `safe` diz ao navegador: centralize enquanto couber, e volte a
-     alinhar pelo começo assim que não couber. Onde ela não existir, a
-     declaração inteira é ignorada e sobra o alinhamento à esquerda — que é
-     feio, mas alcançável. É a degradação certa. */
-  justify-content: safe center;
 }
 .trilhaCasca::-webkit-scrollbar { display: none; }
-
 .trilha {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 2px;
-  position: relative;
   padding: 4px;
-  border-radius: 99px;
-  corner-shape: round;
+  border: 1px solid var(--borda);
+  border-radius: 9999px;
   background: var(--surface);
-  border: 1px solid var(--line-soft);
   contain: layout paint;
 }
-
 .aba {
   position: relative;
   z-index: 1;
-  padding: 7px 14px;
-  border-radius: 99px;
-  corner-shape: round;
-  font-size: 13.5px;
-  font-weight: 500;
-  letter-spacing: 0.004em;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border-radius: 9999px;
   color: var(--text-2);
+  font: 500 13px/1.2 var(--sans);
   white-space: nowrap;
-  transition: color .24s var(--ease);
-  -webkit-tap-highlight-color: var(--accent-dim);
+  transition: color .2s var(--ease);
 }
+.aba svg { width: 15px; height: 15px; }
 .aba:hover { color: var(--text); }
-.aba[aria-current="page"] { color: var(--text); }
-.aba:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
-
+.aba[aria-current="page"] { color: var(--sobre-accent); }
+.aba:focus-visible { outline: 2px solid var(--text); outline-offset: -2px; }
 .trilhaIndicador {
   position: absolute;
-  left: 0;
   top: 4px;
   bottom: 4px;
-  border-radius: 99px;
-  corner-shape: round;
-  background: var(--surface-3);
+  left: 0;
   z-index: 0;
+  border-radius: 9999px;
+  background: var(--accent);
+  box-shadow: inset 0 3px 3px -2px rgba(255,255,255,.28), inset 0 -3px 3px -2px rgba(0,0,0,.25);
   pointer-events: none;
   transition: opacity .2s var(--ease);
   will-change: transform, width;
 }
+.main { min-height: 100vh; background: var(--fundo); }
 
-/* O conteúdo não recua mais 248px: a barra é horizontal e a largura inteira
-   volta para tabela, painel e grade de questões, que é onde ela faz falta. */
-.main {
-  min-height: 100vh;
-  background:
-    radial-gradient(circle at 92% 0, rgba(169, 199, 179, .22), transparent 28rem),
-    var(--fundo);
-}
-
-/* A área de estudos retoma a sidebar solicitada para o produto. A navegação
-   deixa de competir com dashboards e listas largas; em telas pequenas ela
-   volta a ser uma trilha horizontal que cabe no toque. */
 @media (min-width: 901px) {
   .topo {
     position: fixed;
     inset: 0 auto 0 0;
-    width: 248px;
-    display: flex;
-    flex-direction: column;
-    background: rgba(252, 253, 251, .92);
+    width: 232px;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    padding: 0 16px;
     border-right: 1px solid var(--borda);
     border-bottom: 0;
-    box-shadow: 12px 0 30px rgba(18, 60, 42, .035);
+    background: var(--fundo);
+    backdrop-filter: none;
   }
-  .topoLinha { flex-direction: column; align-items: stretch; padding: 26px 18px 12px; }
-  .brand { color: var(--verde-profundo); font-size: 20px; letter-spacing: -.03em; }
-  .brandMark { width: 31px; height: 31px; border-radius: 10px; color: var(--verde-profundo); background: var(--menta); border-color: transparent; }
-  .brandMark svg { width: 17px; height: 17px; }
-  .topoAcoes { justify-content: space-between; margin-top: 20px; }
-  .conta { max-width: 132px; padding-inline: 11px; }
-  .trilhaCasca { flex: 1; padding: 14px 12px 22px; overflow-y: auto; overflow-x: hidden; justify-content: flex-start; }
-  .trilha { width: 100%; flex-direction: column; align-items: stretch; gap: 3px; padding: 0; border: 0; border-radius: 0; background: transparent; }
+  .topoLinha { display: contents; }
+  .brand {
+    grid-row: 1;
+    margin: 0 4px;
+    padding: 28px 0 22px;
+    border-bottom: 1px solid var(--borda);
+  }
+  .brand small { display: none; }
+  .topoAcoes {
+    grid-row: 3;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    padding: 16px 0 22px;
+    border-top: 1px solid var(--borda);
+  }
+  .conta { grid-column: 1 / -1; grid-row: 1; max-width: none; text-align: left; }
+  .trilhaCasca {
+    grid-row: 2;
+    justify-content: flex-start;
+    padding: 24px 0;
+    overflow: auto;
+  }
+  .trilha {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
   .trilhaIndicador { display: none; }
-  .aba { display: flex; align-items: center; gap: 12px; padding: 11px 12px; border-radius: 12px; color: var(--texto-secundario); }
-  .aba svg { width: 18px; height: 18px; flex: none; }
-  .aba:hover { color: var(--verde-profundo); background: var(--menta); }
-  .aba[aria-current="page"] { color: var(--verde-profundo); background: #dcefe2; font-weight: 650; }
-  .main { min-height: 100vh; margin-left: 248px; }
+  .aba {
+    min-height: 42px;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 16px;
+  }
+  .aba svg { width: 17px; height: 17px; }
+  .aba:hover { color: var(--text); background: var(--surface-2); }
+  .aba[aria-current="page"] { color: var(--sobre-accent); background: var(--accent); }
+  .main { margin-left: 232px; }
 }
 
 @media (max-width: 900px) {
-  .aba { display: inline-flex; align-items: center; gap: 6px; }
-  .aba svg { width: 15px; height: 15px; }
+  .menuConta { top: calc(100% + 8px); bottom: auto; transform-origin: top right; }
+}
+@media (max-width: 560px) {
+  .topoLinha { gap: 8px; padding-inline: 12px; }
+  .topoAcoes { gap: 4px; }
+  .brand { font-size: 18px; }
+  .brand small { display: none; }
+  .brandMark { width: 26px; height: 26px; }
+  .conta { max-width: none; padding-inline: 9px; }
+  .nomeConta { display: none; }
+  .contaMobile { display: inline; }
+}
+
+@media (prefers-color-scheme: dark) {
+  :global(:root:not([data-theme="light"])) .wrap {
+    --bg: #141414; --bg-2: #191919; --surface: #1b1b1b;
+    --surface-2: #282828; --surface-3: #333; --line: #353535;
+    --line-soft: rgba(250,250,250,.08); --line-strong: rgba(250,250,250,.22);
+    --text: #f4f4f1; --text-2: #b8b8b3; --text-3: #a1a19b;
+    --accent: #f0f0ec; --accent-2: #f4f4f1; --accent-dim: rgba(255,255,255,.08);
+    --accent-line: rgba(255,255,255,.3); --sobre-accent: #171717;
+    --verde-profundo: #f4f4f1; --verde-principal: #f0f0ec; --verde-suave: #777;
+    --menta: #282828; --fundo: #141414; --texto: #f4f4f1;
+    --texto-secundario: #b8b8b3; --borda: #353535;
+  }
+}
+:global(:root[data-theme="dark"]) .wrap {
+  --bg: #141414; --bg-2: #191919; --surface: #1b1b1b;
+  --surface-2: #282828; --surface-3: #333; --line: #353535;
+  --line-soft: rgba(250,250,250,.08); --line-strong: rgba(250,250,250,.22);
+  --text: #f4f4f1; --text-2: #b8b8b3; --text-3: #a1a19b;
+  --accent: #f0f0ec; --accent-2: #f4f4f1; --accent-dim: rgba(255,255,255,.08);
+  --accent-line: rgba(255,255,255,.3); --sobre-accent: #171717;
+  --verde-profundo: #f4f4f1; --verde-principal: #f0f0ec; --verde-suave: #777;
+  --menta: #282828; --fundo: #141414; --texto: #f4f4f1;
+  --texto-secundario: #b8b8b3; --borda: #353535;
 }
 
 @media (prefers-reduced-transparency: reduce) {
-  .topo { background: var(--surface); backdrop-filter: none; }
+  .topo { background: var(--fundo); backdrop-filter: none; }
 }
