@@ -16,18 +16,15 @@
   background: linear-gradient(180deg, var(--bg-2), var(--bg));
 }
 
+/* As cenas ocupam a mesma célula de grid — cross-fade puro por `autoAlpha`
+   (via GSAP, não CSS transition: o progresso vem do scroll, não do tempo). */
 .video {
-  position: absolute;
-  inset: 0;
+  grid-area: 1 / 1;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  visibility: hidden;
   opacity: 0;
-  transition: opacity 0.6s ease;
-}
-
-.video[data-ready="true"] {
-  opacity: 1;
 }
 
 /* Escurece a base da cena para a legenda ler sobre qualquer trecho do

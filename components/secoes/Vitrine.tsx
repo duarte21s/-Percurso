@@ -2,95 +2,123 @@
 
 import { useRef, useState } from "react";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap/registro";
-import { EASE, DUR } from "@/lib/gsap/vocabulario";
 import { MOVIMENTO_QUERY, REDUZIDO_QUERY } from "@/lib/gsap/preferencias";
 import { conectarVideoAoScroll } from "@/lib/movimento/video-scroll";
 import styles from "./vitrine.module.css";
 
-const LEGENDAS = [
-  "Seu tempo, sob controle.",
-  "Cada resposta, mais perto.",
-  "O percurso até a aprovação.",
+const CENAS = [
+  { arquivo: "/media/vitrine-1-comeco.mp4", legenda: "Seu tempo, sob controle." },
+  { arquivo: "/media/vitrine-2-repeticao.mp4", legenda: "Cada resposta, mais perto." },
+  { arquivo: "/media/vitrine-3-tempo.mp4", legenda: null },
+  { arquivo: "/media/vitrine-4-vista.mp4", legenda: "O percurso até a aprovação." },
 ] as const;
 
+const N = CENAS.length;
+/** Largura da transição entre cenas, em unidades de "cena" (0 a N no eixo
+ * contínuo). 0.5 = crossfade de meia-cena, centrado exatamente na fronteira. */
+const LARGURA_TRANSICAO = 0.5;
+
+/** 1 no platô da própria cena, decaindo linear até 0 ao entrar no platô da
+ * vizinha — duas cenas adjacentes somam 1 durante a transição, nunca mais. */
+function opacidadeDaCena(x: number, indice: number): number {
+  const inicio = indice;
+  const fim = indice + 1;
+  if (x < inicio) return Math.max(0, 1 - (inicio - x) / (LARGURA_TRANSICAO / 2));
+  if (x > fim) return Math.max(0, 1 - (x - fim) / (LARGURA_TRANSICAO / 2));
+  return 1;
+}
+
 /**
- * Vitrine cinematográfica do Percurso em ação: um vídeo que avança com o
- * scroll — mesmo motor do livro do hero (`video-scroll.ts`) — e três
- * legendas que se cruzam no mesmo progresso, empilhadas por grid em vez de
- * document flow (cada uma ocupa a célula inteira; só o `autoAlpha` decide
- * qual está por cima).
+ * Vitrine cinematográfica do Percurso em ação: quatro planos que se sucedem
+ * numa única travessia de scroll — cada vídeo é o mesmo motor do livro do
+ * hero (`video-scroll.ts`), só que fatiado em N trechos do eixo de progresso
+ * em vez de um só. Vídeos e legendas cruzam (dissolve) na mesma fronteira;
+ * a cena 3 (passagem de tempo) não tem legenda própria, é respiro visual
+ * entre "a repetição" e "a vista".
  *
- * Fica em /sobre, não na home: a home é porta de entrada curta de propósito
- * (ver `Hero.tsx`, "sem transformar a leitura da home em uma sequência de
- * scroll"). Aqui é onde já mora a apresentação completa.
+ * Fica em /sobre, não na home — ver a nota em `Hero.tsx` sobre a home ficar
+ * curta de propósito.
  *
- * `prefers-reduced-motion`: sem pin, sem scrub. O vídeo nunca recebe `src`
- * (fica só o gradiente de fundo) e a legenda final — a de resumo — aparece
- * fixa; as duas primeiras somem. Não empilha as três de uma vez: texto sobre
- * texto ilegível é pior do que não animar.
+ * `prefers-reduced-motion`: nenhum vídeo recebe `src` (não há JSX com `src`
+ * fixo, só o efeito abaixo popula), sem pin, sem scrub. Só a legenda final
+ * — a de resumo — fica visível; as outras somem.
  */
 export function Vitrine() {
   const raiz = useRef<HTMLDivElement>(null);
   const cena = useRef<HTMLDivElement>(null);
-  const video = useRef<HTMLVideoElement>(null);
-  const legendas = useRef<HTMLParagraphElement[]>([]);
-  const [pronto, setPronto] = useState(false);
+  const videos = useRef<(HTMLVideoElement | null)[]>([]);
+  const legendas = useRef<(HTMLParagraphElement | null)[]>([]);
+  const [prontos, setProntos] = useState<boolean[]>(() => CENAS.map(() => false));
 
   useGSAP(
     () => {
-      const elVideo = video.current;
       const elCena = cena.current;
-      if (!elVideo || !elCena) return;
+      if (!elCena || videos.current.some((v) => !v)) return;
 
       const mm = gsap.matchMedia();
 
       mm.add(MOVIMENTO_QUERY, () => {
-        const controle = conectarVideoAoScroll(elVideo, {
-          aoMostrar: () => setPronto(true),
-          aoFalhar: () => setPronto(false),
+        const controles = CENAS.map((dado, i) => {
+          const elVideo = videos.current[i]!;
+          const controle = conectarVideoAoScroll(elVideo, {
+            aoMostrar: () => setProntos((atual) => atual.map((v, j) => (j === i ? true : v))),
+            aoFalhar: () => setProntos((atual) => atual.map((v, j) => (j === i ? false : v))),
+          });
+          elVideo.preload = "auto";
+          elVideo.src = dado.arquivo;
+          elVideo.load();
+          return controle;
         });
-        elVideo.preload = "auto";
-        elVideo.src = "/media/vitrine-estudo.mp4";
-        elVideo.load();
 
-        gsap.set(legendas.current[0], { autoAlpha: 1, y: 0 });
-        gsap.set(legendas.current.slice(1), { autoAlpha: 0, y: 14 });
+        const setadoresVideo = videos.current.map((v) => gsap.quickSetter(v!, "autoAlpha"));
+        const setadoresLegenda = legendas.current
+          .filter((el): el is HTMLParagraphElement => el !== null)
+          .map((el) => ({ el, setar: gsap.quickSetter(el, "autoAlpha") }));
+        let cursorLegenda = 0;
+        const legendaPorCena = CENAS.map((dado) => {
+          if (!dado.legenda) return null;
+          return setadoresLegenda[cursorLegenda++];
+        });
 
-        const mestre = gsap.timeline({ paused: true });
-        for (let i = 1; i < legendas.current.length; i++) {
-          const quando = i - 0.3;
-          mestre.to(legendas.current[i - 1], { autoAlpha: 0, y: -14, duration: DUR.curta, ease: EASE.saida }, quando);
-          mestre.to(legendas.current[i], { autoAlpha: 1, y: 0, duration: DUR.curta, ease: EASE.entrada }, quando);
+        function atualizar(progresso: number) {
+          const x = progresso * N;
+          CENAS.forEach((_dado, i) => {
+            const alfa = opacidadeDaCena(x, i);
+            setadoresVideo[i](alfa);
+            legendaPorCena[i]?.setar(alfa);
+            controles[i].definirProgresso(Math.min(1, Math.max(0, x - i)));
+          });
         }
 
         const trigger = ScrollTrigger.create({
           trigger: raiz.current,
           start: "top top",
-          end: "+=250%",
+          end: "+=400%",
           pin: elCena,
           scrub: true,
-          onUpdate(self) {
-            controle.definirProgresso(self.progress);
-            mestre.progress(self.progress);
-          },
+          onUpdate: (self) => atualizar(self.progress),
         });
+        // Sincroniza o estado inicial sem esperar o primeiro evento de scroll —
+        // mesmo cuidado do `agendar()` em `video-scroll.ts`: nunca depender só
+        // de um evento futuro pra mostrar o quadro certo.
+        atualizar(trigger.progress);
 
         return () => {
           trigger.kill();
-          controle.dispose();
-          mestre.kill();
-          elVideo.pause();
-          elVideo.removeAttribute("src");
-          elVideo.load();
+          controles.forEach((c) => c.dispose());
+          videos.current.forEach((v) => {
+            v?.pause();
+            v?.removeAttribute("src");
+            v?.load();
+          });
         };
       });
 
       mm.add(REDUZIDO_QUERY, () => {
-        elVideo.removeAttribute("src");
-        elVideo.load();
-        const ultima = legendas.current.length - 1;
-        gsap.set(legendas.current.slice(0, ultima), { autoAlpha: 0 });
-        gsap.set(legendas.current[ultima], { autoAlpha: 1, y: 0 });
+        const ultima = legendas.current.filter((el) => el !== null).length - 1;
+        legendas.current.filter((el): el is HTMLParagraphElement => el !== null).forEach((el, i) => {
+          gsap.set(el, { autoAlpha: i === ultima ? 1 : 0, y: 0 });
+        });
         return () => {};
       });
 
@@ -102,27 +130,32 @@ export function Vitrine() {
   return (
     <section className={styles.vitrine} ref={raiz} aria-label="O Percurso em ação">
       <div className={styles.cena} ref={cena}>
-        <video
-          className={styles.video}
-          ref={video}
-          data-ready={pronto}
-          muted
-          playsInline
-          preload="none"
-          disablePictureInPicture
-          tabIndex={-1}
-          aria-hidden="true"
-        />
+        {CENAS.map((dado, i) => (
+          <video
+            key={dado.arquivo}
+            className={styles.video}
+            ref={(el) => {
+              videos.current[i] = el;
+            }}
+            data-ready={prontos[i]}
+            muted
+            playsInline
+            preload="none"
+            disablePictureInPicture
+            tabIndex={-1}
+            aria-hidden="true"
+          />
+        ))}
         <div className={styles.legendas}>
-          {LEGENDAS.map((texto, i) => (
+          {CENAS.filter((dado) => dado.legenda).map((dado, i) => (
             <p
-              key={texto}
+              key={dado.legenda}
               ref={(el) => {
-                if (el) legendas.current[i] = el;
+                legendas.current[i] = el;
               }}
               className={styles.legenda}
             >
-              {texto}
+              {dado.legenda}
             </p>
           ))}
         </div>
