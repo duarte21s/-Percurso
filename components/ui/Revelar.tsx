@@ -35,21 +35,24 @@ export function Revelar({ children, atraso, como: Tag = "div", className = "" }:
       mm.add(MOVIMENTO_QUERY, () => {
         const t = gsap.fromTo(
           el,
-          { autoAlpha: 0, y: 24 },
+          { autoAlpha: 0, y: 18, scale: 0.992, filter: "blur(7px)" },
           {
             autoAlpha: 1,
             y: 0,
+            scale: 1,
+            filter: "blur(0px)",
             duration: DUR.longa,
             ease: EASE.entrada,
             delay: atraso ? atraso * 0.06 : 0,
             scrollTrigger: { trigger: el, start: "top 88%", once: true },
+            clearProps: "filter,transform",
           }
         );
         return () => t.kill();
       });
 
       mm.add(REDUZIDO_QUERY, () => {
-        gsap.set(el, { autoAlpha: 1, y: 0 });
+        gsap.set(el, { autoAlpha: 1, y: 0, scale: 1, filter: "none" });
         return () => {};
       });
     },

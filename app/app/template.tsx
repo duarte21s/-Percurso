@@ -19,10 +19,12 @@ export default function Template({ children }: { children: ReactNode }) {
       const mm = gsap.matchMedia();
       mm.add(MOVIMENTO_QUERY, () => {
         gsap.from(ref.current, {
-          y: 10,
-          duration: DUR.curta,
+          autoAlpha: 0,
+          y: 8,
+          scale: .997,
+          duration: DUR.base,
           ease: EASE.entradaSuave,
-          clearProps: "transform",
+          clearProps: "opacity,visibility,transform",
         });
       });
     },

@@ -43,7 +43,31 @@ export function Hero() {
         .from(`.${styles.conteudo} > *`, { autoAlpha: 0, y: 20, stagger: 0.1, duration: 0.7 })
         .from(`.${styles.livro}`, { autoAlpha: 0, x: 34, y: 18, scale: 0.96, duration: 1 }, 0.12)
         .from(`.${styles.cartao}`, { autoAlpha: 0, y: 18, stagger: 0.1, duration: 0.55 }, 0.45);
-      gsap.to(`.${styles.livro}`, { y: -10, rotate: -0.8, duration: 3.5, repeat: -1, yoyo: true, ease: "sine.inOut" });
+      const elementoLivro = raiz.current?.querySelector<HTMLElement>(`.${styles.livro}`);
+      const areaLivro = raiz.current?.querySelector<HTMLElement>(`.${styles.cenaLivro}`);
+      if (!elementoLivro || !areaLivro) return () => entrada.kill();
+      const flutuacao = gsap.to(elementoLivro, { y: -7, rotate: -0.55, duration: 3.8, repeat: -1, yoyo: true, ease: "sine.inOut" });
+      gsap.set(elementoLivro, { transformPerspective: 1100, transformOrigin: "50% 65%" });
+      const inclinaX = gsap.quickTo(elementoLivro, "rotateX", { duration: .4, ease: "power3.out" });
+      const inclinaY = gsap.quickTo(elementoLivro, "rotateY", { duration: .4, ease: "power3.out" });
+
+      const mover = (evento: PointerEvent) => {
+        const caixa = areaLivro.getBoundingClientRect();
+        const x = (evento.clientX - caixa.left) / caixa.width - .5;
+        const y = (evento.clientY - caixa.top) / caixa.height - .5;
+        inclinaX(-y * 3.2);
+        inclinaY(x * 4.4);
+      };
+      const repousar = () => { inclinaX(0); inclinaY(0); };
+      areaLivro.addEventListener("pointermove", mover);
+      areaLivro.addEventListener("pointerleave", repousar);
+
+      return () => {
+        entrada.kill();
+        flutuacao.kill();
+        areaLivro.removeEventListener("pointermove", mover);
+        areaLivro.removeEventListener("pointerleave", repousar);
+      };
     });
     return () => media.revert();
   }, { scope: raiz });

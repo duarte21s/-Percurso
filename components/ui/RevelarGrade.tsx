@@ -55,18 +55,21 @@ export function RevelarGrade({
         const t = gsap.from(itens, {
           autoAlpha: 0,
           y,
+          scale: 0.988,
+          filter: "blur(6px)",
           duration: DUR.base,
           ease: EASE.entrada,
           stagger,
           ...(aoRolar
             ? { scrollTrigger: { trigger: el, start: "top 85%", once: true } }
             : {}),
+          clearProps: "filter,transform",
         });
         return () => t.kill();
       });
 
       mm.add(REDUZIDO_QUERY, () => {
-        gsap.set(itens, { autoAlpha: 1, y: 0 });
+        gsap.set(itens, { autoAlpha: 1, y: 0, scale: 1, filter: "none" });
         return () => {};
       });
     },

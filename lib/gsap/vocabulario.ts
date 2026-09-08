@@ -33,12 +33,12 @@ export const EASE = {
 } as const;
 
 export const DUR = {
-  micro: 0.16, // pressão, hover — quase imperceptível
-  curta: 0.28,
-  base: 0.44,
+  micro: 0.1, // resposta imediata no pointer-down
+  curta: 0.24,
+  base: 0.4,
   sheet: 0.5,
-  longa: 0.7,
-  enche: 0.9, // preenchimento de barra
+  longa: 0.62,
+  enche: 0.8, // preenchimento de barra
 } as const;
 
 /** Stagger padrão de lista/grade (segundos entre itens). */
