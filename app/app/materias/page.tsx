@@ -123,11 +123,14 @@ export default async function PaginaMaterias() {
                           /* Leva a matéria escolhida. Sem isto, quem clicava
                              aqui caía no seletor com as nove fechadas e tinha
                              que procurar de novo a que acabou de escolher. */
-                          href={`/app/questoes?materia=${m.id}`}
+                          /* Leva para a PÁGINA da matéria, onde os 15
+                             conteúdos aparecem como lista — em vez de para o
+                             seletor, onde é preciso abrir uma sanfona. */
+                          href={`/app/materias/${m.id}`}
                           className="dim"
                           style={{ color: "var(--accent-2)", fontSize: 13 }}
                         >
-                          Estudar →
+                          Ver conteúdos →
                         </Link>
                       </td>
                     </tr>

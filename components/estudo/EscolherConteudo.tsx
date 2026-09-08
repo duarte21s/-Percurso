@@ -18,6 +18,8 @@ const FILTROS: { valor: Area | "todas"; rotulo: string }[] = [
 interface Props {
   materias: readonly Materia[];
   contagens: ContagensPorTema;
+  /** Conteúdo já marcado ao entrar, vindo de `?tema=` na URL. */
+  temaInicial?: string | null;
   /** Matéria já aberta ao entrar, vinda de `?materia=` na URL.
       Quem clicou "Estudar" numa matéria específica já escolheu — obrigar a
       escolher de novo aqui joga fora o clique anterior. */
@@ -40,6 +42,7 @@ export function EscolherConteudo({
   materias,
   contagens,
   materiaInicial = null,
+  temaInicial = null,
 }: Props) {
   const router = useRouter();
 
@@ -47,8 +50,12 @@ export function EscolherConteudo({
   /* Já abre na matéria que veio da URL. Só ABRE — não marca tema nenhum,
      porque escolher o assunto continua sendo decisão de quem estuda. */
   const [aberta, setAberta] = useState<string | null>(materiaInicial);
-  const [materiaId, setMateriaId] = useState<string | null>(null);
-  const [temas, setTemas] = useState<string[]>([]);
+  /* Vindo da página da matéria, o conteúdo já chega escolhido: a pessoa
+     decidiu lá, e pedir a mesma decisão de novo aqui é desfazer o clique. */
+  const [materiaId, setMateriaId] = useState<string | null>(
+    temaInicial ? materiaInicial : null
+  );
+  const [temas, setTemas] = useState<string[]>(temaInicial ? [temaInicial] : []);
   const [quantidade, setQuantidade] = useState(10);
   const [indo, setIndo] = useState(false);
   const [erro, setErro] = useState<string | null>(null);

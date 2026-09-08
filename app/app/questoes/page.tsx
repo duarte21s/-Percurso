@@ -41,10 +41,16 @@ function Cabecalho() {
 export default async function PaginaQuestoes({
   searchParams,
 }: {
-  searchParams: Promise<{ materia?: string | string[]; sessao?: string | string[] }>;
+  searchParams: Promise<{
+    materia?: string | string[];
+    tema?: string | string[];
+    sessao?: string | string[];
+  }>;
 }) {
   const parametros = await searchParams;
   const materiaDaUrl = typeof parametros.materia === "string" ? parametros.materia : null;
+  /* Conteúdo escolhido na página da matéria. Chega já marcado no seletor. */
+  const temaDaUrl = typeof parametros.tema === "string" ? parametros.tema : null;
   const sessaoDaUrl = typeof parametros.sessao === "string" ? parametros.sessao : null;
   const destino = new URLSearchParams();
   if (materiaDaUrl) destino.set("materia", materiaDaUrl);
@@ -150,6 +156,7 @@ export default async function PaginaQuestoes({
               materias={TODAS_AS_MATERIAS}
               contagens={contagens}
               materiaInicial={materiaDaUrl}
+              temaInicial={temaDaUrl ?? null}
             />
           </>
         )}
