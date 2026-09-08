@@ -2,9 +2,9 @@
 
 .painel {
   color-scheme: light;
-  --surface: #ffffff;
-  --surface-2: #f2f8f3;
-  --surface-3: #eaf4ee;
+  --surface: #f8faf7;
+  --surface-2: #edf2ed;
+  --surface-3: #e5eee7;
   --line: rgba(18, 60, 42, 0.14);
   --line-soft: rgba(18, 60, 42, 0.08);
   --text: #17231c;
@@ -14,10 +14,10 @@
   --accent-2: #123c2a;
   --accent-line: rgba(18, 60, 42, 0.28);
   --accent-dim: rgba(47, 125, 87, 0.10);
-  --sobre-accent: #fcfdfb;
+  --sobre-accent: #f8faf7;
   border: 1px solid var(--line);
   border-radius: 22px;
-  background: rgba(255, 255, 255, .82);
+  background: rgba(248, 250, 247, .92);
   box-shadow: 0 18px 50px rgba(18, 60, 42, .055);
   padding: 26px 24px 24px;
   margin-top: 30px;
@@ -111,35 +111,35 @@
 @media (prefers-color-scheme: dark) {
   :global(:root:not([data-theme="light"])) .painel {
     color-scheme: dark;
-    --surface: #211c18;
-    --surface-2: #2c241d;
-    --surface-3: #3b2f23;
-    --line: #504034;
-    --line-soft: #392f27;
-    --text: #f6ede3;
-    --text-2: #d0beac;
-    --text-3: #b9a28c;
-    --accent: #ef9764;
-    --accent-2: #f5ac80;
-    --accent-line: #865838;
-    --accent-dim: #493020;
+    --surface: #12251c;
+    --surface-2: #193226;
+    --surface-3: #234333;
+    --line: rgba(169, 199, 179, .22);
+    --line-soft: rgba(169, 199, 179, .12);
+    --text: #f2f8f3;
+    --text-2: #c4d5ca;
+    --text-3: #a9c7b3;
+    --accent: #6aab86;
+    --accent-2: #a9d1b9;
+    --accent-line: rgba(169, 199, 179, .32);
+    --accent-dim: rgba(47, 125, 87, .20);
     --sobre-accent: #211c18;
   }
 }
 :global(:root[data-theme="dark"]) .painel {
   color-scheme: dark;
-  --surface: #211c18;
-  --surface-2: #2c241d;
-  --surface-3: #3b2f23;
-  --line: #504034;
-  --line-soft: #392f27;
-  --text: #f6ede3;
-  --text-2: #d0beac;
-  --text-3: #b9a28c;
-  --accent: #ef9764;
-  --accent-2: #f5ac80;
-  --accent-line: #865838;
-  --accent-dim: #493020;
+  --surface: #12251c;
+  --surface-2: #193226;
+  --surface-3: #234333;
+  --line: rgba(169, 199, 179, .22);
+  --line-soft: rgba(169, 199, 179, .12);
+  --text: #f2f8f3;
+  --text-2: #c4d5ca;
+  --text-3: #a9c7b3;
+  --accent: #6aab86;
+  --accent-2: #a9d1b9;
+  --accent-line: rgba(169, 199, 179, .32);
+  --accent-dim: rgba(47, 125, 87, .20);
   --sobre-accent: #211c18;
 }
 
@@ -316,7 +316,7 @@
 
 /* Remove a antiga identidade editorial laranja também quando o sistema está
    em tema escuro; o catálogo pertence ao mesmo Percurso verde. */
-.painel :global(.subject) { border-radius: 18px; background: #fff; }
+.painel :global(.subject) { border-radius: 18px; background: var(--surface); }
 .painel :global(.subject-title), .painel .topico { font-family: var(--sans); }
 :global(:root[data-theme="dark"]) .painel {
   --surface: #12251c;

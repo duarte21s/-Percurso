@@ -82,7 +82,7 @@
   padding: clamp(24px, 3vw, 36px);
   border: 1px solid var(--borda);
   border-radius: 22px;
-  background: rgba(255, 255, 255, .9);
+  background: rgba(248, 250, 247, .94);
   box-shadow: 0 24px 60px rgba(18, 60, 42, .09);
 }
 
@@ -156,7 +156,7 @@
   padding: 20px 14px 6px;
   border: 1px solid var(--line);
   border-radius: 14px;
-  background: #fff;
+  background: var(--surface);
   color: var(--text);
   font-size: 15px;
   transition: border-color .3s var(--ease), background .3s var(--ease);
@@ -280,7 +280,7 @@
   gap: 10px;
   border: 1px solid var(--line);
   border-radius: 14px;
-  background: #fff;
+  background: var(--surface);
   color: var(--text);
   font-size: 14.5px;
   font-family: inherit;

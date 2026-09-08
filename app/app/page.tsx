@@ -54,7 +54,7 @@ const cartao: React.CSSProperties = {
   padding: "20px 21px",
   border: "1px solid var(--borda)",
   borderRadius: 18,
-  background: "rgba(255, 255, 255, .86)",
+  background: "rgba(248, 250, 247, .92)",
   boxShadow: "0 12px 34px rgba(18, 60, 42, .045)",
 };
 

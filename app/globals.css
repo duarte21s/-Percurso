@@ -18,11 +18,11 @@
   color-scheme: light;
 
   /* superfícies — brancos de pedra, levemente quentes */
-  --bg:          #fcfdfb;
-  --bg-2:        #eaf4ee;
-  --surface:     #ffffff;
-  --surface-2:   #f2f8f3;
-  --surface-3:   #dcece1;
+  --bg:          #f3f5f1;
+  --bg-2:        #e5eee7;
+  --surface:     #f8faf7;
+  --surface-2:   #edf2ed;
+  --surface-3:   #dfe9e1;
 
   /* linhas */
   --line:        rgba(18, 60, 42, 0.14);
@@ -54,14 +54,14 @@
   --verde-profundo: #123c2a;
   --verde-principal: #2f7d57;
   --verde-suave: #a9c7b3;
-  --menta: #eaf4ee;
-  --fundo: #fcfdfb;
+  --menta: #e5eee7;
+  --fundo: #f3f5f1;
   --texto: #17231c;
   --texto-secundario: #5b6860;
   --borda: rgba(18, 60, 42, 0.14);
 
   /* tinta que fica LEGÍVEL sobre o --accent (botão primário, letra certa) */
-  --sobre-accent: #f9fbf8;
+  --sobre-accent: #f8faf7;
 
   /* semânticos — verde-grama para acerto, tijolo para erro. O verde é
      deliberadamente mais quente e mais amarelo que o acento (95 graus contra
@@ -107,7 +107,7 @@
 
   /* materiais e profundidade — chrome translúcido quente, sombras
      marrom-quentes suaves (não pretas). */
-  --material-chrome: rgba(249, 251, 248, 0.82);
+  --material-chrome: rgba(243, 245, 241, 0.88);
   --material-borda:  rgba(20, 30, 22, 0.09);
   --scrim:           rgba(8, 14, 9, 0.44);
   --elev-1: 0 1px 2px rgba(20, 30, 22, 0.07), 0 1px 3px rgba(20, 30, 22, 0.05);
@@ -799,9 +799,9 @@ ul, ol { padding: 0; list-style: none; }
 
 /* A home apresenta o Percurso como uma peça editorial clara. As outras
    páginas institucionais preservam a navegação segmentada já existente. */
-.nav.nav-home { background: rgba(252, 253, 251, .66); color: #17231c; }
-.nav.nav-home.is-stuck { background: rgba(252, 253, 251, .88); }
-.nav.nav-home::after { background: linear-gradient(#fcfdfb, transparent); }
+.nav.nav-home { background: rgba(243, 245, 241, .76); color: #17231c; }
+.nav.nav-home.is-stuck { background: rgba(243, 245, 241, .94); }
+.nav.nav-home::after { background: linear-gradient(#f3f5f1, transparent); }
 .nav-home .nav-inner { height: 86px; width: min(1368px, calc(100% - clamp(40px, 10vw, 224px))); }
 .nav-home .brand { color: #17231c; font-size: 28px; font-weight: 650; letter-spacing: -.045em; }
 .nav-home .brand-mark { width: 31px; height: 36px; border: 0; border-radius: 0; background: transparent; color: #123c2a; }
@@ -2409,7 +2409,7 @@ body { background: var(--fundo); }
   --btn-fg: #fff;
   box-shadow: 0 10px 22px rgba(18, 60, 42, .15);
 }
-.btn-ghost { background: rgba(255, 255, 255, .7); border-color: var(--borda); }
+.btn-ghost { background: rgba(248, 250, 247, .78); border-color: var(--borda); }
 
 .stats { gap: 14px; border: 0; background: transparent; overflow: visible; }
 .stat,
@@ -2421,7 +2421,7 @@ body { background: var(--fundo); }
 .passo-numeros {
   border: 1px solid var(--borda);
   border-radius: 18px;
-  background: rgba(255, 255, 255, .82);
+  background: rgba(248, 250, 247, .9);
   box-shadow: 0 14px 38px rgba(18, 60, 42, .045);
 }
 .stat { padding: clamp(22px, 3vw, 34px); }

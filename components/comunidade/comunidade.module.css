@@ -1144,10 +1144,10 @@
 .post, .painel, .sugestoes, .notificacoes, .menu, .aviso {
   border-color: var(--borda);
   border-radius: 18px;
-  background: rgba(255, 255, 255, .9);
+  background: rgba(248, 250, 247, .94);
   box-shadow: 0 14px 38px rgba(18, 60, 42, .05);
 }
 .post:hover { border-color: var(--verde-suave); box-shadow: 0 18px 42px rgba(18, 60, 42, .08); }
 .abaSublinhado { background: var(--verde-principal); }
 .tagBotao, .tipoEtiqueta { border-color: var(--borda); background: var(--menta); color: var(--verde-profundo); }
-.campoComentario, .campoTexto, .campoTitulo { border-radius: 14px; background: #fff; }
+.campoComentario, .campoTexto, .campoTitulo { border-radius: 14px; background: var(--surface); }
