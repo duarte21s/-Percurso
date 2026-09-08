@@ -66,11 +66,19 @@ export function Faq({ abertura = false }: Props) {
                         {item.pergunta}
                         <span className="faq-plus" />
                       </button>
-                      <div className="faq-a">
-                        <div>
-                          <p>{item.resposta}</p>
+                      {/* Mesma correção do seletor de matérias: a resposta só
+                          existe quando aberta. A sanfona animava
+                          `grid-template-rows` de `0fr` para `1fr`, e onde o
+                          navegador não interpola essa unidade a resposta fica
+                          presa em altura zero — o "+" virava "×" e nada
+                          aparecia, sem erro no console. */}
+                      {abertaAgora && (
+                        <div className="faq-a">
+                          <div>
+                            <p>{item.resposta}</p>
+                          </div>
                         </div>
-                      </div>
+                      )}
                     </div>
                   );
                 })}
