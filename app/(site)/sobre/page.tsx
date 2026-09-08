@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Revelar } from "@/components/ui/Revelar";
 import { BotaoApresentacao } from "@/components/secoes/BotaoApresentacao";
+import { Vitrine } from "@/components/secoes/Vitrine";
 import { Marquee } from "@/components/secoes/Marquee";
 import { Numeros } from "@/components/secoes/Numeros";
 import { Metodo } from "@/components/secoes/Metodo";
@@ -128,6 +129,8 @@ export default async function PaginaSobre() {
           </Revelar>
         </div>
       </section>
+
+      <Vitrine />
 
       <Marquee />
 
