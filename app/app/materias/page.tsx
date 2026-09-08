@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { exigeSessao } from "@/lib/sessao";
-import { MATERIAS } from "@/lib/conteudo/materias";
+import { TODAS_AS_MATERIAS } from "@/lib/conteudo/materias";
 import { contagensPorMateria } from "@/lib/temas";
 import { Revelar } from "@/components/ui/Revelar";
 import type { Simulado } from "@/lib/tipos";
@@ -17,7 +17,7 @@ export const dynamic = "force-dynamic";
 export default async function PaginaMaterias() {
   const { supabase, user } = await exigeSessao("/app/materias");
 
-  const ids = MATERIAS.map((m) => m.id);
+  const ids = TODAS_AS_MATERIAS.map((m) => m.id);
 
   const [{ data: simulados }, disponiveis] = await Promise.all([
     supabase
@@ -87,7 +87,7 @@ export default async function PaginaMaterias() {
                 </tr>
               </thead>
               <tbody>
-                {MATERIAS.map((m) => {
+                {TODAS_AS_MATERIAS.map((m) => {
                   const dados = porMateria.get(m.id) ?? { acertos: 0, total: 0 };
                   const noBanco = disponiveis[m.id] ?? 0;
                   const aprov =

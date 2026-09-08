@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { MATERIAS } from "@/lib/conteudo/materias";
+import { MATERIAS_POR_ID } from "@/lib/conteudo/materias";
 import { chaveTema, contagensPorTema } from "@/lib/temas";
 import { criaClienteServidor } from "@/lib/supabase/server";
 import { exigeSessao } from "@/lib/sessao";
@@ -29,7 +29,7 @@ export async function generateMetadata({
   params: Promise<{ materia: string }>;
 }): Promise<Metadata> {
   const { materia } = await params;
-  const m = MATERIAS.find((x) => x.id === materia);
+  const m = MATERIAS_POR_ID.get(materia);
   return { title: m ? `${m.nome} · Percurso` : "Matéria · Percurso" };
 }
 
@@ -40,7 +40,11 @@ export default async function PaginaMateria({
 }) {
   const { materia: id } = await params;
   await exigeSessao(`/app/materias/${id}`);
-  const m = MATERIAS.find((x) => x.id === id);
+  /* MATERIAS_POR_ID e não MATERIAS: a primeira lista tem só as 9 do ensino
+     médio, e o site oferece 17 — Raciocínio lógico, Cálculo, Informática e as
+     demais trilhas por objetivo. Buscar na lista curta devolvia 404 para
+     qualquer uma das outras 8. */
+  const m = MATERIAS_POR_ID.get(id);
   if (!m) notFound();
 
   const supabase = await criaClienteServidor();
