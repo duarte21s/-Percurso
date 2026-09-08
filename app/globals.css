@@ -787,6 +787,22 @@ ul, ol { padding: 0; list-style: none; }
 .nav-actions { display: flex; align-items: center; gap: 10px; }
 .nav-actions .btn { padding: 9px 18px; font-size: 13px; }
 
+/* A home apresenta o Percurso como uma peça editorial clara. As outras
+   páginas institucionais preservam a navegação segmentada já existente. */
+.nav.nav-home { background: rgba(252, 253, 251, .66); color: #17231c; }
+.nav.nav-home.is-stuck { background: rgba(252, 253, 251, .88); }
+.nav.nav-home::after { background: linear-gradient(#fcfdfb, transparent); }
+.nav-home .nav-inner { height: 86px; width: min(1368px, calc(100% - clamp(40px, 10vw, 224px))); }
+.nav-home .brand { color: #17231c; font-size: 28px; font-weight: 650; letter-spacing: -.045em; }
+.nav-home .brand-mark { width: 31px; height: 36px; border: 0; border-radius: 0; background: transparent; color: #123c2a; }
+.nav-home .brand-mark svg { width: 31px; height: 31px; transform: rotate(37deg); }
+.nav-home .nav-links { gap: 26px; padding: 0; border: 0; border-radius: 0; background: transparent; }
+.nav-home .nav-links a { padding: 8px 0; border-radius: 0; color: #17231c; font-size: 15px; font-weight: 500; }
+.nav-home .nav-links a:hover, .nav-home .nav-links a[aria-current="page"] { color: #123c2a; }
+.nav-home .nav-indicador { top: auto; bottom: -5px; height: 2px; border-radius: 2px; background: #2f7d57; }
+.nav-home .nav-actions .btn-ghost { min-width: 120px; padding: 11px 25px; border: 1px solid #17231c; border-radius: 13px; background: transparent; color: #17231c; font-size: 15px; }
+.nav-home .nav-actions .btn-ghost:hover { border-color: #123c2a; background: #eaf4ee; color: #123c2a; }
+
 .nav-toggle {
   display: none;
   width: 40px; height: 40px;

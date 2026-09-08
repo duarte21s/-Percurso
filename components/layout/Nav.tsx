@@ -19,6 +19,13 @@ const LINKS = [
   { href: "/recursos", rotulo: "Recursos" },
 ];
 
+const LINKS_HOME = [
+  { href: "/", rotulo: "Início" },
+  { href: "/como-funciona", rotulo: "Como funciona" },
+  { href: "/faculdades", rotulo: "Faculdades" },
+  { href: "/duvidas", rotulo: "Dúvidas" },
+];
+
 interface Props {
   /** Nome de quem está logado; null quando não há sessão. */
   nome: string | null;
@@ -28,6 +35,8 @@ export function Nav({ nome }: Props) {
   const [grudada, setGrudada] = useState(false);
   const [menuAberto, setMenuAberto] = useState(false);
   const caminho = usePathname();
+  const naHome = caminho === "/";
+  const links = naHome ? LINKS_HOME : LINKS;
 
   const refMarca = useRef<HTMLAnchorElement>(null);
   const refToggle = useRef<HTMLButtonElement>(null);
@@ -65,31 +74,31 @@ export function Nav({ nome }: Props) {
   }, [menuAberto]);
 
   return (
-    <header className={`nav${grudada ? " is-stuck" : ""}`} id="nav">
+    <header className={`nav${naHome ? " nav-home" : ""}${grudada ? " is-stuck" : ""}`} id="nav">
       <div className="wrap nav-inner">
         <Link href="/" className="brand" ref={refMarca}>
           <span className="brand-mark">
             <Icone nome="marca" tracoLargura={1.7} />
           </span>
-          Percurso <small>Estudos</small>
+          Percurso {!naHome && <small>Estudos</small>}
         </Link>
 
-        <AbasNav links={LINKS} caminho={caminho} />
+        <AbasNav links={links} caminho={caminho} />
 
         <div className="nav-actions">
-          <BotaoTema />
+          {!naHome && <BotaoTema />}
           {nome ? (
             <Link href="/app" className="btn btn-primary">
               Meu painel
             </Link>
           ) : (
             <>
-              <Link href="/login" className="btn btn-ghost">
+              <Link href="/entrar" className="btn btn-ghost">
                 Entrar
               </Link>
-              <Link href="/cadastro" className="btn btn-primary">
+              {!naHome && <Link href="/cadastro" className="btn btn-primary">
                 Começar agora
-              </Link>
+              </Link>}
             </>
           )}
 
@@ -112,11 +121,16 @@ export function Nav({ nome }: Props) {
           ref={refMenu}
           onClickCapture={aoClicarCapturando}
         >
-          {LINKS.map((l) => (
+          {links.map((l) => (
             <Link key={l.href} href={l.href}>
               {l.rotulo}
             </Link>
           ))}
+          {!nome && (
+            <Link href="/entrar">
+              Entrar
+            </Link>
+          )}
           {nome ? (
             <Link href="/app" className="btn btn-primary">
               Meu painel
