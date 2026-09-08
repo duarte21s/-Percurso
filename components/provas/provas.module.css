@@ -473,7 +473,7 @@
 .cartao, .questao, .lateral, .placarItem, .linhaArea {
   border-color: var(--borda);
   border-radius: 18px;
-  background: rgba(248, 250, 247, .92);
+  background: var(--surface);
   box-shadow: 0 12px 34px rgba(18, 60, 42, .045);
 }
 .cartao:hover { background: var(--surface); box-shadow: 0 18px 38px rgba(18, 60, 42, .09); transform: translateY(-4px); }

@@ -82,7 +82,7 @@
   padding: clamp(24px, 3vw, 36px);
   border: 1px solid var(--borda);
   border-radius: 22px;
-  background: rgba(248, 250, 247, .94);
+  background: var(--surface);
   box-shadow: 0 24px 60px rgba(18, 60, 42, .09);
 }
 
@@ -139,8 +139,8 @@
 }
 .aba:hover { color: var(--text); }
 .abaAtiva {
-  background: var(--verde-profundo);
-  color: #fff;
+  background: var(--accent);
+  color: var(--sobre-accent);
   font-weight: 600;
 }
 

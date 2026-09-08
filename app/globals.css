@@ -30,10 +30,10 @@
   --line-strong: rgba(18, 60, 42, 0.22);
 
   /* texto — rampa de pedra. Cada degrau passa 4,5:1 sobre --bg, --bg-2,
-     --surface e --surface-2 (o pior caso é --text-3 em --surface-2: 4,77). */
+     --surface e --surface-2. */
   --text:        #17231c;
   --text-2:      #5b6860;
-  --text-3:      #6d7d73;
+  --text-3:      #5f6d64;
 
   /* acento — verde-pinho, puxado para o TEAL de propósito.
      O acento e o --ok de acerto são os dois verdes desta paleta, e verde de
@@ -181,6 +181,14 @@
     --text:        #edf3eb;
     --text-2:      #a6b2a4;
     --text-3:      #8b978a;
+    --verde-profundo: #a9d1b9;
+    --verde-principal: #6aab86;
+    --verde-suave: #416d53;
+    --menta: #193226;
+    --fundo: #0c110d;
+    --texto: #edf3eb;
+    --texto-secundario: #a6b2a4;
+    --borda: rgba(237, 243, 235, 0.14);
     --accent:        #4fc2a0;
     --accent-2:      #7edcc0;
     --accent-brilho: #a8eeda;
@@ -210,6 +218,14 @@
   --text:        #edf3eb;
   --text-2:      #a6b2a4;
   --text-3:      #8b978a;
+  --verde-profundo: #a9d1b9;
+  --verde-principal: #6aab86;
+  --verde-suave: #416d53;
+  --menta: #193226;
+  --fundo: #0c110d;
+  --texto: #edf3eb;
+  --texto-secundario: #a6b2a4;
+  --borda: rgba(237, 243, 235, 0.14);
   --accent:        #4fc2a0;
   --accent-2:      #7edcc0;
   --accent-brilho: #a8eeda;
@@ -2447,12 +2463,12 @@ body { background: var(--fundo); }
   font-weight: 600;
 }
 .btn-primary {
-  --btn-bg: linear-gradient(125deg, var(--verde-profundo), var(--verde-principal));
-  --btn-bd: var(--verde-profundo);
-  --btn-fg: #fff;
+  --btn-bg: linear-gradient(125deg, var(--accent-2), var(--accent));
+  --btn-bd: var(--accent);
+  --btn-fg: var(--sobre-accent);
   box-shadow: 0 10px 22px rgba(18, 60, 42, .15);
 }
-.btn-ghost { background: rgba(248, 250, 247, .78); border-color: var(--borda); }
+.btn-ghost { background: var(--surface); border-color: var(--borda); }
 
 .stats { gap: 14px; border: 0; background: transparent; overflow: visible; }
 .stat,
@@ -2464,21 +2480,21 @@ body { background: var(--fundo); }
 .passo-numeros {
   border: 1px solid var(--borda);
   border-radius: var(--radius-cards);
-  background: rgba(248, 250, 247, .9);
+  background: var(--surface);
   box-shadow: 0 14px 38px rgba(18, 60, 42, .045);
 }
 .stat { padding: clamp(22px, 3vw, 34px); }
-.stat:hover { background: #fff; transform: translateY(-2px); }
+.stat:hover { background: var(--surface-2); transform: translateY(-2px); }
 .stat-num { color: var(--verde-profundo); font-family: var(--sans); font-weight: 700; }
 .stat-label { color: var(--texto-secundario); }
 
 .method { gap: 14px; border: 0; background: transparent; }
 .step { border-left: 3px solid var(--verde-suave); }
-.step:hover { background: #fff; border-left-color: var(--verde-principal); }
+.step:hover { background: var(--surface-2); border-left-color: var(--verde-principal); }
 .step-n { color: var(--verde-principal); }
 .faq { padding-inline: clamp(18px, 3vw, 34px); overflow: hidden; }
 .faq-q { color: var(--texto); }
-.cta { border-radius: 22px; background: linear-gradient(145deg, #eaf4ee, #fff); border-color: var(--borda); }
+.cta { border-radius: 22px; background: linear-gradient(145deg, var(--surface-2), var(--surface)); border-color: var(--borda); }
 
 .uni-table { overflow: hidden; }
 .uni thead { background: var(--menta); }
@@ -2490,7 +2506,7 @@ body { background: var(--fundo); }
 .planner { gap: 22px; }
 .planner-form { padding: clamp(22px, 3vw, 34px); }
 .quiz { overflow: hidden; }
-.q-opt { border-radius: 14px; background: #fff; }
+.q-opt { border-radius: 14px; background: var(--surface); }
 .q-opt:hover:not(:disabled) { border-color: var(--verde-suave); background: var(--surface-2); }
 .q-letter { color: var(--verde-profundo); border-color: var(--borda); }
 .q-explain { border-radius: 14px; background: var(--menta); border-color: var(--borda); }
@@ -2500,7 +2516,7 @@ select,
 textarea {
   border-color: var(--borda);
   border-radius: 14px;
-  background: #fff;
+  background: var(--surface);
 }
 input:focus, select:focus, textarea:focus { border-color: var(--verde-principal); }
 

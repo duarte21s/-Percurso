@@ -70,6 +70,7 @@
   resize: vertical;
 }
 .folha:focus { outline: none; border-color: var(--accent-line); background: var(--surface); }
+.folha::placeholder { color: var(--text-2); opacity: 1; }
 
 .contador {
   display: flex;
@@ -293,12 +294,22 @@
 .proposta, .notaGrande, .competencia, .cartaoTema, .transcricao {
   border-color: var(--borda);
   border-radius: 18px;
-  background: rgba(248, 250, 247, .92);
+  background: var(--surface);
   box-shadow: 0 12px 34px rgba(18, 60, 42, .04);
 }
 .proposta { border-left: 3px solid var(--verde-principal); }
 .propostaTexto, .cartaoTexto, .notaValor, .competenciaNota { font-family: var(--sans); }
 .cartaoTema:hover { background: var(--surface); box-shadow: 0 18px 38px rgba(18, 60, 42, .08); transform: translateY(-4px); }
 .folha, .areaFoto { border-radius: 18px; background: var(--surface); }
-.abaAtiva { background: var(--verde-profundo); color: #fff; }
+.abaAtiva { background: var(--accent); color: var(--sobre-accent); }
 .competenciaBarra i { background: linear-gradient(90deg, var(--verde-profundo), var(--verde-principal)); }
+.propostaRotulo,
+.propostaNota,
+.contador,
+.areaFotoDica,
+.notaDe,
+.transcricao p,
+.aviso,
+.cartaoSelo { color: var(--text-2); }
+.cartaoTexto { font-size: 18px; line-height: 1.5; font-weight: 600; }
+.cartaoAno { font-weight: 650; }
