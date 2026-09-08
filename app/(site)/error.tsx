@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { DetalheErro } from "@/components/ui/DetalheErro";
 
 /**
  * Boundary de erro do grupo (site).
@@ -44,6 +45,8 @@ export default function ErroSite({
             Voltar ao início
           </a>
         </div>
+
+        <DetalheErro erro={error} />
       </div>
     </main>
   );
