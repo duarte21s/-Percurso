@@ -11,6 +11,10 @@ grant usage on schema public to anon, authenticated, service_role;
 grant select on public.materias        to anon, authenticated;
 grant select on public.questoes        to anon, authenticated;
 grant select on public.vw_estatisticas to anon, authenticated;
+-- A contagem por conteúdo. Sem ela o seletor de assuntos desabilita quase tudo:
+-- o caminho de reserva esbarra no teto de 1.000 linhas do PostgREST e só
+-- enxerga 20 dos 141 temas. Ver supabase/grants-temas.sql.
+grant select on public.vw_temas        to anon, authenticated;
 
 grant select, update         on public.perfis     to authenticated;
 grant select, insert, update on public.simulados  to authenticated;

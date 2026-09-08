@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Sessao } from "@/components/estudo/Sessao";
 import { EscolherConteudo } from "@/components/estudo/EscolherConteudo";
 import { exigeSessao } from "@/lib/sessao";
@@ -40,12 +41,19 @@ function Cabecalho() {
 export default async function PaginaQuestoes({
   searchParams,
 }: {
-  searchParams: Promise<{ materia?: string }>;
+  searchParams: Promise<{ materia?: string | string[]; sessao?: string | string[] }>;
 }) {
-  const { materia: materiaDaUrl } = await searchParams;
+  const parametros = await searchParams;
+  const materiaDaUrl = typeof parametros.materia === "string" ? parametros.materia : null;
+  const sessaoDaUrl = typeof parametros.sessao === "string" ? parametros.sessao : null;
+  const destino = new URLSearchParams();
+  if (materiaDaUrl) destino.set("materia", materiaDaUrl);
+  if (sessaoDaUrl) destino.set("sessao", sessaoDaUrl);
   // Cada resposta é gravada e a sessão é retomável: sem conta não há onde
   // guardar isso. Quem chega deslogado passa pelo acesso e volta para cá.
-  const { supabase, user } = await exigeSessao("/app/questoes");
+  const { supabase, user } = await exigeSessao(
+    `/app/questoes${destino.size ? `?${destino}` : ""}`
+  );
 
   /* `prova_id is null` recorta só a sessão avulsa. Prova do ENEM também é uma
      linha em `simulados` com status 'em_andamento': sem esse filtro, quem
@@ -60,8 +68,11 @@ export default async function PaginaQuestoes({
     .limit(1)
     .maybeSingle();
 
-  const sessao = (emAndamento as Simulado | null) ?? null;
-  const contagens = await contagensPorTema(supabase);
+  const anterior = (emAndamento as Simulado | null) ?? null;
+  // Entrar em Questões sempre abre a escolha. Só um link explícito retoma
+  // a sessão, e apenas se ela pertencer ao usuário e continuar em andamento.
+  const sessao = anterior?.id === sessaoDaUrl ? anterior : null;
+  const contagens = sessao ? {} : await contagensPorTema(supabase);
 
   let questoes: QuestaoPublica[] = [];
   let respondidas = 0;
@@ -94,10 +105,10 @@ export default async function PaginaQuestoes({
   /* O rótulo do recorte prefere os temas, que é o que a pessoa escolheu de
      fato; a matéria só entra quando a sessão não tem tema. */
   const recorte =
-    sessao?.tema_filtro ||
-    (sessao && sessao.materia_filtro !== "todas"
-      ? (MATERIAS_POR_ID.get(sessao.materia_filtro)?.nome ??
-        sessao.materia_filtro)
+    anterior?.tema_filtro ||
+    (anterior && anterior.materia_filtro !== "todas"
+      ? (MATERIAS_POR_ID.get(anterior.materia_filtro)?.nome ??
+        anterior.materia_filtro)
       : "Todas as matérias");
 
   return (
@@ -107,23 +118,40 @@ export default async function PaginaQuestoes({
         {/* A key amarra o componente à sessão. Começar outra troca o id,
             remonta e reinicializa o estado com as questões novas — sem isso
             a tela ficaria presa na sessão anterior. */}
-        <Sessao
-          key={sessao?.id ?? "vazio"}
-          sessao={sessao}
-          questoes={questoes}
-          respondidas={respondidas}
-          recorte={recorte}
-        />
-
-        {/* Só aparece quando não há sessão aberta: o índice único permite uma
-            por vez, então oferecer a escolha no meio de outra seria oferecer
-            um botão que falha. */}
-        {!sessao && (
-          <EscolherConteudo
-            materias={TODAS_AS_MATERIAS}
-            contagens={contagens}
-            materiaInicial={materiaDaUrl ?? null}
+        {sessao ? (
+          <Sessao
+            key={sessao.id}
+            sessao={sessao}
+            questoes={questoes}
+            respondidas={respondidas}
+            recorte={recorte}
           />
+        ) : (
+          <>
+            {anterior && (
+              <div className="quiz" style={{ marginBottom: 24 }}>
+                <div className="quiz-foot">
+                  <p className="dim fine">
+                    Estudo em andamento: <strong>{recorte}</strong>. Você pode
+                    continuar ou escolher outro conteúdo abaixo. Ao iniciar um
+                    novo estudo, o anterior é encerrado e suas respostas ficam no histórico.
+                  </p>
+                  <Link
+                    href={`/app/questoes?sessao=${encodeURIComponent(anterior.id)}`}
+                    className="btn btn-ghost"
+                  >
+                    Continuar estudo anterior <span className="arrow">→</span>
+                  </Link>
+                </div>
+              </div>
+            )}
+            <EscolherConteudo
+              key={materiaDaUrl ?? "todas"}
+              materias={TODAS_AS_MATERIAS}
+              contagens={contagens}
+              materiaInicial={materiaDaUrl}
+            />
+          </>
         )}
       </div>
     </main>

@@ -1,0 +1,22 @@
+-- =============================================================================
+-- Permissão que faltava em vw_temas
+-- =============================================================================
+--
+-- `supabase/temas.sql` cria a view `vw_temas` (a contagem de questões por
+-- conteúdo), mas o GRANT dela nunca entrou em `grants.sql` — que libera
+-- `materias`, `questoes` e `vw_estatisticas`, e para por aí.
+--
+-- Sem esta linha, toda leitura da view devolve "permission denied for view
+-- vw_temas". O código não quebra: ele cai num caminho de reserva que conta as
+-- questões uma a uma. Só que esse caminho esbarra no teto de 1.000 linhas por
+-- resposta do PostgREST e enxerga 20 dos 141 temas — os outros 121 aparecem
+-- com zero questões e a tela os desabilita.
+--
+-- Ou seja: o seletor mostrava os 15 conteúdos de cada matéria e não deixava
+-- clicar em quase nenhum. Não era banco vazio, era permissão faltando.
+--
+-- A view agrega no servidor e devolve ~141 linhas em vez de 9.804, então com o
+-- GRANT o teto deixa de importar.
+-- =============================================================================
+
+grant select on public.vw_temas to anon, authenticated;

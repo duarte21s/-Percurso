@@ -9,6 +9,9 @@ export interface ContagemTema {
 /** A chave é `${materia_id}|${tema}` — o mesmo par que identifica o tema. */
 export type ContagensPorTema = Record<string, ContagemTema>;
 
+/** Teto de linhas por resposta do PostgREST no Supabase. */
+const PAGINA = 1000;
+
 export function chaveTema(materiaId: string, tema: string): string {
   return `${materiaId}|${tema}`;
 }
@@ -77,28 +80,51 @@ async function contagensSemView(
 ): Promise<ContagensPorTema> {
   const mapa: ContagensPorTema = {};
 
-  const [{ data: todas }, { data: comentadas }] = await Promise.all([
-    supabase
-      .from("questoes")
-      .select("materia_id, tema")
-      .not("tema", "is", null)
-      .not("materia_id", "is", null)
-      .limit(5000),
-    supabase
-      .from("questoes")
-      .select("materia_id, tema")
-      .not("tema", "is", null)
-      .not("materia_id", "is", null)
-      .neq("explicacao", "")
-      .limit(5000),
-  ]);
+  /* PAGINADO, e não `.limit(5000)`.
+   *
+   * O PostgREST tem um teto próprio de linhas por resposta — 1.000 no padrão
+   * do Supabase — e ele vence qualquer `.limit()` maior. Pedir 5.000 devolvia
+   * 1.000 em silêncio, sem erro nenhum.
+   *
+   * Com 9.804 questões no banco, isso fazia a contagem enxergar 20 dos 141
+   * temas. Os outros 121 apareciam com zero questões e a tela os DESABILITAVA
+   * — o seletor mostrava os 15 conteúdos de cada matéria e não deixava clicar
+   * em quase nenhum. Parecia banco vazio; era teto de paginação.
+   *
+   * Ler em blocos de 1.000 resolve. `order` é obrigatório: sem ordenação
+   * estável, duas páginas podem repetir e pular linhas. */
+  async function lerTudo(comExplicacao: boolean) {
+    const linhas: { materia_id: string; tema: string }[] = [];
+    for (let de = 0; ; de += PAGINA) {
+      let q = supabase
+        .from("questoes")
+        .select("materia_id, tema")
+        .not("tema", "is", null)
+        .not("materia_id", "is", null);
+      if (comExplicacao) q = q.neq("explicacao", "");
 
-  for (const linha of todas ?? []) {
+      const { data, error } = await q
+        .order("id", { ascending: true })
+        .range(de, de + PAGINA - 1);
+
+      if (error || !data || data.length === 0) break;
+      linhas.push(...(data as { materia_id: string; tema: string }[]));
+      if (data.length < PAGINA) break;
+      /* Trava de segurança: se algo der errado na paginação, é melhor uma
+         contagem incompleta do que um laço infinito na renderização. */
+      if (linhas.length > 50_000) break;
+    }
+    return linhas;
+  }
+
+  const [todas, comentadas] = await Promise.all([lerTudo(false), lerTudo(true)]);
+
+  for (const linha of todas) {
     const k = chaveTema(linha.materia_id as string, linha.tema as string);
     mapa[k] ??= { total: 0, comentadas: 0 };
     mapa[k].total++;
   }
-  for (const linha of comentadas ?? []) {
+  for (const linha of comentadas) {
     const k = chaveTema(linha.materia_id as string, linha.tema as string);
     mapa[k] ??= { total: 0, comentadas: 0 };
     mapa[k].comentadas++;

@@ -64,17 +64,6 @@ export async function POST(request: Request) {
     Math.max(3, Number(corpo?.quantidade) || TAMANHO_PADRAO)
   );
 
-  /* Fecha só o simulado AVULSO em andamento. O índice único passou a ser por
-     (usuário, prova), então uma prova do ENEM aberta convive com um simulado
-     rápido — e fechá-la aqui apagaria o progresso de quem está no meio das
-     180 questões. */
-  await supabase
-    .from("simulados")
-    .update({ status: "concluido" })
-    .eq("usuario_id", user.id)
-    .eq("status", "em_andamento")
-    .is("prova_id", null);
-
   let consulta = supabase.from("questoes").select("id").limit(400);
 
   if (area) {
@@ -124,6 +113,20 @@ export async function POST(request: Request) {
   }
 
   const ids = embaralha(questoes.map((q) => q.id)).slice(0, quantidade);
+
+  // Só encerra o estudo anterior depois de encontrar questões para a nova
+  // escolha. Um tema vazio ou uma falha de consulta preserva a retomada.
+  // Provas do ENEM continuam abertas, e as respostas anteriores ficam salvas.
+  const { error: erroEncerrar } = await supabase
+    .from("simulados")
+    .update({ status: "concluido" })
+    .eq("usuario_id", user.id)
+    .eq("status", "em_andamento")
+    .is("prova_id", null);
+
+  if (erroEncerrar) {
+    return NextResponse.json({ erro: erroEncerrar.message }, { status: 500 });
+  }
 
   const { data: simulado, error } = await supabase
     .from("simulados")

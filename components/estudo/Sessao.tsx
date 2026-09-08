@@ -190,6 +190,7 @@ export function Sessao({ sessao, questoes, respondidas, recorte }: Props) {
         setOcupado(false);
         return;
       }
+      router.replace("/app/questoes");
       router.refresh();
     } catch {
       setErro("Falha de rede. Verifique a conexão e tente de novo.");
@@ -335,12 +336,9 @@ export function Sessao({ sessao, questoes, respondidas, recorte }: Props) {
             <Link href="/app" className="btn btn-ghost">
               Ver meu histórico
             </Link>
-            <button
-              className="btn btn-primary"
-              onClick={() => router.refresh()}
-            >
+            <Link href="/app/questoes" className="btn btn-primary">
               Estudar outro conteúdo <span className="arrow">→</span>
-            </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -420,6 +418,9 @@ export function Sessao({ sessao, questoes, respondidas, recorte }: Props) {
           depois.
         </span>
         <div className="quiz-foot-acoes">
+          <Link href="/app/questoes" className="btn btn-ghost">
+            Escolher outro conteúdo
+          </Link>
           {/* Sair é só navegar: a sessão continua `em_andamento` e a tela de
               retomada traz a pessoa de volta nesta mesma questão. Fica sempre
               habilitado, inclusive enquanto a resposta grava — travar a saída

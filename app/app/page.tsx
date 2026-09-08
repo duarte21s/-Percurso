@@ -147,7 +147,7 @@ export default async function Dashboard() {
         {(emAndamento || provaAberta) && (
           <div className="uni-tools" style={{ marginBottom: 26 }}>
             {emAndamento && (
-              <Link href="/app/questoes" className="btn btn-primary">
+              <Link href={`/app/questoes?sessao=${encodeURIComponent(emAndamento.id)}`} className="btn btn-primary">
                 Continuar estudando <span className="arrow">→</span>
               </Link>
             )}

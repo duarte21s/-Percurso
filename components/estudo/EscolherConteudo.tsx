@@ -101,7 +101,7 @@ export function EscolherConteudo({
       });
       const dados = await r.json();
       if (!r.ok) throw new Error(dados.erro ?? "Não consegui montar o estudo.");
-      router.push("/app/questoes");
+      router.push(`/app/questoes?sessao=${encodeURIComponent(dados.simulado.id)}`);
       router.refresh();
     } catch (e) {
       setErro(e instanceof Error ? e.message : "Não consegui montar o estudo.");
