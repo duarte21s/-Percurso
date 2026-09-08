@@ -13,10 +13,9 @@ import { BotaoTema } from "@/components/ui/BotaoTema";
    estudo vivem sob /app, com a sua própria navegação (a SidebarApp). */
 const LINKS = [
   { href: "/", rotulo: "Início" },
-  { href: "/cronograma", rotulo: "Cronograma" },
+  { href: "/como-funciona", rotulo: "Como funciona" },
   { href: "/faculdades", rotulo: "Faculdades" },
   { href: "/duvidas", rotulo: "Dúvidas" },
-  { href: "/recursos", rotulo: "Recursos" },
 ];
 
 const LINKS_HOME = [

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Icone } from "@/components/ui/Icone";
+import { Icone, type NomeIcone } from "@/components/ui/Icone";
 import { BotaoTema } from "@/components/ui/BotaoTema";
 import { Pomodoro } from "@/components/layout/Pomodoro";
 import { sair } from "@/app/entrar/acoes";
@@ -45,7 +45,20 @@ const FERRAMENTAS = [
   { href: "/app/desempenho", rotulo: "Desempenho" },
   { href: "/app/redacao", rotulo: "Redação" },
   { href: "/app/faculdades", rotulo: "Faculdades" },
+  { href: "/comunidade", rotulo: "Comunidade" },
 ];
+
+const ICONE_DA_FERRAMENTA: Record<string, NomeIcone> = {
+  "/app": "alta",
+  "/app/cronograma": "agenda",
+  "/app/materias": "book",
+  "/app/questoes": "marcador",
+  "/app/simulados": "cap",
+  "/app/desempenho": "alta",
+  "/app/redacao": "codigo",
+  "/app/faculdades": "compass",
+  "/comunidade": "pessoas",
+};
 
 const CONTA = [
   { href: "/app/perfil", rotulo: "Perfil" },
@@ -139,6 +152,7 @@ export function SidebarApp({ nome }: Props) {
               className={css.aba}
               aria-current={ativo(l.href) ? "page" : undefined}
             >
+              <Icone nome={ICONE_DA_FERRAMENTA[l.href]} tracoLargura={1.7} />
               {l.rotulo}
             </Link>
           ))}

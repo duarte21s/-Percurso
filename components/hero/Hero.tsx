@@ -5,7 +5,7 @@ import { useRef } from "react";
 import { gsap, useGSAP } from "@/lib/gsap/registro";
 import { MOVIMENTO_QUERY, REDUZIDO_QUERY } from "@/lib/gsap/preferencias";
 import { Icone, type NomeIcone } from "@/components/ui/Icone";
-import { LivroAnimado, type LivroAnimadoRef } from "./LivroAnimado";
+import { PercursoBook, type PercursoBookRef } from "./PercursoBook";
 import styles from "./hero-cinematico.module.css";
 
 type Recurso = { titulo: string; texto: string; icone: NomeIcone; href: string };
@@ -30,7 +30,7 @@ function CartaoRecurso({ recurso }: { recurso: Recurso }) {
  * porém sem transformar a leitura da home em uma sequência de scroll. */
 export function Hero() {
   const raiz = useRef<HTMLElement>(null);
-  const livro = useRef<LivroAnimadoRef>(null);
+  const livro = useRef<PercursoBookRef>(null);
 
   useGSAP(() => {
     const livroAtual = livro.current;
@@ -67,7 +67,7 @@ export function Hero() {
           </div>
           <div className={styles.cenaLivro} aria-label="Livro Percurso animado">
             <p className={styles.anotacaoTopo}>ENEM<br />Vestibulares<br />Faculdades<br />Um futuro maior</p>
-            <div className={styles.livro}><LivroAnimado ref={livro} /></div>
+            <div className={styles.livro}><PercursoBook ref={livro} /></div>
             <p className={styles.anotacaoLateral}>Disciplina<br />também é liberdade.</p>
           </div>
         </div>

@@ -37,14 +37,8 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(
-      0deg,
-      rgba(8, 8, 10, 0.97) 0%,
-      rgba(8, 8, 10, 0.82) 26%,
-      rgba(8, 8, 10, 0.32) 58%,
-      rgba(8, 8, 10, 0.12) 100%
-    ),
-    radial-gradient(70% 50% at 30% 20%, rgba(90, 200, 175, 0.15), transparent 70%);
+    linear-gradient(0deg, rgba(234, 244, 238, .96) 0%, rgba(234, 244, 238, .72) 28%, rgba(234, 244, 238, .08) 66%),
+    radial-gradient(70% 50% at 30% 20%, rgba(169, 199, 179, .34), transparent 70%);
 }
 
 .arteTexto {
@@ -59,6 +53,7 @@
   font-size: clamp(26px, 2.7vw, 40px);
   line-height: 1.12;
   letter-spacing: -0.025em;
+  color: var(--verde-profundo);
 }
 .arteFrase em {
   font-style: normal;
@@ -68,7 +63,7 @@
 .arteLegenda {
   margin-top: 16px;
   font-size: 14px;
-  color: var(--text-2);
+  color: var(--texto-secundario);
   line-height: 1.65;
   max-width: 38ch;
 }

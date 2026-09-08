@@ -189,6 +189,42 @@
    volta para tabela, painel e grade de questões, que é onde ela faz falta. */
 .main { min-height: 100vh; }
 
+/* A área de estudos retoma a sidebar solicitada para o produto. A navegação
+   deixa de competir com dashboards e listas largas; em telas pequenas ela
+   volta a ser uma trilha horizontal que cabe no toque. */
+@media (min-width: 901px) {
+  .topo {
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: 248px;
+    display: flex;
+    flex-direction: column;
+    background: rgba(252, 253, 251, .92);
+    border-right: 1px solid var(--borda);
+    border-bottom: 0;
+    box-shadow: 12px 0 30px rgba(18, 60, 42, .035);
+  }
+  .topoLinha { flex-direction: column; align-items: stretch; padding: 26px 18px 12px; }
+  .brand { color: var(--verde-profundo); font-size: 20px; letter-spacing: -.03em; }
+  .brandMark { width: 31px; height: 31px; border-radius: 10px; color: var(--verde-profundo); background: var(--menta); border-color: transparent; }
+  .brandMark svg { width: 17px; height: 17px; }
+  .topoAcoes { justify-content: space-between; margin-top: 20px; }
+  .conta { max-width: 132px; padding-inline: 11px; }
+  .trilhaCasca { flex: 1; padding: 14px 12px 22px; overflow-y: auto; overflow-x: hidden; justify-content: flex-start; }
+  .trilha { width: 100%; flex-direction: column; align-items: stretch; gap: 3px; padding: 0; border: 0; border-radius: 0; background: transparent; }
+  .trilhaIndicador { display: none; }
+  .aba { display: flex; align-items: center; gap: 12px; padding: 11px 12px; border-radius: 12px; color: var(--texto-secundario); }
+  .aba svg { width: 18px; height: 18px; flex: none; }
+  .aba:hover { color: var(--verde-profundo); background: var(--menta); }
+  .aba[aria-current="page"] { color: var(--verde-profundo); background: #dcefe2; font-weight: 650; }
+  .main { min-height: 100vh; margin-left: 248px; }
+}
+
+@media (max-width: 900px) {
+  .aba { display: inline-flex; align-items: center; gap: 6px; }
+  .aba svg { width: 15px; height: 15px; }
+}
+
 @media (prefers-reduced-transparency: reduce) {
   .topo { background: var(--surface); backdrop-filter: none; }
 }
