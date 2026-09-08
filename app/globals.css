@@ -1247,12 +1247,27 @@ h1.hero-h1 em { font-style: normal; color: var(--accent); }
 .subject:hover { border-color: var(--line); background: var(--surface-2); }
 .subject.is-open { border-color: var(--accent-line); }
 
+/* `<summary>` traz um triângulo próprio do navegador. Ele sai, porque a seta
+   do site já ocupa esse papel — dois marcadores dizendo a mesma coisa é ruído.
+   Precisa dos dois seletores: o `::-webkit-details-marker` cobre o WebKit
+   antigo, e `list-style: none` cobre o resto. */
 .subject-head {
   width: 100%;
   display: flex; align-items: center; gap: 16px;
   padding: 20px 22px;
   background: none; border: 0; cursor: pointer; text-align: left;
+  list-style: none;
 }
+.subject-head::-webkit-details-marker { display: none; }
+.subject-head::marker { content: ""; }
+/* O foco do teclado vai no summary, que é o elemento focável do details. */
+.subject-head:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
+
+/* `[open]` é o estado nativo do <details>. A classe `is-open` continua sendo
+   escrita pelo React para outros usos, mas o visual não depende mais dela —
+   se o React não acordar, o navegador ainda abre e o estilo acompanha. */
+.subject[open] { border-color: var(--accent-line); }
+.subject[open] .subject-caret { transform: rotate(180deg); color: var(--accent); }
 /* O glifo carrega a inicial da matéria, então é texto de verdade e precisa do
    contraste de texto. Sobre --surface-3 o acento dava 3,76:1; a tinta
    (--accent-2) sobre --surface-2 dá 4,51:1. */

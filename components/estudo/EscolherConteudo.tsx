@@ -161,16 +161,26 @@ export function EscolherConteudo({
           );
 
           return (
-            <article
-              className={`subject${abertaAgora ? " is-open" : ""}`}
+            /* `<details>` e `<summary>`, e não um botão com estado no React.
+             *
+             * Abrir e fechar passa a ser do NAVEGADOR, não da nossa aplicação.
+             * Funciona com JavaScript desligado, com JavaScript velho em cache,
+             * com extensão bloqueando script — em qualquer situação em que o
+             * React não acorda, que é exatamente onde as versões anteriores
+             * falhavam em silêncio: a seta girava e nada abria.
+             *
+             * O estado do React continua existindo (`aberta`) só para poder
+             * abrir a matéria que veio pela URL. Ele acompanha o elemento em
+             * vez de comandá-lo. */
+            <details
+              className="subject"
               key={m.id}
+              open={abertaAgora}
+              onToggle={(e) =>
+                setAberta(e.currentTarget.open ? m.id : null)
+              }
             >
-              <button
-                type="button"
-                className="subject-head"
-                onClick={() => setAberta(abertaAgora ? null : m.id)}
-                aria-expanded={abertaAgora}
-              >
+              <summary className="subject-head">
                 <span className="subject-glyph">{m.glifo}</span>
                 <span className="subject-title">
                   <strong>{m.nome}</strong>
@@ -182,21 +192,11 @@ export function EscolherConteudo({
                   </span>
                 </span>
                 <Icone nome="seta" className="subject-caret" tracoLargura={1.8} />
-              </button>
+              </summary>
 
-              {/* O corpo só EXISTE quando aberto.
-                  Antes ele ficava sempre no DOM e a abertura era feita
-                  animando `grid-template-rows` de `0fr` para `1fr`. Essa
-                  técnica depende de o navegador saber interpolar uma unidade
-                  de grade — e onde ele não sabe, ou onde o relógio de animação
-                  não corre, o conteúdo fica preso em altura ZERO. A classe
-                  `is-open` era aplicada, a seta girava, e nada abria.
-
-                  Renderizar condicionalmente não tem esse modo de falha: ou o
-                  elemento está lá com a altura dele, ou não está. Sem animação
-                  de altura, porque animação que pode travar fechada é pior que
-                  animação nenhuma — o giro da seta já dá o retorno. */}
-              {abertaAgora && (
+              {/* Sempre renderizado: quem esconde é o `<details>`, no navegador.
+                  Não há mais um `abertaAgora &&` aqui — condicionar em React
+                  devolveria a dependência de JavaScript que acabamos de tirar. */}
               <div className="subject-body">
                 <div>
                   <div className="subject-topics">
@@ -263,8 +263,7 @@ export function EscolherConteudo({
                   </div>
                 </div>
               </div>
-              )}
-            </article>
+            </details>
           );
         })}
       </div>
