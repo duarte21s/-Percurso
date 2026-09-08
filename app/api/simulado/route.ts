@@ -5,6 +5,8 @@ export const dynamic = "force-dynamic";
 
 const TAMANHO_PADRAO = 8;
 const TAMANHO_MAXIMO = 45;
+const TAMANHO_MINIMO = 1;
+const PAGINA_IDS = 1000;
 
 /** Embaralhamento Fisher-Yates. */
 function embaralha<T>(lista: T[]): T[] {
@@ -61,36 +63,44 @@ export async function POST(request: Request) {
 
   const quantidade = Math.min(
     TAMANHO_MAXIMO,
-    Math.max(3, Number(corpo?.quantidade) || TAMANHO_PADRAO)
+    Math.max(TAMANHO_MINIMO, Number(corpo?.quantidade) || TAMANHO_PADRAO)
   );
 
-  let consulta = supabase.from("questoes").select("id").limit(400);
+  /* O PostgREST limita cada resposta a mil linhas. Buscar só uma página
+     deixava milhares de questões válidas fora do sorteio: quem estudava uma
+     matéria grande recebia sempre uma das primeiras mil. A sessão continua
+     pequena, mas o sorteio agora considera o recorte inteiro. */
+  const questoes: { id: string }[] = [];
+  for (let inicio = 0; ; inicio += PAGINA_IDS) {
+    let consulta = supabase
+      .from("questoes")
+      .select("id")
+      .order("id", { ascending: true })
+      .range(inicio, inicio + PAGINA_IDS - 1);
 
-  if (area) {
-    // Recorte por área usa o banco de provas reais.
-    consulta = consulta.eq("area", area).eq("idioma", "");
-  } else {
-    /* Só questões com comentário escrito. Duas condições, porque são coisas
-       diferentes: `prova_id is null` tira as do ENEM (o INEP publica gabarito,
-       não explicação) e `explicacao <> ''` protege contra qualquer autoral que
-       tenha entrado sem texto.
+    if (area) {
+      // Recorte por área usa o banco de provas reais.
+      consulta = consulta.eq("area", area).eq("idioma", "");
+    } else {
+      /* Só questões comentadas e vinculadas a um conteúdo. As questões ENEM
+         continuam no modo Simulados porque o INEP publica o gabarito, não o
+         comentário; e 27 questões legadas sem tema não entram no banco de
+         7.043 que a pessoa navega por matéria e conteúdo. */
+      consulta = consulta
+        .is("prova_id", null)
+        .neq("explicacao", "")
+        .not("tema", "is", null);
+      if (materia !== "todas") consulta = consulta.eq("materia_id", materia);
+      if (temas.length > 0) consulta = consulta.in("tema", temas);
+    }
 
-       Isso já foi opcional, numa caixa "só as comentadas" desmarcada por
-       padrão. Fazia sentido quando o banco autoral tinha 27 questões e excluir
-       o ENEM esvaziava quase todo tema. Hoje são 6.792 questões classificadas
-       cobrindo os 135 conteúdos, e o efeito da caixa era só decidir se a
-       pessoa ia receber questão sem explicação — em Interpretação de texto,
-       89% das disponíveis eram do ENEM, ou seja, quase nada vinha explicado.
-       Estudar sem saber por que errou não é o produto. */
-    consulta = consulta.is("prova_id", null).neq("explicacao", "");
-    if (materia !== "todas") consulta = consulta.eq("materia_id", materia);
-    if (temas.length > 0) consulta = consulta.in("tema", temas);
-  }
-
-  const { data: questoes, error: erroQuestoes } = await consulta;
-
-  if (erroQuestoes) {
-    return NextResponse.json({ erro: erroQuestoes.message }, { status: 500 });
+    const { data, error: erroQuestoes } = await consulta;
+    if (erroQuestoes) {
+      return NextResponse.json({ erro: erroQuestoes.message }, { status: 500 });
+    }
+    if (!data || data.length === 0) break;
+    questoes.push(...(data as { id: string }[]));
+    if (data.length < PAGINA_IDS) break;
   }
 
   /* Recorte por tema pode não achar nada. Dizer isso é melhor que devolver uma

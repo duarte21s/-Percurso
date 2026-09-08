@@ -24,20 +24,29 @@ function banco(tabelas, falhas = {}) {
   return {
     gravacoes,
     from(tabela) {
-      let filtros = [], alteracao, insercao;
+      let filtros = [], alteracao, insercao, inicio = 0, fim = Infinity;
       const consulta = {
         select() { return this; },
         eq(campo, valor) { filtros.push((r) => r[campo] === valor); return this; },
         is(campo, valor) { return this.eq(campo, valor); },
+        not(campo, operador, valor) {
+          if (operador === "is" && valor === null) {
+            filtros.push((r) => r[campo] !== null && r[campo] !== undefined);
+          }
+          return this;
+        },
         neq(campo, valor) { filtros.push((r) => r[campo] !== valor); return this; },
         in(campo, valores) { filtros.push((r) => valores.includes(r[campo])); return this; },
         order() { return this; },
         limit() { return this; },
+        range(de, ate) { inicio = de; fim = ate; return this; },
         update(valor) { alteracao = valor; return this; },
         insert(valor) { insercao = valor; return this; },
         resultado(unico = false) {
           if (falhas[tabela]) return { data: null, error: { message: "Falha simulada" } };
-          const linhas = (tabelas[tabela] ?? []).filter((r) => filtros.every((f) => f(r)));
+          const linhas = (tabelas[tabela] ?? [])
+            .filter((r) => filtros.every((f) => f(r)))
+            .slice(inicio, fim + 1);
           if (alteracao) {
             gravacoes.push(tabela);
             linhas.forEach((r) => Object.assign(r, alteracao));
@@ -121,3 +130,26 @@ for (const cenario of ["sucesso", "vazio", "falha"]) {
   }
 }
 console.log("ok: questões respeitam matéria e assunto; falha ou conteúdo vazio preserva estudo anterior");
+
+/* Uma matéria pode passar de mil questões. O PostgREST entrega no máximo mil
+   ids por resposta, portanto esta regressão confirma que a sessão considera a
+   segunda página também, em vez de sortear sempre a mesma primeira fatia. */
+{
+  const supabase = banco({
+    simulados: [estudo()],
+    questoes: Array.from({ length: 1001 }, (_, i) =>
+      questao(`p${i}`, "matematica", "Frações")
+    ),
+  });
+  const { POST } = carregar("app/api/simulado/route.ts", {
+    "next/server": { NextResponse: { json: (data, opcoes) => ({ data, status: opcoes?.status ?? 200 }) } },
+    "@/lib/sessao": { exigeSessaoApi: async () => ({ ok: true, supabase, user }) },
+  });
+  const resposta = await POST({
+    json: async () => ({ materia: "todas", temas: [], quantidade: 45 }),
+  });
+  assert.equal(resposta.status, 200);
+  assert.equal(resposta.data.disponiveis, 1001);
+  assert.equal(resposta.data.simulado.questao_ids.length, 45);
+}
+console.log("ok: o sorteio percorre todos os ids do recorte, inclusive após a primeira página");

@@ -61,22 +61,16 @@ export function EscolherConteudo({
   const [erro, setErro] = useState<string | null>(null);
 
   const lista = area === "todas" ? materias : materias.filter((m) => m.area === area);
+  /* A view conta somente itens ligados a um conteúdo. É exatamente o banco
+     navegável pela grade abaixo — questões antigas sem tema não entram num
+     assunto por engano. */
+  const totalBanco = useMemo(
+    () => Object.values(contagens).reduce((total, item) => total + item.comentadas, 0),
+    [contagens]
+  );
 
   function contagem(idMateria: string, tema: string) {
     return contagens[chaveTema(idMateria, tema)] ?? { total: 0, comentadas: 0 };
-  }
-
-  function alterna(idMateria: string, tema: string) {
-    setErro(null);
-    if (idMateria !== materiaId) {
-      // Matéria nova: a seleção anterior não pode conviver com esta.
-      setMateriaId(idMateria);
-      setTemas([tema]);
-      return;
-    }
-    setTemas((atuais) =>
-      atuais.includes(tema) ? atuais.filter((t) => t !== tema) : [...atuais, tema]
-    );
   }
 
   /* Quantas questões a seleção alcança. Conta só as comentadas porque é só
@@ -89,13 +83,10 @@ export function EscolherConteudo({
   }, [materiaId, temas, contagens]);
 
   const nomeMateria = materias.find((m) => m.id === materiaId)?.nome ?? "";
-  const teto = Math.min(45, Math.max(3, disponiveis));
+  /* Um conteúdo recém-publicado pode começar com uma boa questão comentada.
+     Permitir uma evita escondê-lo até haver um lote de três. */
+  const teto = Math.min(45, Math.max(1, disponiveis));
   const pedido = Math.min(quantidade, teto);
-
-  /** Quantas questões comentadas a matéria inteira tem. */
-  function totalDaMateria(idMateria: string, topicos: readonly (readonly [string, number])[]) {
-    return topicos.reduce((n, [titulo]) => n + contagem(idMateria, titulo).comentadas, 0);
-  }
 
   /* Monta a sessão. `temas` vazio significa MATÉRIA INTEIRA — a API sempre
      aceitou isso (`if (temas.length > 0)` antes de filtrar), mas a tela nunca
@@ -132,10 +123,27 @@ export function EscolherConteudo({
         <span className={css.titulo}>Estudar um conteúdo</span>
       </div>
       <p className={css.lede}>
-        Abra a matéria e escolha os assuntos que quer treinar. O número ao lado
-        de cada um é quantas questões existem dele no banco — vêm das 15 provas
-        reais do ENEM e do acervo do site.
+        Abra uma matéria e clique em um conteúdo para começar. Os números
+        indicam as questões comentadas disponíveis em cada assunto.
       </p>
+
+      <div className={css.bancoCompleto}>
+        <span>
+          <strong>{totalBanco.toLocaleString("pt-BR")} questões comentadas</strong>
+          <small> em todas as matérias</small>
+        </span>
+        <button
+          type="button"
+          className="btn btn-ghost"
+          onClick={() =>
+            void abrirSessao("todas", [], Math.min(quantidade, totalBanco))
+          }
+          disabled={indo || totalBanco === 0}
+        >
+          {indo ? "Montando…" : "Praticar banco completo"}
+          {!indo && <span className="arrow">→</span>}
+        </button>
+      </div>
 
       <div className="subject-filter" style={{ marginBottom: 18 }}>
         {FILTROS.map((f) => (
@@ -161,26 +169,16 @@ export function EscolherConteudo({
           );
 
           return (
-            /* `<details>` e `<summary>`, e não um botão com estado no React.
-             *
-             * Abrir e fechar passa a ser do NAVEGADOR, não da nossa aplicação.
-             * Funciona com JavaScript desligado, com JavaScript velho em cache,
-             * com extensão bloqueando script — em qualquer situação em que o
-             * React não acorda, que é exatamente onde as versões anteriores
-             * falhavam em silêncio: a seta girava e nada abria.
-             *
-             * O estado do React continua existindo (`aberta`) só para poder
-             * abrir a matéria que veio pela URL. Ele acompanha o elemento em
-             * vez de comandá-lo. */
-            <details
-              className="subject"
+            <article
+              className={`subject${abertaAgora ? " is-open" : ""}`}
               key={m.id}
-              open={abertaAgora}
-              onToggle={(e) =>
-                setAberta(e.currentTarget.open ? m.id : null)
-              }
             >
-              <summary className="subject-head">
+              <button
+                type="button"
+                className="subject-head"
+                onClick={() => setAberta(abertaAgora ? null : m.id)}
+                aria-expanded={abertaAgora}
+              >
                 <span className="subject-glyph">{m.glifo}</span>
                 <span className="subject-title">
                   <strong>{m.nome}</strong>
@@ -192,43 +190,11 @@ export function EscolherConteudo({
                   </span>
                 </span>
                 <Icone nome="seta" className="subject-caret" tracoLargura={1.8} />
-              </summary>
+              </button>
 
-              {/* Sempre renderizado: quem esconde é o `<details>`, no navegador.
-                  Não há mais um `abertaAgora &&` aqui — condicionar em React
-                  devolveria a dependência de JavaScript que acabamos de tirar. */}
-              <div className="subject-body">
+              {abertaAgora && <div className="subject-body">
                 <div>
                   <div className="subject-topics">
-                    {/* Estudar a matéria inteira, sem escolher assunto.
-                        Fica no TOPO da lista porque é a opção mais ampla, e
-                        porque quem abriu a matéria já demonstrou querer ela —
-                        obrigar a catar 15 assuntos antes de poder começar era
-                        pedir uma segunda decisão que ninguém tinha tomado. */}
-                    <button
-                      type="button"
-                      className={`topic ${css.topico} ${css.materiaInteira}`}
-                      onClick={() =>
-                        void abrirSessao(m.id, [], Math.min(quantidade, totalMateria))
-                      }
-                      disabled={indo || totalMateria === 0}
-                      title={
-                        totalMateria === 0
-                          ? "Esta matéria ainda não tem questão comentada"
-                          : `${totalMateria} questões comentadas na matéria inteira`
-                      }
-                    >
-                      <span className="n">★</span>
-                      <span className={css.rotulo}>
-                        Estudar a matéria inteira
-                      </span>
-                      <span className={css.contagem}>
-                        {totalMateria === 0
-                          ? "—"
-                          : `${totalMateria} questões`}
-                      </span>
-                    </button>
-
                     {m.topicos.map(([titulo], i) => {
                       const c = contagem(m.id, titulo);
                       const disponivel = c.comentadas;
@@ -239,8 +205,14 @@ export function EscolherConteudo({
                           key={titulo}
                           type="button"
                           className={`topic ${css.topico}${escolhido ? ` ${css.escolhido}` : ""}`}
-                          onClick={() => alterna(m.id, titulo)}
-                          disabled={disponivel === 0}
+                          onClick={() =>
+                            void abrirSessao(
+                              m.id,
+                              [titulo],
+                              Math.min(quantidade, disponivel)
+                            )
+                          }
+                          disabled={indo || disponivel === 0}
                           aria-pressed={escolhido}
                           title={
                             disponivel === 0
@@ -248,28 +220,41 @@ export function EscolherConteudo({
                               : `${disponivel} questões comentadas`
                           }
                         >
-                          <span className="n">{String(i + 1).padStart(2, "0")}</span>
+                          <span className="n" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
                           <span className={css.rotulo}>{titulo}</span>
                           <span
                             className={`${css.contagem}${disponivel === 0 ? ` ${css.vazio}` : ""}`}
+                            aria-label={`${disponivel} questões comentadas`}
                           >
-                            {disponivel === 0
-                              ? "—"
-                              : `${disponivel} ${disponivel === 1 ? "questão" : "questões"}`}
+                            {escolhido && <Icone nome="check" className={css.check} />}
+                            {disponivel === 0 ? "—" : disponivel}
                           </span>
                         </button>
                       );
                     })}
+                    {totalMateria > 0 && (
+                      <button
+                        type="button"
+                        className={`topic ${css.topico} ${css.materiaInteira}`}
+                        onClick={() =>
+                          void abrirSessao(m.id, [], Math.min(quantidade, totalMateria))
+                        }
+                        disabled={indo}
+                      >
+                        <span className={css.rotulo}>Estudar a matéria inteira</span>
+                        <span aria-hidden="true">→</span>
+                      </button>
+                    )}
                   </div>
                 </div>
-              </div>
-            </details>
+              </div>}
+            </article>
           );
         })}
       </div>
 
       <div className={css.acao}>
-        <p className={css.resumo}>
+        <p className={css.resumo} aria-live="polite">
           {temas.length === 0 ? (
             "Nenhum conteúdo escolhido ainda."
           ) : (
@@ -289,12 +274,12 @@ export function EscolherConteudo({
           <input
             id="quantas-conteudo"
             type="range"
-            min={3}
+            min={1}
             max={teto}
             step={1}
             value={pedido}
             onChange={(e) => setQuantidade(Number(e.target.value))}
-            disabled={disponiveis < 3}
+            disabled={disponiveis === 0}
           />
           <strong style={{ color: "var(--text)" }}>{pedido}</strong>
         </span>

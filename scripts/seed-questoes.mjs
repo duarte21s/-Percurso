@@ -7,6 +7,8 @@
    Uso:
      npm run seed-questoes -- --seco    valida e conta, não grava
      npm run seed-questoes              grava
+     npm run seed-questoes -- --materias informatica,ingles
+                                        grava apenas as matérias indicadas
 
    É idempotente: antes de inserir, lê os enunciados que já existem e pula os
    repetidos. Rodar de novo depois de acrescentar um arquivo insere só o que
@@ -49,6 +51,15 @@ if (!url || !serviceKey) {
 }
 
 const seco = process.argv.includes("--seco");
+const indiceMaterias = process.argv.indexOf("--materias");
+const materiasAlvo = new Set(
+  indiceMaterias >= 0
+    ? (process.argv[indiceMaterias + 1] ?? "")
+        .split(",")
+        .map((id) => id.trim())
+        .filter(Boolean)
+    : []
+);
 const pasta = new URL("../supabase/seed-data/questoes/", import.meta.url);
 
 if (!existsSync(pasta)) {
@@ -114,10 +125,14 @@ function listaArquivos(base, prefixo = "") {
 }
 
 async function principal() {
-  const arquivos = listaArquivos(pasta);
+  const arquivos = listaArquivos(pasta).filter((arquivo) => {
+    if (materiasAlvo.size === 0) return true;
+    const nome = arquivo.split("/").pop() ?? arquivo;
+    return [...materiasAlvo].some((materia) => nome.startsWith(`${materia}__`));
+  });
 
   if (arquivos.length === 0) {
-    console.log("\nNenhum arquivo em supabase/seed-data/questoes/.\n");
+    console.log("\nNenhum arquivo casou com as matérias informadas.\n");
     return;
   }
 

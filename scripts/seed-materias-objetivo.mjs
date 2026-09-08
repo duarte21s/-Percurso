@@ -44,7 +44,10 @@ const fonte = readFileSync(
 /* Cada bloco de matéria começa em `id: "..."` e vai até o próximo. Pegamos os
    cinco campos que a tabela `materias` tem — topicos e objetivos ficam só no
    TypeScript, porque não há coluna para eles. */
-const blocos = fonte.split(/\n  \{\n/).slice(1);
+/* O repositório é usado também no Windows. Aceitar CRLF aqui evita a falsa
+   impressão de que o catálogo está vazio quando o arquivo foi salvo pelo
+   editor com quebra de linha do Windows. */
+const blocos = fonte.split(/\r?\n {2}\{\r?\n/).slice(1);
 const materias = [];
 
 for (const b of blocos) {
