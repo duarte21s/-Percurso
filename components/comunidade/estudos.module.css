@@ -208,3 +208,12 @@
   color: var(--text);
   letter-spacing: 0.005em;
 }
+
+.chama, .grafico, .conquista, .perfilStat, .recompensa {
+  border-color: var(--borda);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, .88);
+  box-shadow: 0 12px 34px rgba(18, 60, 42, .04);
+}
+.chamaNum, .perfilStatNum, .perfilNome { color: var(--verde-profundo); font-family: var(--sans); }
+.graficoBarra { fill: var(--verde-principal); }

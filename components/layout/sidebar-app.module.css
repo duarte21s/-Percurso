@@ -187,7 +187,12 @@
 
 /* O conteúdo não recua mais 248px: a barra é horizontal e a largura inteira
    volta para tabela, painel e grade de questões, que é onde ela faz falta. */
-.main { min-height: 100vh; }
+.main {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 92% 0, rgba(169, 199, 179, .22), transparent 28rem),
+    var(--fundo);
+}
 
 /* A área de estudos retoma a sidebar solicitada para o produto. A navegação
    deixa de competir com dashboards e listas largas; em telas pequenas ela

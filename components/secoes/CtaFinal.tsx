@@ -19,7 +19,7 @@ export function CtaFinal() {
             <Link href="/cadastro" className="btn btn-primary">
               Criar minha conta <span className="arrow">→</span>
             </Link>
-            <Link href="/login" className="btn">
+            <Link href="/entrar" className="btn">
               Já tenho conta
             </Link>
           </div>

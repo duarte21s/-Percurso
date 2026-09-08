@@ -7,18 +7,10 @@ import { usarPressao } from "@/lib/gsap/usarPressao";
 import { usarFolha } from "@/lib/movimento/usarFolha";
 import { AbasNav } from "@/components/layout/AbasNav";
 import { Icone } from "@/components/ui/Icone";
-import { BotaoTema } from "@/components/ui/BotaoTema";
 
 /* Navegação do site público. Só páginas institucionais — as ferramentas de
    estudo vivem sob /app, com a sua própria navegação (a SidebarApp). */
 const LINKS = [
-  { href: "/", rotulo: "Início" },
-  { href: "/como-funciona", rotulo: "Como funciona" },
-  { href: "/faculdades", rotulo: "Faculdades" },
-  { href: "/duvidas", rotulo: "Dúvidas" },
-];
-
-const LINKS_HOME = [
   { href: "/", rotulo: "Início" },
   { href: "/como-funciona", rotulo: "Como funciona" },
   { href: "/faculdades", rotulo: "Faculdades" },
@@ -34,8 +26,7 @@ export function Nav({ nome }: Props) {
   const [grudada, setGrudada] = useState(false);
   const [menuAberto, setMenuAberto] = useState(false);
   const caminho = usePathname();
-  const naHome = caminho === "/";
-  const links = naHome ? LINKS_HOME : LINKS;
+  const links = LINKS;
 
   const refMarca = useRef<HTMLAnchorElement>(null);
   const refToggle = useRef<HTMLButtonElement>(null);
@@ -73,19 +64,18 @@ export function Nav({ nome }: Props) {
   }, [menuAberto]);
 
   return (
-    <header className={`nav${naHome ? " nav-home" : ""}${grudada ? " is-stuck" : ""}`} id="nav">
+    <header className={`nav nav-home${grudada ? " is-stuck" : ""}`} id="nav">
       <div className="wrap nav-inner">
         <Link href="/" className="brand" ref={refMarca}>
           <span className="brand-mark">
             <Icone nome="marca" tracoLargura={1.7} />
           </span>
-          Percurso {!naHome && <small>Estudos</small>}
+          Percurso
         </Link>
 
         <AbasNav links={links} caminho={caminho} />
 
         <div className="nav-actions">
-          {!naHome && <BotaoTema />}
           {nome ? (
             <Link href="/app" className="btn btn-primary">
               Meu painel
@@ -95,9 +85,6 @@ export function Nav({ nome }: Props) {
               <Link href="/entrar" className="btn btn-ghost">
                 Entrar
               </Link>
-              {!naHome && <Link href="/cadastro" className="btn btn-primary">
-                Começar agora
-              </Link>}
             </>
           )}
 

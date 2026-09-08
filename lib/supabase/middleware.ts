@@ -58,7 +58,7 @@ export async function atualizaSessao(
 
   if (!user && protegidas.some((r) => caminho === r || caminho.startsWith(r + "/"))) {
     const url = request.nextUrl.clone();
-    url.pathname = "/login";
+    url.pathname = "/entrar";
     url.searchParams.set("proximo", caminho);
     return NextResponse.redirect(url);
   }

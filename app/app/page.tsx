@@ -51,10 +51,11 @@ const ATALHOS = [
 
 const cartao: React.CSSProperties = {
   display: "block",
-  padding: "16px 18px",
-  border: "1px solid var(--line)",
-  borderRadius: 12,
-  background: "var(--surface)",
+  padding: "20px 21px",
+  border: "1px solid var(--borda)",
+  borderRadius: 18,
+  background: "rgba(255, 255, 255, .86)",
+  boxShadow: "0 12px 34px rgba(18, 60, 42, .045)",
 };
 
 export default async function Dashboard() {

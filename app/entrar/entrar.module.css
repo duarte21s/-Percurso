@@ -79,6 +79,11 @@
 .cartao {
   width: 100%;
   max-width: 400px;
+  padding: clamp(24px, 3vw, 36px);
+  border: 1px solid var(--borda);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, .9);
+  box-shadow: 0 24px 60px rgba(18, 60, 42, .09);
 }
 
 .voltar {
@@ -98,8 +103,8 @@
 }
 
 .titulo {
-  font-family: var(--serif);
-  font-weight: 400;
+  font-family: var(--sans);
+  font-weight: 680;
   font-size: clamp(28px, 3.2vw, 38px);
   line-height: 1.12;
   letter-spacing: -0.025em;
@@ -134,8 +139,8 @@
 }
 .aba:hover { color: var(--text); }
 .abaAtiva {
-  background: var(--text);
-  color: var(--sobre-accent);
+  background: var(--verde-profundo);
+  color: #fff;
   font-weight: 600;
 }
 
@@ -150,8 +155,8 @@
   height: 54px;
   padding: 20px 14px 6px;
   border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--surface);
+  border-radius: 14px;
+  background: #fff;
   color: var(--text);
   font-size: 15px;
   transition: border-color .3s var(--ease), background .3s var(--ease);
@@ -274,8 +279,8 @@
   justify-content: center;
   gap: 10px;
   border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--surface);
+  border-radius: 14px;
+  background: #fff;
   color: var(--text);
   font-size: 14.5px;
   font-family: inherit;

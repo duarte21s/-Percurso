@@ -289,3 +289,16 @@
   padding: 2px 9px;
   align-self: flex-start;
 }
+
+.proposta, .notaGrande, .competencia, .cartaoTema, .transcricao {
+  border-color: var(--borda);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, .86);
+  box-shadow: 0 12px 34px rgba(18, 60, 42, .04);
+}
+.proposta { border-left: 3px solid var(--verde-principal); }
+.propostaTexto, .cartaoTexto, .notaValor, .competenciaNota { font-family: var(--sans); }
+.cartaoTema:hover { background: #fff; box-shadow: 0 18px 38px rgba(18, 60, 42, .08); transform: translateY(-4px); }
+.folha, .areaFoto { border-radius: 18px; background: #fff; }
+.abaAtiva { background: var(--verde-profundo); color: #fff; }
+.competenciaBarra i { background: linear-gradient(90deg, var(--verde-profundo), var(--verde-principal)); }

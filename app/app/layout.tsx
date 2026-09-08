@@ -38,7 +38,7 @@ export default async function LayoutApp({
   } = await supabase.auth.getUser();
 
   // Sem sessão o proxy já teria redirecionado; isto é só a rede de baixo.
-  if (!user) redirect("/login?proximo=/app");
+  if (!user) redirect("/entrar?proximo=/app");
 
   const { data: perfil } = await supabase
     .from("perfis")

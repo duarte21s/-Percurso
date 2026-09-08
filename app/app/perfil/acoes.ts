@@ -22,7 +22,7 @@ export async function salvarPerfil(formData: FormData) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/login?proximo=/app/perfil");
+  if (!user) redirect("/entrar?proximo=/app/perfil");
 
   const nome = String(formData.get("nome") ?? "").trim();
   const objetivo = String(formData.get("objetivo") ?? "");

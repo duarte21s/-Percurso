@@ -25,7 +25,7 @@ const COLUNAS = [
   {
     titulo: "Conta",
     itens: [
-      { href: "/login", rotulo: "Entrar" },
+      { href: "/entrar", rotulo: "Entrar" },
       { href: "/cadastro", rotulo: "Criar conta" },
     ],
   },

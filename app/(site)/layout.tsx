@@ -51,7 +51,7 @@ export default async function LayoutSite({
           limiteMinutos={LIMITE_VISITANTE_MINUTOS}
         />
       )}
-      {children}
+      <div className="site-content">{children}</div>
       <Footer />
     </>
   );

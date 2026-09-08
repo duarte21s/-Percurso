@@ -2,22 +2,23 @@
 
 .painel {
   color-scheme: light;
-  --surface: #fffdfb;
-  --surface-2: #f7f0e6;
-  --surface-3: #efe3d3;
-  --line: #e8dccd;
-  --line-soft: #f0e9e1;
-  --text: #241b14;
-  --text-2: #776657;
-  --text-3: #897563;
-  --accent: #ce4f19;
-  --accent-2: #ac3b10;
-  --accent-line: #edc4a8;
-  --accent-dim: #f3e3d3;
-  --sobre-accent: #fffdfb;
+  --surface: #ffffff;
+  --surface-2: #f2f8f3;
+  --surface-3: #eaf4ee;
+  --line: rgba(18, 60, 42, 0.14);
+  --line-soft: rgba(18, 60, 42, 0.08);
+  --text: #17231c;
+  --text-2: #5b6860;
+  --text-3: #6d7d73;
+  --accent: #2f7d57;
+  --accent-2: #123c2a;
+  --accent-line: rgba(18, 60, 42, 0.28);
+  --accent-dim: rgba(47, 125, 87, 0.10);
+  --sobre-accent: #fcfdfb;
   border: 1px solid var(--line);
-  border-radius: var(--r-lg);
-  background: var(--surface);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, .82);
+  box-shadow: 0 18px 50px rgba(18, 60, 42, .055);
   padding: 26px 24px 24px;
   margin-top: 30px;
   container-type: inline-size;
@@ -312,3 +313,22 @@
 }
 .materiaInteira .rotulo { font-weight: 600; }
 .materiaInteira:disabled { opacity: .5; }
+
+/* Remove a antiga identidade editorial laranja também quando o sistema está
+   em tema escuro; o catálogo pertence ao mesmo Percurso verde. */
+.painel :global(.subject) { border-radius: 18px; background: #fff; }
+.painel :global(.subject-title), .painel .topico { font-family: var(--sans); }
+:global(:root[data-theme="dark"]) .painel {
+  --surface: #12251c;
+  --surface-2: #193226;
+  --surface-3: #234333;
+  --line: rgba(169, 199, 179, .22);
+  --line-soft: rgba(169, 199, 179, .12);
+  --text: #f2f8f3;
+  --text-2: #c4d5ca;
+  --text-3: #a9c7b3;
+  --accent: #6aab86;
+  --accent-2: #a9d1b9;
+  --accent-line: rgba(169, 199, 179, .32);
+  --accent-dim: rgba(47, 125, 87, .2);
+}

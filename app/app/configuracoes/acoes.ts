@@ -13,7 +13,7 @@ export async function salvarNotificacoes(formData: FormData) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/login?proximo=/app/configuracoes");
+  if (!user) redirect("/entrar?proximo=/app/configuracoes");
 
   const chama = formData.get("chama") === "on";
 
