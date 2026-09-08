@@ -1277,13 +1277,16 @@ h1.hero-h1 em { font-style: normal; color: var(--accent); }
 }
 .subject.is-open .subject-caret { transform: rotate(180deg); color: var(--accent); }
 
-.subject-body {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows .5s var(--ease);
-}
-.subject.is-open .subject-body { grid-template-rows: 1fr; }
-.subject-body > div { overflow: hidden; }
+/* Sem animação de altura, de propósito.
+   Aqui havia `grid-template-rows: 0fr -> 1fr` com transição — a técnica moderna
+   de sanfona. Ela tem um modo de falha ruim: se o navegador não interpolar a
+   unidade de grade, ou se o relógio de animação não correr, o conteúdo fica
+   preso em altura ZERO. A classe entrava, a seta girava, e nada abria — sem
+   erro nenhum no console.
+   Agora o corpo só é renderizado quando aberto (ver EscolherConteudo.tsx), e
+   estas regras são só layout. Animação que pode travar fechada é pior que
+   animação nenhuma; o giro da seta já dá o retorno do clique. */
+.subject-body { display: block; }
 .subject-topics {
   padding: 0 22px 22px;
   display: flex; flex-direction: column; gap: 2px;
