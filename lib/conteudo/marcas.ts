@@ -1,0 +1,22 @@
+/** Bancas e instituições da faixa rolante. */
+export const MARCAS: readonly string[] = [
+  "ENEM",
+  "Fuvest",
+  "Unicamp",
+  "UERJ",
+  "SiSU",
+  "ProUni",
+  "Cebraspe",
+  "FGV",
+  "Cesgranrio",
+  "ITA",
+  "IME",
+  "EsPCEx",
+  "PAS · UnB",
+  "Escola Naval",
+  "UFRJ",
+  "UFMG",
+  "UFRGS",
+  "UFPE",
+  "Redação nota 1000",
+] as const;

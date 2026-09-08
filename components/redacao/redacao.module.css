@@ -1,0 +1,291 @@
+/* ---------- proposta ---------- */
+.proposta {
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--accent);
+  border-radius: 14px;
+  background: var(--surface);
+  padding: 22px 24px;
+  margin-bottom: 24px;
+}
+.propostaRotulo {
+  display: block;
+  font-size: 11.5px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 10px;
+}
+.propostaTexto {
+  font-family: var(--serif);
+  font-size: clamp(19px, 2.2vw, 25px);
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  color: var(--text);
+}
+.propostaNota {
+  margin-top: 14px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-3);
+}
+
+/* ---------- abas ---------- */
+.abas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  background: var(--surface);
+  margin-bottom: 18px;
+}
+.aba {
+  padding: 9px 12px;
+  border: 0;
+  border-radius: 99px;
+  background: transparent;
+  color: var(--text-2);
+  font-size: 13.5px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background .3s var(--ease), color .3s var(--ease);
+}
+.aba:hover { color: var(--text); }
+.abaAtiva { background: var(--text); color: var(--sobre-accent); font-weight: 600; }
+
+/* ---------- digitar ---------- */
+/* Entrelinha larga e fonte serifada: a folha do ENEM é pautada, e escrever num
+   campo que lembra papel ajuda a estimar quanto já foi escrito. */
+.folha {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--bg-2);
+  color: var(--text);
+  font-family: var(--serif);
+  font-size: 16.5px;
+  line-height: 2;
+  padding: 20px 22px;
+  resize: vertical;
+}
+.folha:focus { outline: none; border-color: var(--accent-line); background: var(--surface); }
+
+.contador {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  font-size: 12.5px;
+  color: var(--text-3);
+}
+.contadorPassou { color: var(--err); }
+
+/* ---------- foto ---------- */
+.entradaEscondida { display: none; }
+
+.areaFoto {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 40px 24px;
+  border: 1px dashed var(--line-strong);
+  border-radius: 16px;
+  background: var(--bg-2);
+  color: var(--text);
+  font-family: inherit;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color .3s var(--ease), background .3s var(--ease);
+}
+.areaFoto:hover { border-color: var(--accent); background: var(--surface); }
+.areaFotoIcone { font-size: 30px; }
+.areaFotoTitulo { font-size: 15px; }
+.areaFotoDica {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--text-3);
+  max-width: 46ch;
+}
+
+.previaCaixa { display: grid; gap: 12px; justify-items: center; }
+.previa {
+  max-width: 100%;
+  max-height: 60vh;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+}
+
+/* ---------- resultado ---------- */
+.notaGrande {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 10px;
+  padding: 34px 20px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--surface);
+  margin-bottom: 22px;
+}
+.notaValor {
+  font-family: var(--serif);
+  font-size: clamp(52px, 9vw, 78px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--accent-2);
+}
+.notaDe { font-size: 15px; color: var(--text-3); }
+
+.competencias { display: grid; gap: 12px; }
+
+.competencia {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  padding: 18px 20px;
+}
+.competenciaTopo {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.competenciaNome { font-size: 14.5px; color: var(--text); }
+.competenciaNota {
+  font-family: var(--serif);
+  font-size: 22px;
+  color: var(--accent-2);
+}
+.competenciaBarra {
+  display: block;
+  height: 3px;
+  border-radius: 99px;
+  background: var(--line);
+  overflow: hidden;
+  margin: 12px 0 14px;
+}
+.competenciaBarra i {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  border-radius: 99px;
+}
+.competenciaTexto {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-2);
+}
+
+.parecer {
+  margin-top: 20px;
+  padding: 20px 22px;
+  border: 1px solid var(--accent-line);
+  background: var(--accent-dim);
+  border-radius: 14px;
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: var(--text);
+  white-space: pre-wrap;
+}
+.parecerTitulo {
+  display: block;
+  font-size: 11.5px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  margin-bottom: 10px;
+}
+
+.transcricao {
+  margin-top: 18px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--bg-2);
+  padding: 16px 18px;
+}
+.transcricao summary {
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text-2);
+}
+.transcricao p {
+  margin-top: 12px;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--text-3);
+}
+.transcricao pre {
+  margin-top: 12px;
+  white-space: pre-wrap;
+  font-family: var(--serif);
+  font-size: 14.5px;
+  line-height: 1.9;
+  color: var(--text-2);
+}
+
+.erro {
+  margin-top: 16px;
+  padding: 13px 15px;
+  border: 1px solid color-mix(in srgb, var(--err) 45%, transparent);
+  background: color-mix(in srgb, var(--err) 10%, transparent);
+  border-radius: 10px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--text);
+}
+
+.aviso {
+  margin-top: 16px;
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: var(--text-3);
+  text-align: center;
+}
+
+/* ---------- lista de temas ---------- */
+.gradeTemas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+  margin-top: 34px;
+}
+.cartaoTema {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  transition: border-color .3s var(--ease), background .3s var(--ease),
+              transform .3s var(--ease);
+}
+.cartaoTema:hover {
+  border-color: var(--accent-line);
+  background: var(--surface-2);
+  transform: translateY(-2px);
+}
+.cartaoAno {
+  font-size: 12px;
+  letter-spacing: .06em;
+  color: var(--accent-2);
+}
+.cartaoTexto {
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.35;
+  color: var(--text);
+}
+.cartaoSelo {
+  font-size: 11px;
+  color: var(--text-3);
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  padding: 2px 9px;
+  align-self: flex-start;
+}

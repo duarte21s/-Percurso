@@ -1,0 +1,1082 @@
+[
+ {
+  "materia": "matematica",
+  "materiaNome": "Matemática",
+  "area": "exatas",
+  "tema": "Funções: afim, quadrática e exponencial",
+  "slug": "funcoes-afim-quadratica-e-exponencial",
+  "incidencia": 82
+ },
+ {
+  "materia": "matematica",
+  "materiaNome": "Matemática",
+  "area": "exatas",
+  "tema": "Logaritmos e suas propriedades",
+  "slug": "logaritmos-e-suas-propriedades",
+  "incidencia": 64
+ },
+ {
+  "materia": "matematica",
+  "materiaNome": "Matemática",
+  "area": "exatas",
+  "tema": "Progressões aritméticas e geométricas",
+  "slug": "progressoes-aritmeticas-e-geometricas",
+  "incidencia": 71
+ },
+ {
+  "materia": "matematica",
+  "materiaNome": "Matemática",
+  "area": "exatas",
+  "tema": "Geometria plana: áreas e semelhança",
+  "slug": "geometria-plana-areas-e-semelhanca",
+  "incidencia": 78
+ },
+ {
+  "materia": "matematica",
+  "materiaNome": "Matemática",
+  "area": "exatas",
+  "tema": "Geometria espacial: prismas, cones e esferas",
+  "slug": "geometria-espacial-prismas-cones-e-esferas",
+  "incidencia": 55
+ },
+ {
+  "materia": "matematica",
+  "materiaNome": "Matemática",
+  "area": "exatas",
+  "tema": "Trigonometria no triângulo e no ciclo",
+  "slug": "trigonometria-no-triangulo-e-no-ciclo",
+  "incidencia": 60
+ },
+ {
+  "materia": "matematica",
+  "materiaNome": "Matemática",
+  "area": "exatas",
+  "tema": "Análise combinatória e probabilidade",
+  "slug": "analise-combinatoria-e-probabilidade",
+  "incidencia": 48
+ },
+ {
+  "materia": "matematica",
+  "materiaNome": "Matemática",
+  "area": "exatas",
+  "tema": "Estatística: média, mediana e desvio",
+  "slug": "estatistica-media-mediana-e-desvio",
+  "incidencia": 74
+ },
+ {
+  "materia": "matematica",
+  "materiaNome": "Matemática",
+  "area": "exatas",
+  "tema": "Matrizes, determinantes e sistemas lineares",
+  "slug": "matrizes-determinantes-e-sistemas-lineares",
+  "incidencia": 41
+ },
+ {
+  "materia": "matematica",
+  "materiaNome": "Matemática",
+  "area": "exatas",
+  "tema": "Geometria analítica: reta e circunferência",
+  "slug": "geometria-analitica-reta-e-circunferencia",
+  "incidencia": 52
+ },
+ {
+  "materia": "matematica",
+  "materiaNome": "Matemática",
+  "area": "exatas",
+  "tema": "Matemática financeira: juros e descontos",
+  "slug": "matematica-financeira-juros-e-descontos",
+  "incidencia": 69
+ },
+ {
+  "materia": "matematica",
+  "materiaNome": "Matemática",
+  "area": "exatas",
+  "tema": "Razão, proporção e regra de três",
+  "slug": "razao-proporcao-e-regra-de-tres",
+  "incidencia": 88
+ },
+ {
+  "materia": "matematica",
+  "materiaNome": "Matemática",
+  "area": "exatas",
+  "tema": "Porcentagem e variação percentual",
+  "slug": "porcentagem-e-variacao-percentual",
+  "incidencia": 91
+ },
+ {
+  "materia": "matematica",
+  "materiaNome": "Matemática",
+  "area": "exatas",
+  "tema": "Grandezas proporcionais e escalas",
+  "slug": "grandezas-proporcionais-e-escalas",
+  "incidencia": 66
+ },
+ {
+  "materia": "matematica",
+  "materiaNome": "Matemática",
+  "area": "exatas",
+  "tema": "Leitura de gráficos e tabelas",
+  "slug": "leitura-de-graficos-e-tabelas",
+  "incidencia": 87
+ },
+ {
+  "materia": "portugues",
+  "materiaNome": "Português",
+  "area": "linguagens",
+  "tema": "Interpretação e compreensão de texto",
+  "slug": "interpretacao-e-compreensao-de-texto",
+  "incidencia": 90
+ },
+ {
+  "materia": "portugues",
+  "materiaNome": "Português",
+  "area": "linguagens",
+  "tema": "Figuras de linguagem",
+  "slug": "figuras-de-linguagem",
+  "incidencia": 76
+ },
+ {
+  "materia": "portugues",
+  "materiaNome": "Português",
+  "area": "linguagens",
+  "tema": "Sintaxe: período composto",
+  "slug": "sintaxe-periodo-composto",
+  "incidencia": 54
+ },
+ {
+  "materia": "portugues",
+  "materiaNome": "Português",
+  "area": "linguagens",
+  "tema": "Concordância verbal e nominal",
+  "slug": "concordancia-verbal-e-nominal",
+  "incidencia": 67
+ },
+ {
+  "materia": "portugues",
+  "materiaNome": "Português",
+  "area": "linguagens",
+  "tema": "Regência e crase",
+  "slug": "regencia-e-crase",
+  "incidencia": 58
+ },
+ {
+  "materia": "portugues",
+  "materiaNome": "Português",
+  "area": "linguagens",
+  "tema": "Variação linguística e norma-padrão",
+  "slug": "variacao-linguistica-e-norma-padrao",
+  "incidencia": 72
+ },
+ {
+  "materia": "portugues",
+  "materiaNome": "Português",
+  "area": "linguagens",
+  "tema": "Gêneros textuais e tipologia",
+  "slug": "generos-textuais-e-tipologia",
+  "incidencia": 65
+ },
+ {
+  "materia": "portugues",
+  "materiaNome": "Português",
+  "area": "linguagens",
+  "tema": "Coesão e coerência",
+  "slug": "coesao-e-coerencia",
+  "incidencia": 80
+ },
+ {
+  "materia": "portugues",
+  "materiaNome": "Português",
+  "area": "linguagens",
+  "tema": "Funções da linguagem",
+  "slug": "funcoes-da-linguagem",
+  "incidencia": 74
+ },
+ {
+  "materia": "portugues",
+  "materiaNome": "Português",
+  "area": "linguagens",
+  "tema": "Redação dissertativo-argumentativa",
+  "slug": "redacao-dissertativo-argumentativa",
+  "incidencia": 62
+ },
+ {
+  "materia": "portugues",
+  "materiaNome": "Português",
+  "area": "linguagens",
+  "tema": "Repertório sociocultural e proposta de intervenção",
+  "slug": "repertorio-sociocultural-e-proposta-de-interve",
+  "incidencia": 49
+ },
+ {
+  "materia": "portugues",
+  "materiaNome": "Português",
+  "area": "linguagens",
+  "tema": "Escolas literárias: do Barroco ao Modernismo",
+  "slug": "escolas-literarias-do-barroco-ao-modernismo",
+  "incidencia": 57
+ },
+ {
+  "materia": "portugues",
+  "materiaNome": "Português",
+  "area": "linguagens",
+  "tema": "Morfologia: classes de palavras",
+  "slug": "morfologia-classes-de-palavras",
+  "incidencia": 58
+ },
+ {
+  "materia": "portugues",
+  "materiaNome": "Português",
+  "area": "linguagens",
+  "tema": "Pontuação e seus efeitos de sentido",
+  "slug": "pontuacao-e-seus-efeitos-de-sentido",
+  "incidencia": 52
+ },
+ {
+  "materia": "portugues",
+  "materiaNome": "Português",
+  "area": "linguagens",
+  "tema": "Intertextualidade e paráfrase",
+  "slug": "intertextualidade-e-parafrase",
+  "incidencia": 63
+ },
+ {
+  "materia": "fisica",
+  "materiaNome": "Física",
+  "area": "exatas",
+  "tema": "Cinemática: MRU e MRUV",
+  "slug": "cinematica-mru-e-mruv",
+  "incidencia": 84
+ },
+ {
+  "materia": "fisica",
+  "materiaNome": "Física",
+  "area": "exatas",
+  "tema": "Leis de Newton e suas aplicações",
+  "slug": "leis-de-newton-e-suas-aplicacoes",
+  "incidencia": 76
+ },
+ {
+  "materia": "fisica",
+  "materiaNome": "Física",
+  "area": "exatas",
+  "tema": "Trabalho, energia e potência",
+  "slug": "trabalho-energia-e-potencia",
+  "incidencia": 70
+ },
+ {
+  "materia": "fisica",
+  "materiaNome": "Física",
+  "area": "exatas",
+  "tema": "Quantidade de movimento e colisões",
+  "slug": "quantidade-de-movimento-e-colisoes",
+  "incidencia": 55
+ },
+ {
+  "materia": "fisica",
+  "materiaNome": "Física",
+  "area": "exatas",
+  "tema": "Estática e hidrostática",
+  "slug": "estatica-e-hidrostatica",
+  "incidencia": 61
+ },
+ {
+  "materia": "fisica",
+  "materiaNome": "Física",
+  "area": "exatas",
+  "tema": "Termologia e calorimetria",
+  "slug": "termologia-e-calorimetria",
+  "incidencia": 66
+ },
+ {
+  "materia": "fisica",
+  "materiaNome": "Física",
+  "area": "exatas",
+  "tema": "Termodinâmica e máquinas térmicas",
+  "slug": "termodinamica-e-maquinas-termicas",
+  "incidencia": 47
+ },
+ {
+  "materia": "fisica",
+  "materiaNome": "Física",
+  "area": "exatas",
+  "tema": "Óptica geométrica: espelhos e lentes",
+  "slug": "optica-geometrica-espelhos-e-lentes",
+  "incidencia": 59
+ },
+ {
+  "materia": "fisica",
+  "materiaNome": "Física",
+  "area": "exatas",
+  "tema": "Ondulatória e acústica",
+  "slug": "ondulatoria-e-acustica",
+  "incidencia": 53
+ },
+ {
+  "materia": "fisica",
+  "materiaNome": "Física",
+  "area": "exatas",
+  "tema": "Eletrostática e campo elétrico",
+  "slug": "eletrostatica-e-campo-eletrico",
+  "incidencia": 50
+ },
+ {
+  "materia": "fisica",
+  "materiaNome": "Física",
+  "area": "exatas",
+  "tema": "Circuitos elétricos e leis de Ohm",
+  "slug": "circuitos-eletricos-e-leis-de-ohm",
+  "incidencia": 63
+ },
+ {
+  "materia": "fisica",
+  "materiaNome": "Física",
+  "area": "exatas",
+  "tema": "Eletromagnetismo e indução",
+  "slug": "eletromagnetismo-e-inducao",
+  "incidencia": 44
+ },
+ {
+  "materia": "fisica",
+  "materiaNome": "Física",
+  "area": "exatas",
+  "tema": "Física moderna: efeito fotoelétrico",
+  "slug": "fisica-moderna-efeito-fotoeletrico",
+  "incidencia": 38
+ },
+ {
+  "materia": "fisica",
+  "materiaNome": "Física",
+  "area": "exatas",
+  "tema": "Gravitação universal e leis de Kepler",
+  "slug": "gravitacao-universal-e-leis-de-kepler",
+  "incidencia": 38
+ },
+ {
+  "materia": "fisica",
+  "materiaNome": "Física",
+  "area": "exatas",
+  "tema": "Energia, matriz elétrica e consumo",
+  "slug": "energia-matriz-eletrica-e-consumo",
+  "incidencia": 69
+ },
+ {
+  "materia": "quimica",
+  "materiaNome": "Química",
+  "area": "natureza",
+  "tema": "Atomística e tabela periódica",
+  "slug": "atomistica-e-tabela-periodica",
+  "incidencia": 82
+ },
+ {
+  "materia": "quimica",
+  "materiaNome": "Química",
+  "area": "natureza",
+  "tema": "Ligações químicas e geometria molecular",
+  "slug": "ligacoes-quimicas-e-geometria-molecular",
+  "incidencia": 74
+ },
+ {
+  "materia": "quimica",
+  "materiaNome": "Química",
+  "area": "natureza",
+  "tema": "Funções inorgânicas",
+  "slug": "funcoes-inorganicas",
+  "incidencia": 68
+ },
+ {
+  "materia": "quimica",
+  "materiaNome": "Química",
+  "area": "natureza",
+  "tema": "Reações químicas e balanceamento",
+  "slug": "reacoes-quimicas-e-balanceamento",
+  "incidencia": 71
+ },
+ {
+  "materia": "quimica",
+  "materiaNome": "Química",
+  "area": "natureza",
+  "tema": "Estequiometria e cálculos",
+  "slug": "estequiometria-e-calculos",
+  "incidencia": 58
+ },
+ {
+  "materia": "quimica",
+  "materiaNome": "Química",
+  "area": "natureza",
+  "tema": "Soluções e concentrações",
+  "slug": "solucoes-e-concentracoes",
+  "incidencia": 62
+ },
+ {
+  "materia": "quimica",
+  "materiaNome": "Química",
+  "area": "natureza",
+  "tema": "Termoquímica",
+  "slug": "termoquimica",
+  "incidencia": 54
+ },
+ {
+  "materia": "quimica",
+  "materiaNome": "Química",
+  "area": "natureza",
+  "tema": "Cinética química",
+  "slug": "cinetica-quimica",
+  "incidencia": 49
+ },
+ {
+  "materia": "quimica",
+  "materiaNome": "Química",
+  "area": "natureza",
+  "tema": "Equilíbrio químico e pH",
+  "slug": "equilibrio-quimico-e-ph",
+  "incidencia": 46
+ },
+ {
+  "materia": "quimica",
+  "materiaNome": "Química",
+  "area": "natureza",
+  "tema": "Eletroquímica: pilhas e eletrólise",
+  "slug": "eletroquimica-pilhas-e-eletrolise",
+  "incidencia": 43
+ },
+ {
+  "materia": "quimica",
+  "materiaNome": "Química",
+  "area": "natureza",
+  "tema": "Química orgânica: funções e nomenclatura",
+  "slug": "quimica-organica-funcoes-e-nomenclatura",
+  "incidencia": 60
+ },
+ {
+  "materia": "quimica",
+  "materiaNome": "Química",
+  "area": "natureza",
+  "tema": "Isomeria e reações orgânicas",
+  "slug": "isomeria-e-reacoes-organicas",
+  "incidencia": 41
+ },
+ {
+  "materia": "quimica",
+  "materiaNome": "Química",
+  "area": "natureza",
+  "tema": "Química ambiental e sustentabilidade",
+  "slug": "quimica-ambiental-e-sustentabilidade",
+  "incidencia": 77
+ },
+ {
+  "materia": "quimica",
+  "materiaNome": "Química",
+  "area": "natureza",
+  "tema": "Gases e leis dos gases ideais",
+  "slug": "gases-e-leis-dos-gases-ideais",
+  "incidencia": 44
+ },
+ {
+  "materia": "quimica",
+  "materiaNome": "Química",
+  "area": "natureza",
+  "tema": "Radioatividade e química nuclear",
+  "slug": "radioatividade-e-quimica-nuclear",
+  "incidencia": 39
+ },
+ {
+  "materia": "biologia",
+  "materiaNome": "Biologia",
+  "area": "natureza",
+  "tema": "Citologia: estrutura e organelas",
+  "slug": "citologia-estrutura-e-organelas",
+  "incidencia": 80
+ },
+ {
+  "materia": "biologia",
+  "materiaNome": "Biologia",
+  "area": "natureza",
+  "tema": "Metabolismo energético: respiração e fotossíntese",
+  "slug": "metabolismo-energetico-respiracao-e-fotossinte",
+  "incidencia": 69
+ },
+ {
+  "materia": "biologia",
+  "materiaNome": "Biologia",
+  "area": "natureza",
+  "tema": "Divisão celular: mitose e meiose",
+  "slug": "divisao-celular-mitose-e-meiose",
+  "incidencia": 72
+ },
+ {
+  "materia": "biologia",
+  "materiaNome": "Biologia",
+  "area": "natureza",
+  "tema": "Genética mendeliana",
+  "slug": "genetica-mendeliana",
+  "incidencia": 64
+ },
+ {
+  "materia": "biologia",
+  "materiaNome": "Biologia",
+  "area": "natureza",
+  "tema": "Biotecnologia e engenharia genética",
+  "slug": "biotecnologia-e-engenharia-genetica",
+  "incidencia": 55
+ },
+ {
+  "materia": "biologia",
+  "materiaNome": "Biologia",
+  "area": "natureza",
+  "tema": "Evolução e seleção natural",
+  "slug": "evolucao-e-selecao-natural",
+  "incidencia": 76
+ },
+ {
+  "materia": "biologia",
+  "materiaNome": "Biologia",
+  "area": "natureza",
+  "tema": "Ecologia: cadeias e ciclos biogeoquímicos",
+  "slug": "ecologia-cadeias-e-ciclos-biogeoquimicos",
+  "incidencia": 83
+ },
+ {
+  "materia": "biologia",
+  "materiaNome": "Biologia",
+  "area": "natureza",
+  "tema": "Problemas ambientais brasileiros",
+  "slug": "problemas-ambientais-brasileiros",
+  "incidencia": 79
+ },
+ {
+  "materia": "biologia",
+  "materiaNome": "Biologia",
+  "area": "natureza",
+  "tema": "Fisiologia humana: sistemas",
+  "slug": "fisiologia-humana-sistemas",
+  "incidencia": 66
+ },
+ {
+  "materia": "biologia",
+  "materiaNome": "Biologia",
+  "area": "natureza",
+  "tema": "Imunologia e vacinas",
+  "slug": "imunologia-e-vacinas",
+  "incidencia": 61
+ },
+ {
+  "materia": "biologia",
+  "materiaNome": "Biologia",
+  "area": "natureza",
+  "tema": "Botânica e reino vegetal",
+  "slug": "botanica-e-reino-vegetal",
+  "incidencia": 47
+ },
+ {
+  "materia": "biologia",
+  "materiaNome": "Biologia",
+  "area": "natureza",
+  "tema": "Zoologia e classificação",
+  "slug": "zoologia-e-classificacao",
+  "incidencia": 52
+ },
+ {
+  "materia": "biologia",
+  "materiaNome": "Biologia",
+  "area": "natureza",
+  "tema": "Genética: grupos sanguíneos e heredogramas",
+  "slug": "genetica-grupos-sanguineos-e-heredogramas",
+  "incidencia": 61
+ },
+ {
+  "materia": "biologia",
+  "materiaNome": "Biologia",
+  "area": "natureza",
+  "tema": "Vírus, bactérias e doenças infecciosas",
+  "slug": "virus-bacterias-e-doencas-infecciosas",
+  "incidencia": 72
+ },
+ {
+  "materia": "biologia",
+  "materiaNome": "Biologia",
+  "area": "natureza",
+  "tema": "Biomas brasileiros e biodiversidade",
+  "slug": "biomas-brasileiros-e-biodiversidade",
+  "incidencia": 68
+ },
+ {
+  "materia": "historia",
+  "materiaNome": "História",
+  "area": "humanas",
+  "tema": "Brasil Colônia: economia e escravidão",
+  "slug": "brasil-colonia-economia-e-escravidao",
+  "incidencia": 74
+ },
+ {
+  "materia": "historia",
+  "materiaNome": "História",
+  "area": "humanas",
+  "tema": "Independência e Primeiro Reinado",
+  "slug": "independencia-e-primeiro-reinado",
+  "incidencia": 63
+ },
+ {
+  "materia": "historia",
+  "materiaNome": "História",
+  "area": "humanas",
+  "tema": "Segundo Reinado e abolição",
+  "slug": "segundo-reinado-e-abolicao",
+  "incidencia": 66
+ },
+ {
+  "materia": "historia",
+  "materiaNome": "História",
+  "area": "humanas",
+  "tema": "República Velha e coronelismo",
+  "slug": "republica-velha-e-coronelismo",
+  "incidencia": 68
+ },
+ {
+  "materia": "historia",
+  "materiaNome": "História",
+  "area": "humanas",
+  "tema": "Era Vargas",
+  "slug": "era-vargas",
+  "incidencia": 78
+ },
+ {
+  "materia": "historia",
+  "materiaNome": "História",
+  "area": "humanas",
+  "tema": "Ditadura Militar no Brasil",
+  "slug": "ditadura-militar-no-brasil",
+  "incidencia": 81
+ },
+ {
+  "materia": "historia",
+  "materiaNome": "História",
+  "area": "humanas",
+  "tema": "Redemocratização e Nova República",
+  "slug": "redemocratizacao-e-nova-republica",
+  "incidencia": 70
+ },
+ {
+  "materia": "historia",
+  "materiaNome": "História",
+  "area": "humanas",
+  "tema": "Revolução Industrial",
+  "slug": "revolucao-industrial",
+  "incidencia": 65
+ },
+ {
+  "materia": "historia",
+  "materiaNome": "História",
+  "area": "humanas",
+  "tema": "Primeira e Segunda Guerra Mundial",
+  "slug": "primeira-e-segunda-guerra-mundial",
+  "incidencia": 77
+ },
+ {
+  "materia": "historia",
+  "materiaNome": "História",
+  "area": "humanas",
+  "tema": "Guerra Fria e bipolaridade",
+  "slug": "guerra-fria-e-bipolaridade",
+  "incidencia": 72
+ },
+ {
+  "materia": "historia",
+  "materiaNome": "História",
+  "area": "humanas",
+  "tema": "Revoluções: Francesa e Russa",
+  "slug": "revolucoes-francesa-e-russa",
+  "incidencia": 59
+ },
+ {
+  "materia": "historia",
+  "materiaNome": "História",
+  "area": "humanas",
+  "tema": "África e América pré-colonial",
+  "slug": "africa-e-america-pre-colonial",
+  "incidencia": 51
+ },
+ {
+  "materia": "historia",
+  "materiaNome": "História",
+  "area": "humanas",
+  "tema": "Idade Média e feudalismo",
+  "slug": "idade-media-e-feudalismo",
+  "incidencia": 43
+ },
+ {
+  "materia": "historia",
+  "materiaNome": "História",
+  "area": "humanas",
+  "tema": "Movimentos sociais e Diretas Já",
+  "slug": "movimentos-sociais-e-diretas-ja",
+  "incidencia": 54
+ },
+ {
+  "materia": "historia",
+  "materiaNome": "História",
+  "area": "humanas",
+  "tema": "Geografia: urbanização e êxodo rural",
+  "slug": "geografia-urbanizacao-e-exodo-rural",
+  "incidencia": 70
+ },
+ {
+  "materia": "filosofia",
+  "materiaNome": "Filosofia",
+  "area": "humanas",
+  "tema": "Filosofia antiga: Sócrates, Platão e Aristóteles",
+  "slug": "filosofia-antiga-socrates-platao-e-aristoteles",
+  "incidencia": 72
+ },
+ {
+  "materia": "filosofia",
+  "materiaNome": "Filosofia",
+  "area": "humanas",
+  "tema": "Ética e moral",
+  "slug": "etica-e-moral",
+  "incidencia": 78
+ },
+ {
+  "materia": "filosofia",
+  "materiaNome": "Filosofia",
+  "area": "humanas",
+  "tema": "Contratualismo: Hobbes, Locke e Rousseau",
+  "slug": "contratualismo-hobbes-locke-e-rousseau",
+  "incidencia": 68
+ },
+ {
+  "materia": "filosofia",
+  "materiaNome": "Filosofia",
+  "area": "humanas",
+  "tema": "Filosofia política e democracia",
+  "slug": "filosofia-politica-e-democracia",
+  "incidencia": 71
+ },
+ {
+  "materia": "filosofia",
+  "materiaNome": "Filosofia",
+  "area": "humanas",
+  "tema": "Teoria do conhecimento: racionalismo x empirismo",
+  "slug": "teoria-do-conhecimento-racionalismo-x-empirism",
+  "incidencia": 57
+ },
+ {
+  "materia": "filosofia",
+  "materiaNome": "Filosofia",
+  "area": "humanas",
+  "tema": "Kant e o imperativo categórico",
+  "slug": "kant-e-o-imperativo-categorico",
+  "incidencia": 52
+ },
+ {
+  "materia": "filosofia",
+  "materiaNome": "Filosofia",
+  "area": "humanas",
+  "tema": "Escola de Frankfurt e indústria cultural",
+  "slug": "escola-de-frankfurt-e-industria-cultural",
+  "incidencia": 64
+ },
+ {
+  "materia": "filosofia",
+  "materiaNome": "Filosofia",
+  "area": "humanas",
+  "tema": "Existencialismo: Sartre e Beauvoir",
+  "slug": "existencialismo-sartre-e-beauvoir",
+  "incidencia": 58
+ },
+ {
+  "materia": "filosofia",
+  "materiaNome": "Filosofia",
+  "area": "humanas",
+  "tema": "Nietzsche e a crítica à moral",
+  "slug": "nietzsche-e-a-critica-a-moral",
+  "incidencia": 55
+ },
+ {
+  "materia": "filosofia",
+  "materiaNome": "Filosofia",
+  "area": "humanas",
+  "tema": "Sociologia clássica: Marx, Durkheim e Weber",
+  "slug": "sociologia-classica-marx-durkheim-e-weber",
+  "incidencia": 69
+ },
+ {
+  "materia": "filosofia",
+  "materiaNome": "Filosofia",
+  "area": "humanas",
+  "tema": "Cidadania e direitos humanos",
+  "slug": "cidadania-e-direitos-humanos",
+  "incidencia": 80
+ },
+ {
+  "materia": "filosofia",
+  "materiaNome": "Filosofia",
+  "area": "humanas",
+  "tema": "Bioética e dilemas contemporâneos",
+  "slug": "bioetica-e-dilemas-contemporaneos",
+  "incidencia": 61
+ },
+ {
+  "materia": "filosofia",
+  "materiaNome": "Filosofia",
+  "area": "humanas",
+  "tema": "Estado, poder e Maquiavel",
+  "slug": "estado-poder-e-maquiavel",
+  "incidencia": 47
+ },
+ {
+  "materia": "filosofia",
+  "materiaNome": "Filosofia",
+  "area": "humanas",
+  "tema": "Trabalho, alienação e capitalismo",
+  "slug": "trabalho-alienacao-e-capitalismo",
+  "incidencia": 66
+ },
+ {
+  "materia": "filosofia",
+  "materiaNome": "Filosofia",
+  "area": "humanas",
+  "tema": "Movimentos sociais e identidade",
+  "slug": "movimentos-sociais-e-identidade",
+  "incidencia": 59
+ },
+ {
+  "materia": "ingles",
+  "materiaNome": "Inglês",
+  "area": "linguagens",
+  "tema": "Reading strategies: skimming e scanning",
+  "slug": "reading-strategies-skimming-e-scanning",
+  "incidencia": 86
+ },
+ {
+  "materia": "ingles",
+  "materiaNome": "Inglês",
+  "area": "linguagens",
+  "tema": "Cognatos e falsos cognatos",
+  "slug": "cognatos-e-falsos-cognatos",
+  "incidencia": 81
+ },
+ {
+  "materia": "ingles",
+  "materiaNome": "Inglês",
+  "area": "linguagens",
+  "tema": "Verb tenses: present, past e future",
+  "slug": "verb-tenses-present-past-e-future",
+  "incidencia": 70
+ },
+ {
+  "materia": "ingles",
+  "materiaNome": "Inglês",
+  "area": "linguagens",
+  "tema": "Modal verbs",
+  "slug": "modal-verbs",
+  "incidencia": 62
+ },
+ {
+  "materia": "ingles",
+  "materiaNome": "Inglês",
+  "area": "linguagens",
+  "tema": "Conditionals",
+  "slug": "conditionals",
+  "incidencia": 54
+ },
+ {
+  "materia": "ingles",
+  "materiaNome": "Inglês",
+  "area": "linguagens",
+  "tema": "Passive voice",
+  "slug": "passive-voice",
+  "incidencia": 57
+ },
+ {
+  "materia": "ingles",
+  "materiaNome": "Inglês",
+  "area": "linguagens",
+  "tema": "Connectives e linking words",
+  "slug": "connectives-e-linking-words",
+  "incidencia": 66
+ },
+ {
+  "materia": "ingles",
+  "materiaNome": "Inglês",
+  "area": "linguagens",
+  "tema": "Phrasal verbs mais cobrados",
+  "slug": "phrasal-verbs-mais-cobrados",
+  "incidencia": 59
+ },
+ {
+  "materia": "ingles",
+  "materiaNome": "Inglês",
+  "area": "linguagens",
+  "tema": "Vocabulário por campo semântico",
+  "slug": "vocabulario-por-campo-semantico",
+  "incidencia": 73
+ },
+ {
+  "materia": "ingles",
+  "materiaNome": "Inglês",
+  "area": "linguagens",
+  "tema": "Interpretação de charges e tirinhas",
+  "slug": "interpretacao-de-charges-e-tirinhas",
+  "incidencia": 76
+ },
+ {
+  "materia": "ingles",
+  "materiaNome": "Inglês",
+  "area": "linguagens",
+  "tema": "Textos jornalísticos e científicos",
+  "slug": "textos-jornalisticos-e-cientificos",
+  "incidencia": 64
+ },
+ {
+  "materia": "ingles",
+  "materiaNome": "Inglês",
+  "area": "linguagens",
+  "tema": "Reported speech",
+  "slug": "reported-speech",
+  "incidencia": 48
+ },
+ {
+  "materia": "ingles",
+  "materiaNome": "Inglês",
+  "area": "linguagens",
+  "tema": "Word formation: prefixos e sufixos",
+  "slug": "word-formation-prefixos-e-sufixos",
+  "incidencia": 46
+ },
+ {
+  "materia": "ingles",
+  "materiaNome": "Inglês",
+  "area": "linguagens",
+  "tema": "Inferência e ideia principal",
+  "slug": "inferencia-e-ideia-principal",
+  "incidencia": 78
+ },
+ {
+  "materia": "ingles",
+  "materiaNome": "Inglês",
+  "area": "linguagens",
+  "tema": "Pronomes e referência textual",
+  "slug": "pronomes-e-referencia-textual",
+  "incidencia": 55
+ },
+ {
+  "materia": "artes",
+  "materiaNome": "Artes",
+  "area": "linguagens",
+  "tema": "Renascimento e Barroco",
+  "slug": "renascimento-e-barroco",
+  "incidencia": 68
+ },
+ {
+  "materia": "artes",
+  "materiaNome": "Artes",
+  "area": "linguagens",
+  "tema": "Barroco e Aleijadinho no Brasil",
+  "slug": "barroco-e-aleijadinho-no-brasil",
+  "incidencia": 71
+ },
+ {
+  "materia": "artes",
+  "materiaNome": "Artes",
+  "area": "linguagens",
+  "tema": "Impressionismo e pós-impressionismo",
+  "slug": "impressionismo-e-pos-impressionismo",
+  "incidencia": 63
+ },
+ {
+  "materia": "artes",
+  "materiaNome": "Artes",
+  "area": "linguagens",
+  "tema": "Vanguardas europeias",
+  "slug": "vanguardas-europeias",
+  "incidencia": 66
+ },
+ {
+  "materia": "artes",
+  "materiaNome": "Artes",
+  "area": "linguagens",
+  "tema": "Semana de Arte Moderna de 1922",
+  "slug": "semana-de-arte-moderna-de-1922",
+  "incidencia": 82
+ },
+ {
+  "materia": "artes",
+  "materiaNome": "Artes",
+  "area": "linguagens",
+  "tema": "Modernismo brasileiro: Tarsila e Portinari",
+  "slug": "modernismo-brasileiro-tarsila-e-portinari",
+  "incidencia": 77
+ },
+ {
+  "materia": "artes",
+  "materiaNome": "Artes",
+  "area": "linguagens",
+  "tema": "Arte contemporânea e instalação",
+  "slug": "arte-contemporanea-e-instalacao",
+  "incidencia": 55
+ },
+ {
+  "materia": "artes",
+  "materiaNome": "Artes",
+  "area": "linguagens",
+  "tema": "Arte indígena e afro-brasileira",
+  "slug": "arte-indigena-e-afro-brasileira",
+  "incidencia": 74
+ },
+ {
+  "materia": "artes",
+  "materiaNome": "Artes",
+  "area": "linguagens",
+  "tema": "Fotografia e cinema como linguagem",
+  "slug": "fotografia-e-cinema-como-linguagem",
+  "incidencia": 60
+ },
+ {
+  "materia": "artes",
+  "materiaNome": "Artes",
+  "area": "linguagens",
+  "tema": "Música popular brasileira",
+  "slug": "musica-popular-brasileira",
+  "incidencia": 69
+ },
+ {
+  "materia": "artes",
+  "materiaNome": "Artes",
+  "area": "linguagens",
+  "tema": "Teatro: do grego ao contemporâneo",
+  "slug": "teatro-do-grego-ao-contemporaneo",
+  "incidencia": 52
+ },
+ {
+  "materia": "artes",
+  "materiaNome": "Artes",
+  "area": "linguagens",
+  "tema": "Patrimônio cultural e tombamento",
+  "slug": "patrimonio-cultural-e-tombamento",
+  "incidencia": 58
+ },
+ {
+  "materia": "artes",
+  "materiaNome": "Artes",
+  "area": "linguagens",
+  "tema": "Arte grega e romana",
+  "slug": "arte-grega-e-romana",
+  "incidencia": 41
+ },
+ {
+  "materia": "artes",
+  "materiaNome": "Artes",
+  "area": "linguagens",
+  "tema": "Dança e corpo como expressão",
+  "slug": "danca-e-corpo-como-expressao",
+  "incidencia": 37
+ },
+ {
+  "materia": "artes",
+  "materiaNome": "Artes",
+  "area": "linguagens",
+  "tema": "Design, publicidade e cultura visual",
+  "slug": "design-publicidade-e-cultura-visual",
+  "incidencia": 49
+ }
+]

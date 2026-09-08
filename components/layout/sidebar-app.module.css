@@ -1,0 +1,194 @@
+/* Navegação da área autenticada — faixa no TOPO.
+   Era uma coluna fixa de 248px à esquerda; virou barra horizontal com as
+   ferramentas numa cápsula. Usa os tokens do globals.css — mesma identidade
+   do site. */
+
+.wrap { min-height: 100vh; }
+
+.topo {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  background: var(--material-chrome);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.topoLinha {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px clamp(16px, 3vw, 30px) 0;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--text);
+  white-space: nowrap;
+}
+.brand small {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.brandMark {
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 7px;
+  background: var(--surface-2);
+  flex: none;
+}
+.brandMark svg { width: 14px; height: 14px; }
+
+.topoAcoes {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.conta {
+  padding: 8px 15px;
+  border-radius: 99px;
+  corner-shape: round;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text-2);
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  max-width: 26ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color .24s var(--ease), border-color .24s var(--ease),
+              background .24s var(--ease), transform .16s var(--ease);
+}
+.conta:hover { color: var(--text); border-color: var(--line-strong); }
+.conta:active { transform: scale(.97); transition-duration: .09s; }
+.conta:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+}
+.menuConta {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 2;
+  min-width: 190px;
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+  border-radius: var(--r);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  box-shadow: var(--elev-2);
+  /* Nasce do botão que o abriu, não do próprio centro. */
+  transform-origin: top right;
+}
+.itemConta {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--text-2);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  transition: color .2s var(--ease), background .2s var(--ease);
+}
+.itemConta:hover { color: var(--text); background: var(--surface-2); }
+.itemConta:active { background: var(--surface-3); transition-duration: .09s; }
+.itemConta[aria-current="page"] { color: var(--text); background: var(--surface-2); }
+
+/* ---------- trilha das ferramentas ---------- */
+/* A casca rola; a cápsula por dentro tem a largura do conteúdo. Separar as
+   duas é o que permite o indicador se posicionar por `offsetLeft` sem que a
+   rolagem interfira. */
+.trilhaCasca {
+  padding: 10px clamp(16px, 3vw, 30px) 12px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  display: flex;
+  /* `safe center` e não `center`: centralizar dentro de um contêiner que rola
+     é a armadilha clássica — quando o conteúdo passa da largura, ele transborda
+     para os DOIS lados, e o que sai pela esquerda fica inalcançável, porque não
+     existe rolagem negativa. As primeiras abas simplesmente somem.
+
+     A palavra `safe` diz ao navegador: centralize enquanto couber, e volte a
+     alinhar pelo começo assim que não couber. Onde ela não existir, a
+     declaração inteira é ignorada e sobra o alinhamento à esquerda — que é
+     feio, mas alcançável. É a degradação certa. */
+  justify-content: safe center;
+}
+.trilhaCasca::-webkit-scrollbar { display: none; }
+
+.trilha {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  position: relative;
+  padding: 4px;
+  border-radius: 99px;
+  corner-shape: round;
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  contain: layout paint;
+}
+
+.aba {
+  position: relative;
+  z-index: 1;
+  padding: 7px 14px;
+  border-radius: 99px;
+  corner-shape: round;
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: 0.004em;
+  color: var(--text-2);
+  white-space: nowrap;
+  transition: color .24s var(--ease);
+  -webkit-tap-highlight-color: var(--accent-dim);
+}
+.aba:hover { color: var(--text); }
+.aba[aria-current="page"] { color: var(--text); }
+.aba:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+.trilhaIndicador {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  border-radius: 99px;
+  corner-shape: round;
+  background: var(--surface-3);
+  z-index: 0;
+  pointer-events: none;
+  transition: opacity .2s var(--ease);
+  will-change: transform, width;
+}
+
+/* O conteúdo não recua mais 248px: a barra é horizontal e a largura inteira
+   volta para tabela, painel e grade de questões, que é onde ela faz falta. */
+.main { min-height: 100vh; }
+
+@media (prefers-reduced-transparency: reduce) {
+  .topo { background: var(--surface); backdrop-filter: none; }
+}

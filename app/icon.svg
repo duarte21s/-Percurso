@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Favicon: a marca vazada num quadrado de acento. O fundo cheio existe
+       porque a aba do navegador não tem tema previsível — silhueta solta
+       some contra chrome escuro. Verde-pinho #1f6356 é o --accent do tema
+       claro, a cor de marca; o vazado usa o --sobre-accent. -->
+  <rect width="32" height="32" rx="7.4" fill="#1f6356"/>
+  <path fill="#fcfcfb" fill-rule="evenodd"
+        d="M9.7 6.5h12.6v19.3L16 21.1l-6.3 4.7zM16 12a2.4 2.4 0 1 0 0 4.8 2.4 2.4 0 0 0 0-4.8z"/>
+</svg>

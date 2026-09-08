@@ -1,0 +1,109 @@
+.hero :global(.hero-sticky) {
+  background: #0b0d0e;
+  --accent: #a5cbb9;
+  --accent-2: #c4dccf;
+  --accent-brilho: #dbe9df;
+  --text-2: #acb0ad;
+}
+
+.hero :global(.hero-stage) {
+  inset: 0 -4% 0 30%;
+}
+
+.hero :global(.hero-content) {
+  top: 51%;
+  left: 5.5%;
+  width: min(36vw, 550px);
+  text-align: left;
+  transform: translateY(-46%);
+}
+
+.hero :global(.hero-kicker) {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  backdrop-filter: none;
+  font-size: 10px;
+  letter-spacing: .06em;
+  margin-bottom: 28px;
+}
+
+.hero :global(.hero-kicker .dot) { animation: none; box-shadow: none; }
+.hero :global(.h1-stack) { min-height: 270px; place-items: center start; }
+.hero :global(h1.hero-h1) { font-size: clamp(44px, 4.7vw, 74px); line-height: 1.07; text-wrap: pretty; }
+.hero :global(.hero-sub) { margin: 24px 0 0; max-width: 38ch; font-size: 15px; line-height: 1.75; }
+.hero :global(.hero-cta) { justify-content: flex-start; margin-top: 30px; }
+.hero :global(.hero-cta .btn) { font-size: 12px; padding-inline: 18px; }
+.hero :global(.hero-cta .btn:not(.btn-primary)) { background: #ffffff05; backdrop-filter: none; }
+
+.hero :global(.scroll-hint) {
+  left: 5.5%;
+  bottom: 38px;
+  transform: none;
+  flex-direction: row;
+  gap: 12px;
+  font-size: 10px;
+}
+
+.hero :global(.hero-rail) { left: auto; right: 5.5%; bottom: 42px; transform: none; }
+.hero :global(.rail-track) { width: clamp(90px, 14vw, 200px); }
+
+@media (max-width: 860px) {
+  .hero :global(.hero-content) {
+    top: max(92px, 11svh);
+    left: 50%;
+    width: min(90%, 630px);
+    transform: translateX(-50%);
+    text-align: center;
+  }
+  .hero :global(.hero-stage) { inset: 32% auto 4% 50%; width: 120%; transform: translateX(-54%); }
+  .hero :global(.hero-kicker) { font-size: 9px; margin-bottom: 20px; }
+  .hero :global(.h1-stack) { min-height: 160px; place-items: center; }
+  .hero :global(h1.hero-h1) { font-size: clamp(34px, 6.2vw, 50px); text-wrap: balance; }
+  .hero :global(.hero-sub) { margin: 16px auto 0; font-size: 13px; line-height: 1.6; }
+  .hero :global(.hero-cta) { justify-content: center; margin-top: 20px; }
+  .hero :global(.hero-cta .btn) { padding-inline: 14px; }
+  .hero :global(.scroll-hint) { bottom: 25px; font-size: 8px; letter-spacing: .12em; }
+  .hero :global(.scroll-hint .mouse) { height: 27px; width: 18px; }
+  .hero :global(.hero-rail) { bottom: 32px; font-size: 9px; gap: 8px; }
+  .hero :global(.rail-track) { width: 75px; }
+}
+
+@media (max-width: 620px) and (max-height: 700px) {
+  .hero :global(.hero-content) { top: 80px; }
+  .hero :global(h1.hero-h1) { font-size: 30px; }
+  .hero :global(.h1-stack) { min-height: 136px; }
+  .hero :global(.hero-kicker) { margin-bottom: 12px; }
+  .hero :global(.hero-cta) { margin-top: 14px; }
+  .hero :global(.hero-stage) { top: 40%; }
+}
+
+@media (min-width: 861px) and (max-height: 650px) {
+  .hero :global(.hero-content) { top: 55%; }
+  .hero :global(h1.hero-h1) { font-size: clamp(34px, 4vw, 48px); }
+  .hero :global(.h1-stack) { min-height: 180px; }
+  .hero :global(.hero-kicker) { margin-bottom: 18px; }
+  .hero :global(.hero-sub) { margin-top: 16px; font-size: 13px; }
+  .hero :global(.hero-cta) { margin-top: 20px; }
+}
+
+@media (min-width: 621px) and (max-width: 860px) and (max-height: 550px) {
+  .hero :global(.hero-content) { top: 55%; left: 5%; width: 41%; transform: translateY(-45%); text-align: left; }
+  .hero :global(.hero-stage) { inset: 0 -8% 0 34%; width: auto; transform: none; }
+  .hero :global(h1.hero-h1) { font-size: 30px; }
+  .hero :global(.h1-stack) { min-height: 130px; }
+  .hero :global(.hero-kicker) { font-size: 7px; margin-bottom: 14px; }
+  .hero :global(.hero-sub) { font-size: 11px; margin: 12px 0 0; }
+  .hero :global(.hero-cta) { justify-content: flex-start; margin-top: 14px; }
+  .hero :global(.hero-cta .btn) { font-size: 10px; padding-inline: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero :global(.hero-sticky) { display: flex; flex-direction: column; padding: 120px 0 50px; gap: 10px; }
+  .hero :global(.hero-content) { position: relative; inset: auto; width: min(90%, 750px); transform: none; text-align: center; }
+  .hero :global(.hero-stage) { position: relative; inset: auto; width: 100%; transform: none; }
+  .hero :global(.h1-stack) { min-height: 0; }
+  .hero :global(.hero-sub) { margin-inline: auto; }
+  .hero :global(.hero-cta) { justify-content: center; }
+}

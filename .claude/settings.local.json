@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__claude_ai_Higgsfield__balance",
+      "mcp__claude_ai_Higgsfield__media_upload",
+      "Bash(curl -s -o /dev/null -w \"inicial:%{http_code}\\\\n\" -X PUT -H \"Content-Type: image/png\" --data-binary @imagem-inicial.png 'https://upload.higgsfield.ai/user_3Hp2Pfw9Et1eu9KrUfNwUtEA0C1/996fcc65-e8e3-4144-bcd0-24d2a38c3791.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAYPNTVMCGS6VNWGVM%2F20260812%2Feu-north-1%2Fs3%2Faws4_request&X-Amz-Date=20260812T165408Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=content-type%3Bhost&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEAgaCmV1LW5vcnRoLTEiRzBFAiAwPQ3w2MwipaM0ZTn578C9se8kidGQKdwCkhYndMbh5gIhAIbXrvMr%2FhI28GyYQqumGk8qmc7TQkBtyfWEFubVm3QjKrAFCNL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMNTgyODgxNzMwNzAxIgztAyMPwOWEOM%2B9znUqhAUvtgIzRmLFORgukkWkEXmXk4HY4fm4RdHkqzUESfFmpFz7WoLFq4Z2MW7tmvQqmp5FltOwEeoxx50Nwjo1x0nJoskyGl34onc4XGKQGWbi%2Bk7eRjU1eReSAiTCiYImQA0YwuNqq31TZzVkx7jy3wWkt9VxhGfpZqoHV%2FDV2NH8kC%2FVovXN7EnSQPPE4h07tR83QTKT3xYv6Jru6rVIsj%2FSDGKHIGjM583TgkselBtdjYhRGEpIe5tT6b28nnXv4w%2FrxDYas%2BogrB9ySNW7ga32rsSxIuda1cDUPUyhVlI%2FbAHcNBQQzleMdJFEcEHDZuIDWrwHPrb0J9KykePgZOjHOgFGkuhHFe6qe%2BcwdeIlLXQHkkXSusjjMNgdu7zHqQT9zFciIQXzs03nXKyIWOhzFuPg%2BF887Ufc%2BIy3ludZfMlY09YljhaqVP8cE6f19NUE%2BKGd2l8aFvmvWNOpSV2DoujLR1ABl4YS8Sy1ZISLym0Xms3gi7x%2FR17njgo%2BSlYZjgflr8Xn9m61k%2B4ikxPoo87NOpkHxKCNe0JDM%2Fi4IVbd%2FBvvIAGCnBqb46ltk1fRsFhIgTcW3vJKN8bPFEmq2I66MGBqiXeofC%2BHP6yDYfdgIzt62%2Buz6jKhDKq6jLnO7ss8tSQX2iBtSaVrmmY61LORiWiaXqMPUIROsdsNAeucACdXFBk1j6EV%2Bqt3Y9JyykEF9yU75c%2BhwgAaLww91pZzTnpMU7SwqE%2FfbU7Jj7FbzLXjgbsAfVlKFSLAnBqg39XC1e6La1uHZIg0ltuVzfUQAu%2B0MALdB7cKsFKDzkimVk9B0nA83vL2pU6Fm2l%2B%2BlOB%2FTnD1iB1me%2FGxny5n6BI8jDgw%2FLTBjqQAZ4Vyd84qWB3%2BXOeAy3OGXDX0HEKhSxEd%2FrhrAlojzxpVeGtsUuinS55yvG8Gh%2Bz6gTly%2B17UIGHDXxREOP8Ru2APbK%2BjLFKGi8PmNETDTmMvYeaRIcdlkJG8OAx3yzIy%2BhUM%2BdPgCCPcevKIuEaVIXzx1Va%2BHy9MwtTTjvvrimAHTmhy3LkyUVacA20pO4XQg%3D%3D&X-Amz-Signature=4be8bc361fd7b9245a9e45965695e9c1f33b9fb3b4b02310a1ece6018af601cb')",
+      "Bash(curl -s -o /dev/null -w \"final:%{http_code}\\\\n\" -X PUT -H \"Content-Type: image/png\" --data-binary @imagem-final.png 'https://upload.higgsfield.ai/user_3Hp2Pfw9Et1eu9KrUfNwUtEA0C1/218c082e-9b18-4641-ae02-9ffbe5ed900f.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAYPNTVMCGQJSLVZXI%2F20260812%2Feu-north-1%2Fs3%2Faws4_request&X-Amz-Date=20260812T165409Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=content-type%3Bhost&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEAkaCmV1LW5vcnRoLTEiRzBFAiBbd9yIS5usodarwDwrmUpDr7EgMTyA9kDmJMCNNsOGjAIhAMDUNB5Kn9TqHxV%2BmmCCWJUxm27iOutuaPjTc%2FYhdf1TKrAFCNL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMNTgyODgxNzMwNzAxIgwvX7HWidGQxJzZaTIqhAUT1IdPi%2B3OEXnSKbGzepet9dpTHOzwCjV08m3tEBTItbwT4wNZZoD4YQ%2FL44p14vjtAHchWPo2k4cMeAYqJaMEuOZQI5En1A7LhiIoJAKOBt2CU1fiQLmYlnQJ8y%2BpyTDaIpQSlSfbYuI%2BXbcOrmzpra1rJ2Ak%2B1%2FnIswxyxM6DJCrSa9y0S1sfVGj1J6MCKsdUEJzum81kLwO0q74%2BDZkmS5APPOQEai8591J%2BEZ3BiCLC8U5YvKbW%2BEVyIyzCozuexzcCanGYJShQ9ZpJVxlUe3PjpmCE1NN1E5U0wiv%2FVEDt2LGujvcjlZJbBIU%2Fdq9QRRfaUbt%2FTpLiOXfIQJbjwVsaG6%2BLdpglRHQJRWzgg2OfzQ257VkKjlpuv%2FQBCjpoQm%2BFGL7jW83Bw%2FFRq9d9rFRzaRIK1VcKsiB8rRUdmA7O1cB1ACEW7hajLAfOX7Z5BSVG8NW6JDR1qr%2FPQXuOqQKxnE%2BauZE7MDKYYuRaaQzgidIhEVXb88Mna7fmk%2BsJsRHwzNSMWqGtpewDYQ8GBab2z%2FI905wvKhIX6b4WDu1UrznBFBVgARWGfBZcBV8PTzi3jRKgAFPCB7Bg7KMYkS2FWabluooToXegZzA4rSgmKrF4mQjH6Fi1h27she5DKbvcBKQNlFY0S%2FZEmVNudYGYDL6jvF3mpDSct%2B1Es5k8RC9D8TB1wO1aRUf4w%2BDOSnD4LNx03nv96LqDwwWcAjr%2FRdUO4KZWvMfiqkZMNZcQ7ShTX1AgZcaNZA9RyPGAH2XY0A%2F528wujZZ6fp%2FyXDbbhhQaXTWdH3PnUVBzrv8ITJnA7sH0Zyy25Q%2BtdzK5bwMxs%2BLMOt698howdLCxLd8IDD1xPLTBjqQAew6IzoRenoHYl3R7aoY4knrhAY%2FxIlfEE9v2oyNCtGqghsCip1rvWTcCmKepdfq%2FOGOvgjuKkAsvdwCI7zV7QmO6J07SUvmy8RiRq7OItXgAXNcFRRWL8Wu8x740Z7ye3lbg8xURYls8FHbkH8ymR5%2FbhFMYGaX1kOIHHMeRQq5%2B2mTimDb7YNwwv8aD8xrQA%3D%3D&X-Amz-Signature=614951bef2d679008a158858cafaafc85a3d392a2b46c65c82233a5272d3ea32')",
+      "mcp__claude_ai_Higgsfield__media_confirm",
+      "mcp__claude_ai_Higgsfield__generate_image",
+      "mcp__claude_ai_Higgsfield__generate_video",
+      "Bash(python -c ' *)",
+      "mcp__claude_ai_Higgsfield__models_explore",
+      "mcp__claude_ai_Higgsfield__jobs_wait",
+      "Bash(curl -s -o \"hero-closed.png\" \"https://d8j0ntlcm91z4.cloudfront.net/user_3Hp2Pfw9Et1eu9KrUfNwUtEA0C1/hf_20260812_170238_e42208c5-b6d3-491d-92dd-debec08e856f.png\")",
+      "Bash(curl -s -o \"hero-open.png\" \"https://d8j0ntlcm91z4.cloudfront.net/user_3Hp2Pfw9Et1eu9KrUfNwUtEA0C1/hf_20260812_170512_51a859da-4ee0-4792-9a9e-0aa793aaf0e5.png\")",
+      "Bash(python -m http.server 8777 --bind 127.0.0.1)",
+      "Bash(node --check assets/js/main.js)",
+      "Bash(node --check assets/data/conteudo.js)",
+      "Bash(node -e ' *)",
+      "Bash(npm view *)",
+      "Bash(curl -s \"https://registry.npmjs.org/-/v1/search?text=higgsfield&size=15\")",
+      "Bash(node -e \"let d='';process.stdin.on\\('data',c=>d+=c\\).on\\('end',\\(\\)=>{const j=JSON.parse\\(d\\);console.log\\('total:',j.total\\);j.objects.forEach\\(o=>console.log\\('-',o.package.name,'@',o.package.version,'|',\\(o.package.description||''\\).slice\\(0,90\\)\\)\\)}\\)\")",
+      "Skill(claude-api)",
+      "Bash(mkdir -p public/media/referencia supabase/seed-data .referencia scripts lib app components)",
+      "Bash(cp assets/media/hero-livro.mp4 assets/media/hero-closed.png assets/media/hero-open.png public/media/)",
+      "Bash(cp imagem-inicial.png imagem-final.png public/media/referencia/)",
+      "Bash(cp assets/data/conteudo.js supabase/seed-data/conteudo.mjs)",
+      "Bash(cp assets/css/style.css assets/js/main.js .referencia/)",
+      "Bash(printf '\\\\n\\\\nexport { SUBJECTS, QUESTIONS, UNIS, TRACKS };\\\\n')",
+      "Bash(node -e \"import\\('./supabase/seed-data/conteudo.mjs'\\).then\\(m=>console.log\\('SUBJECTS',m.SUBJECTS.length,'QUESTIONS',m.QUESTIONS.length,'UNIS',m.UNIS.length,'TRACKS',m.TRACKS.length\\)\\)\")"
+    ]
+  }
+}

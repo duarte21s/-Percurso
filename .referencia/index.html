@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Percurso — Estude para o ENEM, vestibulares e concursos</title>
+<meta name="description" content="Plataforma de estudos para ENEM, vestibulares, concursos públicos e reforço escolar. Nove matérias, banco de questões comentadas, notas de corte das faculdades brasileiras e cronograma personalizado.">
+<meta name="theme-color" content="#08080a">
+<link rel="preload" as="image" href="assets/media/hero-closed.png">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="read-bar" id="readBar"></div>
+
+<!-- ============================ NAV ============================ -->
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand">
+      <span class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 4h6a3 3 0 0 1 3 3v13a2.5 2.5 0 0 0-2.5-2.5H2z"/>
+          <path d="M22 4h-6a3 3 0 0 0-3 3v13a2.5 2.5 0 0 1 2.5-2.5H22z"/>
+        </svg>
+      </span>
+      Percurso <small>Estudos</small>
+    </a>
+
+    <nav class="nav-links">
+      <a href="#trilhas">Trilhas</a>
+      <a href="#materias">Matérias</a>
+      <a href="#simulado">Simulado</a>
+      <a href="#faculdades">Faculdades</a>
+      <a href="#plano">Cronograma</a>
+    </nav>
+
+    <div class="nav-actions">
+      <a href="#simulado" class="btn btn-ghost">Entrar</a>
+      <a href="#plano" class="btn btn-primary">Começar agora</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="nav-mobile" id="navMobile">
+    <a href="#trilhas">Trilhas</a>
+    <a href="#materias">Matérias</a>
+    <a href="#simulado">Simulado</a>
+    <a href="#faculdades">Faculdades</a>
+    <a href="#plano">Cronograma</a>
+    <a href="#faq">Dúvidas</a>
+    <a href="#plano" class="btn btn-primary">Começar agora</a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============================ HERO ============================ -->
+<section class="hero-scroll" id="heroScroll">
+  <div class="hero-sticky">
+
+    <div class="hero-grid"></div>
+    <div class="hero-glow" id="heroGlow"></div>
+    <div class="hero-dust" id="heroDust"></div>
+
+    <!-- palco do livro: vídeo gerado, controlado pelo scroll -->
+    <div class="hero-stage">
+      <div class="hero-stage-inner" id="heroStage">
+        <img class="hero-poster" id="heroPoster" src="assets/media/hero-closed.png" alt="">
+        <video class="hero-video" id="heroVideo"
+               src="assets/media/hero-livro.mp4"
+               muted playsinline preload="auto"
+               aria-hidden="true"></video>
+
+        <!-- fallback caso o vídeo não possa ser controlado pelo scroll -->
+        <div class="book3d" id="book3d">
+          <div class="book3d-inner" id="book3dInner">
+            <div class="cover back"></div>
+            <div class="page" data-p="1"></div>
+            <div class="page" data-p="2"></div>
+            <div class="page" data-p="3"></div>
+            <div class="page" data-p="4"></div>
+            <div class="cover front" data-p="0"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- texto do hero -->
+    <div class="hero-content">
+      <span class="hero-kicker"><i class="dot"></i> ENEM · Vestibulares · Concursos · Escola</span>
+
+      <div class="h1-stack" id="h1Stack">
+        <div class="h1-slide" data-slide="0">
+          <h1 class="hero-h1" data-split>Todo objetivo começa numa <em>página em branco</em>.</h1>
+          <p class="hero-sub">Role a página. O livro abre junto com o seu percurso.</p>
+        </div>
+        <div class="h1-slide" data-slide="1">
+          <h1 class="hero-h1" data-split>Estude <em>o que cai</em>. Do jeito que cai.</h1>
+          <p class="hero-sub">Nove matérias organizadas pela lógica das bancas — não pela ordem do livro didático.</p>
+        </div>
+        <div class="h1-slide" data-slide="2">
+          <h1 class="hero-h1" data-split>Cada página vira uma <em>questão a menos</em>.</h1>
+          <p class="hero-sub">Questões comentadas, simulados cronometrados e correção que explica o erro.</p>
+        </div>
+        <div class="h1-slide" data-slide="3">
+          <h1 class="hero-h1" data-split>Da primeira página à <em>aprovação</em>.</h1>
+          <p class="hero-sub">Monte seu cronograma, acompanhe as notas de corte e feche o ciclo.</p>
+          <div class="hero-cta" id="heroCta">
+            <a href="#plano" class="btn btn-primary">Montar meu cronograma <span class="arrow">→</span></a>
+            <a href="#simulado" class="btn">Fazer um simulado</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-hint" id="scrollHint">
+      <span class="mouse"></span>
+      Role para abrir
+    </div>
+
+    <div class="hero-rail">
+      <span class="rail-num" id="railNum">01</span>
+      <span class="rail-track"><i class="rail-fill" id="railFill"></i></span>
+      <span>04</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================ MARQUEE ============================ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="marqueeTrack"></div>
+</div>
+
+<!-- ============================ ESTATÍSTICAS ============================ -->
+<section class="section">
+  <div class="wrap">
+    <div class="stats rv">
+      <div class="stat">
+        <div class="stat-num" data-count="1219" data-suffix="+">0</div>
+        <div class="stat-label">Aulas em vídeo e material escrito</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" data-count="24" data-suffix=" mil">0</div>
+        <div class="stat-label">Questões comentadas alternativa por alternativa</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" data-count="9">0</div>
+        <div class="stat-label">Matérias da base do ensino médio</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" data-count="46" data-suffix="+">0</div>
+        <div class="stat-label">Cursos de universidades brasileiras mapeados</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ TRILHAS ============================ -->
+<section class="section" id="trilhas">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="head-left rv">
+        <span class="eyebrow">Trilhas</span>
+        <h2 class="title">Escolha o seu <em>objetivo</em>.<br>O resto se organiza sozinho.</h2>
+        <p class="lede">Cada trilha reordena o conteúdo, o peso das matérias e o tipo de questão de acordo com a prova que você vai prestar. Você não estuda tudo — estuda o que aquela banca cobra.</p>
+      </div>
+      <a href="#materias" class="btn btn-ghost rv rv-2">Ver todas as matérias <span class="arrow">→</span></a>
+    </div>
+
+    <div class="tracks" id="tracks"></div>
+  </div>
+</section>
+
+<!-- ============================ MATÉRIAS ============================ -->
+<section class="section" id="materias">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="head-left rv">
+        <span class="eyebrow">Matérias</span>
+        <h2 class="title">Nove matérias.<br><em>Zero</em> enrolação.</h2>
+        <p class="lede">Abra qualquer matéria para ver os tópicos e o quanto cada um costuma aparecer nas provas. A barra à direita indica a incidência histórica do tema.</p>
+      </div>
+    </div>
+
+    <div class="subject-filter rv rv-1" id="subjectFilter">
+      <button class="pill is-active" data-area="todas">Todas</button>
+      <button class="pill" data-area="exatas">Exatas</button>
+      <button class="pill" data-area="natureza">Natureza</button>
+      <button class="pill" data-area="humanas">Humanas</button>
+      <button class="pill" data-area="linguagens">Linguagens</button>
+    </div>
+
+    <div class="subjects" id="subjects"></div>
+  </div>
+</section>
+
+<!-- ============================ SIMULADO ============================ -->
+<section class="section" id="simulado">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="head-left rv">
+        <span class="eyebrow">Simulado</span>
+        <h2 class="title">Responda agora.<br>Descubra <em>por que</em> errou.</h2>
+        <p class="lede">Um recorte real do banco de questões. Escolha a matéria, responda e leia o comentário — é ali que o estudo acontece de verdade.</p>
+      </div>
+    </div>
+
+    <div class="quiz rv rv-1" id="quiz">
+      <div class="quiz-top">
+        <div class="quiz-meta">
+          <div class="field sel">
+            <select class="select" id="quizSubject" aria-label="Escolher matéria">
+              <option value="todas">Todas as matérias</option>
+            </select>
+          </div>
+          <span class="quiz-count" id="quizCount">01 / 03</span>
+        </div>
+        <div class="score">
+          <span>Acertos <b id="scoreRight">0</b></span>
+          <span>Erros <b id="scoreWrong">0</b></span>
+        </div>
+      </div>
+
+      <div class="quiz-progress"><i id="quizBar"></i></div>
+
+      <div class="quiz-body" id="quizBody"></div>
+
+      <div class="quiz-foot">
+        <span class="dim" style="font-size:12.5px">Questões autorais no formato das principais bancas.</span>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn btn-ghost" id="quizRestart">Recomeçar</button>
+          <button class="btn btn-accent" id="quizNext">Próxima <span class="arrow">→</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FACULDADES ============================ -->
+<section class="section" id="faculdades">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="head-left rv">
+        <span class="eyebrow">Faculdades brasileiras</span>
+        <h2 class="title">Onde você quer <em>entrar</em>?</h2>
+        <p class="lede">Busque por curso, instituição ou estado e veja a nota de referência para ampla concorrência. Use como meta — não como promessa.</p>
+      </div>
+      <div class="rv rv-2" style="text-align:right">
+        <div class="stat-num" style="font-size:clamp(26px,3vw,36px)" id="uniTotal">46</div>
+        <div class="dim" style="font-size:12.5px">cursos listados</div>
+      </div>
+    </div>
+
+    <div class="uni-tools rv rv-1">
+      <div class="field">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>
+        </svg>
+        <input class="input" id="uniSearch" type="search" placeholder="Buscar curso ou universidade…" autocomplete="off">
+      </div>
+      <div class="field sel">
+        <select class="select" id="uniRegion" aria-label="Filtrar por região">
+          <option value="todas">Todas as regiões</option>
+          <option value="sudeste">Sudeste</option>
+          <option value="sul">Sul</option>
+          <option value="nordeste">Nordeste</option>
+          <option value="norte">Norte</option>
+          <option value="centro-oeste">Centro-Oeste</option>
+        </select>
+      </div>
+      <div class="field sel">
+        <select class="select" id="uniSort" aria-label="Ordenar">
+          <option value="corte-desc">Nota: maior primeiro</option>
+          <option value="corte-asc">Nota: menor primeiro</option>
+          <option value="nome">Instituição (A–Z)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="uni-table rv rv-2">
+      <div class="uni-scroll">
+        <table class="uni">
+          <thead>
+            <tr>
+              <th>Instituição</th>
+              <th>Curso</th>
+              <th>UF</th>
+              <th>Ingresso</th>
+              <th>Nota de referência</th>
+            </tr>
+          </thead>
+          <tbody id="uniBody"></tbody>
+        </table>
+      </div>
+    </div>
+    <p class="dim rv" style="font-size:12.5px;margin-top:16px;max-width:70ch">
+      As notas são referências aproximadas de ampla concorrência e mudam a cada edição, variando por campus, turno e modalidade de cota. Consulte sempre o edital oficial da instituição.
+    </p>
+  </div>
+</section>
+
+<!-- ============================ CRONOGRAMA ============================ -->
+<section class="section" id="plano">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="head-left rv">
+        <span class="eyebrow">Cronograma</span>
+        <h2 class="title">Um plano que cabe<br>na <em>sua</em> semana.</h2>
+        <p class="lede">Diga quanto tempo você tem e o que precisa priorizar. O cronograma distribui as matérias com revisão espaçada e um dia de descanso — porque plano que ignora cansaço não sobrevive à segunda semana.</p>
+      </div>
+    </div>
+
+    <div class="planner">
+      <form class="planner-form rv rv-1" id="plannerForm">
+        <div class="form-row">
+          <label for="pObjetivo">Objetivo</label>
+          <div class="field sel" style="width:100%">
+            <select class="select" id="pObjetivo">
+              <option value="enem">ENEM</option>
+              <option value="vestibular">Vestibular específico</option>
+              <option value="concurso">Concurso público</option>
+              <option value="militar">Carreira militar</option>
+              <option value="escola">Reforço escolar</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label for="pHoras">Horas de estudo por dia</label>
+          <div class="range-wrap">
+            <input type="range" id="pHoras" min="1" max="10" step="1" value="4">
+            <span class="range-val" id="pHorasVal">4h</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label for="pDias">Dias por semana</label>
+          <div class="range-wrap">
+            <input type="range" id="pDias" min="3" max="7" step="1" value="6">
+            <span class="range-val" id="pDiasVal">6 dias</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label>Prioridade</label>
+          <div class="check-grid" id="pMaterias"></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:100%">
+          Gerar cronograma <span class="arrow">→</span>
+        </button>
+      </form>
+
+      <div class="plan-out rv rv-2" id="planOut">
+        <div class="plan-empty">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" width="34" height="34" style="opacity:.5">
+            <rect x="3" y="4.5" width="18" height="16" rx="2.5"/>
+            <path d="M3 9.5h18M8 2.5v4M16 2.5v4"/>
+          </svg>
+          <span>Ajuste os campos ao lado e gere sua semana de estudos.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ MÉTODO ============================ -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="head-left rv">
+        <span class="eyebrow">Método</span>
+        <h2 class="title">Quatro passos que se <em>repetem</em>.</h2>
+        <p class="lede">Não existe truque. Existe um ciclo curto, repetido com constância, que transforma conteúdo visto em conteúdo lembrado no dia da prova.</p>
+      </div>
+    </div>
+
+    <div class="method rv rv-1">
+      <div class="step">
+        <span class="step-n">01 / Diagnóstico</span>
+        <h3>Descubra onde você está</h3>
+        <p>Um simulado inicial mostra quais tópicos já estão sólidos e quais estão custando pontos. Sem isso, você estuda o que gosta em vez do que precisa.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">02 / Teoria</span>
+        <h3>Aprenda em blocos curtos</h3>
+        <p>Aulas objetivas por tópico, na ordem em que a banca cobra. Blocos de 25 a 45 minutos com pausa — o cérebro consolida no intervalo, não na maratona.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">03 / Questões</span>
+        <h3>Erre agora, não na prova</h3>
+        <p>Cada questão vem com comentário que explica também por que as outras alternativas estão erradas. É o distrator que te derruba, não o conteúdo.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">04 / Revisão</span>
+        <h3>Volte antes de esquecer</h3>
+        <p>Revisão espaçada em 1, 7 e 30 dias. O cronograma já marca esses retornos para você, e é essa repetição que fixa o conteúdo a longo prazo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FAQ ============================ -->
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="head-left rv">
+        <span class="eyebrow">Dúvidas</span>
+        <h2 class="title">Perguntas que <em>todo mundo</em> faz.</h2>
+      </div>
+    </div>
+
+    <div class="faq rv rv-1" id="faq">
+      <div class="faq-item">
+        <button class="faq-q">Quanto tempo por dia eu preciso estudar? <span class="faq-plus"></span></button>
+        <div class="faq-a"><div><p>Depende muito mais da constância do que do total. Três horas todos os dias rendem mais do que doze horas só no domingo, porque a revisão espaçada precisa de encontros frequentes com o conteúdo. Se você está começando agora, duas a três horas diárias já sustentam um bom ritmo; para quem estuda em tempo integral, o limite útil costuma ficar entre seis e oito horas antes do rendimento cair.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Dá para passar estudando por conta própria? <span class="faq-plus"></span></button>
+        <div class="faq-a"><div><p>Sim, e é o caminho de muita gente aprovada. O que separa quem consegue de quem desiste raramente é o material — é ter um cronograma realista, medir os acertos e corrigir a rota quando um tópico não anda. Autonomia sem método vira estudo desorganizado; com método, funciona.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Como funciona a nota do ENEM pela TRI? <span class="faq-plus"></span></button>
+        <div class="faq-a"><div><p>A Teoria de Resposta ao Item considera não só quantas questões você acertou, mas quais. O modelo estima a dificuldade de cada item pelo desempenho de todos os participantes e penaliza padrões incoerentes, como acertar as difíceis e errar as fáceis, porque isso sugere chute. Na prática: garantir as questões fáceis e médias vale mais do que apostar nas difíceis.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">As notas de corte listadas aqui são oficiais? <span class="faq-plus"></span></button>
+        <div class="faq-a"><div><p>Não. São referências aproximadas de edições recentes para ampla concorrência, úteis para você calibrar uma meta. Os valores reais mudam a cada processo seletivo e variam por campus, turno e modalidade de cota. Antes de decidir qualquer coisa, confira o edital da instituição.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Serve para concurso público também? <span class="faq-plus"></span></button>
+        <div class="faq-a"><div><p>Serve. A trilha de concursos troca o recorte do ENEM por português instrumental, raciocínio lógico, informática, direito e legislação, nos formatos de Cebraspe, FGV e Cesgranrio. O item de certo ou errado da Cebraspe, em que o erro anula um acerto, tem treino específico.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Estou no ensino médio. Já vale começar? <span class="faq-plus"></span></button>
+        <div class="faq-a"><div><p>Vale, e é a melhor hora. Quem acompanha o conteúdo da escola desde o primeiro ano chega ao terceiro precisando revisar em vez de aprender do zero. A trilha de reforço escolar segue a ordem da sua escola e vai migrando para o formato de vestibular conforme você avança.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CTA ============================ -->
+<section class="section">
+  <div class="wrap">
+    <div class="cta rv">
+      <h2>A página vira quando<br>você <em>decide</em> virar.</h2>
+      <p>Comece pelo diagnóstico, monte a semana e deixe o percurso te levar até a vaga.</p>
+      <div class="btns">
+        <a href="#plano" class="btn btn-primary">Montar meu cronograma <span class="arrow">→</span></a>
+        <a href="#simulado" class="btn">Começar pelo simulado</a>
+      </div>
+      <p class="fine">Sem cartão. Sem compromisso. Só o próximo passo.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <a href="#top" class="brand">
+        <span class="brand-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 4h6a3 3 0 0 1 3 3v13a2.5 2.5 0 0 0-2.5-2.5H2z"/>
+            <path d="M22 4h-6a3 3 0 0 0-3 3v13a2.5 2.5 0 0 1 2.5-2.5H22z"/>
+          </svg>
+        </span>
+        Percurso <small>Estudos</small>
+      </a>
+      <p>Plataforma de estudos para quem tem um objetivo com data marcada: ENEM, vestibulares, concursos e a escola de todo dia.</p>
+    </div>
+
+    <div>
+      <h4>Trilhas</h4>
+      <ul>
+        <li><a href="#trilhas">ENEM</a></li>
+        <li><a href="#trilhas">Vestibulares</a></li>
+        <li><a href="#trilhas">Concursos públicos</a></li>
+        <li><a href="#trilhas">Carreiras militares</a></li>
+        <li><a href="#trilhas">Reforço escolar</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Matérias</h4>
+      <ul>
+        <li><a href="#materias">Matemática e Física</a></li>
+        <li><a href="#materias">Química e Biologia</a></li>
+        <li><a href="#materias">Português e Redação</a></li>
+        <li><a href="#materias">História e Filosofia</a></li>
+        <li><a href="#materias">Inglês e Artes</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Ferramentas</h4>
+      <ul>
+        <li><a href="#simulado">Simulado</a></li>
+        <li><a href="#faculdades">Notas de corte</a></li>
+        <li><a href="#plano">Cronograma</a></li>
+        <li><a href="#faq">Dúvidas frequentes</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="wrap footer-bottom">
+    <span>© <span id="year">2026</span> Percurso Estudos. Projeto demonstrativo.</span>
+    <span>Feito para quem estuda no Brasil.</span>
+  </div>
+</footer>
+
+<script src="assets/data/conteudo.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

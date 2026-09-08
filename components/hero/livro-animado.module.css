@@ -1,0 +1,46 @@
+.cena {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  container-type: size;
+  pointer-events: none;
+  isolation: isolate;
+}
+
+/* A máscara acompanha o quadro 16:9, inclusive quando há espaço vertical livre. */
+.filme {
+  position: relative;
+  width: min(100cqw, 177.7778cqh);
+  aspect-ratio: 16 / 9;
+  mask-image:
+    linear-gradient(90deg, transparent, #000 8%, #000 97%, transparent),
+    linear-gradient(180deg, transparent, #000 7%, #000 96%, transparent);
+  mask-composite: intersect;
+}
+
+.video,
+.poster,
+.poster img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.video {
+  opacity: 0;
+  transition: opacity 240ms ease;
+}
+.video[data-ready="true"] { opacity: 1; }
+.poster { opacity: 1; transition: opacity 240ms ease; }
+.poster[data-hidden="true"] { opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cena { height: clamp(250px, 58vw, 560px); }
+  .video { display: none; }
+  .poster { opacity: 1; transition: none; }
+}

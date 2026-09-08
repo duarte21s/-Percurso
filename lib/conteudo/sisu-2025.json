@@ -1,0 +1,1203 @@
+{
+  "ano": 2025,
+  "fonte": "https://github.com/maiakanegae/sisu-data",
+  "modalidade": "Ampla concorrência",
+  "coletado_em": "2026-08-27T12:41:55.855Z",
+  "aviso": "Dados coletados por scraping de APIs não documentadas do SiSU (ver README da fonte). Não têm caráter oficial: use como referência de estudo, não como edital. A nota varia por edição, turno e campus — aqui fica a maior nota de ampla concorrência entre os campi/turnos oferecidos.",
+  "notas": {
+    "UNIFESP|ENFERMAGEM": {
+      "nota": 749.72,
+      "turno": "Integral",
+      "campus": "CAMPUS SÃO PAULO - RUA BOTUCATU",
+      "curso_sisu": "ENFERMAGEM"
+    },
+    "UFRJ|MEDICINA": {
+      "nota": 823.79,
+      "turno": "Integral",
+      "campus": "CIDADE UNIVERSITÁRIA",
+      "curso_sisu": "MEDICINA"
+    },
+    "UFRJ|DIREITO": {
+      "nota": 777.29,
+      "turno": "Integral",
+      "campus": "FACULDADE DE DIREITO",
+      "curso_sisu": "DIREITO"
+    },
+    "UFRJ|ENGENHARIA CIVIL": {
+      "nota": 741.99,
+      "turno": "Integral",
+      "campus": "CIDADE UNIVERSITÁRIA",
+      "curso_sisu": "ENGENHARIA CIVIL"
+    },
+    "UFRJ|CIENCIA DA COMPUTACAO": {
+      "nota": 751.51,
+      "turno": "Integral",
+      "campus": "CIDADE UNIVERSITÁRIA",
+      "curso_sisu": "CIÊNCIA DA COMPUTAÇÃO"
+    },
+    "UFRJ|ARQUITETURA E URBANISMO": {
+      "nota": 742.41,
+      "turno": "Integral",
+      "campus": "CIDADE UNIVERSITÁRIA",
+      "curso_sisu": "ARQUITETURA E URBANISMO"
+    },
+    "UFRJ|PSICOLOGIA": {
+      "nota": 770.43,
+      "turno": "Integral",
+      "campus": "PRAIA VERMELHA",
+      "curso_sisu": "PSICOLOGIA"
+    },
+    "UFRJ|RELACOES INTERNACIONAIS": {
+      "nota": 751.34,
+      "turno": "Noturno",
+      "campus": "PRAIA VERMELHA",
+      "curso_sisu": "RELAÇÕES INTERNACIONAIS"
+    },
+    "UFMG|MEDICINA": {
+      "nota": 812.48,
+      "turno": "Integral",
+      "campus": "CAMPUS SAÚDE",
+      "curso_sisu": "MEDICINA"
+    },
+    "UFMG|DIREITO": {
+      "nota": 773.02,
+      "turno": "Matutino",
+      "campus": "FACULDADE DE DIREITO",
+      "curso_sisu": "DIREITO"
+    },
+    "UFMG|PSICOLOGIA": {
+      "nota": 761.9,
+      "turno": "Matutino",
+      "campus": "CAMPUS PAMPULHA",
+      "curso_sisu": "PSICOLOGIA"
+    },
+    "UFMG|ENGENHARIA CIVIL": {
+      "nota": 730.74,
+      "turno": "Matutino",
+      "campus": "CAMPUS PAMPULHA",
+      "curso_sisu": "ENGENHARIA CIVIL"
+    },
+    "UFMG|ENGENHARIA ELETRICA": {
+      "nota": 757.08,
+      "turno": "Matutino",
+      "campus": "CAMPUS PAMPULHA",
+      "curso_sisu": "ENGENHARIA ELÉTRICA"
+    },
+    "UFMG|ODONTOLOGIA": {
+      "nota": 756.64,
+      "turno": "Integral",
+      "campus": "CAMPUS PAMPULHA",
+      "curso_sisu": "ODONTOLOGIA"
+    },
+    "UFMG|ARQUITETURA E URBANISMO": {
+      "nota": 758.36,
+      "turno": "Matutino",
+      "campus": "ESCOLA DE ARQUITETURA",
+      "curso_sisu": "ARQUITETURA E URBANISMO"
+    },
+    "UFMG|MEDICINA VETERINARIA": {
+      "nota": 748.78,
+      "turno": "Integral",
+      "campus": "CAMPUS PAMPULHA",
+      "curso_sisu": "MEDICINA VETERINÁRIA"
+    },
+    "UFSCAR|CIENCIA DA COMPUTACAO": {
+      "nota": 791.6,
+      "turno": "Integral",
+      "campus": "UNIDADE SEDE",
+      "curso_sisu": "CIÊNCIA DA COMPUTAÇÃO"
+    },
+    "UFSCAR|MEDICINA": {
+      "nota": 804.91,
+      "turno": "Integral",
+      "campus": "UNIDADE SEDE",
+      "curso_sisu": "MEDICINA"
+    },
+    "UFSCAR|ENGENHARIA DE PRODUCAO": {
+      "nota": 783.93,
+      "turno": "Integral",
+      "campus": "UNIDADE SEDE",
+      "curso_sisu": "ENGENHARIA DE PRODUÇÃO"
+    },
+    "UFV|AGRONOMIA": {
+      "nota": 693.58,
+      "turno": "Integral",
+      "campus": "CAMPUS VIÇOSA",
+      "curso_sisu": "AGRONOMIA"
+    },
+    "UFV|MEDICINA VETERINARIA": {
+      "nota": 733.5,
+      "turno": "Integral",
+      "campus": "CAMPUS VIÇOSA",
+      "curso_sisu": "MEDICINA VETERINÁRIA"
+    },
+    "UFES|MEDICINA": {
+      "nota": 807.15,
+      "turno": "Integral",
+      "campus": "CENTRO DE CIÊNCIAS DA SAÚDE - CAMPUS THOMAZ TOMAZZI",
+      "curso_sisu": "MEDICINA"
+    },
+    "UFES|DIREITO": {
+      "nota": 752.53,
+      "turno": "Integral",
+      "campus": "SEDE",
+      "curso_sisu": "DIREITO"
+    },
+    "UFJF|ENFERMAGEM": {
+      "nota": 713.94,
+      "turno": "Integral",
+      "campus": "UNIVERSIDADE FEDERAL DE JUIZ DE FORA - CAMPUS SEDE",
+      "curso_sisu": "ENFERMAGEM"
+    },
+    "UFJF|MEDICINA": {
+      "nota": 800.86,
+      "turno": "Integral",
+      "campus": "UNIVERSIDADE FEDERAL DE JUIZ DE FORA - CAMPUS SEDE",
+      "curso_sisu": "MEDICINA"
+    },
+    "UFRGS|MEDICINA": {
+      "nota": 786.33,
+      "turno": "Integral",
+      "campus": "FACULDADE DE MEDICINA - CAMPUS SAÚDE",
+      "curso_sisu": "MEDICINA"
+    },
+    "UFRGS|ENGENHARIA DE PRODUCAO": {
+      "nota": 720.78,
+      "turno": "Integral",
+      "campus": "ESCOLA DE ENGENHARIA",
+      "curso_sisu": "ENGENHARIA DE PRODUÇÃO"
+    },
+    "UFRGS|CIENCIA DA COMPUTACAO": {
+      "nota": 769.19,
+      "turno": "Integral",
+      "campus": "CAMPUS DO VALE",
+      "curso_sisu": "CIÊNCIA DA COMPUTAÇÃO"
+    },
+    "UFRGS|ARQUITETURA E URBANISMO": {
+      "nota": 712.27,
+      "turno": "Integral",
+      "campus": "FACULDADE DE ARQUITETURA - CAMPUS CENTRO",
+      "curso_sisu": "ARQUITETURA E URBANISMO"
+    },
+    "UFRGS|ODONTOLOGIA": {
+      "nota": 727.36,
+      "turno": "Noturno",
+      "campus": "FACULDADE DE ODONTOLOGIA",
+      "curso_sisu": "ODONTOLOGIA"
+    },
+    "UFSC|MEDICINA": {
+      "nota": 820.6,
+      "turno": "Integral",
+      "campus": "CAMPUS UNIVERSITÁRIO REITOR JOÃO DAVID FERREIRA LIMA",
+      "curso_sisu": "MEDICINA"
+    },
+    "UFSC|CIENCIAS CONTABEIS": {
+      "nota": 739.67,
+      "turno": "Matutino",
+      "campus": "CAMPUS UNIVERSITÁRIO REITOR JOÃO DAVID FERREIRA LIMA",
+      "curso_sisu": "CIÊNCIAS CONTÁBEIS"
+    },
+    "UFSC|CIENCIA DA COMPUTACAO": {
+      "nota": 811.61,
+      "turno": "Integral",
+      "campus": "CAMPUS UNIVERSITÁRIO REITOR JOÃO DAVID FERREIRA LIMA",
+      "curso_sisu": "CIÊNCIA DA COMPUTAÇÃO"
+    },
+    "UFSC|ENGENHARIA MECANICA": {
+      "nota": 759.56,
+      "turno": "Integral",
+      "campus": "CAMPUS UNIVERSITÁRIO REITOR JOÃO DAVID FERREIRA LIMA",
+      "curso_sisu": "ENGENHARIA MECÂNICA"
+    },
+    "UFSC|DIREITO": {
+      "nota": 769.63,
+      "turno": "Matutino",
+      "campus": "CAMPUS UNIVERSITÁRIO REITOR JOÃO DAVID FERREIRA LIMA",
+      "curso_sisu": "DIREITO"
+    },
+    "UFPEL|ODONTOLOGIA": {
+      "nota": 722.8,
+      "turno": "Integral",
+      "campus": "UNIDADES DISPERSAS - ODONTO",
+      "curso_sisu": "ODONTOLOGIA"
+    },
+    "UFPEL|MEDICINA": {
+      "nota": 795.8,
+      "turno": "Integral",
+      "campus": "CAMPUS DA SAÚDE",
+      "curso_sisu": "MEDICINA"
+    },
+    "UFG|MEDICINA": {
+      "nota": 798.15,
+      "turno": "Integral",
+      "campus": "CÂMPUS COLEMAR NATAL E SILVA",
+      "curso_sisu": "MEDICINA"
+    },
+    "UFG|DIREITO": {
+      "nota": 773.99,
+      "turno": "Matutino",
+      "campus": "CÂMPUS COLEMAR NATAL E SILVA",
+      "curso_sisu": "DIREITO"
+    },
+    "UFG|MEDICINA VETERINARIA": {
+      "nota": 717.59,
+      "turno": "Integral",
+      "campus": "CÂMPUS SAMAMBAIA",
+      "curso_sisu": "MEDICINA VETERINÁRIA"
+    },
+    "UFMS|DIREITO": {
+      "nota": 807.43,
+      "turno": "Integral",
+      "campus": "CAMPO GRANDE",
+      "curso_sisu": "DIREITO"
+    },
+    "UFMS|MEDICINA": {
+      "nota": 795.22,
+      "turno": "Integral",
+      "campus": "CAMPO GRANDE",
+      "curso_sisu": "MEDICINA"
+    },
+    "UFMT|MEDICINA": {
+      "nota": 792.66,
+      "turno": "Integral",
+      "campus": "CAMPUS UNIVERSITÁRIO DE CUIABÁ",
+      "curso_sisu": "MEDICINA"
+    },
+    "UFPE|MEDICINA": {
+      "nota": 797.42,
+      "turno": "Integral",
+      "campus": "CAMPUS DO AGRESTE CARUARU",
+      "curso_sisu": "MEDICINA"
+    },
+    "UFPE|DIREITO": {
+      "nota": 767.26,
+      "turno": "Matutino",
+      "campus": "CAMPUS UNIVERSITÁRIO CIDADE DO RECIFE",
+      "curso_sisu": "DIREITO"
+    },
+    "UFPE|CIENCIA DA COMPUTACAO": {
+      "nota": 806.88,
+      "turno": "Integral",
+      "campus": "CAMPUS UNIVERSITÁRIO CIDADE DO RECIFE",
+      "curso_sisu": "CIÊNCIA DA COMPUTAÇÃO"
+    },
+    "UFPE|ENGENHARIA CIVIL": {
+      "nota": 688.49,
+      "turno": "Integral",
+      "campus": "CAMPUS UNIVERSITÁRIO CIDADE DO RECIFE",
+      "curso_sisu": "ENGENHARIA CIVIL"
+    },
+    "UFBA|MEDICINA": {
+      "nota": 785.83,
+      "turno": "Integral",
+      "campus": "UNIDADES DISPERSAS / SALVADOR - FACULDADE DE MEDICINA DA BAHIA",
+      "curso_sisu": "MEDICINA"
+    },
+    "UFBA|ARQUITETURA E URBANISMO": {
+      "nota": 726.84,
+      "turno": "Matutino",
+      "campus": "CAMPUS FEDERAÇÃO/ONDINA - FACULDADE DE ARQUITETURA",
+      "curso_sisu": "ARQUITETURA E URBANISMO"
+    },
+    "UFBA|DIREITO": {
+      "nota": 738.19,
+      "turno": "Integral",
+      "campus": "CAMPUS CANELA - FACULDADE DE DIREITO",
+      "curso_sisu": "DIREITO"
+    },
+    "UFBA|CIENCIA DA COMPUTACAO": {
+      "nota": 757.33,
+      "turno": "Integral",
+      "campus": "CAMPUS FEDERAÇÃO/ONDINA - UNIDADES DA RUA BARÃO DE GEREMOABO",
+      "curso_sisu": "CIÊNCIA DA COMPUTAÇÃO"
+    },
+    "UFC|MEDICINA": {
+      "nota": 804.14,
+      "turno": "Integral",
+      "campus": "FORTALEZA",
+      "curso_sisu": "MEDICINA"
+    },
+    "UFC|ENGENHARIA DE COMPUTACAO": {
+      "nota": 761.44,
+      "turno": "Integral",
+      "campus": "FORTALEZA",
+      "curso_sisu": "ENGENHARIA DE COMPUTAÇÃO"
+    },
+    "UFC|DIREITO": {
+      "nota": 774,
+      "turno": "Integral",
+      "campus": "FORTALEZA",
+      "curso_sisu": "DIREITO"
+    },
+    "UFRN|MEDICINA": {
+      "nota": 783.96,
+      "turno": "Integral",
+      "campus": "CENTRO DE CIÊNCIAS DA SAÚDE",
+      "curso_sisu": "MEDICINA"
+    },
+    "UFRN|CIENCIA DA COMPUTACAO": {
+      "nota": 758.11,
+      "turno": "Integral",
+      "campus": "CAMPUS DE NATAL",
+      "curso_sisu": "CIÊNCIA DA COMPUTAÇÃO"
+    },
+    "UFPB|ODONTOLOGIA": {
+      "nota": 748.54,
+      "turno": "Integral",
+      "campus": "UNIDADE SEDE",
+      "curso_sisu": "ODONTOLOGIA"
+    },
+    "UFPB|MEDICINA": {
+      "nota": 797.18,
+      "turno": "Integral",
+      "campus": "UNIDADE SEDE",
+      "curso_sisu": "MEDICINA"
+    },
+    "UFMA|MEDICINA": {
+      "nota": 794.36,
+      "turno": "Integral",
+      "campus": "CIDADE UNIVERSITÁRIA",
+      "curso_sisu": "MEDICINA"
+    },
+    "UFS|MEDICINA": {
+      "nota": 789.39,
+      "turno": "Integral",
+      "campus": "CAMPUS DA SAÚDE PROF JOÃO CARDOSO NASCIMENTO JÚNIOR",
+      "curso_sisu": "MEDICINA"
+    },
+    "UFAL|MEDICINA": {
+      "nota": 791.58,
+      "turno": "Integral",
+      "campus": "CAMPUS A. C. SIMÕES",
+      "curso_sisu": "MEDICINA"
+    },
+    "UFPI|MEDICINA": {
+      "nota": 799.86,
+      "turno": "Integral",
+      "campus": "CAMPUS MINISTRO PETRÔNIO PORTELLA - UNIDADE SEDE",
+      "curso_sisu": "MEDICINA"
+    },
+    "UFAM|MEDICINA": {
+      "nota": 785.79,
+      "turno": "Integral",
+      "campus": "FACULDADE DE MEDICINA",
+      "curso_sisu": "MEDICINA"
+    },
+    "UFT|DIREITO": {
+      "nota": 713.83,
+      "turno": "Noturno",
+      "campus": "CAMPUS UNIVERSITÁRIO DE PALMAS",
+      "curso_sisu": "DIREITO"
+    },
+    "UFT|MEDICINA": {
+      "nota": 789.84,
+      "turno": "Integral",
+      "campus": "CAMPUS UNIVERSITÁRIO DE PALMAS",
+      "curso_sisu": "MEDICINA"
+    },
+    "UFRR|MEDICINA": {
+      "nota": 782.66,
+      "turno": "Integral",
+      "campus": "CAMPUS PARICARANA",
+      "curso_sisu": "MEDICINA"
+    },
+    "UNIFESP|BIOMEDICINA": {
+      "nota": 793.37,
+      "turno": "Integral",
+      "campus": "CAMPUS SÃO PAULO - RUA BOTUCATU",
+      "curso_sisu": "BIOMEDICINA"
+    },
+    "UNIFESP|FISIOTERAPIA": {
+      "nota": 725.48,
+      "turno": "Integral",
+      "campus": "CAMPUS BAIXADA SANTISTA - UNIDADE SILVA JARDIM",
+      "curso_sisu": "FISIOTERAPIA"
+    },
+    "UNIFESP|NUTRICAO": {
+      "nota": 736.02,
+      "turno": "Integral",
+      "campus": "CAMPUS BAIXADA SANTISTA - UNIDADE SILVA JARDIM",
+      "curso_sisu": "NUTRIÇÃO"
+    },
+    "UNIFESP|PSICOLOGIA": {
+      "nota": 755.05,
+      "turno": "Integral",
+      "campus": "CAMPUS BAIXADA SANTISTA - UNIDADE SILVA JARDIM",
+      "curso_sisu": "PSICOLOGIA"
+    },
+    "UNIFESP|FONOAUDIOLOGIA": {
+      "nota": 722.92,
+      "turno": "Integral",
+      "campus": "CAMPUS SÃO PAULO - RUA BOTUCATU",
+      "curso_sisu": "FONOAUDIOLOGIA"
+    },
+    "UFRJ|ODONTOLOGIA": {
+      "nota": 793.28,
+      "turno": "Integral",
+      "campus": "CIDADE UNIVERSITÁRIA",
+      "curso_sisu": "ODONTOLOGIA"
+    },
+    "UFRJ|ENFERMAGEM": {
+      "nota": 741.98,
+      "turno": "Integral",
+      "campus": "CENTRO MULTIDISCIPLINAR DE MACAÉ",
+      "curso_sisu": "ENFERMAGEM"
+    },
+    "UFRJ|NUTRICAO": {
+      "nota": 760.51,
+      "turno": "Integral",
+      "campus": "CIDADE UNIVERSITÁRIA",
+      "curso_sisu": "NUTRIÇÃO"
+    },
+    "UFRJ|FARMACIA": {
+      "nota": 732.78,
+      "turno": "Integral",
+      "campus": "CIDADE UNIVERSITÁRIA",
+      "curso_sisu": "FARMÁCIA"
+    },
+    "UFRJ|FISIOTERAPIA": {
+      "nota": 741.51,
+      "turno": "Integral",
+      "campus": "CIDADE UNIVERSITÁRIA",
+      "curso_sisu": "FISIOTERAPIA"
+    },
+    "UFF|MEDICINA": {
+      "nota": 806.56,
+      "turno": "Integral",
+      "campus": "CAMPUS NITEROI - CMM- FACULDADE DE MEDICINA/ HUAP",
+      "curso_sisu": "MEDICINA"
+    },
+    "UFF|BIOMEDICINA": {
+      "nota": 738.5,
+      "turno": "Integral",
+      "campus": "CAMPUS NITEROI - CMB - INSTITUTO BIOMÉDICO",
+      "curso_sisu": "BIOMEDICINA"
+    },
+    "UFF|ENFERMAGEM": {
+      "nota": 714.21,
+      "turno": "Integral",
+      "campus": "ESCOLA DE ENFERMAGEM AURORA AFONSO DA COSTA",
+      "curso_sisu": "ENFERMAGEM"
+    },
+    "UFF|ODONTOLOGIA": {
+      "nota": 774.7,
+      "turno": "Integral",
+      "campus": "CAMPUS NITEROI - VALONGUINHO",
+      "curso_sisu": "ODONTOLOGIA"
+    },
+    "UFMG|ENFERMAGEM": {
+      "nota": 728.74,
+      "turno": "Matutino",
+      "campus": "CAMPUS SAÚDE",
+      "curso_sisu": "ENFERMAGEM"
+    },
+    "UFMG|FISIOTERAPIA": {
+      "nota": 730.54,
+      "turno": "Integral",
+      "campus": "CAMPUS PAMPULHA",
+      "curso_sisu": "FISIOTERAPIA"
+    },
+    "UFMG|FARMACIA": {
+      "nota": 737.44,
+      "turno": "Matutino",
+      "campus": "CAMPUS PAMPULHA",
+      "curso_sisu": "FARMÁCIA"
+    },
+    "UFMG|NUTRICAO": {
+      "nota": 735.44,
+      "turno": "Matutino",
+      "campus": "CAMPUS SAÚDE",
+      "curso_sisu": "NUTRIÇÃO"
+    },
+    "UFMG|TERAPIA OCUPACIONAL": {
+      "nota": 704.7,
+      "turno": "Matutino",
+      "campus": "CAMPUS PAMPULHA",
+      "curso_sisu": "TERAPIA OCUPACIONAL"
+    },
+    "UFRGS|ENFERMAGEM": {
+      "nota": 686.66,
+      "turno": "Integral",
+      "campus": "ESCOLA DE ENFERMAGEM - CAMPUS DA SAÚDE",
+      "curso_sisu": "ENFERMAGEM"
+    },
+    "UFRGS|BIOMEDICINA": {
+      "nota": 732.45,
+      "turno": "Integral",
+      "campus": "INSTITUTO DE CIÊNCIAS BÁSICAS DA SAÚDE - CAMPUS CENTRO",
+      "curso_sisu": "BIOMEDICINA"
+    },
+    "UFRGS|FARMACIA": {
+      "nota": 686,
+      "turno": "Integral",
+      "campus": "FACULDADE DE FARMÁCIA - CAMPUS DA SAÚDE",
+      "curso_sisu": "FARMÁCIA"
+    },
+    "UFRGS|PSICOLOGIA": {
+      "nota": 768,
+      "turno": "Noturno",
+      "campus": "INSTITUTO DE PSICOLOGIA",
+      "curso_sisu": "PSICOLOGIA"
+    },
+    "UFSC|ODONTOLOGIA": {
+      "nota": 768.53,
+      "turno": "Integral",
+      "campus": "CAMPUS UNIVERSITÁRIO REITOR JOÃO DAVID FERREIRA LIMA",
+      "curso_sisu": "ODONTOLOGIA"
+    },
+    "UFSC|ENFERMAGEM": {
+      "nota": 742,
+      "turno": "Integral",
+      "campus": "CAMPUS UNIVERSITÁRIO REITOR JOÃO DAVID FERREIRA LIMA",
+      "curso_sisu": "ENFERMAGEM"
+    },
+    "UFSC|PSICOLOGIA": {
+      "nota": 773.8,
+      "turno": "Integral",
+      "campus": "CAMPUS UNIVERSITÁRIO REITOR JOÃO DAVID FERREIRA LIMA",
+      "curso_sisu": "PSICOLOGIA"
+    },
+    "UFSM|MEDICINA": {
+      "nota": 799.12,
+      "turno": "Integral",
+      "campus": "CAMPUS  - SANTA MARIA - CAMOBI",
+      "curso_sisu": "MEDICINA"
+    },
+    "UFSM|MEDICINA VETERINARIA": {
+      "nota": 707.46,
+      "turno": "Integral",
+      "campus": "CAMPUS  - SANTA MARIA - CAMOBI",
+      "curso_sisu": "MEDICINA VETERINÁRIA"
+    },
+    "UFSM|ODONTOLOGIA": {
+      "nota": 733.76,
+      "turno": "Integral",
+      "campus": "CAMPUS  - SANTA MARIA - CAMOBI",
+      "curso_sisu": "ODONTOLOGIA"
+    },
+    "UFG|ENFERMAGEM": {
+      "nota": 707.67,
+      "turno": "Integral",
+      "campus": "CÂMPUS COLEMAR NATAL E SILVA",
+      "curso_sisu": "ENFERMAGEM"
+    },
+    "UFG|ODONTOLOGIA": {
+      "nota": 745.82,
+      "turno": "Integral",
+      "campus": "CÂMPUS COLEMAR NATAL E SILVA",
+      "curso_sisu": "ODONTOLOGIA"
+    },
+    "UFG|NUTRICAO": {
+      "nota": 713.35,
+      "turno": "Matutino",
+      "campus": "CÂMPUS COLEMAR NATAL E SILVA",
+      "curso_sisu": "NUTRIÇÃO"
+    },
+    "UFPE|ODONTOLOGIA": {
+      "nota": 749.77,
+      "turno": "Integral",
+      "campus": "CAMPUS UNIVERSITÁRIO CIDADE DO RECIFE",
+      "curso_sisu": "ODONTOLOGIA"
+    },
+    "UFPE|ENFERMAGEM": {
+      "nota": 725.85,
+      "turno": "Integral",
+      "campus": "CAMPUS UNIVERSITÁRIO CIDADE DO RECIFE",
+      "curso_sisu": "ENFERMAGEM"
+    },
+    "UFPE|FISIOTERAPIA": {
+      "nota": 724.61,
+      "turno": "Integral",
+      "campus": "CAMPUS UNIVERSITÁRIO CIDADE DO RECIFE",
+      "curso_sisu": "FISIOTERAPIA"
+    },
+    "UFPE|PSICOLOGIA": {
+      "nota": 733.73,
+      "turno": "Integral",
+      "campus": "CAMPUS UNIVERSITÁRIO CIDADE DO RECIFE",
+      "curso_sisu": "PSICOLOGIA"
+    },
+    "UFBA|ENFERMAGEM": {
+      "nota": 705.89,
+      "turno": "Integral",
+      "campus": "CAMPUS CANELA - UNIDADES DA RUA BASÍLIO DA GAMA",
+      "curso_sisu": "ENFERMAGEM"
+    },
+    "UFBA|NUTRICAO": {
+      "nota": 700.75,
+      "turno": "Integral",
+      "campus": "CAMPUS CANELA - ESCOLA DE NUTRIÇÃO",
+      "curso_sisu": "NUTRIÇÃO"
+    },
+    "UFBA|PSICOLOGIA": {
+      "nota": 736.39,
+      "turno": "Integral",
+      "campus": "CAMPUS FEDERAÇÃO/ONDINA - UNIDADES DE SÃO LÁZARO",
+      "curso_sisu": "PSICOLOGIA"
+    },
+    "UFC|ODONTOLOGIA": {
+      "nota": 754.58,
+      "turno": "Integral",
+      "campus": "FORTALEZA",
+      "curso_sisu": "ODONTOLOGIA"
+    },
+    "UFC|ENFERMAGEM": {
+      "nota": 731.96,
+      "turno": "Integral",
+      "campus": "FORTALEZA",
+      "curso_sisu": "ENFERMAGEM"
+    },
+    "UFC|FARMACIA": {
+      "nota": 725.18,
+      "turno": "Integral",
+      "campus": "FORTALEZA",
+      "curso_sisu": "FARMÁCIA"
+    },
+    "UFRN|ENFERMAGEM": {
+      "nota": 688.05,
+      "turno": "Integral",
+      "campus": "CAMPUS DE NATAL",
+      "curso_sisu": "ENFERMAGEM"
+    },
+    "UFRN|FISIOTERAPIA": {
+      "nota": 686.82,
+      "turno": "Integral",
+      "campus": "CAMPUS DE NATAL",
+      "curso_sisu": "FISIOTERAPIA"
+    },
+    "UFPB|ENFERMAGEM": {
+      "nota": 695.3,
+      "turno": "Integral",
+      "campus": "UNIDADE SEDE",
+      "curso_sisu": "ENFERMAGEM"
+    },
+    "UFPB|FONOAUDIOLOGIA": {
+      "nota": 681.12,
+      "turno": "Integral",
+      "campus": "UNIDADE SEDE",
+      "curso_sisu": "FONOAUDIOLOGIA"
+    },
+    "UFAM|ENFERMAGEM": {
+      "nota": 727.96,
+      "turno": "Integral",
+      "campus": "ESCOLA DE ENFERMAGEM DE MANAUS",
+      "curso_sisu": "ENFERMAGEM"
+    },
+    "UFAM|ODONTOLOGIA": {
+      "nota": 742.5,
+      "turno": "Integral",
+      "campus": "FACULDADE DE ODONTOLOGIA",
+      "curso_sisu": "ODONTOLOGIA"
+    },
+    "UFRJ|JORNALISMO": {
+      "nota": 760.71,
+      "turno": "Integral",
+      "campus": "PRAIA VERMELHA",
+      "curso_sisu": "JORNALISMO"
+    },
+    "UFRJ|HISTORIA": {
+      "nota": 731.5,
+      "turno": "Integral",
+      "campus": "LARGO SÃO FRANCISCO",
+      "curso_sisu": "HISTÓRIA"
+    },
+    "UFRJ|SERVICO SOCIAL": {
+      "nota": 691.15,
+      "turno": "Matutino",
+      "campus": "PRAIA VERMELHA",
+      "curso_sisu": "SERVIÇO SOCIAL"
+    },
+    "UFF|DIREITO": {
+      "nota": 766.61,
+      "turno": "Integral",
+      "campus": "CAMPUS V. REDONDA -  ATERRADO - VCH - INSTITUTO DE CIÊNCIAS HUMANAS E SOCIAIS - ICHS",
+      "curso_sisu": "DIREITO"
+    },
+    "UFF|JORNALISMO": {
+      "nota": 735.79,
+      "turno": "Integral",
+      "campus": "CAMPUS NITEROI - GRAGOATÁ",
+      "curso_sisu": "JORNALISMO"
+    },
+    "UFF|CIENCIAS SOCIAIS": {
+      "nota": 694.92,
+      "turno": "Vespertino",
+      "campus": "CAMPUS NITEROI - GRAGOATÁ",
+      "curso_sisu": "CIÊNCIAS SOCIAIS"
+    },
+    "UFMG|JORNALISMO": {
+      "nota": 756.48,
+      "turno": "Matutino",
+      "campus": "CAMPUS PAMPULHA",
+      "curso_sisu": "JORNALISMO"
+    },
+    "UFMG|PEDAGOGIA": {
+      "nota": 675.8,
+      "turno": "Matutino",
+      "campus": "CAMPUS PAMPULHA",
+      "curso_sisu": "PEDAGOGIA"
+    },
+    "UFRGS|JORNALISMO": {
+      "nota": 721.39,
+      "turno": "Integral",
+      "campus": "FACULDADE DE BIBLIOTECONOMIA E COMUNICAÇÃO - CAMPUS SAÚDE",
+      "curso_sisu": "JORNALISMO"
+    },
+    "UFRGS|HISTORIA": {
+      "nota": 751.68,
+      "turno": "Integral",
+      "campus": "CAMPUS DO VALE",
+      "curso_sisu": "HISTÓRIA"
+    },
+    "UFRGS|RELACOES INTERNACIONAIS": {
+      "nota": 758.3,
+      "turno": "Integral",
+      "campus": "FACULDADE DE CIÊNCIAS ECONÔMICAS - CAMPUS CENTRO",
+      "curso_sisu": "RELAÇÕES INTERNACIONAIS"
+    },
+    "UFSC|JORNALISMO": {
+      "nota": 754.88,
+      "turno": "Integral",
+      "campus": "CAMPUS UNIVERSITÁRIO REITOR JOÃO DAVID FERREIRA LIMA",
+      "curso_sisu": "JORNALISMO"
+    },
+    "UFG|JORNALISMO": {
+      "nota": 710.99,
+      "turno": "Matutino",
+      "campus": "CÂMPUS SAMAMBAIA",
+      "curso_sisu": "JORNALISMO"
+    },
+    "UFPE|JORNALISMO": {
+      "nota": 717.85,
+      "turno": "Vespertino",
+      "campus": "CAMPUS UNIVERSITÁRIO CIDADE DO RECIFE",
+      "curso_sisu": "JORNALISMO"
+    },
+    "UFPE|HISTORIA": {
+      "nota": 748.27,
+      "turno": "Vespertino",
+      "campus": "CAMPUS UNIVERSITÁRIO CIDADE DO RECIFE",
+      "curso_sisu": "HISTÓRIA"
+    },
+    "UFBA|JORNALISMO": {
+      "nota": 701.12,
+      "turno": "Integral",
+      "campus": "CAMPUS FEDERAÇÃO/ONDINA - UNIDADES DA RUA BARÃO DE GEREMOABO",
+      "curso_sisu": "JORNALISMO"
+    },
+    "UFC|CIENCIAS SOCIAIS": {
+      "nota": 671.62,
+      "turno": "Integral",
+      "campus": "FORTALEZA",
+      "curso_sisu": "CIÊNCIAS SOCIAIS"
+    },
+    "UFMG|CIENCIA DE DADOS": {
+      "nota": 761.12,
+      "turno": "Vespertino",
+      "campus": "CAMPUS PAMPULHA",
+      "curso_sisu": "CIÊNCIA DE DADOS"
+    },
+    "UFF|CIENCIA DA COMPUTACAO": {
+      "nota": 742.23,
+      "turno": "Integral",
+      "campus": "CAMPUS NITEROI - PRAIA VERMELHA",
+      "curso_sisu": "CIÊNCIA DA COMPUTAÇÃO"
+    },
+    "UFF|SISTEMAS DE INFORMACAO": {
+      "nota": 733.11,
+      "turno": "Noturno",
+      "campus": "CAMPUS NITEROI - PRAIA VERMELHA",
+      "curso_sisu": "SISTEMAS DE INFORMAÇÃO"
+    },
+    "UFSC|SISTEMAS DE INFORMACAO": {
+      "nota": 729.12,
+      "turno": "Noturno",
+      "campus": "CAMPUS UNIVERSITÁRIO REITOR JOÃO DAVID FERREIRA LIMA",
+      "curso_sisu": "SISTEMAS DE INFORMAÇÃO"
+    },
+    "UFSM|CIENCIA DA COMPUTACAO": {
+      "nota": 778.56,
+      "turno": "Integral",
+      "campus": "CAMPUS  - SANTA MARIA - CAMOBI",
+      "curso_sisu": "CIÊNCIA DA COMPUTAÇÃO"
+    },
+    "UFG|INTELIGENCIA ARTIFICIAL": {
+      "nota": 811.01,
+      "turno": "Integral",
+      "campus": "CÂMPUS SAMAMBAIA",
+      "curso_sisu": "INTELIGÊNCIA ARTIFICIAL"
+    },
+    "UFG|CIENCIA DA COMPUTACAO": {
+      "nota": 781,
+      "turno": "Integral",
+      "campus": "CÂMPUS SAMAMBAIA",
+      "curso_sisu": "CIÊNCIA DA COMPUTAÇÃO"
+    },
+    "UFMS|CIENCIA DA COMPUTACAO": {
+      "nota": 793.88,
+      "turno": "Integral",
+      "campus": "CAMPO GRANDE",
+      "curso_sisu": "CIÊNCIA DA COMPUTAÇÃO"
+    },
+    "UFPE|SISTEMAS DE INFORMACAO": {
+      "nota": 806.86,
+      "turno": "Integral",
+      "campus": "CAMPUS UNIVERSITÁRIO CIDADE DO RECIFE",
+      "curso_sisu": "SISTEMAS DE INFORMAÇÃO"
+    },
+    "UFC|CIENCIA DA COMPUTACAO": {
+      "nota": 765.82,
+      "turno": "Integral",
+      "campus": "FORTALEZA",
+      "curso_sisu": "CIÊNCIA DA COMPUTAÇÃO"
+    },
+    "UFBA|SISTEMAS DE INFORMACAO": {
+      "nota": 737.4,
+      "turno": "Noturno",
+      "campus": "CAMPUS FEDERAÇÃO/ONDINA - UNIDADES DA RUA BARÃO DE GEREMOABO",
+      "curso_sisu": "SISTEMAS DE INFORMAÇÃO"
+    },
+    "UFAM|CIENCIA DA COMPUTACAO": {
+      "nota": 737.53,
+      "turno": "Integral",
+      "campus": "UNIDADE SEDE",
+      "curso_sisu": "CIÊNCIA DA COMPUTAÇÃO"
+    },
+    "UFRJ|ADMINISTRACAO": {
+      "nota": 738.27,
+      "turno": "Integral",
+      "campus": "PRAIA VERMELHA",
+      "curso_sisu": "ADMINISTRAÇÃO"
+    },
+    "UFRJ|CIENCIAS CONTABEIS": {
+      "nota": 707.29,
+      "turno": "Integral",
+      "campus": "PRAIA VERMELHA",
+      "curso_sisu": "CIÊNCIAS CONTÁBEIS"
+    },
+    "UFRJ|CIENCIAS ATUARIAIS": {
+      "nota": 711.69,
+      "turno": "Integral",
+      "campus": "CIDADE UNIVERSITÁRIA",
+      "curso_sisu": "CIÊNCIAS ATUARIAIS"
+    },
+    "UFMG|ADMINISTRACAO": {
+      "nota": 744,
+      "turno": "Matutino",
+      "campus": "CAMPUS PAMPULHA",
+      "curso_sisu": "ADMINISTRAÇÃO"
+    },
+    "UFMG|CIENCIAS CONTABEIS": {
+      "nota": 711.38,
+      "turno": "Noturno",
+      "campus": "CAMPUS PAMPULHA",
+      "curso_sisu": "CIÊNCIAS CONTÁBEIS"
+    },
+    "UFF|ADMINISTRACAO": {
+      "nota": 710.77,
+      "turno": "Noturno",
+      "campus": "CAMPUS NITEROI - VALONGUINHO",
+      "curso_sisu": "ADMINISTRAÇÃO"
+    },
+    "UFRGS|ADMINISTRACAO": {
+      "nota": 736.88,
+      "turno": "Integral",
+      "campus": "ESCOLA DE ADMINISTRAÇÃO - CAMPUS CENTRO",
+      "curso_sisu": "ADMINISTRAÇÃO"
+    },
+    "UFRGS|CIENCIAS CONTABEIS": {
+      "nota": 690.62,
+      "turno": "Noturno",
+      "campus": "FACULDADE DE CIÊNCIAS ECONÔMICAS - CAMPUS CENTRO",
+      "curso_sisu": "CIÊNCIAS CONTÁBEIS"
+    },
+    "UFSC|ADMINISTRACAO": {
+      "nota": 718.66,
+      "turno": "Matutino",
+      "campus": "CAMPUS UNIVERSITÁRIO REITOR JOÃO DAVID FERREIRA LIMA",
+      "curso_sisu": "ADMINISTRAÇÃO"
+    },
+    "UFPE|ADMINISTRACAO": {
+      "nota": 701.74,
+      "turno": "Matutino",
+      "campus": "CAMPUS UNIVERSITÁRIO CIDADE DO RECIFE",
+      "curso_sisu": "ADMINISTRAÇÃO"
+    },
+    "UFBA|ADMINISTRACAO": {
+      "nota": 683.65,
+      "turno": "Integral",
+      "campus": "CAMPUS CANELA - UNIDADES DA AV. REITOR MIGUEL CALMON",
+      "curso_sisu": "ADMINISTRAÇÃO"
+    },
+    "UFC|ADMINISTRACAO": {
+      "nota": 689.64,
+      "turno": "Integral",
+      "campus": "FORTALEZA",
+      "curso_sisu": "ADMINISTRAÇÃO"
+    },
+    "UFC|CIENCIAS CONTABEIS": {
+      "nota": 693.76,
+      "turno": "Integral",
+      "campus": "FORTALEZA",
+      "curso_sisu": "CIÊNCIAS CONTÁBEIS"
+    },
+    "UFG|ADMINISTRACAO": {
+      "nota": 697.37,
+      "turno": "Noturno",
+      "campus": "CÂMPUS SAMAMBAIA",
+      "curso_sisu": "ADMINISTRAÇÃO"
+    },
+    "UFRJ|MATEMATICA": {
+      "nota": 770.18,
+      "turno": "Integral",
+      "campus": "CIDADE UNIVERSITÁRIA",
+      "curso_sisu": "MATEMÁTICA"
+    },
+    "UFRJ|FISICA": {
+      "nota": 755.46,
+      "turno": "Integral",
+      "campus": "CIDADE UNIVERSITÁRIA",
+      "curso_sisu": "FÍSICA"
+    },
+    "UFRJ|QUIMICA": {
+      "nota": 693.25,
+      "turno": "Integral",
+      "campus": "CIDADE UNIVERSITÁRIA",
+      "curso_sisu": "QUÍMICA"
+    },
+    "UFRJ|ASTRONOMIA": {
+      "nota": 761.55,
+      "turno": "Integral",
+      "campus": "OBSERVATÓRIO DO VALONGO",
+      "curso_sisu": "ASTRONOMIA"
+    },
+    "UFMG|ESTATISTICA": {
+      "nota": 733.06,
+      "turno": "Matutino",
+      "campus": "CAMPUS PAMPULHA",
+      "curso_sisu": "ESTATÍSTICA"
+    },
+    "UFRGS|FISICA": {
+      "nota": 704.51,
+      "turno": "Integral",
+      "campus": "CAMPUS DO VALE",
+      "curso_sisu": "FÍSICA"
+    },
+    "UFRGS|ESTATISTICA": {
+      "nota": 710.59,
+      "turno": "Integral",
+      "campus": "CAMPUS DO VALE",
+      "curso_sisu": "ESTATÍSTICA"
+    },
+    "UFSC|MATEMATICA": {
+      "nota": 742.23,
+      "turno": "Integral",
+      "campus": "CAMPUS UNIVERSITÁRIO REITOR JOÃO DAVID FERREIRA LIMA",
+      "curso_sisu": "MATEMÁTICA"
+    },
+    "UFSC|QUIMICA": {
+      "nota": 708.22,
+      "turno": "Integral",
+      "campus": "CAMPUS UNIVERSITÁRIO REITOR JOÃO DAVID FERREIRA LIMA",
+      "curso_sisu": "QUÍMICA"
+    },
+    "UFPE|MATEMATICA": {
+      "nota": 724.09,
+      "turno": "Integral",
+      "campus": "CAMPUS UNIVERSITÁRIO CIDADE DO RECIFE",
+      "curso_sisu": "MATEMÁTICA"
+    },
+    "UFPE|ESTATISTICA": {
+      "nota": 662.89,
+      "turno": "Integral",
+      "campus": "CAMPUS UNIVERSITÁRIO CIDADE DO RECIFE",
+      "curso_sisu": "ESTATÍSTICA"
+    },
+    "UFC|MATEMATICA": {
+      "nota": 689.82,
+      "turno": "Integral",
+      "campus": "FORTALEZA",
+      "curso_sisu": "MATEMÁTICA"
+    },
+    "UFRJ|ARTES VISUAIS": {
+      "nota": 724.84,
+      "turno": "Integral",
+      "campus": "CIDADE UNIVERSITÁRIA",
+      "curso_sisu": "ARTES VISUAIS"
+    },
+    "UFF|CINEMA E AUDIOVISUAL": {
+      "nota": 768.52,
+      "turno": "Integral",
+      "campus": "CAMPUS NITEROI - GRAGOATÁ",
+      "curso_sisu": "CINEMA E AUDIOVISUAL"
+    },
+    "UFMG|DESIGN": {
+      "nota": 727.3,
+      "turno": "Noturno",
+      "campus": "ESCOLA DE ARQUITETURA",
+      "curso_sisu": "DESIGN"
+    },
+    "UFMG|PUBLICIDADE E PROPAGANDA": {
+      "nota": 735.06,
+      "turno": "Matutino",
+      "campus": "CAMPUS PAMPULHA",
+      "curso_sisu": "PUBLICIDADE E PROPAGANDA"
+    },
+    "UFRGS|PUBLICIDADE E PROPAGANDA": {
+      "nota": 721.06,
+      "turno": "Integral",
+      "campus": "FACULDADE DE BIBLIOTECONOMIA E COMUNICAÇÃO - CAMPUS SAÚDE",
+      "curso_sisu": "PUBLICIDADE E PROPAGANDA"
+    },
+    "UFSC|DESIGN": {
+      "nota": 741.37,
+      "turno": "Integral",
+      "campus": "CAMPUS UNIVERSITÁRIO REITOR JOÃO DAVID FERREIRA LIMA",
+      "curso_sisu": "DESIGN"
+    },
+    "UFPE|DESIGN": {
+      "nota": 700.52,
+      "turno": "Integral",
+      "campus": "CAMPUS UNIVERSITÁRIO CIDADE DO RECIFE",
+      "curso_sisu": "DESIGN"
+    },
+    "UFPE|ARQUITETURA E URBANISMO": {
+      "nota": 704.78,
+      "turno": "Integral",
+      "campus": "CAMPUS UNIVERSITÁRIO CIDADE DO RECIFE",
+      "curso_sisu": "ARQUITETURA E URBANISMO"
+    },
+    "UFBA|ARTES VISUAIS": {
+      "nota": 670.77,
+      "turno": "Integral",
+      "campus": "UNIDADES DISPERSAS - SALVADOR - ESCOLA DE BELAS ARTES",
+      "curso_sisu": "ARTES VISUAIS"
+    },
+    "UFC|ARQUITETURA E URBANISMO": {
+      "nota": 727.96,
+      "turno": "Integral",
+      "campus": "FORTALEZA",
+      "curso_sisu": "ARQUITETURA E URBANISMO"
+    },
+    "UFRJ|ENGENHARIA QUIMICA": {
+      "nota": 779.29,
+      "turno": "Integral",
+      "campus": "CIDADE UNIVERSITÁRIA",
+      "curso_sisu": "ENGENHARIA QUÍMICA"
+    },
+    "UFRJ|ENGENHARIA DE PRODUCAO": {
+      "nota": 781.69,
+      "turno": "Integral",
+      "campus": "CIDADE UNIVERSITÁRIA",
+      "curso_sisu": "ENGENHARIA DE PRODUÇÃO"
+    },
+    "UFRJ|ENGENHARIA MECANICA": {
+      "nota": 768.03,
+      "turno": "Integral",
+      "campus": "CIDADE UNIVERSITÁRIA",
+      "curso_sisu": "ENGENHARIA MECÂNICA"
+    },
+    "UFMG|ENGENHARIA QUIMICA": {
+      "nota": 767.2,
+      "turno": "Matutino",
+      "campus": "CAMPUS PAMPULHA",
+      "curso_sisu": "ENGENHARIA QUÍMICA"
+    },
+    "UFMG|ENGENHARIA DE PRODUCAO": {
+      "nota": 745.38,
+      "turno": "Matutino",
+      "campus": "CAMPUS PAMPULHA",
+      "curso_sisu": "ENGENHARIA DE PRODUÇÃO"
+    },
+    "UFMG|ENGENHARIA MECANICA": {
+      "nota": 759.92,
+      "turno": "Matutino",
+      "campus": "CAMPUS PAMPULHA",
+      "curso_sisu": "ENGENHARIA MECÂNICA"
+    },
+    "UFMG|ENGENHARIA AEROESPACIAL": {
+      "nota": 785.62,
+      "turno": "Matutino",
+      "campus": "CAMPUS PAMPULHA",
+      "curso_sisu": "ENGENHARIA AEROESPACIAL"
+    },
+    "UFF|ENGENHARIA CIVIL": {
+      "nota": 698.49,
+      "turno": "Integral",
+      "campus": "CAMPUS NITEROI - PRAIA VERMELHA",
+      "curso_sisu": "ENGENHARIA CIVIL"
+    },
+    "UFF|ENGENHARIA DE PRODUCAO": {
+      "nota": 748.12,
+      "turno": "Integral",
+      "campus": "CAMPUS NITEROI - PRAIA VERMELHA",
+      "curso_sisu": "ENGENHARIA DE PRODUÇÃO"
+    },
+    "UFSCAR|ENGENHARIA DE MATERIAIS": {
+      "nota": 737.36,
+      "turno": "Integral",
+      "campus": "UNIDADE SEDE",
+      "curso_sisu": "ENGENHARIA DE MATERIAIS"
+    },
+    "UFRGS|ENGENHARIA CIVIL": {
+      "nota": 708.78,
+      "turno": "Integral",
+      "campus": "ESCOLA DE ENGENHARIA",
+      "curso_sisu": "ENGENHARIA CIVIL"
+    },
+    "UFRGS|ENGENHARIA QUIMICA": {
+      "nota": 722.69,
+      "turno": "Integral",
+      "campus": "ESCOLA DE ENGENHARIA",
+      "curso_sisu": "ENGENHARIA QUÍMICA"
+    },
+    "UFRGS|ENGENHARIA MECANICA": {
+      "nota": 728.29,
+      "turno": "Integral",
+      "campus": "ESCOLA DE ENGENHARIA(MECÂNICA) - CAMPUS DO CENTRO",
+      "curso_sisu": "ENGENHARIA MECÂNICA"
+    },
+    "UFSC|ENGENHARIA CIVIL": {
+      "nota": 726.98,
+      "turno": "Integral",
+      "campus": "CAMPUS UNIVERSITÁRIO REITOR JOÃO DAVID FERREIRA LIMA",
+      "curso_sisu": "ENGENHARIA CIVIL"
+    },
+    "UFSC|ENGENHARIA DE PRODUCAO": {
+      "nota": 746.32,
+      "turno": "Integral",
+      "campus": "CAMPUS UNIVERSITÁRIO REITOR JOÃO DAVID FERREIRA LIMA",
+      "curso_sisu": "ENGENHARIA DE PRODUÇÃO"
+    },
+    "UFPE|ENGENHARIA ELETRICA": {
+      "nota": 700.49,
+      "turno": "Integral",
+      "campus": "CAMPUS UNIVERSITÁRIO CIDADE DO RECIFE",
+      "curso_sisu": "ENGENHARIA ELÉTRICA"
+    },
+    "UFPE|ENGENHARIA QUIMICA": {
+      "nota": 683.17,
+      "turno": "Integral",
+      "campus": "CAMPUS UNIVERSITÁRIO CIDADE DO RECIFE",
+      "curso_sisu": "ENGENHARIA QUÍMICA"
+    },
+    "UFBA|ENGENHARIA CIVIL": {
+      "nota": 709.45,
+      "turno": "Integral",
+      "campus": "CAMPUS FEDERAÇÃO/ONDINA - ESCOLA POLITÉCNICA",
+      "curso_sisu": "ENGENHARIA CIVIL"
+    },
+    "UFC|ENGENHARIA CIVIL": {
+      "nota": 707.28,
+      "turno": "Integral",
+      "campus": "FORTALEZA",
+      "curso_sisu": "ENGENHARIA CIVIL"
+    },
+    "UFRN|ENGENHARIA CIVIL": {
+      "nota": 702.06,
+      "turno": "Integral",
+      "campus": "CAMPUS DE NATAL",
+      "curso_sisu": "ENGENHARIA CIVIL"
+    }
+  }
+}

@@ -1,0 +1,571 @@
+{
+  "materia": "portugues-banca",
+  "tema": "Interpretação de texto técnico",
+  "modelo_conferencia": "gemini-3.6-flash",
+  "passes": 2,
+  "rigor": "estrito",
+  "limiar_dedup": 0.5,
+  "geradas": 50,
+  "dedup_identicas": 0,
+  "dedup_semanticas": 0,
+  "conferidas": 50,
+  "mantidas": 25,
+  "contadores": {
+    "gabarito_divergente": 0,
+    "instavel": 25,
+    "marcou_menos1": 0,
+    "sem_resposta": 0
+  },
+  "descartes": [
+    {
+      "n": 26,
+      "motivo": "conferência instável (os passes cegos não convergem)",
+      "gabarito_gerado": 1,
+      "letra_gerada": "B",
+      "votos_cegos": [
+        null,
+        1
+      ],
+      "votos_letra": [
+        "·",
+        "B"
+      ],
+      "enunciado": "Um relatório de auditoria financeira descreve a seguinte regra de cálculo: 'A margem operacional líquida é calculada subtraindo-se os custos operacionais e as despesas administrativas da receita bruta, dividindo-se o resultado por esta mesma receita bruta. Caso haja provisão para devedores duvidosos (PDD), esta deve ser somada aos custos operacionais antes da divisão.' Em determinado trimestre, uma empresa registrou receita bruta de R$ 100.000, custos operacionais de R$ 40.000, despesas administrativas de R$ 10.000 e uma PDD de R$ 10.000. Com base exclusiva no método de cálculo exposto no texto técnico, qual foi a margem operacional líquida da empresa nesse trimestre?",
+      "opcoes": [
+        "50%.",
+        "40%.",
+        "30%.",
+        "60%.",
+        "45%."
+      ]
+    },
+    {
+      "n": 27,
+      "motivo": "conferência instável (os passes cegos não convergem)",
+      "gabarito_gerado": 1,
+      "letra_gerada": "B",
+      "votos_cegos": [
+        null,
+        1
+      ],
+      "votos_letra": [
+        "·",
+        "B"
+      ],
+      "enunciado": "Uma Instrução Normativa de Recursos Humanos estabelece: 'A licença para capacitação poderá ser concedida após cada quinquênio de efetivo exercício no serviço público, pelo prazo de até três meses. O servidor poderá acumular no máximo dois períodos de licença não gozados. Caso não utilize os períodos acumulados até completar o terceiro quinquênio consecutivo, o período mais antigo será sumariamente prescrito.' Um servidor público completou seu terceiro quinquênio consecutivo de efetivo exercício sem jamais ter fruído de qualquer licença para capacitação. Conforme as regras da instrução normativa, a quantos meses de licença para capacitação esse servidor tem direito imediatamente após completar o terceiro quinquênio?",
+      "opcoes": [
+        "9 meses.",
+        "6 meses.",
+        "3 meses.",
+        "12 meses.",
+        "0 meses."
+      ]
+    },
+    {
+      "n": 28,
+      "motivo": "conferência instável (os passes cegos não convergem)",
+      "gabarito_gerado": 3,
+      "letra_gerada": "D",
+      "votos_cegos": [
+        null,
+        3
+      ],
+      "votos_letra": [
+        "·",
+        "D"
+      ],
+      "enunciado": "Uma especificação técnica de construção civil determina: 'A aplicação do selante impermeabilizante exige que a superfície esteja totalmente seca e a temperatura ambiente esteja entre 15 °C e 30 °C. Se a umidade relativa do ar estiver acima de 80%, a cura completa leva 48 horas; se estiver igual ou abaixo de 80%, a cura ocorre em 24 horas. É vedada a aplicação sob incidência direta de luz solar se a temperatura ambiente for superior a 25 °C.' Durante uma vistoria, constatou-se que a temperatura no local de trabalho era de 27 °C sob sol direto, a superfície estava seca e a umidade relativa do ar era de 70%. Diante das condições ambientais registradas, qual é a conduta técnica prescrita pelo texto?",
+      "opcoes": [
+        "Aplicar o selante normalmente, considerando o tempo de cura de 24 horas.",
+        "Aplicar o selante normalmente, considerando o tempo de cura de 48 horas.",
+        "Não aplicar o selante, pois a temperatura de 27 °C excede o limite máximo permitido de 25 °C para a obra.",
+        "Não aplicar o selante sob luz solar direta, devendo-se providenciar sombreamento ou aguardar a redução da temperatura para no máximo 25 °C sob sol.",
+        "Aplicar o selante apenas se a umidade relativa do ar subir para mais de 80%."
+      ]
+    },
+    {
+      "n": 29,
+      "motivo": "conferência instável (os passes cegos não convergem)",
+      "gabarito_gerado": 2,
+      "letra_gerada": "C",
+      "votos_cegos": [
+        null,
+        2
+      ],
+      "votos_letra": [
+        "·",
+        "C"
+      ],
+      "enunciado": "O regulamento de defesa do consumidor para serviços de telecomunicações dispõe: 'O cancelamento do contrato de fidelidade antes do término dos 12 meses incide em multa rescisória proporcional aos meses restantes. A multa base é de R$ 600,00 para o contrato integral de 12 meses (R$ 50,00 por mês restante). Todavia, se o cancelamento for motivado por comprovada má prestação do serviço, definida estritamente como interrupção do sinal por mais de 72 horas consecutivas no mesmo mês, o consumidor fica totalmente isento da multa. O tempo de interrupção acumulado em episódios fracionados não conta para a isenção.' Um cliente contratou o plano em 1º de janeiro. No mês de maio (tendo cumprido 5 meses e restando 7 meses), o cliente sofreu duas interrupções de sinal no mesmo mês: uma de 48 horas e outra de 30 horas. Ele solicitou o cancelamento imediato ao fim de maio alegando má prestação. De acordo com as regras estabelecidas no regulamento, qual é o valor da multa rescisória devida pelo cliente?",
+      "opcoes": [
+        "R$ 0,00 (isenção total), pois a soma das interrupções no mês superou 72 horas.",
+        "R$ 600,00, valor integral da multa base sem aplicação de proporcionalidade.",
+        "R$ 350,00, equivalente aos 7 meses restantes do contrato.",
+        "R$ 250,00, equivalente aos 5 meses já cumpridos pelo consumidor.",
+        "R$ 175,00, correspondente à metade da multa proporcional devido às falhas parciais."
+      ]
+    },
+    {
+      "n": 30,
+      "motivo": "conferência instável (os passes cegos não convergem)",
+      "gabarito_gerado": 2,
+      "letra_gerada": "C",
+      "votos_cegos": [
+        null,
+        2
+      ],
+      "votos_letra": [
+        "·",
+        "C"
+      ],
+      "enunciado": "Um manual de controle de qualidade farmacêutico determina: 'Lotes de medicamentos produzidos sob a especificação Z devem passar por testes de dissolução. A amostra inicial consiste em 6 unidades. Se todas as 6 unidades apresentarem taxa de dissolução individual igual ou superior a 80%, o lote é aprovado imediatamente. Se exatamente 1 ou 2 unidades apresentarem taxa entre 70% e 79%, e nenhuma estiver abaixo de 70%, deve-se testar uma amostra adicional de 12 unidades. Para aprovação final após o segundo teste, a média de todas as 18 unidades deve ser de no mínimo 75% e nenhuma unidade individual entre as 18 pode estar abaixo de 70%.' No teste da primeira amostra de 6 unidades de um lote Z, os resultados obtidos foram: 85%, 82%, 88%, 75%, 81% e 72%. Com base rigorosa no texto do manual, qual é o procedimento de controle de qualidade que deve ser adotado a seguir?",
+      "opcoes": [
+        "Aprovar o lote imediatamente, pois a média das 6 unidades é superior a 80%.",
+        "Reprovar o lote imediatamente, pois duas unidades ficaram abaixo de 80%.",
+        "Coletar e testar uma amostra adicional de 12 unidades do mesmo lote.",
+        "Coletar e testar uma nova amostra de apenas 6 unidades para substituição das anteriores.",
+        "Aprovar o lote condicionalmente, exigindo apenas recalibragem dos equipamentos de teste."
+      ]
+    },
+    {
+      "n": 31,
+      "motivo": "conferência instável (os passes cegos não convergem)",
+      "gabarito_gerado": 1,
+      "letra_gerada": "B",
+      "votos_cegos": [
+        null,
+        1
+      ],
+      "votos_letra": [
+        "·",
+        "B"
+      ],
+      "enunciado": "No manual de manutenção industrial de uma fábrica de autopeças, consta a seguinte instrução: 'A inspeção dos cabos de aço deve ser realizada semanalmente. Caso seja identificada qualquer ruptura superior a 5% dos fios do cabo, a substituição imediata do equipamento é obrigatória. Em situações em que a oxidação seja apenas superficial, permite-se a aplicação de lubrificante anticorrosivo e o acompanhamento diário até a manutenção preventiva mensal.' Com base estrita nesse trecho técnico, qual procedimento deve ser adotado ao constatar oxidação restrita à camada externa dos fios?",
+      "opcoes": [
+        "Realizar a troca imediata de todo o conjunto de cabos de aço.",
+        "Aplicar produto anticorrosivo e realizar monitoramento diário do componente.",
+        "Aguardar a manutenção preventiva mensal sem realizar intervenções no componente.",
+        "Suspender as inspeções semanais até que a oxidação atinja a estrutura interna.",
+        "Efetuar a substituição do cabo no prazo impreterível de cinco dias úteis."
+      ]
+    },
+    {
+      "n": 32,
+      "motivo": "conferência instável (os passes cegos não convergem)",
+      "gabarito_gerado": 3,
+      "letra_gerada": "D",
+      "votos_cegos": [
+        null,
+        3
+      ],
+      "votos_letra": [
+        "·",
+        "D"
+      ],
+      "enunciado": "Na documentação técnica de uma interface de programação de aplicações (API), lê-se: 'O parâmetro timeout define o tempo máximo, em milissegundos, que a aplicação cliente aguardará pela resposta do servidor remoto. Se esse tempo for excedido sem o recebimento do cabeçalho de resposta, a requisição será interrompida e uma exceção do tipo GatewayTimeoutException será lançada, a menos que a flag keep_alive esteja definida como verdadeira, hipótese em que a requisição tentará reconexão uma única vez antes do encerramento.' De acordo com o texto técnico, qual é a consequência direta do esgotamento do limite do parâmetro timeout quando a flag keep_alive encontra-se ativada?",
+      "opcoes": [
+        "O lançamento instantâneo da exceção sem qualquer tentativa prévia de reconexão.",
+        "O encerramento imediato do processo com desativação permanente da rede.",
+        "A alteração automática do valor original do timeout para o dobro do tempo.",
+        "A realização de uma única tentativa de reconexão antes de encerrar o processo.",
+        "A manutenção indefinida da conexão até que o servidor retorne a resposta."
+      ]
+    },
+    {
+      "n": 33,
+      "motivo": "conferência instável (os passes cegos não convergem)",
+      "gabarito_gerado": 0,
+      "letra_gerada": "A",
+      "votos_cegos": [
+        null,
+        0
+      ],
+      "votos_letra": [
+        "·",
+        "A"
+      ],
+      "enunciado": "Em um parecer técnico farmacêutico de farmacovigilância, afirma-se: 'A administração do fármaco em pacientes geriátricos exige ajuste posológico decrescente em 25% caso o ritmo de filtração glomerular se situe entre 30 e 50 mL/min/1,73m². Em indivíduos com clearance renal inferior a 30 mL/min/1,73m², a terapia deve ser descontinuada devido ao risco de nefrotoxidade acumulativa.' Qual conduta clínica é estritamente prescrita para um paciente idoso que apresente clearance renal de 20 mL/min/1,73m²?",
+      "opcoes": [
+        "Interromper completamente o tratamento medicamentoso.",
+        "Reduzir a dosagem do medicamento em 25% em relação à dose padrão.",
+        "Manter a dosagem original associada à monitoração semanal da função renal.",
+        "Aumentar o intervalo entre as administrações mantendo a dosagem plena.",
+        "Reduzir a dosagem do medicamento em 50% para compensar a função renal."
+      ]
+    },
+    {
+      "n": 34,
+      "motivo": "conferência instável (os passes cegos não convergem)",
+      "gabarito_gerado": 2,
+      "letra_gerada": "C",
+      "votos_cegos": [
+        null,
+        2
+      ],
+      "votos_letra": [
+        "·",
+        "C"
+      ],
+      "enunciado": "Segundo uma norma regulamentadora de segurança no trabalho: 'Os Equipamentos de Proteção Individual (EPI) contra queda com diferença de nível devem passar por inspeção visual diária pelo próprio usuário antes do início das atividades. Ademais, uma inspeção minuciosa periódica deve ser efetuada por profissional credenciado a cada doze meses ou imediatamente após a ocorrência de retenção de queda, o que ocorrer primeiro.' Considerando a norma apresentada, em qual situação a inspeção por profissional credenciado deve ocorrer antes do prazo regular de doze meses?",
+      "opcoes": [
+        "Sempre que a inspeção visual diária realizada pelo usuário não apontar qualquer tipo de avaria.",
+        "Caso o equipamento seja compartilhado por mais de um trabalhador no mesmo turno de serviço.",
+        "Logo após a ocorrência de um evento de retenção de queda utilizando o equipamento.",
+        "Quando a temperatura ambiente no local de trabalho sofrer alterações bruscas durante a jornada.",
+        "Apenas mediante solicitação formal emitida pela equipe de auditoria externa de segurança."
+      ]
+    },
+    {
+      "n": 35,
+      "motivo": "conferência instável (os passes cegos não convergem)",
+      "gabarito_gerado": 4,
+      "letra_gerada": "E",
+      "votos_cegos": [
+        null,
+        4
+      ],
+      "votos_letra": [
+        "·",
+        "E"
+      ],
+      "enunciado": "Um relatório de auditoria ambiental de um complexo industrial apresentou o seguinte resumo descritivo: 'A conformidade do efluente tratado é condicionada à manutenção do pH entre 6,5 e 8,5 e à concentração de sólidos suspensos totais (SST) abaixo de 50 mg/L. Constatou-se que, embora o pH tenha se mantido estável em 7,2 durante o trimestre, a medição de SST atingiu 65 mg/L nas amostras de pico, configurando inconformidade pontual, embora a média ponderada mensal de SST tenha permanecido em 42 mg/L.' Qual conclusão sobre o estado de conformidade do efluente no trimestre decorre estritamente das diretrizes e medições descritas no texto?",
+      "opcoes": [
+        "O efluente esteve plenamente conforme durante todo o trimestre, pois a média ponderada mensal de SST permaneceu abaixo do limite de 50 mg/L.",
+        "O efluente apresentou não conformidade no pH, ao passo que os sólidos suspensos totais mantiveram-se dentro da faixa permitida.",
+        "O efluente foi aprovado sem restrições porque medições de pico não são levadas em consideração para fins de fiscalização ambiental.",
+        "O efluente foi considerado irregular de forma global devido ao descumprimento simultâneo dos parâmetros de pH e de SST.",
+        "O efluente apresentou inconformidade pontual no parâmetro de sólidos suspensos totais, apesar da estabilidade e adequação do pH."
+      ]
+    },
+    {
+      "n": 36,
+      "motivo": "conferência instável (os passes cegos não convergem)",
+      "gabarito_gerado": 1,
+      "letra_gerada": "B",
+      "votos_cegos": [
+        null,
+        1
+      ],
+      "votos_letra": [
+        "·",
+        "B"
+      ],
+      "enunciado": "Em um manual de instruções de um equipamento no-break, encontra-se a seguinte especificação: 'Para garantir a vida útil das baterias internas, o equipamento não deve ser submetido a cargas que ultrapassem 80% de sua capacidade nominal em regime contínuo. Caso ocorra sobrecarga pontual entre 81% e 100%, um alarme sonoro intermitente será emitido, permitindo a operação por no máximo 15 minutos antes do desligamento automático de proteção.' O que acontece imediatamente quando a carga conectada ao equipamento atinge 90% da sua capacidade nominal em funcionamento?",
+      "opcoes": [
+        "Ocorre o desligamento automático instantâneo do equipamento para proteção dos circuitos.",
+        "O alarme sonoro intermitente é acionado, permitindo operação por até 15 minutos.",
+        "As baterias internas são totalmente desconectadas para evitar a degradação da vida útil.",
+        "O equipamento expande automaticamente a sua capacidade nominal de carga por 15 minutos.",
+        "A emissão de um sinal sonoro contínuo é acionada e o equipamento bloqueia a saída de energia."
+      ]
+    },
+    {
+      "n": 37,
+      "motivo": "conferência instável (os passes cegos não convergem)",
+      "gabarito_gerado": 0,
+      "letra_gerada": "A",
+      "votos_cegos": [
+        null,
+        0
+      ],
+      "votos_letra": [
+        "·",
+        "A"
+      ],
+      "enunciado": "No manual de políticas de segurança da informação de uma empresa de tecnologia, lê-se: 'O tráfego de dados na rede corporativa deve obrigatoriamente utilizar criptografia de ponta a ponta. Os registros de log de acesso devem ser armazenados em servidor dedicado e inalterável por um período mínimo de cinco anos. O acesso aos referidos logs é restrito aos auditores de segurança da informação, sendo vedada a consulta por administradores de rede sem prévia autorização formal do comitê de privacidade.' De acordo com as diretrizes do manual, qual condição é indispensável para que um administrador de rede consulte os registros de log de acesso?",
+      "opcoes": [
+        "Obter a autorização formal prévia emitida pelo comitê de privacidade.",
+        "Pertencer ativamente à equipe de auditores de segurança da informação da empresa.",
+        "Aguardar o cumprimento integral do prazo mínimo de cinco anos de armazenamento.",
+        "Realizar o acesso a partir de um servidor dedicado com criptografia de ponta a ponta.",
+        "Apresentar justificativa verbal ao responsável pela infraestrutura de rede corporativa."
+      ]
+    },
+    {
+      "n": 38,
+      "motivo": "conferência instável (os passes cegos não convergem)",
+      "gabarito_gerado": 3,
+      "letra_gerada": "D",
+      "votos_cegos": [
+        null,
+        3
+      ],
+      "votos_letra": [
+        "·",
+        "D"
+      ],
+      "enunciado": "De acordo com o regulamento técnico de licenciamento ambiental de um estado: 'A concessão da Licença de Operação (LO) é pré-requisito para o início das atividades da fonte poluidora. A solicitação de renovação da LO deve ser protocolada com antecedência mínima de 120 dias da expiração de sua validade. Caso o pedido seja formalizado dentro desse prazo, a validade da licença vigente fica automaticamente prorrogada até a manifestação definitiva do órgão ambiental competente.' Qual é a consequência direta do protocolo da renovação da Licença de Operação feito a 130 dias do seu vencimento?",
+      "opcoes": [
+        "O indeferimento imediato por descumprimento da exigência de antecedência regulamentar.",
+        "A interrupção imediata das atividades da fonte poluidora durante o trâmite da análise.",
+        "A obrigatoriedade de solicitar uma nova Licença Prévia antes da análise da renovação.",
+        "A prorrogação automática da licença vigente até a decisão final do órgão ambiental.",
+        "O pagamento de multa moratória por antecipação indevida do processo administrativo."
+      ]
+    },
+    {
+      "n": 39,
+      "motivo": "conferência instável (os passes cegos não convergem)",
+      "gabarito_gerado": 2,
+      "letra_gerada": "C",
+      "votos_cegos": [
+        null,
+        2
+      ],
+      "votos_letra": [
+        "·",
+        "C"
+      ],
+      "enunciado": "Um artigo técnico de engenharia de materiais descreve o seguinte fenômeno: 'A degradação por corrosão sob tensão em ligas de alumínio da série 7000 ocorre mediante a conjunção de três fatores simultâneos: microestrutura suscetível, meio corrosivo contendo íons cloreto e tensão de tração permanente. A ausência isolada de qualquer um desses fatores impede o mecanismo de trincamento, embora o material ainda possa sofrer corrosão por pite caso o pH da solução esteja abaixo de 4,0.' Com base estrita no texto técnico, em que condição específica o mecanismo de trincamento por corrosão sob tensão NÃO se desenvolverá na liga de alumínio da série 7000?",
+      "opcoes": [
+        "Quando a liga metálica for submetida a um pH da solução mantido estritamente abaixo de 4,0.",
+        "Quando a tensão aplicada sobre o componente for do tipo compressão em vez de tração permanente.",
+        "Quando pelo menos um dos três fatores determinantes estiver ausente no processo.",
+        "Quando houver a presença simultânea da microestrutura suscetível e da tensão de tração.",
+        "Quando a corrosão por pite ocorrer antes de qualquer exposição ao meio com íons cloreto."
+      ]
+    },
+    {
+      "n": 40,
+      "motivo": "conferência instável (os passes cegos não convergem)",
+      "gabarito_gerado": 4,
+      "letra_gerada": "E",
+      "votos_cegos": [
+        null,
+        4
+      ],
+      "votos_letra": [
+        "·",
+        "E"
+      ],
+      "enunciado": "No protocolo hospitalar de administração de hemoderivados, consta a seguinte recomendação de enfermagem: 'A infusão do concentrado de hemácias deve ser iniciada nos primeiros 30 minutos após a saída da bolsa da central de triagem e não deve ultrapassar o tempo máximo de 4 horas de infusão. Caso surjam reações febris não hemolíticas, a infusão deve ser interrompida imediatamente, mantendo-se o acesso venoso com solução salina a 0,9% e notificando o serviço de hemoterapia.' Diante da ocorrência de uma reação febril não hemolítica durante a transfusão sanguínea, qual ação de assistência é indicada pelo protocolo apresentado?",
+      "opcoes": [
+        "Aumentar a velocidade de infusão para encerrar a administração dentro de 30 minutos.",
+        "Substituir a solução salina por antitérmico intravenoso e manter a infusão do hemoderivado.",
+        "Manter a infusão contínua da bolsa e notificar o serviço de hemoterapia ao final das 4 horas.",
+        "Descartar o acesso venoso e retirar o cateter imediatamente antes de qualquer notificação.",
+        "Interromper imediatamente a infusão e manter o acesso venoso permeável com solução salina a 0,9%."
+      ]
+    },
+    {
+      "n": 41,
+      "motivo": "conferência instável (os passes cegos não convergem)",
+      "gabarito_gerado": 1,
+      "letra_gerada": "B",
+      "votos_cegos": [
+        null,
+        1
+      ],
+      "votos_letra": [
+        "·",
+        "B"
+      ],
+      "enunciado": "Um manual técnico de tecnologia da informação descreve as seguintes rotinas: 'O backup incremental realiza a cópia apenas dos dados que foram alterados desde a última execução de qualquer tipo de backup. Já o backup diferencial copia todos os dados alterados desde o último backup completo. Em um cenário onde um backup completo é feito no domingo às 22h e backups diários são efetuados no mesmo horário, se o sistema falhar na quinta-feira de manhã, qual é o procedimento necessário para a restauração completa dos dados até a quarta-feira à noite utilizando a estratégia de backup diferencial?'",
+      "opcoes": [
+        "Restaurar o backup completo de domingo e aplicar sequencialmente os backups diferenciais de segunda, terça e quarta-feira.",
+        "Restaurar o backup completo de domingo e aplicar apenas o backup diferencial de quarta-feira.",
+        "Restaurar apenas o backup diferencial de quarta-feira, pois ele já contém todos os arquivos acumulados da semana.",
+        "Restaurar o backup completo de domingo e o backup incremental da quarta-feira.",
+        "Restaurar todos os backups diários desde segunda-feira sem a necessidade do backup completo de domingo."
+      ]
+    },
+    {
+      "n": 42,
+      "motivo": "conferência instável (os passes cegos não convergem)",
+      "gabarito_gerado": 0,
+      "letra_gerada": "A",
+      "votos_cegos": [
+        null,
+        0
+      ],
+      "votos_letra": [
+        "·",
+        "A"
+      ],
+      "enunciado": "Uma portaria administrativa sobre gestão documental estabelece: 'Os documentos administrativos de valor corrente devem ser mantidos no arquivo setorial pelo prazo de cinco anos a contar de sua autuação. Após esse período, os documentos classificados como de guarda permanente devem ser recolhidos ao Arquivo Central, enquanto aqueles com temporalidade definida para expurgo devem ser eliminados mediante autorização da comissão de avaliação.' Qual destinação deve ser dada a um documento de valor corrente autuado há seis anos que foi classificado com temporalidade definida para expurgo?",
+      "opcoes": [
+        "Encaminhamento para eliminação mediante autorização formal da comissão de avaliação.",
+        "Transferência imediata para guarda permanente no Arquivo Central do órgão.",
+        "Manutenção por mais cinco anos no arquivo setorial antes de qualquer deliberação.",
+        "Devolução ao setor de origem para reclassificação obrigatória de temporalidade.",
+        "Eliminação automática pelo setor do arquivo setorial sem necessidade de comissão."
+      ]
+    },
+    {
+      "n": 43,
+      "motivo": "conferência instável (os passes cegos não convergem)",
+      "gabarito_gerado": 2,
+      "letra_gerada": "C",
+      "votos_cegos": [
+        null,
+        2
+      ],
+      "votos_letra": [
+        "·",
+        "C"
+      ],
+      "enunciado": "Um manual técnico sobre Higiene Ocupacional define as diretrizes para mitigação de riscos em ambientes industriais: 'O uso de Equipamento de Proteção Individual (EPI) é compulsório apenas quando as Medidas de Proteção Coletiva (EPC) forem tecnicamente inviáveis ou insuficientes para neutralizar o risco. A implantação de EPCs possui prioridade hierárquica legal sobre os EPIs, cabendo ao empregador priorizar a neutralização do agente nocivo na fonte geradora.' Em uma inspeção de rotina onde se constata alto nível de ruído em um galpão industrial, qual é a conduta inicial exigida por esse texto técnico para a gestão desse risco?",
+      "opcoes": [
+        "Distribuir protetores auriculares individuais a todos os funcionários expostos ao ruído.",
+        "Substituir imediatamente todos os trabalhadores afetados por equipes em regime de escala reduzida.",
+        "Propor e implementar medidas de proteção coletiva para atenuar o ruído na fonte ou no ambiente.",
+        "Exigir que a comissão interna de prevenção valide individualmente o uso do EPI escolhido.",
+        "Interditar as máquinas ruidosas até que cada empregado adquira seu próprio EPI adequado."
+      ]
+    },
+    {
+      "n": 44,
+      "motivo": "conferência instável (os passes cegos não convergem)",
+      "gabarito_gerado": 3,
+      "letra_gerada": "D",
+      "votos_cegos": [
+        null,
+        3
+      ],
+      "votos_letra": [
+        "·",
+        "D"
+      ],
+      "enunciado": "Uma norma técnica de engenharia prevê o seguinte procedimento para cura de estruturas de concreto: 'A cura do concreto deve ser iniciada imediatamente após o fim da pega e prolongada por, no mínimo, sete dias para cimento Portland comum. Caso sejam utilizados aditivos aceleradores de pega, o período mínimo de cura pode ser reduzido para quatro dias, desde que a umidade relativa da superfície seja mantida acima de 80%.' Considerando uma obra que utiliza cimento Portland comum acrescido de aditivo acelerador de pega, qual condição atende rigorosamente às exatidões técnicas do protocolo para a fase de cura?",
+      "opcoes": [
+        "Manter a cura por sete dias corridos independentemente da umidade e dos aditivos empregados.",
+        "Iniciar a cura quatro dias antes do fim da pega do cimento acelerado.",
+        "Manter a umidade relativa do ambiente abaixo de 80% durante os primeiros quatro dias.",
+        "Manter a umidade da superfície acima de 80% durante pelo menos quatro dias após o fim da pega.",
+        "Aplicar o aditivo acelerador apenas no sétimo dia após a conclusão da cura."
+      ]
+    },
+    {
+      "n": 45,
+      "motivo": "conferência instável (os passes cegos não convergem)",
+      "gabarito_gerado": 4,
+      "letra_gerada": "E",
+      "votos_cegos": [
+        null,
+        4
+      ],
+      "votos_letra": [
+        "·",
+        "E"
+      ],
+      "enunciado": "O manual de instruções de um purificador de água de uso doméstico apresenta a seguinte recomendação: 'O elemento filtrante (refil) possui vida útil nominal de 3.000 litros ou 6 meses de uso, prevalecendo o critério que for atingido primeiro. Em localidades com altíssimo teor de partículas em suspensão, o fluxo de água pode ser reduzido antes do prazo, indicando a necessidade de troca precoce do refil.' Em uma residência com alto consumo onde se atingiram 3.000 litros consumidos em apenas 3 meses, qual providência deve ser adotada segundo o manual?",
+      "opcoes": [
+        "Aguardar a conclusão dos 6 meses de uso para efetuar a troca do refil.",
+        "Realizar a limpeza química do refil para estender a durabilidade até o sexto mês.",
+        "Aumentar a pressão da rede de água para restabelecer o fluxo nominal sem trocar o refil.",
+        "Reduzir o consumo diário de água até que se completem os 6 meses recomendados.",
+        "Efetuar a troca do refil imediatamente, pois o limite de volume de filtragem foi alcançado."
+      ]
+    },
+    {
+      "n": 46,
+      "motivo": "conferência instável (os passes cegos não convergem)",
+      "gabarito_gerado": 1,
+      "letra_gerada": "B",
+      "votos_cegos": [
+        null,
+        1
+      ],
+      "votos_letra": [
+        "·",
+        "B"
+      ],
+      "enunciado": "Um regulamento sobre licenciamento ambiental estabelece as seguintes etapas operacionais: 'A Licença Prévia (LP) deve ser solicitada na fase de planejamento da atividade e atesta a viabilidade ambiental do projeto, não autorizando o início de obras. A instalação física do empreendimento depende da obtenção da Licença de Instalação (LI), enquanto o efetivo funcionamento do estabelecimento condiciona-se à emissão da Licença de Operação (LO).' Uma empresa obtém a Licença Prévia (LP) para construir uma fábrica. Qual ação é legalmente permitida à empresa imediatamente após essa concessão?",
+      "opcoes": [
+        "Iniciar o canteiro de obras e a terraplenagem do terreno onde funcionará a fábrica.",
+        "Dar continuidade ao detalhamento do projeto executivo e requerer a Licença de Instalação.",
+        "Iniciar os testes operacionais dos maquinários antes de solicitar a Licença de Operação.",
+        "Iniciar a produção comercial em caráter experimental por um período máximo de trinta dias.",
+        "Solicitar o cancelamento da Licença de Instalação para passar diretamente à Licença de Operação."
+      ]
+    },
+    {
+      "n": 47,
+      "motivo": "conferência instável (os passes cegos não convergem)",
+      "gabarito_gerado": 0,
+      "letra_gerada": "A",
+      "votos_cegos": [
+        null,
+        0
+      ],
+      "votos_letra": [
+        "·",
+        "A"
+      ],
+      "enunciado": "Uma instrução técnica de contabilidade privada orienta: 'Na apuração do Lucro Real pelo regime de competência, as receitas e despesas devem ser incluídas na apuração do resultado do período em que ocorrem os seus fatos geradores, independentemente do efetivo recebimento ou pagamento. Se uma despesa foi incorrida no exercício de 2023, mas quitada financeiramente apenas em 2024, sua dedução contábil deve ser lançada no exercício de 2023. Contudo, multas por infrações fiscais, embora registradas como despesa no ano do fato gerador, são indedutíveis para fins de apuração da base de cálculo do imposto de renda.' Em relação a uma multa por atraso tributário ocorrida e notificada em novembro de 2023, mas paga somente em janeiro de 2024, como o texto técnico determina seu tratamento na apuração contábil e fiscal de 2023?",
+      "opcoes": [
+        "Deve ser registrada como despesa no resultado de 2023, porém adicionada na apuração do imposto de renda por ser indedutível.",
+        "Deve ser reconhecida contabilmente e deduzida do imposto de renda no exercício de 2024, quando ocorre o desembolso.",
+        "Deve ser desconsiderada do balanço de 2023 e lançada como despesa dedutível integralmente em 2024.",
+        "Deve ser deduzida do Lucro Real de 2023 por ter seu fato gerador ocorrido dentro daquele exercício financeiro.",
+        "Deve ser lançada no patrimônio líquido sem transitar pelo resultado de 2023 ou 2024 por tratar-se de sanção fiscal."
+      ]
+    },
+    {
+      "n": 48,
+      "motivo": "conferência instável (os passes cegos não convergem)",
+      "gabarito_gerado": 2,
+      "letra_gerada": "C",
+      "votos_cegos": [
+        null,
+        2
+      ],
+      "votos_letra": [
+        "·",
+        "C"
+      ],
+      "enunciado": "O regimento interno de uma instituição de ensino estabelece: 'O aluno que obtiver frequência regimental inferior a 75% da carga horária total da disciplina estará automaticamente reprovado por faltas, independentemente das notas obtidas nas avaliações teóricas e práticas. O direito à realização da avaliação de recuperação final é restrito aos estudantes com frequência igual ou superior a 75% cuja média anual fique entre 4,0 e 6,9 pontos.' Um estudante obteve média anual de 6,5 pontos em uma disciplina de 100 horas-aula, tendo registrado um total acumulado de 28 faltas ao longo do ano letivo. Diante dessas condições regimentais, qual é a situação desse estudante?",
+      "opcoes": [
+        "Aprovado diretamente na disciplina por ter obtido média superior ao limite mínimo de 4,0 pontos.",
+        "Convocado para realizar a avaliação de recuperação final por estar na faixa de média entre 4,0 e 6,9.",
+        "Reprovado por faltas, sem direito a realizar a avaliação de recuperação final.",
+        "Submetido a um conselho de classe para abono das faltas excedentes até atingir os 75%.",
+        "Autorizado a realizar exames de recuperação apenas para compensar a pontuação faltante."
+      ]
+    },
+    {
+      "n": 49,
+      "motivo": "conferência instável (os passes cegos não convergem)",
+      "gabarito_gerado": 3,
+      "letra_gerada": "D",
+      "votos_cegos": [
+        null,
+        3
+      ],
+      "votos_letra": [
+        "·",
+        "D"
+      ],
+      "enunciado": "Um protocolo farmacêutico de administração hospitalar determina: 'Medicamentos fotossensíveis devem ser mantidos em embalagens opacas e protegidos da luz solar direta. Quando diluídos em solução fisiológica para infusão venosa contínua, a estabilidade da mistura é mantida por até 12 horas sob refrigeração (2°C a 8°C) ou por no máximo 4 horas sob temperatura ambiente (15°C a 30°C). Excedidos esses prazos, o frasco contendo a mistura deve ser descartado, mesmo que não apresente alteração de cor ou precipitação visível.' Um profissional preparou às 08:00 a diluição de um medicamento fotossensível para infusão contínua, mantendo o frasco protegido da luz em temperatura ambiente de 22°C. Até qual horário essa mistura pode ser administrada de forma segura sem necessidade de descarte?",
+      "opcoes": [
+        "Até às 20:00 do mesmo dia, caso não haja precipitação visível no frasco.",
+        "Até às 08:00 do dia seguinte, desde que mantido ao abrigo da luz solar.",
+        "Até às 12:00 do dia seguinte, se o frasco for transferido para a geladeira.",
+        "Até às 12:00 do mesmo dia.",
+        "Por tempo indeterminado enquanto a coloração original do fármaco se mantiver inalterada."
+      ]
+    },
+    {
+      "n": 50,
+      "motivo": "conferência instável (os passes cegos não convergem)",
+      "gabarito_gerado": 4,
+      "letra_gerada": "E",
+      "votos_cegos": [
+        null,
+        4
+      ],
+      "votos_letra": [
+        "·",
+        "E"
+      ],
+      "enunciado": "A diretriz interna de proteção de dados de uma autarquia pública prevê: 'A consulta a dados pessoais cadastrais por servidores públicos exige a comprovação da necessidade de serviço vinculada à finalidade precípua do atendimento. O compartilhamento não autorizado de dados pessoais de cidadãos com terceiros externos à administração pública configura infração funcional grave, sujeita a processo administrativo disciplinar, salvo se amparado por ordem judicial expressa ou requisição da autoridade policial investigativa.' Um servidor público recebe a solicitação informal de um advogado particular pedindo o endereço atualizado de um cidadão cadastrado na base de dados para fins de citação processual. Com base estrita na diretriz apresentada, qual deve ser a conduta do servidor?",
+      "opcoes": [
+        "Fornecer o endereço, dado que a citação processual constitui finalidade legal válida para o advogado.",
+        "Consultar os dados e repassá-los mediante a assinatura de um termo de responsabilidade informal pelo amigo.",
+        "Encaminhar a solicitação para aprovação verbal da chefia imediata a fim de isentar-se de responsabilidade funcional.",
+        "Disponibilizar os dados contanto que o cidadão seja notificado previamente por e-mail pelo próprio servidor.",
+        "Negar o fornecimento das informações, uma vez que não há requisição policial nem ordem judicial formal respaldando o pedido."
+      ]
+    }
+  ]
+}

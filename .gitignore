@@ -1,0 +1,20 @@
+node_modules/
+.next/
+out/
+build/
+.render-tools/
+renders/
+
+.env
+.env.local
+.env*.local
+
+# Notas de desenvolvimento com credencial de teste. Fica fora do repositório
+# pelo mesmo motivo do .env.local: senha não se versiona, nem de conta de teste.
+NOTAS-LOCAIS.md
+
+next-env.d.ts
+*.tsbuildinfo
+
+.DS_Store
+Thumbs.db

@@ -1,0 +1,20 @@
+{
+  "materia": "portugues-fund",
+  "tema": "Substantivo e adjetivo",
+  "modelo_conferencia": "gemini-3.6-flash",
+  "passes": 2,
+  "rigor": "estrito",
+  "limiar_dedup": 0.5,
+  "geradas": 50,
+  "dedup_identicas": 0,
+  "dedup_semanticas": 0,
+  "conferidas": 50,
+  "mantidas": 50,
+  "contadores": {
+    "gabarito_divergente": 0,
+    "instavel": 0,
+    "marcou_menos1": 0,
+    "sem_resposta": 0
+  },
+  "descartes": []
+}

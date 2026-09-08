@@ -1,0 +1,56 @@
+/* Faixa do modo visitante. Fica abaixo da nav, empurrando o conteúdo — de
+   propósito: uma tarja flutuante some do campo de visão justamente quando a
+   pessoa está concentrada respondendo. */
+
+.faixa {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--accent-line);
+  background: var(--accent-dim);
+  backdrop-filter: blur(10px);
+}
+
+.relogio {
+  flex: none;
+  padding: 5px 11px;
+  border: 1px solid var(--accent-line);
+  border-radius: 99px;
+  background: var(--bg);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent-2);
+  white-space: nowrap;
+}
+
+.texto {
+  flex: 1;
+  min-width: 240px;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-2);
+}
+.texto strong { color: var(--text); font-weight: 600; }
+
+/* Nos últimos dez minutos o aviso muda de tom. Não é decoração: é a hora em
+   que ainda dá para criar a conta sem interromper o que está em andamento. */
+.urgente {
+  border-bottom-color: var(--err);
+  background: color-mix(in srgb, var(--err) 10%, transparent);
+}
+.urgente .relogio {
+  border-color: var(--err);
+  color: var(--err);
+}
+
+@media (max-width: 640px) {
+  .faixa { padding: 11px 16px; gap: 11px; }
+  .texto { font-size: 12.5px; min-width: 100%; order: 3; }
+}

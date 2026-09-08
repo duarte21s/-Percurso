@@ -1,0 +1,40 @@
+{
+  "name": "percurso",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Percurso — plataforma de estudos para ENEM, vestibulares, concursos e reforço escolar.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run typecheck && npm run build",
+    "start": "next start",
+    "seed": "node scripts/seed.mjs",
+    "seed-questoes": "node scripts/seed-questoes.mjs",
+    "classificar": "node scripts/classificar-temas.mjs",
+    "importar-enem": "node scripts/importar-enem.mjs",
+    "checar-contraste": "node scripts/checar-contraste.mjs",
+    "checar-mola": "node scripts/checar-mola.mjs",
+    "checar-video-scroll": "node scripts/checar-video-scroll.mjs",
+    "checar-prova": "node scripts/checar-prova.mjs",
+    "checar-treino": "node scripts/checar-treino.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.116.0",
+    "@gsap/react": "^2.1.2",
+    "@supabase/ssr": "^0.7.0",
+    "@supabase/supabase-js": "^2.58.0",
+    "gsap": "^3.15.0",
+    "next": "^16.3.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "zod": "^4.1.11"
+  },
+  "devDependencies": {
+    "@types/node": "^24.5.2",
+    "@types/react": "^19.1.13",
+    "@types/react-dom": "^19.1.9",
+    "typescript": "^5.9.2"
+  }
+}

@@ -1,0 +1,151 @@
+/* Escolher matéria e conteúdo para estudar.
+
+   O acordeão reaproveita .subjects/.subject/.topic do globals.css — é o
+   mesmo componente visual da seção "Matérias" da landing, de propósito: quem
+   já explorou os tópicos lá reconhece a lista aqui. O que este arquivo
+   acrescenta é o que muda de função: o tópico vira botão, ganha contagem e
+   ganha estado de escolhido. */
+
+.painel {
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  padding: 26px 24px 24px;
+  margin-top: 30px;
+}
+
+.cabeca {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+.titulo {
+  font-family: var(--serif);
+  font-size: 19px;
+  letter-spacing: -0.01em;
+}
+.lede {
+  font-size: 13px;
+  color: var(--text-3);
+  line-height: 1.7;
+  max-width: 64ch;
+  margin-bottom: 20px;
+}
+
+/* --- o tópico como botão ------------------------------------------------ */
+.topico {
+  /* Herda .topic do globals.css; aqui só o que um <button> precisa. */
+  width: 100%;
+  border: 1px solid transparent;
+  background: none;
+  text-align: left;
+  font: inherit;
+  font-size: 13.5px;
+  color: var(--text-2);
+}
+.topico:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+.topico:disabled:hover {
+  background: none;
+  color: var(--text-2);
+}
+
+.escolhido,
+.escolhido:hover {
+  background: var(--accent-dim);
+  border-color: var(--accent-line);
+  color: var(--text);
+}
+
+/* `min-width: 0` deixa a coluna encolher, mas sozinho não basta: texto sem
+   ponto de quebra transborda a caixa em vez de se ajustar, e vai por cima da
+   contagem à direita. Títulos de tema têm espaços e quebram sozinhos; o
+   `break-word` cobre o caso do termo comprido e sem espaço, como
+   "dissertativo-argumentativa". */
+.rotulo {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
+/* Contagem no lugar da barra de incidência. O número é o que decide se vale
+   clicar, então ele fica onde a barra estava: alinhado à direita, sempre na
+   mesma coluna. */
+.contagem {
+  margin-left: auto;
+  flex: none;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: var(--text-3);
+  white-space: nowrap;
+}
+.escolhido .contagem {
+  color: var(--accent-2);
+}
+.vazio {
+  color: var(--text-3);
+  opacity: 0.7;
+}
+
+/* --- barra de ação ------------------------------------------------------ */
+.acao {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+.resumo {
+  font-size: 13px;
+  color: var(--text-2);
+  flex: 1;
+  min-width: 220px;
+  line-height: 1.6;
+}
+.resumo strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.faixa {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12.5px;
+  color: var(--text-3);
+}
+.faixa input {
+  width: 130px;
+  accent-color: var(--accent);
+}
+
+/* `.opcao` saiu junto com a caixa "só as comentadas": a sessão passou a servir
+   apenas questões com comentário, então não há mais o que optar. */
+
+.erro {
+  margin-top: 16px;
+  padding: 13px 16px;
+  border-left: 2px solid var(--err);
+  border-radius: 0 8px 8px 0;
+  background: color-mix(in srgb, var(--err) 10%, transparent);
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.65;
+}
+
+@media (max-width: 640px) {
+  .painel {
+    padding: 20px 16px 18px;
+  }
+  .acao {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

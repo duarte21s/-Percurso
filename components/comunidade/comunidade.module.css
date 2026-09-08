@@ -1,0 +1,1141 @@
+/* Comunidade.
+
+   Nada aqui inventa token: cores, raios, easing e tipografia saem do
+   globals.css. As classes globais (.btn, .input, .chip, .tag, .eyebrow,
+   .title, .lede, .dim, .fine) continuam valendo.
+
+   Cobre o feed (card de post, comentários, compositor), os estados
+   (esqueleto, vazio, erro) e o menu de ações do post. Algumas classes de
+   layout de fases seguintes (barra lateral, busca com sugestões, sino de
+   notificações, botão flutuante) ainda vivem aqui sem uso — saem quando a
+   fase correspondente chegar.
+
+   A hierarquia visual segue a da tabela de faculdades: superfície escura,
+   borda fina, raio grande, e o acento reservado para o que está ativo.
+   Reação e destaque não dependem só de cor — ganham peso, preenchimento de
+   ícone ou texto, porque cor sozinha não é sinal acessível. */
+
+/* ---------- cabeçalho ---------- */
+
+.topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+.topoTexto {
+  min-width: 0;
+}
+.ferramentas {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ---------- busca com sugestões ---------- */
+
+.busca {
+  position: relative;
+}
+.sugestoes {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  min-width: 280px;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--surface-2);
+  box-shadow: var(--elev-3);
+  max-height: 340px;
+  overflow-y: auto;
+}
+.sugestaoGrupo {
+  padding: 8px 10px 4px;
+  font-size: 11px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.sugestao {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--text-2);
+  font-size: 13.5px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s var(--ease), color 0.2s var(--ease);
+}
+.sugestao:hover,
+.sugestao:focus-visible {
+  background: var(--surface-3);
+  color: var(--text);
+  outline: none;
+}
+.sugestaoVazia {
+  padding: 14px 10px;
+  font-size: 13px;
+  color: var(--text-3);
+}
+
+/* ---------- abas ---------- */
+
+.abas {
+  position: relative;
+  display: flex;
+  gap: 4px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--line-soft);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.abas::-webkit-scrollbar {
+  display: none;
+}
+.aba {
+  position: relative;
+  flex: none;
+  padding: 11px 14px 13px;
+  border: 0;
+  background: transparent;
+  color: var(--text-3);
+  font-family: inherit;
+  font-size: 13.5px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.25s var(--ease);
+}
+.aba:hover {
+  color: var(--text-2);
+}
+.aba:focus-visible {
+  outline: 2px solid var(--accent-line);
+  outline-offset: -3px;
+  border-radius: var(--r-sm);
+}
+/* Ativo não é só cor: o peso muda e a barra de acento desliza pra baixo dele.
+   É um elemento só, posicionado por `x` + `scaleX` (só transformas) num
+   `gsap.to` que re-mira do ponto atual se a aba trocar no meio. */
+.abaAtiva {
+  color: var(--text);
+  font-weight: 500;
+}
+.abaSublinhado {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 1px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-brilho));
+  transform-origin: left center;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* ---------- grade ---------- */
+
+.grade {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 316px;
+  gap: 26px;
+  align-items: start;
+}
+.feed {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+/* ---------- card de post ---------- */
+
+.post {
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  padding: 20px 22px 14px;
+  transition: border-color 0.3s var(--ease);
+  /* Entrada em cascata (stagger do GSAP) por `useGSAP` em Comunidade — sem
+     opacidade no CSS, então se o JS falhar o feed aparece mesmo assim. */
+}
+.post:hover {
+  border-color: var(--line);
+}
+
+.postTopo {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.identidade {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1;
+}
+.nomes {
+  min-width: 0;
+  line-height: 1.35;
+}
+.nome {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+}
+.arroba {
+  font-size: 12.5px;
+  color: var(--text-3);
+}
+.selo {
+  flex: none;
+  width: 13px;
+  height: 13px;
+  color: var(--accent-2);
+}
+.quando {
+  font-size: 12.5px;
+  color: var(--text-3);
+  white-space: nowrap;
+}
+.pontoSeparador {
+  color: var(--text-3);
+  font-size: 12.5px;
+}
+
+/* avatar tipográfico: sem upload de foto no projeto */
+.avatar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--surface-3);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text);
+  user-select: none;
+}
+.avatarPequeno {
+  width: 30px;
+  height: 30px;
+  font-size: 11px;
+}
+.avatarGrande {
+  width: 42px;
+  height: 42px;
+  font-size: 14px;
+}
+
+/* ---------- conteúdo ---------- */
+
+.tipoEtiqueta {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 9px;
+  border-radius: 99px;
+  border: 1px solid var(--line);
+  background: var(--surface-3);
+  font-size: 11px;
+  color: var(--text-2);
+  white-space: nowrap;
+}
+.tipoPergunta {
+  border-color: var(--accent-line);
+  background: var(--accent-dim);
+  color: var(--accent-2);
+}
+.resolvido {
+  border-color: color-mix(in srgb, var(--ok) 34%, transparent);
+  background: color-mix(in srgb, var(--ok) 12%, transparent);
+  color: var(--ok);
+}
+
+.titulo {
+  margin: 0 0 8px;
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+.texto {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.72;
+  color: var(--text-2);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.bloco {
+  margin-top: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--bg-2);
+  overflow: hidden;
+}
+.blocoTopo {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--line-soft);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.blocoTopo svg {
+  width: 13px;
+  height: 13px;
+}
+.codigo {
+  margin: 0;
+  padding: 14px 16px;
+  overflow-x: auto;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--text-2);
+}
+.elo {
+  display: block;
+  padding: 13px 16px;
+  color: inherit;
+  text-decoration: none;
+  transition: background 0.25s var(--ease);
+}
+.elo:hover {
+  background: var(--surface-2);
+}
+.eloTitulo {
+  font-size: 13.5px;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+.eloDominio {
+  font-size: 12px;
+  color: var(--text-3);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 14px;
+}
+.tagBotao {
+  padding: 3px 10px;
+  border-radius: 99px;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  color: var(--text-3);
+  font-family: inherit;
+  font-size: 11.5px;
+  cursor: pointer;
+  transition: color 0.22s var(--ease), border-color 0.22s var(--ease),
+    background 0.22s var(--ease);
+}
+.tagBotao:hover {
+  color: var(--accent-2);
+  border-color: var(--accent-line);
+  background: var(--accent-dim);
+}
+.tagBotao:focus-visible {
+  outline: 2px solid var(--accent-line);
+  outline-offset: 2px;
+}
+.tagAtiva {
+  color: var(--accent-2);
+  border-color: var(--accent-line);
+  background: var(--accent-dim);
+}
+
+/* ---------- barra de ações ---------- */
+
+.acoes {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-top: 14px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line-soft);
+}
+.acao {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  /* 40px de altura: alvo de toque confortável no celular. */
+  min-height: 40px;
+  padding: 0 11px;
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--text-3);
+  font-family: inherit;
+  font-size: 12.5px;
+  cursor: pointer;
+  transition: color 0.22s var(--ease), background 0.22s var(--ease);
+}
+.acao svg {
+  width: 17px;
+  height: 17px;
+  transition: transform 0.25s var(--ease);
+}
+.acao:hover {
+  color: var(--text-2);
+  background: var(--surface-2);
+}
+.acao:focus-visible {
+  outline: 2px solid var(--accent-line);
+  outline-offset: -2px;
+}
+.acao:active svg {
+  transform: scale(0.88);
+}
+.acaoAtiva {
+  color: var(--accent-2);
+}
+.acaoAtiva:hover {
+  color: var(--accent-2);
+}
+/* pulso curto ao curtir; some para quem pediu menos movimento */
+.pulsa svg {
+  animation: pulso 0.32s var(--ease);
+}
+@keyframes pulso {
+  40% {
+    transform: scale(1.28);
+  }
+}
+.salvoAtivo {
+  color: var(--text);
+}
+.espaco {
+  flex: 1;
+}
+
+/* ---------- comentários ---------- */
+
+.comentarios {
+  margin-top: 4px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line-soft);
+  /* abre/fecha por altura (usarPresenca + GSAP) em PostCard */
+}
+.comentario {
+  display: flex;
+  gap: 10px;
+  padding: 10px 0;
+}
+.comentarioCorpo {
+  min-width: 0;
+  flex: 1;
+}
+.comentarioTexto {
+  margin: 3px 0 0;
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--text-2);
+  overflow-wrap: anywhere;
+}
+.comentarioAcoes {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-top: 2px;
+}
+.miniAcao {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 32px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--text-3);
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  transition: color 0.2s var(--ease), background 0.2s var(--ease);
+}
+.miniAcao svg {
+  width: 14px;
+  height: 14px;
+}
+.miniAcao:hover {
+  color: var(--text-2);
+  background: var(--surface-2);
+}
+.miniAcao:focus-visible {
+  outline: 2px solid var(--accent-line);
+  outline-offset: -2px;
+}
+/* Um nível só de aninhamento — mais que isso vira conversa ilegível. */
+.respostas {
+  margin-left: 14px;
+  padding-left: 14px;
+  border-left: 1px solid var(--line-soft);
+}
+
+.responder {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 12px 0 4px;
+}
+.campoComentario {
+  flex: 1;
+  min-width: 0;
+  min-height: 40px;
+  max-height: 160px;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--surface-2);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 13.5px;
+  line-height: 1.6;
+  resize: vertical;
+  transition: border-color 0.25s var(--ease);
+}
+.campoComentario:focus {
+  outline: none;
+  border-color: var(--accent-line);
+}
+.campoComentario::placeholder {
+  color: var(--text-3);
+}
+
+/* ---------- barra lateral ---------- */
+
+.lateral {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: sticky;
+  top: 96px;
+}
+.painel {
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  padding: 18px 18px 12px;
+}
+.painelTitulo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 14px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.painelTitulo svg {
+  width: 14px;
+  height: 14px;
+}
+.linha {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 9px 0;
+}
+.linha + .linha {
+  border-top: 1px solid var(--line-soft);
+}
+.linhaCorpo {
+  flex: 1;
+  min-width: 0;
+}
+.linhaNome {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13.5px;
+  color: var(--text);
+}
+.linhaMeta {
+  font-size: 12px;
+  color: var(--text-3);
+}
+.glifo {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--line);
+  background: var(--surface-3);
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--accent-2);
+}
+.botaoSeguir {
+  flex: none;
+  min-height: 32px;
+  padding: 0 13px;
+  border: 1px solid var(--line-strong);
+  border-radius: 99px;
+  background: transparent;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.22s var(--ease), color 0.22s var(--ease),
+    border-color 0.22s var(--ease);
+}
+.botaoSeguir:hover {
+  background: var(--surface-3);
+}
+.botaoSeguir:focus-visible {
+  outline: 2px solid var(--accent-line);
+  outline-offset: 2px;
+}
+.seguindo {
+  border-color: var(--accent-line);
+  background: var(--accent-dim);
+  color: var(--accent-2);
+}
+.posicao {
+  flex: none;
+  width: 18px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--text-3);
+  text-align: right;
+}
+
+/* ---------- notificações ---------- */
+
+.sinoEnvolve {
+  position: relative;
+}
+.contador {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 99px;
+  background: var(--accent);
+  color: var(--sobre-accent);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 16px;
+  text-align: center;
+}
+.notificacoes {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 8px);
+  right: 0;
+  width: min(340px, calc(100vw - 40px));
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--surface-2);
+  box-shadow: var(--elev-3);
+  max-height: 400px;
+  overflow-y: auto;
+  animation: caiu 0.24s var(--ease);
+}
+@keyframes caiu {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+.notificacao {
+  display: flex;
+  gap: 10px;
+  padding: 11px 10px;
+  border-radius: var(--r-sm);
+}
+.notificacao + .notificacao {
+  border-top: 1px solid var(--line-soft);
+}
+.naoLida {
+  background: var(--accent-dim);
+}
+.notificacaoTexto {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+.notificacaoContexto {
+  margin-top: 3px;
+  font-size: 12.5px;
+  color: var(--text-3);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* ---------- editor ---------- */
+
+.editorTipos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 8px;
+  margin-bottom: 18px;
+}
+.tipoOpcao {
+  padding: 11px 13px;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--surface-2);
+  color: var(--text-2);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.22s var(--ease), background 0.22s var(--ease);
+}
+.tipoOpcao:hover {
+  border-color: var(--line-strong);
+}
+.tipoOpcao:focus-visible {
+  outline: 2px solid var(--accent-line);
+  outline-offset: 2px;
+}
+.tipoOpcaoAtiva {
+  border-color: var(--accent-line);
+  background: var(--accent-dim);
+}
+.tipoOpcaoNome {
+  display: block;
+  font-size: 13.5px;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.tipoOpcaoDesc {
+  display: block;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--text-3);
+}
+
+.rotulo {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 11px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.campoTexto {
+  width: 100%;
+  min-height: 150px;
+  padding: 13px 15px;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--surface-2);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  resize: vertical;
+  transition: border-color 0.25s var(--ease);
+}
+.campoTexto:focus,
+.campoTitulo:focus {
+  outline: none;
+  border-color: var(--accent-line);
+}
+.campoTexto::placeholder,
+.campoTitulo::placeholder {
+  color: var(--text-3);
+}
+.campoTitulo {
+  width: 100%;
+  height: 44px;
+  padding: 0 15px;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--surface-2);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+  transition: border-color 0.25s var(--ease);
+}
+.grupoCampo {
+  margin-bottom: 16px;
+}
+.anexos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.anexo {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--text-3);
+  font-family: inherit;
+  font-size: 12.5px;
+  cursor: pointer;
+  transition: color 0.22s var(--ease), border-color 0.22s var(--ease);
+}
+.anexo svg {
+  width: 15px;
+  height: 15px;
+}
+.anexo:hover {
+  color: var(--text-2);
+  border-color: var(--text-3);
+}
+.anexo:focus-visible {
+  outline: 2px solid var(--accent-line);
+  outline-offset: 2px;
+}
+.anexoAtivo {
+  border-style: solid;
+  border-color: var(--accent-line);
+  background: var(--accent-dim);
+  color: var(--accent-2);
+}
+.previa {
+  margin-bottom: 16px;
+  padding: 4px 0 0;
+  border-top: 1px solid var(--line-soft);
+}
+.editorRodape {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 4px;
+}
+.contagem {
+  margin-right: auto;
+  font-size: 12px;
+  color: var(--text-3);
+}
+.excedeu {
+  color: var(--err);
+}
+
+/* ---------- estados ---------- */
+
+.esqueleto {
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  padding: 20px 22px;
+}
+.barra {
+  height: 11px;
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    var(--surface-2) 25%,
+    var(--surface-3) 50%,
+    var(--surface-2) 75%
+  );
+  background-size: 240% 100%;
+  animation: brilho 1.4s ease-in-out infinite;
+}
+.barraCirculo {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  flex: none;
+}
+@keyframes brilho {
+  from {
+    background-position: 140% 0;
+  }
+  to {
+    background-position: -40% 0;
+  }
+}
+.esqueletoTopo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.aviso {
+  display: grid;
+  place-items: center;
+  gap: 6px;
+  padding: 56px 24px;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  text-align: center;
+}
+.avisoTitulo {
+  font-family: var(--serif);
+  font-size: 19px;
+  color: var(--text);
+}
+.avisoTexto {
+  max-width: 42ch;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--text-3);
+  margin-bottom: 8px;
+}
+
+.fim {
+  padding: 22px 0 4px;
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--text-3);
+}
+
+/* ---------- nome do autor como link ---------- */
+
+.autorLink {
+  color: inherit;
+  text-decoration: none;
+}
+.autorLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.autorLink:focus-visible {
+  outline: 2px solid var(--accent-line);
+  outline-offset: 2px;
+  border-radius: var(--r-sm);
+}
+
+/* ---------- menu de ações do post (⋯) ---------- */
+
+.menuEnvolve {
+  position: relative;
+  flex: none;
+}
+.menu {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 6px);
+  right: 0;
+  width: min(280px, calc(100vw - 40px));
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--surface-2);
+  box-shadow: var(--elev-3);
+  /* Fica sempre no DOM (o reverse da timeline precisa do elemento). Em
+     repouso, escondido — o `tlMaterializa` via `usarTimelineAberto` cuida
+     de abrir/fechar. */
+  visibility: hidden;
+  opacity: 0;
+}
+.menuItem {
+  display: block;
+  width: 100%;
+  padding: 9px 10px;
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--text-2);
+  font-family: inherit;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.18s var(--ease), color 0.18s var(--ease);
+}
+.menuItem:hover:not(:disabled),
+.menuItem:focus-visible {
+  background: var(--surface-3);
+  color: var(--text);
+  outline: none;
+}
+.menuItem:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.menuPerigo {
+  color: var(--err);
+}
+.menuPerigo:hover:not(:disabled),
+.menuPerigo:focus-visible {
+  background: color-mix(in srgb, var(--err) 12%, transparent);
+  color: var(--err);
+}
+.menuMotivo {
+  padding: 4px;
+  display: grid;
+  gap: 8px;
+}
+.menuMotivoAcoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.menuAviso {
+  margin: 6px 4px 2px;
+  font-size: 12px;
+  color: var(--err);
+}
+
+/* ---------- edição inline do post ---------- */
+
+.edicao {
+  display: grid;
+  gap: 10px;
+  margin: 4px 0 6px;
+}
+.edicao .campoTexto {
+  min-height: 110px;
+}
+
+/* ---------- comentário: resposta aceita ---------- */
+
+.comentarioAceito {
+  border-left: 2px solid var(--ok);
+  padding-left: 10px;
+  margin-left: -12px;
+  background: color-mix(in srgb, var(--ok) 6%, transparent);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+}
+.marcaAceito {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 8px;
+  border-radius: 99px;
+  border: 1px solid color-mix(in srgb, var(--ok) 34%, transparent);
+  background: color-mix(in srgb, var(--ok) 12%, transparent);
+  color: var(--ok);
+  font-size: 11px;
+}
+
+/* ---------- responsivo ---------- */
+
+@media (max-width: 1040px) {
+  .grade {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  /* A lateral não some: vira conteúdo abaixo do feed, com os painéis lado a
+     lado enquanto couber. */
+  .lateral {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .lateral > * {
+    flex: 1 1 260px;
+  }
+}
+
+@media (max-width: 720px) {
+  .topo {
+    align-items: stretch;
+  }
+  .ferramentas {
+    width: 100%;
+  }
+  .busca {
+    flex: 1;
+  }
+  .busca :global(.input) {
+    min-width: 0;
+    width: 100%;
+  }
+  .post {
+    padding: 17px 16px 12px;
+    border-radius: var(--r);
+  }
+  .acao {
+    padding: 0 9px;
+    gap: 6px;
+  }
+  /* O rótulo sai e fica só o ícone com a contagem — cabe nos 4 botões. */
+  .acaoRotulo {
+    display: none;
+  }
+  .lateral {
+    flex-direction: column;
+  }
+  .respostas {
+    margin-left: 8px;
+    padding-left: 10px;
+  }
+}
+
+/* Botão flutuante de publicar, só no celular. */
+.flutuante {
+  display: none;
+}
+@media (max-width: 720px) {
+  .flutuante {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 40;
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 1px solid var(--accent-line);
+    background: var(--accent);
+    color: var(--sobre-accent);
+    cursor: pointer;
+    box-shadow: var(--elev-3);
+  }
+  .flutuante svg {
+    width: 22px;
+    height: 22px;
+  }
+  .escondeNoCelular {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .post,
+  .comentarios,
+  .notificacoes,
+  .menu,
+  .abaAtiva::after {
+    animation: none;
+  }
+  .pulsa svg {
+    animation: none;
+  }
+  .barra {
+    animation: none;
+  }
+}

@@ -1,0 +1,469 @@
+/* ---------- lista de provas ---------- */
+.grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 14px;
+  margin-top: 34px;
+}
+
+.cartao {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 22px 20px 20px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  transition: border-color .3s var(--ease), background .3s var(--ease),
+              transform .3s var(--ease);
+}
+.cartao:hover {
+  border-color: var(--accent-line);
+  background: var(--surface-2);
+  transform: translateY(-2px);
+}
+
+.ano {
+  font-family: var(--serif);
+  font-size: 34px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--text);
+}
+.nome { font-size: 14px; color: var(--text-2); }
+.meta { font-size: 12.5px; color: var(--text-3); margin-top: 6px; }
+
+.selo, .seloAberto {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  font-size: 11px;
+  letter-spacing: .04em;
+  padding: 3px 9px;
+  border-radius: 99px;
+}
+.selo {
+  border: 1px solid color-mix(in srgb, var(--ok) 45%, transparent);
+  background: color-mix(in srgb, var(--ok) 12%, transparent);
+  color: var(--ok);
+}
+.seloAberto {
+  border: 1px solid var(--accent-line);
+  background: var(--accent-dim);
+  color: var(--accent-2);
+}
+
+/* ---------- modo prova ---------- */
+.provaTopo {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 14px 0;
+  margin-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(180deg, var(--bg) 72%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+.relogio {
+  font-family: var(--mono, ui-monospace, monospace);
+  font-size: 19px;
+  letter-spacing: .04em;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+/* Últimos 5 minutos. A cor de erro já significa "algo saiu do lugar" no
+   resto do site, então serve para "o tempo está acabando" sem inventar
+   um token novo. */
+.relogioFim { color: var(--err); }
+
+.progresso {
+  flex: 1;
+  min-width: 140px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text-2);
+}
+.progressoTrilho {
+  flex: 1;
+  height: 3px;
+  border-radius: 99px;
+  background: var(--line);
+  overflow: hidden;
+}
+.progressoFita {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  border-radius: 99px;
+  transition: width .35s var(--ease);
+}
+
+.corpoProva {
+  display: grid;
+  grid-template-columns: 1fr 232px;
+  gap: 26px;
+  align-items: start;
+}
+
+/* ---------- a questão ---------- */
+.questao {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--surface);
+  padding: clamp(20px, 3vw, 32px);
+}
+
+.questaoTopo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.numero {
+  font-family: var(--serif);
+  font-size: 26px;
+  line-height: 1;
+  color: var(--accent-2);
+}
+.area {
+  font-size: 11.5px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  padding: 4px 10px;
+}
+
+.enunciado {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text);
+  white-space: pre-wrap;
+}
+.enunciado p { margin-bottom: 14px; }
+
+.figura {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 18px auto;
+  border-radius: 10px;
+  /* As figuras do INEP são digitalizações em fundo branco. Sem isto elas
+     viram um retângulo aceso no meio de uma página quase preta. */
+  background: #fff;
+  padding: 10px;
+}
+
+.alternativas {
+  display: grid;
+  gap: 9px;
+  margin-top: 24px;
+}
+
+.alternativa {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--bg-2);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.55;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color .25s var(--ease), background .25s var(--ease);
+}
+.alternativa:hover { border-color: var(--line-strong); background: var(--surface-2); }
+
+.alternativaMarcada {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+}
+
+.letra {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  font-size: 12.5px;
+  color: var(--text-2);
+}
+.alternativaMarcada .letra {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--sobre-accent);
+  font-weight: 600;
+}
+
+.alternativaCerta {
+  border-color: color-mix(in srgb, var(--ok) 60%, transparent);
+  background: color-mix(in srgb, var(--ok) 12%, transparent);
+}
+.alternativaErrada {
+  border-color: color-mix(in srgb, var(--err) 60%, transparent);
+  background: color-mix(in srgb, var(--err) 10%, transparent);
+}
+
+.figuraOpcao {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  background: #fff;
+  padding: 6px;
+}
+
+.rodapeQuestao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line-soft);
+}
+.limpar {
+  border: 0;
+  background: transparent;
+  color: var(--text-3);
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: color .3s var(--ease);
+}
+.limpar:hover { color: var(--text); }
+
+/* ---------- grade de navegação ---------- */
+.lateral {
+  position: sticky;
+  top: 96px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--surface);
+  padding: 18px;
+}
+.lateralTitulo {
+  font-size: 11.5px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 14px;
+}
+
+/* O cartão-resposta agora é agrupado por dia e área. O `max-height` saiu do
+   grid e foi para o container: com um limite por bloco, cada um ganhava a
+   própria barra de rolagem e a lista virava quatro caixinhas espremidas. */
+.gradeNumeros {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 5px;
+}
+
+.cartaoRolagem {
+  max-height: 46vh;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.diaGrupo + .diaGrupo {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+.diaTitulo {
+  font-family: var(--serif);
+  font-size: 15px;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+.blocoGrupo + .blocoGrupo {
+  margin-top: 12px;
+}
+.blocoTitulo {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 11px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.blocoTitulo small {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0;
+  color: var(--text-3);
+  white-space: nowrap;
+}
+.blocoNota {
+  margin: 0;
+  padding: 9px 11px;
+  border: 1px dashed var(--line-strong);
+  border-radius: 8px;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--text-3);
+}
+
+/* Dia e faixa no cabeçalho da questão. O dia vem com o acento porque é a
+   informação que situa: a área sozinha não diz se é primeiro ou segundo
+   domingo, e em 2011 Linguagens caía no segundo. */
+.dia {
+  font-size: 11.5px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  border: 1px solid var(--accent-line);
+  background: var(--accent-dim);
+  border-radius: 99px;
+  padding: 4px 10px;
+}
+.faixa {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-3);
+}
+
+.bolinha {
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--bg-2);
+  color: var(--text-3);
+  font-size: 11.5px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color .2s var(--ease), background .2s var(--ease),
+              color .2s var(--ease);
+}
+.bolinha:hover { color: var(--text); border-color: var(--line-strong); }
+.bolinhaFeita {
+  background: var(--accent-dim);
+  border-color: var(--accent-line);
+  color: var(--accent-2);
+}
+.bolinhaAtual {
+  border-color: var(--text);
+  color: var(--text);
+}
+.bolinhaCerta { background: color-mix(in srgb, var(--ok) 16%, transparent); border-color: color-mix(in srgb, var(--ok) 50%, transparent); color: var(--ok); }
+.bolinhaErrada { background: color-mix(in srgb, var(--err) 14%, transparent); border-color: color-mix(in srgb, var(--err) 50%, transparent); color: var(--err); }
+
+.entregar { width: 100%; margin-top: 16px; }
+
+/* ---------- resultado ---------- */
+.placar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+  margin: 26px 0;
+}
+.placarItem {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  padding: 18px;
+  text-align: center;
+}
+.placarNumero {
+  font-family: var(--serif);
+  font-size: 32px;
+  line-height: 1;
+  color: var(--text);
+}
+.placarRotulo {
+  margin-top: 6px;
+  font-size: 12px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.porArea { display: grid; gap: 10px; margin: 26px 0; }
+.linhaArea {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  font-size: 14px;
+}
+.barraArea {
+  grid-column: 1 / -1;
+  height: 3px;
+  border-radius: 99px;
+  background: var(--line);
+  overflow: hidden;
+}
+.barraAreaFita { display: block; height: 100%; background: var(--accent); }
+
+.explicacao {
+  margin-top: 16px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--accent);
+  border-radius: 10px;
+  background: var(--bg-2);
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--text-2);
+  white-space: pre-wrap;
+}
+
+.aviso {
+  padding: 14px 16px;
+  border: 1px solid var(--accent-line);
+  background: var(--accent-dim);
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 900px) {
+  .corpoProva { grid-template-columns: 1fr; }
+  .lateral { position: static; order: -1; }
+  .gradeNumeros { grid-template-columns: repeat(10, 1fr); }
+  .cartaoRolagem { max-height: 26vh; }
+}
+
+
+/* Posição na prova, no lugar onde ficava o botão "Anterior". Com bloqueio
+   progressivo não há para onde voltar, e um número diz mais que um botão
+   desabilitado. */
+.posicao {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--text-3);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+/* Bolinha de questão fechada: continua legível como mapa, mas não convida ao
+   clique. O `cursor: default` é o que diz isso antes do toque. */
+.bolinha:disabled {
+  cursor: default;
+}

@@ -1,0 +1,2311 @@
+/* =========================================================
+   PERCURSO — Plataforma de estudos
+   Claro por padrão · pedra + verde-pinho · escuro coerente
+
+   Paleta "Pedra + verde": cinzas levemente quentes e um verde-pinho de
+   acento. O acerto usa um verde-grama de matiz bem distante (74 graus), para
+   que marca e sinal nunca se confundam. O tema escuro inverte a rampa e entra
+   por `prefers-color-scheme` ou pelo `data-theme` que o BotaoTema grava.
+
+   Design system portado do site estático original. Os nomes de classe são
+   os mesmos de propósito: os seletores atravessam fronteiras de componente
+   e reescrevê-los em módulos separados seria onde a fidelidade se perderia.
+   Telas novas (login, painel, simulado) usam CSS Modules.
+   ========================================================= */
+
+/* ---------- Tokens — CLARO (padrão) ---------- */
+:root {
+  color-scheme: light;
+
+  /* superfícies — brancos de pedra, levemente quentes */
+  --bg:          #f9fbf8;
+  --bg-2:        #f0f4ee;
+  --surface:     #f4f8f3;
+  --surface-2:   #e7ede4;
+  --surface-3:   #dce4d9;
+
+  /* linhas */
+  --line:        #d5ded2;
+  --line-soft:   rgba(20, 30, 22, 0.07);
+  --line-strong: rgba(20, 30, 22, 0.17);
+
+  /* texto — rampa de pedra. Cada degrau passa 4,5:1 sobre --bg, --bg-2,
+     --surface e --surface-2 (o pior caso é --text-3 em --surface-2: 4,77). */
+  --text:        #141c16;
+  --text-2:      #465247;
+  --text-3:      #57645a;
+
+  /* acento — verde-pinho, puxado para o TEAL de propósito.
+     O acento e o --ok de acerto são os dois verdes desta paleta, e verde de
+     marca ao lado de verde de "resposta certa" é a confusão que o guia de cor
+     nomeia: não usar a mesma cor para significar coisas diferentes. A saída
+     foi afastá-los no matiz — 169 graus contra 95, uma distância de 74, que
+     nenhum olho lê como "o mesmo verde".
+     --accent   = preenchimento (botão, pílula ativa, barra).
+     --accent-2 = a mesma cor em versão TINTA, para acento usado como texto.
+     --accent-brilho = a ponta clara dos gradientes, nunca texto. */
+  --accent:        #14584a;
+  --accent-2:      #11493e;
+  --accent-brilho: #3c8f7c;
+  --accent-dim:  rgba(20, 88, 74, 0.09);
+  --accent-line: rgba(20, 88, 74, 0.28);
+
+  /* tinta que fica LEGÍVEL sobre o --accent (botão primário, letra certa) */
+  --sobre-accent: #f9fbf8;
+
+  /* semânticos — verde-grama para acerto, tijolo para erro. O verde é
+     deliberadamente mais quente e mais amarelo que o acento (95 graus contra
+     169); o vermelho fica a 162 dele. */
+  --ok:          #40711d;
+  --err:         #af3627;
+
+  /* tipografia — DUAS VOZES: Inter para ler, Fraunces para anunciar.
+     Inter é desenhada para tela: altura-x alta, aberturas largas, formas
+     neutras. Em texto pequeno de interface (rótulo, contagem, tabela) ela
+     segura o que a serif perdia, e em título grande fica limpa em vez de
+     literária. Como é variável, os pesos 500/600 existem de verdade — em
+     Palatino/Georgia não existiam e a hierarquia de três pesos colapsava
+     em dois.
+     --serif é alias de --display porque dezenas de seletores antigos
+     referenciam esse nome. Reapontar o alias troca a fonte de todos os
+     títulos do site de uma vez — que é exatamente o que aconteceu aqui. */
+  --sans: var(--fonte-sans), "Inter", -apple-system, BlinkMacSystemFont,
+          "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --display: var(--fonte-display), "Fraunces", Georgia, "Times New Roman",
+             serif;
+  --serif: var(--display);
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  /* ritmo */
+  --gut:      clamp(20px, 4.4vw, 56px);
+  --maxw:     1240px;
+  --r-sm:     8px;
+  --r:        14px;
+  --r-lg:     22px;
+
+  /* tipografia — tracking e leading por tamanho, nunca um valor só.
+     Texto grande lê espaçado demais quando cresce → tracking negativo;
+     leading aperta conforme o tamanho sobe. */
+  --track-hero:    -0.028em;
+  --track-display: -0.021em;
+  --track-title:   -0.014em;
+  --track-body:     0;
+  --lead-display:  1.08;
+  --lead-title:    1.18;
+  --lead-body:     1.65;
+  --lead-dense:    1.4;
+
+  /* materiais e profundidade — chrome translúcido quente, sombras
+     marrom-quentes suaves (não pretas). */
+  --material-chrome: rgba(249, 251, 248, 0.82);
+  --material-borda:  rgba(20, 30, 22, 0.09);
+  --scrim:           rgba(8, 14, 9, 0.44);
+  --elev-1: 0 1px 2px rgba(20, 30, 22, 0.07), 0 1px 3px rgba(20, 30, 22, 0.05);
+  --elev-2: 0 4px 14px rgba(20, 30, 22, 0.09), 0 2px 6px rgba(20, 30, 22, 0.06);
+  --elev-3: 0 14px 40px rgba(20, 30, 22, 0.13), 0 4px 12px rgba(20, 30, 22, 0.08);
+
+  /* movimento */
+  --ease:     cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-io:  cubic-bezier(0.65, 0, 0.35, 1);
+  --dur:      0.55s;
+}
+
+/* ---------- Tokens — ESCURO ---------- */
+/* Regra repetida de propósito nos dois seletores: `@media` cobre o OS (a
+   menos que o usuário tenha forçado claro), e `[data-theme="dark"]` cobre a
+   escolha explícita no BotaoTema. Só os tokens de cor mudam. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg:          #0c110d;
+    --bg-2:        #111710;
+    --surface:     #151b15;
+    --surface-2:   #1b221a;
+    --surface-3:   #252e24;
+    --line:        #2b352a;
+    --line-soft:   rgba(237, 243, 235, 0.07);
+    --line-strong: rgba(237, 243, 235, 0.16);
+    --text:        #edf3eb;
+    --text-2:      #a6b2a4;
+    --text-3:      #8b978a;
+    --accent:        #4fc2a0;
+    --accent-2:      #7edcc0;
+    --accent-brilho: #a8eeda;
+    --accent-dim:  rgba(79, 194, 160, 0.14);
+    --accent-line: rgba(79, 194, 160, 0.32);
+    --sobre-accent: #05201a;
+    --ok:          #82ce58;
+    --err:         #f26e54;
+    --material-chrome: rgba(12, 17, 13, 0.72);
+    --material-borda:  rgba(237, 243, 235, 0.09);
+    --scrim:           rgba(4, 6, 4, 0.62);
+    --elev-1: 0 1px 2px rgba(0, 0, 0, 0.50), 0 2px 8px rgba(0, 0, 0, 0.34);
+    --elev-2: 0 4px 12px rgba(0, 0, 0, 0.50), 0 12px 32px rgba(0, 0, 0, 0.40);
+    --elev-3: 0 8px 24px rgba(0, 0, 0, 0.55), 0 24px 60px rgba(0, 0, 0, 0.50);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg:          #0c110d;
+  --bg-2:        #111710;
+  --surface:     #151b15;
+  --surface-2:   #1b221a;
+  --surface-3:   #252e24;
+  --line:        #2b352a;
+  --line-soft:   rgba(237, 243, 235, 0.07);
+  --line-strong: rgba(237, 243, 235, 0.16);
+  --text:        #edf3eb;
+  --text-2:      #a6b2a4;
+  --text-3:      #8b978a;
+  --accent:        #4fc2a0;
+  --accent-2:      #7edcc0;
+  --accent-brilho: #a8eeda;
+  --accent-dim:  rgba(79, 194, 160, 0.14);
+  --accent-line: rgba(79, 194, 160, 0.32);
+  --sobre-accent: #05201a;
+  --ok:          #82ce58;
+  --err:         #f26e54;
+  --material-chrome: rgba(12, 17, 13, 0.72);
+  --material-borda:  rgba(237, 243, 235, 0.09);
+  --scrim:           rgba(4, 6, 4, 0.62);
+  --elev-1: 0 1px 2px rgba(0, 0, 0, 0.50), 0 2px 8px rgba(0, 0, 0, 0.34);
+  --elev-2: 0 4px 12px rgba(0, 0, 0, 0.50), 0 12px 32px rgba(0, 0, 0, 0.40);
+  --elev-3: 0 8px 24px rgba(0, 0, 0, 0.55), 0 24px 60px rgba(0, 0, 0, 0.50);
+}
+
+/* ---------- Tokens — CONTRASTE AUMENTADO ---------- */
+/* O guia de cor pede, para toda cor personalizada, variante clara, variante
+   escura E uma variante de contraste aumentado para cada uma delas — não só
+   um ajuste de chrome. Aqui a rampa de texto sobe de degrau (o terciário
+   passa a ler como secundário), as linhas ganham corpo e o acento fica mais
+   fechado no claro / mais aberto no escuro. Só tokens: nenhum seletor
+   precisa saber que este modo existe. */
+/* Contraste aumentado. Guia de acessibilidade: se o esquema padrão não
+   entrega o mínimo por si, ele precisa oferecer um esquema de contraste maior
+   quando a preferência do sistema está ligada — e conferido nos dois temas.
+   Mudam só os neutros e os sinais; a rampa continua sálvia, senão o modo de
+   contraste vira outra identidade. */
+@media (prefers-contrast: more) {
+  :root {
+    --text-2:      #333d34;
+    --text-3:      #414d43;
+    --line:        #b6c2b2;
+    --line-soft:   rgba(20, 30, 22, 0.18);
+    --line-strong: rgba(20, 30, 22, 0.42);
+    --accent:      #12463c;
+    --accent-2:    #0e3a32;
+    --accent-line: rgba(18, 70, 60, 0.55);
+    --ok:          #2f5a20;
+    --err:         #9c2c17;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --text-2:      #dfe6dc;
+      --text-3:      #c2cbc0;
+      --line:        #4f5c4e;
+      --line-soft:   rgba(237, 243, 235, 0.20);
+      --line-strong: rgba(237, 243, 235, 0.44);
+      --accent:      #7fdcc3;
+      --accent-2:    #a9ebda;
+      --accent-line: rgba(127, 220, 195, 0.55);
+      --ok:          #8fdd85;
+      --err:         #ff9482;
+    }
+  }
+  :root[data-theme="dark"] {
+    --text-2:      #dfe6dc;
+    --text-3:      #c2cbc0;
+    --line:        #4f5c4e;
+    --line-soft:   rgba(237, 243, 235, 0.20);
+    --line-strong: rgba(237, 243, 235, 0.44);
+    --accent:      #7fdcc3;
+    --accent-2:    #a9ebda;
+    --accent-line: rgba(127, 220, 195, 0.55);
+    --ok:          #8fdd85;
+    --err:         #ff9482;
+  }
+}
+
+/* Durante a troca de tema pelo BotaoTema: mata TODAS as transições por um
+   frame. Sem isto, propriedades animadas via `var()` (fundo do nav, cor de
+   botões) congelam no valor antigo — o navegador não re-dispara a transição
+   quando só a custom property muda. A troca fica instantânea, e correta. */
+:root.trocando-tema,
+:root.trocando-tema *,
+:root.trocando-tema *::before,
+:root.trocando-tema *::after {
+  transition: none !important;
+}
+
+/* ---------- Reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  /* Inter no corpo e em toda a interface. A serif fica reservada aos títulos,
+     que a declaram explicitamente via --serif.
+
+     Esta linha dizia `var(--serif)` desde quando o site inteiro era serif.
+     Enquanto o alias apontava para --sans isso não fazia diferença nenhuma e
+     passou despercebido; no instante em que --serif voltou a ser uma serif de
+     verdade, nav, botões e campos foram junto. Alias que esconde intenção
+     cobra o preço depois. */
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.65;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* clip (e não hidden) — hidden cria um contexto de rolagem e quebra o sticky do hero */
+  overflow-x: clip;
+  text-rendering: optimizeLegibility;
+}
+
+body.is-locked { overflow: hidden; }
+
+img, video, svg { display: block; max-width: 100%; }
+button, input, select, textarea { font: inherit; color: inherit; }
+a { color: inherit; text-decoration: none; }
+h1, h2, h3, h4, p, figure, ul, ol { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+
+::selection { background: var(--accent-dim); color: var(--text); }
+
+/* scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 99px; border: 3px solid var(--bg); }
+::-webkit-scrollbar-thumb:hover { background: var(--text-3); }
+
+/* ---------- Utilidades ---------- */
+.wrap {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gut);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.eyebrow::before {
+  content: "";
+  width: 22px;
+  height: 1px;
+  background: var(--accent-line);
+}
+
+/* ---------- Toque ---------- */
+/* O realce de toque do iOS fica — TINGIDO, não removido.
+
+   Estava `transparent` aqui, e foi erro meu. O raciocínio era que o retângulo
+   cinza do sistema competia com o nosso `:active`. Só que no iOS o `:active`
+   depende de o WebKit reconhecer um ouvinte de toque na página, e isso é
+   heurística de motor, não contrato. Onde não ativa, apagar o realce do
+   sistema deixa o toque SEM retorno nenhum — e um controle que não responde
+   lê como controle que não funciona.
+
+   A regra é essa: nunca tirar o retorno que existe em troca de um que depende
+   de condição. O tom de acento é discreto o bastante para não competir onde o
+   `:active` funciona, e é a única resposta onde ele não funciona. */
+.btn,
+.pill,
+.btn-tema,
+.nav-toggle,
+.nav-links a,
+.nav-mobile a,
+.faq-q,
+.topic,
+.q-opt,
+.brand {
+  -webkit-tap-highlight-color: var(--accent-dim);
+}
+
+/* Arrastar em cima de texto começa a selecionar, e a seleção rouba o gesto no
+   meio — o dedo passa a pintar palavras em vez de mover a folha. O menu de
+   toque longo do iOS entra pela mesma porta. */
+.nav-mobile {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* ---------- Resposta ao toque ---------- */
+/* O retorno nasce no pointer-down, não no release. Esperar o clique soltar
+   para mostrar qualquer coisa é o que faz uma interface parecer morta — e
+   até aqui só `.btn` e `.pill` respondiam; link de menu, alternador de tema,
+   pergunta do FAQ, tópico e alternativa de questão não davam sinal nenhum.
+
+   Guia de movimento, em "Providing feedback": animação de retorno deve ser
+   breve e precisa, para ler como leve e não como interrupção. Daí os 90ms —
+   acima de ~120ms o toque deixa de ser reação e vira espera.
+
+   A forma do retorno acompanha a forma do controle. Botão redondo e discreto
+   afunda (escala); linha de lista de largura inteira não afunda — encolher
+   uma linha larga parece defeito, não resposta. Ela acende. */
+.btn-tema:active,
+.nav-toggle:active {
+  transform: scale(.94);
+  transition-duration: .09s;
+}
+
+.nav-links a:active,
+.nav-mobile a:active,
+.faq-q:active,
+.topic:active,
+.q-opt:active {
+  background: var(--surface-3);
+  transition-duration: .09s;
+}
+
+/* O menu móvel não tinha estado nenhum — nem ponteiro, nem toque. */
+.nav-mobile a {
+  border-radius: var(--r-sm);
+  padding-inline: 10px;
+  margin-inline: -10px;
+  transition: color .22s var(--ease), background .22s var(--ease);
+}
+.nav-mobile a:hover { color: var(--text); background: var(--surface-2); }
+
+/* ---------- Vibrância sobre material ---------- */
+/* Texto sobre superfície translúcida não pode ser cinza chapado: o fundo
+   muda conforme a página rola por baixo, e o peso 400 some sobre as partes
+   claras. Meio degrau de peso e um respiro de tracking devolvem a leitura
+   sem escurecer a cor e sem endurecer o material. */
+.nav-links a,
+.nav-mobile a {
+  font-weight: 500;
+  letter-spacing: 0.004em;
+}
+
+/* ---------- Cantos contínuos ---------- */
+/* `corner-shape: squircle` desenha a superelipse do guia da Apple no lugar do
+   arco de círculo que o `border-radius` sozinho produz — é a diferença entre
+   o canto "colado" e o canto que escoa para a reta. Onde o navegador não tem
+   a propriedade, o arco continua valendo: nada quebra, só não fica contínuo.
+
+   Cápsula (`99px`) e círculo (`50%`) ficam de fora de propósito. A curva
+   contínua existe para retângulo arredondado; numa cápsula ela achata os
+   lados e o que era pastilha vira azulejo. */
+@supports (corner-shape: squircle) {
+  /* Regra por herança em vez de lista de classes: os CSS Modules embaralham
+     os nomes, então uma lista fixa só cobriria o globals.css e as telas do
+     app ficariam de fora — que é metade do site. `:where()` tem
+     especificidade zero, então qualquer `corner-shape` explícito vence. */
+  :where(:not(html, body, svg, svg *)) { corner-shape: squircle; }
+
+  /* Devolve o arco onde a forma não é retângulo arredondado. Os nomes
+     embaralhados do CSS Module preservam o nome original dentro do hash
+     (`comunidade_avatar__x7f2`), por isso o casamento é por trecho. */
+  :where(
+    .btn, .pill, .btn-tema, .nav-links a, .eyebrow, .chip, .tag,
+    [class*="avatar"], [class*="Avatar"],
+    [class*="aba"], [class*="area"], [class*="Area"],
+    [class*="barra"], [class*="Barra"],
+    [class*="fita"], [class*="Fita"],
+    [class*="trilho"], [class*="Trilho"],
+    [class*="botao"], [class*="Botao"],
+    [class*="etiqueta"], [class*="Etiqueta"],
+    [class*="selo"], [class*="Selo"],
+    [class*="letra"], [class*="relogio"],
+    [class*="Arroba"], [class*="Circulo"], [class*="Titulo"],
+    [class*="marcaAceito"]
+  ) {
+    corner-shape: round;
+  }
+}
+
+.section {
+  padding-block: clamp(80px, 11vw, 148px);
+  position: relative;
+}
+.section + .section { border-top: 1px solid var(--line-soft); }
+
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 28px;
+  margin-bottom: clamp(38px, 5vw, 66px);
+}
+.section-head .head-left { max-width: 620px; }
+.section-head .head-right { text-align: right; }
+
+/* ---------- Abertura centrada ---------- */
+/* Abertura de página editorial: a frase corre na largura do `wrap` em vez de
+   ficar presa na coluna de 620px do `head-left`, e o bloco inteiro fica no
+   eixo central. Sem o teto de largura o título ocupa a linha toda, então ele
+   sobe de corpo junto — título grande em coluna estreita quebra feio, título
+   pequeno em coluna larga fica perdido; os dois andam juntos. */
+/* `max-width` repetido no seletor descendente de propósito: `.section-head
+   .head-left` tem a mesma especificidade e venceria o `.head-centro` sozinho. */
+.section-head .head-centro { flex: 1 1 100%; max-width: none; }
+.head-centro { max-width: none; text-align: center; }
+
+.head-centro .title {
+  font-size: clamp(32px, 5.4vw, 66px);
+  text-wrap: balance;
+}
+.head-centro .eyebrow { justify-content: center; }
+
+/* O texto de leitura não acompanha a largura total: a linha longa demais faz
+   o olho perder o começo da seguinte. Fica num teto de medida, centrado. */
+.head-centro .lede { max-width: 70ch; margin-inline: auto; }
+
+/* ---------- Pontos ---------- */
+/* Título à esquerda, texto à direita, um fio entre cada assunto. A versão
+   anterior era prosa corrida numa coluna só: em tela larga virava uma mancha
+   de texto no meio do nada, sem ritmo e sem onde o olho parar. Aqui a coluna
+   dos títulos vira índice — dá para varrer a página só por ela — e os fios
+   dizem onde um assunto acaba e o outro começa. Mesmo vocabulário do FAQ. */
+.pontos { border-top: 1px solid var(--line-soft); }
+.ponto {
+  display: grid;
+  /* Coluna do rótulo mais estreita e vão FIXO. O vão era `clamp(…, 4vw, 62px)`
+     e crescia com a tela: em 1900px davam 310px entre o começo do rótulo e o
+     começo do texto que ele rotula. Rótulo longe do conteúdo deixa de rotular
+     — o olho perde a ligação no meio do caminho. Espaço entre duas coisas que
+     se pertencem não é lugar para escalar com a janela. */
+  grid-template-columns: minmax(0, 12rem) minmax(0, 1fr);
+  gap: 30px;
+  padding-block: clamp(22px, 2.2vw, 28px);
+  border-bottom: 1px solid var(--line-soft);
+}
+/* O fio de acento antes do título é o mesmo do `.eyebrow`. Sem ele a coluna
+   da esquerda ficava um texto em negrito solto no vazio: com dois terços da
+   linha em branco, o olho não tinha onde ancorar e a lista lia como rascunho.
+   O `padding-top` no par serve só para as duas colunas começarem na mesma
+   altura, já que o fio empurra o título para baixo. */
+/* Rótulo alinhado à DIREITA. É o truque que fecha o vão de vez: seja o título
+   de duas palavras ou de cinco, a tinta dele sempre termina no mesmo lugar,
+   colada ao vão. A distância entre rótulo e texto passa a ser sempre 30px, em
+   vez de variar com o comprimento do título. */
+.ponto h3 {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: right;
+  text-wrap: balance;
+  padding-top: 14px;
+  position: relative;
+}
+.ponto h3::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 22px;
+  height: 1px;
+  background: var(--accent-line);
+}
+.ponto > div { padding-top: 14px; }
+.ponto p {
+  color: var(--text-2);
+  font-size: clamp(15px, 1.3vw, 16px);
+  line-height: 1.7;
+  max-width: 62ch;
+}
+.ponto p + p { margin-top: 15px; }
+
+.ponto-veja { margin-top: 30px; }
+
+/* Empilhado, o fio já separa os assuntos; o título só precisa colar no texto
+   dele em vez de guardar a calha da coluna. */
+/* Empilhado o alinhamento à direita perde o sentido: sem coluna ao lado, não
+   há vão para fechar, e rótulo à direita sobre texto à esquerda fica torto. */
+@media (max-width: 860px) {
+  .ponto { grid-template-columns: 1fr; gap: 10px; }
+  .ponto h3 { text-align: left; padding-top: 14px; }
+  .ponto h3::before { right: auto; left: 0; }
+  .ponto > div { padding-top: 0; }
+}
+
+/* Sem amarrar ao elemento: a mesma classe serve o H1 de uma página de
+   erro e o H2 de uma seção. Presa a `h2`, o `h1.title` do 404 não recebia
+   estilo nenhum e caía no padrão do navegador. */
+.title {
+  font-family: var(--serif);
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-size: clamp(30px, 4.4vw, 52px);
+  line-height: 1.1;
+  letter-spacing: var(--track-display);
+  margin-top: 16px;
+}
+/* O destaque do título sai só pela cor. O itálico saiu junto com a serif:
+   o next/font carrega o Inter apenas no estilo normal, então `italic` seria
+   sintetizado pelo navegador — uma inclinação falsa, que numa fonte única e
+   limpa aparece como defeito. */
+.title em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+.lede {
+  color: var(--text-2);
+  font-size: clamp(15px, 1.3vw, 17px);
+  line-height: 1.7;
+  margin-top: 18px;
+  max-width: 58ch;
+}
+
+.muted { color: var(--text-2); }
+.dim   { color: var(--text-3); }
+.fine  { font-size: 12.5px; }
+.nota  { font-size: 12.5px; margin-top: 16px; max-width: 70ch; }
+
+/* Rótulo lido pelo leitor de tela e invisível na tela. Não use `display:none`
+   nem `visibility:hidden` aqui: os dois tiram o texto da árvore acessível,
+   que é justamente o que se quer preservar. */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Botões ---------- */
+.btn {
+  --btn-bg: transparent;
+  --btn-fg: var(--text);
+  --btn-bd: var(--line-strong);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 13px 24px;
+  border-radius: 99px;
+  border: 1px solid var(--btn-bd);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  /* Duas velocidades, porque são dois gestos. O ponteiro que passa por cima
+     é uma mudança de estado e pode demorar; o dedo que aperta é uma resposta
+     e não pode. Acima de ~120ms o toque deixa de parecer reação e passa a
+     parecer atraso — era o que a transição única de .35s fazia aqui. */
+  transition: border-color .26s var(--ease), background .26s var(--ease),
+              color .26s var(--ease), box-shadow .26s var(--ease),
+              transform .16s var(--ease);
+}
+.btn:hover {
+  transform: translateY(-1.5px);
+  border-color: var(--text-3);
+  box-shadow: var(--elev-1);
+}
+/* Afunda no lugar em vez de voltar à origem: a escala é a leitura de "cedeu
+   sob o dedo", que a translação sozinha não dá. O `transition-duration` aqui
+   encurta tudo de uma vez — no aperto, nada deve ficar para trás. */
+.btn:active {
+  transform: translateY(0) scale(.972);
+  box-shadow: none;
+  transition-duration: .09s;
+}
+.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.btn:disabled { opacity: .55; cursor: not-allowed; transform: none; }
+
+.btn-primary {
+  --btn-bg: var(--accent);
+  --btn-fg: var(--sobre-accent);
+  --btn-bd: var(--accent);
+  font-weight: 600;
+}
+.btn-primary:hover { filter: brightness(0.93); }
+
+.btn-accent {
+  --btn-bg: var(--accent-dim);
+  --btn-bd: var(--accent-line);
+  --btn-fg: var(--accent);
+}
+.btn-accent:hover { --btn-bd: var(--accent); --btn-fg: var(--accent); }
+
+.btn-ghost { --btn-bd: var(--line); }
+
+.btn .arrow { transition: transform .4s var(--ease); }
+.btn:hover .arrow { transform: translateX(4px); }
+
+/* alternador de tema (claro/escuro) */
+.btn-tema {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  flex: none;
+  border-radius: 99px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text-2);
+  cursor: pointer;
+  transition: color .3s var(--ease), border-color .3s var(--ease),
+              background .3s var(--ease);
+}
+.btn-tema:hover { color: var(--text); border-color: var(--line-strong); }
+.btn-tema:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* =========================================================
+   NAV
+   ========================================================= */
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  /* Material sempre ligado: o chrome flutua e o conteúdo passa por baixo.
+     Leve no topo, intensifica ao rolar (.is-stuck). Só blur(): valor de uma
+     função, como o resto do chrome do site — o pipeline de CSS do Turbopack
+     descarta backdrop-filter com múltiplas funções. */
+  background: var(--material-chrome);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid transparent;
+  transition: background .4s var(--ease), backdrop-filter .4s var(--ease);
+}
+.nav.is-stuck {
+  background: var(--material-chrome);
+  backdrop-filter: blur(24px);
+}
+/* Scroll-edge: um degradê curto onde o chrome sobrepõe o conteúdo, no lugar
+   de uma borda dura de 1px. Só aparece depois de rolar. */
+.nav::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: 100%;
+  height: 12px;
+  background: linear-gradient(var(--bg), transparent);
+  opacity: 0;
+  transition: opacity .4s var(--ease);
+  pointer-events: none;
+}
+.nav.is-stuck::after { opacity: 1; }
+.nav-inner {
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+}
+.brand-mark {
+  width: 26px; height: 26px;
+  display: grid; place-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 7px;
+  background: var(--surface-2);
+}
+.brand-mark svg { width: 14px; height: 14px; }
+.brand small {
+  font-size: 11px; font-weight: 500; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--text-3);
+  padding-left: 11px; margin-left: 3px;
+  border-left: 1px solid var(--line);
+}
+
+/* Controle segmentado: as cinco abas dentro de uma cápsula.
+   Soltas na barra, elas pediam ao olho que descobrisse sozinho que formam um
+   grupo — proximidade e um limite comum são o que agrupa. A cápsula é um
+   material MAIS LEVE que a barra em volta, porque o guia reserva o material
+   leve para o que é interativo e o pesado para o que separa regiões. E é
+   opaca de propósito: vidro sobre vidro derruba a legibilidade. */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  position: relative;
+  padding: 4px;
+  border-radius: 99px;
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  /* Cápsula, não retângulo arredondado — a curva contínua achataria os lados. */
+  corner-shape: round;
+  /* Impede que a mudança de largura do indicador force recálculo na barra. */
+  contain: layout paint;
+}
+.nav-links a {
+  position: relative;
+  z-index: 1;
+  padding: 7px 15px;
+  font-size: 13.5px;
+  color: var(--text-2);
+  border-radius: 99px;
+  white-space: nowrap;
+  transition: color .24s var(--ease);
+}
+.nav-links a:hover { color: var(--text); }
+.nav-links a[aria-current="page"] { color: var(--text); }
+.nav-links a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+/* O indicador é um só, e desliza. Fundo por link seria um item apagando e
+   outro acendendo — dois eventos para o olho; um objeto que se move é um só,
+   e o olho o acompanha até o destino. Quem move é a mola, em JS: com
+   `transition` a segunda troca de aba começaria do valor final da primeira e
+   daria um salto no meio do caminho. */
+.nav-indicador {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  border-radius: 99px;
+  corner-shape: round;
+  background: var(--surface-3);
+  z-index: 0;
+  pointer-events: none;
+  transition: opacity .2s var(--ease);
+  will-change: transform, width;
+}
+.nav-actions { display: flex; align-items: center; gap: 10px; }
+.nav-actions .btn { padding: 9px 18px; font-size: 13px; }
+
+.nav-toggle {
+  display: none;
+  width: 40px; height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  cursor: pointer;
+  position: relative;
+}
+.nav-toggle span {
+  position: absolute; left: 11px; right: 11px; height: 1.5px;
+  background: var(--text); border-radius: 2px;
+  transition: transform .35s var(--ease), opacity .25s;
+}
+.nav-toggle span:nth-child(1) { top: 15px; }
+.nav-toggle span:nth-child(2) { top: 22px; }
+.nav-toggle.is-open span:nth-child(1) { transform: translateY(3.5px) rotate(45deg); }
+.nav-toggle.is-open span:nth-child(2) { transform: translateY(-3.5px) rotate(-45deg); }
+
+.nav-mobile {
+  border-top: 1px solid var(--line-soft);
+  background: var(--material-chrome);
+  /* Valor de repouso. Quem manda no raio durante a entrada e a saída é o
+     `usarFolha`, que o anima em degraus junto com a escala; esta linha cobre
+     o quadro anterior ao primeiro passo do JS e o caso de movimento reduzido,
+     onde não há animação mas o material continua. */
+  backdrop-filter: blur(20px);
+  padding: 14px var(--gut) 24px;
+  overflow: hidden;
+  /* O arrasto vertical é nosso: sem isto o navegador rola a página no lugar
+     de mover a folha, e o gesto some no meio. */
+  touch-action: none;
+  /* Ancorada no botão que a abriu, no topo — a folha cresce de onde nasceu
+     em vez de do próprio centro. */
+  transform-origin: top center;
+  /* Começa invisível porque quem posiciona é o primeiro quadro do JS; sem
+     isto ela pisca no lugar certo antes de ir para fora da tela. */
+  opacity: 0;
+  cursor: grab;
+}
+.nav-mobile:active { cursor: grabbing; }
+/* A alça diz que dá para puxar. Sem ela o gesto existe e ninguém descobre. */
+.nav-mobile::before {
+  content: "";
+  display: block;
+  width: 38px;
+  height: 4px;
+  margin: 0 auto 12px;
+  border-radius: 99px;
+  background: var(--line-strong);
+}
+.nav-mobile a {
+  display: block;
+  padding: 13px 0;
+  font-size: 16px;
+  color: var(--text-2);
+  border-bottom: 1px solid var(--line-soft);
+}
+.nav-mobile .btn { width: 100%; margin-top: 18px; }
+
+/* barra de progresso de leitura */
+.read-bar {
+  position: fixed; top: 0; left: 0; z-index: 101;
+  height: 2px; width: 0;
+  background: linear-gradient(90deg, var(--accent), var(--accent-brilho));
+  transition: width .1s linear;
+}
+
+/* Reduced-motion não desliga o material — só a barra de progresso, que é
+   movimento contínuo por scroll. */
+@media (prefers-reduced-motion: reduce) {
+  .read-bar { transition: none; }
+}
+/* Menos transparência: chrome vira superfície sólida. */
+@media (prefers-reduced-transparency: reduce) {
+  .nav,
+  .nav.is-stuck,
+  .nav-mobile {
+    background: var(--surface);
+    backdrop-filter: none;
+  }
+}
+/* Mais contraste: fundo quase sólido e borda definida; sem scroll-edge. */
+@media (prefers-contrast: more) {
+  .nav,
+  .nav.is-stuck {
+    background: var(--bg);
+    border-bottom: 1px solid var(--line-strong);
+  }
+  .nav::after { display: none; }
+}
+
+/* =========================================================
+   HERO — livro que abre com a rolagem
+   ========================================================= */
+.hero-scroll {
+  position: relative;
+  /* Quatro capítulos, com rolagem nativa e sem capturar roda ou toque. */
+  height: 420svh;
+}
+
+/* O hero fica ESCURO nos dois temas, com o
+   livro em destaque. Redefine os tokens localmente para o texto/bordas de dentro
+   funcionarem sobre o fundo escuro mesmo quando o site está no claro. */
+.hero-sticky {
+  position: sticky;
+  top: 0;
+  /* `100dvh` em vez de `100vh`: no celular, `vh` mede a viewport COM a barra
+     de endereço recolhida, então o hero ficava mais alto que a área visível e
+     o rodapé dele sumia atrás da barra. `dvh` acompanha a barra aparecendo e
+     sumindo. O `vh` fica antes como reserva para navegador antigo.
+     O `min-height` passou por `min()` pelo mesmo motivo: um telefone deitado
+     tem ~375px de altura, e travar 620px ali deixava o elemento sticky MAIOR
+     que a viewport — o pino quebra e o conteúdo é cortado. */
+  height: 100vh;
+  height: 100dvh;
+  min-height: min(620px, 100dvh);
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  --text:   #edf3eb;
+  --text-2: #b2b4ac;
+  --text-3: #8b978a;
+  --line:   #2b352a;
+  --line-strong: rgba(237, 243, 235, 0.16);
+  /* O acento entra na redefinição junto com o texto, e não entrava antes: a
+     palavra em destaque do H1 usa `var(--accent)`, então no tema claro ela
+     saía com a esmeralda fechada (#14584a) em cima de um palco quase preto —
+     por volta de 1,5:1 na maior linha de texto do site. Aqui vale a família
+     do tema escuro, que é a que enxerga sobre o palco. */
+  --accent:        #4fc2a0;
+  --accent-2:      #7edcc0;
+  --accent-brilho: #a8eeda;
+  --accent-dim:    rgba(79, 194, 160, 0.14);
+  --accent-line:   rgba(79, 194, 160, 0.32);
+  --sobre-accent:  #05201a;
+  /* Acerto e erro completam a família pelo mesmo motivo do acento: o palco é
+     escuro nos dois temas, então a versão clara desses dois sinais é a que
+     enxerga aqui. Hoje nada no herói os usa — entram para que o dia em que
+     usar já nasça legível, em vez de herdar 3,4:1 sem ninguém notar. */
+  --ok:  #82ce58;
+  --err: #f26e54;
+  color: var(--text);
+  background:
+    radial-gradient(120% 90% at 50% 8%, #12150f 0%, #080a07 62%);
+}
+
+/* grade sutil de fundo */
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(240,241,238,.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(240,241,238,.03) 1px, transparent 1px);
+  background-size: 92px 92px;
+  mask-image: radial-gradient(90% 70% at 50% 45%, #000 20%, transparent 78%);
+  -webkit-mask-image: radial-gradient(90% 70% at 50% 45%, #000 20%, transparent 78%);
+  pointer-events: none;
+}
+
+/* brilho que cresce com o progresso */
+.hero-glow {
+  position: absolute;
+  left: 50%; top: 52%;
+  width: min(1100px, 92vw); aspect-ratio: 1;
+  transform: translate(-50%, -50%) scale(var(--glow-s, .6));
+  background: radial-gradient(circle, rgba(90,200,175,.17) 0%, transparent 62%);
+  opacity: var(--glow-o, 0);
+  filter: blur(30px);
+  pointer-events: none;
+  transition: opacity .3s linear;
+}
+
+/* Palco do livro, abaixo do titulo. */
+.hero-stage {
+  position: absolute;
+  inset: 45% 0 3%;
+  pointer-events: none;
+}
+
+/* conteúdo textual do hero */
+.hero-content {
+  position: absolute;
+  top: max(96px, 10svh);
+  z-index: 3;
+  text-align: center;
+  width: min(920px, 92vw);
+  pointer-events: none;
+}
+.hero-content > * { pointer-events: auto; position: relative; }
+
+.hero-kicker {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 7px 15px 7px 11px;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  background: rgba(18,18,22,.6);
+  backdrop-filter: blur(10px);
+  font-size: 12px; letter-spacing: .04em; color: var(--text-2);
+  margin-bottom: 18px;
+}
+.hero-kicker .dot {
+  width: 6px; height: 6px; border-radius: 99px; background: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-dim);
+  animation: pulse 2.6s var(--ease-io) infinite;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 3px var(--accent-dim); }
+  50%      { box-shadow: 0 0 0 8px rgba(31,99,86,0); }
+}
+
+/* pilha de H1 — trocam conforme o livro abre */
+.h1-stack {
+  position: relative;
+  min-height: clamp(150px, 19svh, 205px);
+  display: grid;
+  place-items: center;
+}
+.h1-slide {
+  grid-area: 1 / 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .5s var(--ease), visibility .5s;
+}
+.h1-slide.is-on { opacity: 1; visibility: visible; }
+
+h1.hero-h1 {
+  font-family: var(--serif);
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-size: clamp(36px, 5.8vw, 72px);
+  line-height: 1.02;
+  letter-spacing: var(--track-hero);
+  text-wrap: balance;
+}
+h1.hero-h1 em { font-style: normal; color: var(--accent); }
+
+/* animação letra a letra */
+.h1-word { display: inline-block; white-space: nowrap; }
+.h1-char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.5em) rotateX(-55deg);
+  transition: opacity .5s var(--ease), transform .7s var(--ease);
+  transform-origin: 50% 100%;
+}
+.is-on .h1-char { opacity: 1; transform: none; }
+
+.hero-sub {
+  color: var(--text-2);
+  font-size: clamp(14.5px, 1.35vw, 17px);
+  max-width: 54ch;
+  margin: 20px auto 0;
+  line-height: 1.7;
+}
+
+.hero-cta {
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+  margin-top: 24px;
+  opacity: 0; transform: translateY(14px);
+  transition: opacity .6s var(--ease) .1s, transform .6s var(--ease) .1s;
+}
+.hero-cta.is-on { opacity: 1; transform: none; }
+/* o botão secundário pode cair sobre as páginas claras do livro */
+.hero-cta .btn:not(.btn-primary) {
+  background: rgba(14, 14, 18, 0.62);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* trilho de progresso do capítulo */
+.hero-rail {
+  position: absolute;
+  left: 50%; bottom: 34px;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: flex; align-items: center; gap: 14px;
+  font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--text-3);
+}
+.rail-track {
+  width: clamp(120px, 22vw, 240px);
+  height: 2px;
+  background: var(--line);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.rail-fill {
+  display: block;
+  height: 100%; width: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: linear-gradient(90deg, var(--accent), var(--accent-brilho));
+  border-radius: 99px;
+}
+.rail-num { font-variant-numeric: tabular-nums; color: var(--text-2); }
+
+.scroll-hint {
+  position: absolute; left: 50%; bottom: 86px;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--text-3);
+  transition: opacity .4s var(--ease);
+  z-index: 4;
+}
+.scroll-hint .mouse {
+  width: 22px; height: 34px;
+  border: 1px solid var(--line-strong);
+  border-radius: 99px;
+  position: relative;
+}
+.scroll-hint .mouse::after {
+  content: ""; position: absolute;
+  left: 50%; top: 7px; width: 3px; height: 6px;
+  margin-left: -1.5px; border-radius: 99px; background: var(--accent);
+  animation: wheel 1.9s var(--ease-io) infinite;
+}
+@keyframes wheel {
+  0%   { transform: translateY(0);    opacity: 0; }
+  30%  { opacity: 1; }
+  100% { transform: translateY(12px); opacity: 0; }
+}
+
+/* partículas */
+.hero-dust { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
+.dust {
+  position: absolute;
+  width: 2px; height: 2px; border-radius: 99px;
+  background: rgba(240,241,238,.5);
+  animation: float linear infinite;
+}
+@keyframes float {
+  from { transform: translateY(0) translateX(0); opacity: 0; }
+  12%  { opacity: .7; }
+  88%  { opacity: .5; }
+  to   { transform: translateY(-120px) translateX(24px); opacity: 0; }
+}
+
+/* =========================================================
+   FAIXA DE MARQUEE
+   ========================================================= */
+.marquee {
+  border-block: 1px solid var(--line-soft);
+  background: var(--bg-2);
+  padding-block: 20px;
+  overflow: hidden;
+  position: relative;
+}
+.marquee::before, .marquee::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 120px; z-index: 2;
+  pointer-events: none;
+}
+.marquee::before { left: 0;  background: linear-gradient(90deg, var(--bg-2), transparent); }
+.marquee::after  { right: 0; background: linear-gradient(270deg, var(--bg-2), transparent); }
+.marquee-track {
+  display: flex; gap: 56px; width: max-content;
+  animation: slide 42s linear infinite;
+}
+.marquee:hover .marquee-track { animation-play-state: paused; }
+@keyframes slide { to { transform: translateX(-50%); } }
+.marquee-item {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-size: 13px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--text-3); white-space: nowrap;
+}
+.marquee-item::after {
+  content: ""; width: 4px; height: 4px; border-radius: 99px; background: var(--line-strong);
+}
+
+/* =========================================================
+   ESTATÍSTICAS
+   ========================================================= */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--line-soft);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+.stat {
+  background: var(--bg);
+  padding: clamp(26px, 3.4vw, 40px);
+  transition: background .4s var(--ease);
+}
+.stat:hover { background: var(--surface); }
+.stat-num {
+  font-family: var(--serif);
+  font-size: clamp(32px, 4vw, 48px);
+  line-height: 1;
+  letter-spacing: -.02em;
+  font-variant-numeric: tabular-nums;
+}
+.stat-num span { color: var(--accent); }
+.stat-label {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--text-2);
+}
+
+/* =========================================================
+   CHIPS
+   =========================================================
+   Este bloco era "TRILHAS / OBJETIVOS" e estilizava os cartões da seção de
+   trilhas (.tracks, .track, .track-ico, .track-meta, .track-foot,
+   .track-link). A seção foi removida do site — Estudar cobre a mesma função —
+   e com ela essas classes ficaram sem nenhum uso. Sobrou o .chip, que Sessao
+   e Painel continuam usando para marcar "Sessão em andamento" e o recorte da
+   sessão. */
+.chip {
+  font-size: 11.5px; padding: 5px 11px;
+  border: 1px solid var(--line);
+  border-radius: 99px; color: var(--text-2);
+  background: var(--surface-2);
+  white-space: nowrap;
+}
+.chip.accent { color: var(--accent-2); border-color: var(--accent-line); background: var(--accent-dim); }
+
+/* =========================================================
+   MATÉRIAS
+   ========================================================= */
+.subject-filter {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 30px;
+}
+.pill {
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  background: transparent;
+  color: var(--text-2);
+  font-size: 13px;
+  cursor: pointer;
+  transition: color .26s var(--ease), border-color .26s var(--ease),
+              background .26s var(--ease), transform .16s var(--ease);
+}
+.pill:hover { color: var(--text); border-color: var(--line-strong); }
+/* Mesma resposta do `.btn`: se um controle afunda ao toque e o outro não, o
+   que o usuário aprende num não vale no outro. */
+.pill:active { transform: scale(.972); transition-duration: .09s; }
+.pill:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.pill.is-active {
+  background: var(--accent); color: var(--sobre-accent); border-color: var(--accent); font-weight: 500;
+}
+
+.subjects {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+.subject {
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r);
+  background: var(--surface);
+  overflow: hidden;
+  transition: border-color .4s var(--ease), background .4s var(--ease);
+}
+.subject:hover { border-color: var(--line); background: var(--surface-2); }
+.subject.is-open { border-color: var(--accent-line); }
+
+.subject-head {
+  width: 100%;
+  display: flex; align-items: center; gap: 16px;
+  padding: 20px 22px;
+  background: none; border: 0; cursor: pointer; text-align: left;
+}
+/* O glifo carrega a inicial da matéria, então é texto de verdade e precisa do
+   contraste de texto. Sobre --surface-3 o acento dava 3,76:1; a tinta
+   (--accent-2) sobre --surface-2 dá 4,51:1. */
+.subject-glyph {
+  width: 40px; height: 40px; flex: none;
+  display: grid; place-items: center;
+  border-radius: 10px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  font-family: var(--serif);
+  font-size: 16px;
+  color: var(--accent-2);
+  transition: transform .5s var(--ease);
+}
+.subject:hover .subject-glyph { transform: rotate(-6deg); }
+.subject-title { flex: 1; min-width: 0; }
+.subject-title strong { display: block; font-size: 15.5px; font-weight: 600; }
+.subject-title span   { font-size: 12.5px; color: var(--text-3); }
+.subject-caret {
+  width: 22px; height: 22px; flex: none; color: var(--text-3);
+  transition: transform .45s var(--ease), color .3s;
+}
+.subject.is-open .subject-caret { transform: rotate(180deg); color: var(--accent); }
+
+.subject-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .5s var(--ease);
+}
+.subject.is-open .subject-body { grid-template-rows: 1fr; }
+.subject-body > div { overflow: hidden; }
+.subject-topics {
+  padding: 0 22px 22px;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.topic {
+  display: flex; align-items: center; gap: 12px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  color: var(--text-2);
+  transition: background .3s, color .3s;
+  cursor: pointer;
+}
+.topic:hover { background: var(--surface-3); color: var(--text); }
+.topic .n {
+  font-family: var(--mono); font-size: 11px; color: var(--text-3);
+  width: 22px; flex: none;
+}
+.topic .bar {
+  margin-left: auto; width: 54px; height: 3px;
+  background: var(--line); border-radius: 99px; overflow: hidden; flex: none;
+}
+.topic .bar i { display: block; height: 100%; background: var(--accent); border-radius: 99px; }
+/* Matéria sem levantamento de incidência: a barra vira só o espaço reservado,
+   sem trilho nem preenchimento. Mantém as linhas alinhadas com as das matérias
+   que têm o dado, mas não desenha uma medição que não existe. */
+.topic .bar.is-vazia { background: none; }
+
+/* =========================================================
+   SIMULADO
+   ========================================================= */
+.quiz {
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-lg);
+  background: linear-gradient(180deg, var(--surface) 0%, var(--bg-2) 100%);
+  overflow: hidden;
+}
+.quiz-top {
+  display: flex; flex-wrap: wrap; gap: 16px;
+  align-items: center; justify-content: space-between;
+  padding: 20px clamp(20px, 3vw, 34px);
+  border-bottom: 1px solid var(--line-soft);
+  background: rgba(255,255,255,.012);
+}
+.quiz-meta { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.quiz-count {
+  font-family: var(--mono); font-size: 12px; color: var(--text-3);
+  letter-spacing: .06em;
+}
+.quiz-progress {
+  width: 100%; height: 2px; background: var(--line);
+  border-radius: 99px; overflow: hidden;
+}
+.quiz-progress i {
+  display: block; height: 100%; width: 0;
+  background: linear-gradient(90deg, var(--accent), var(--accent-brilho));
+  transition: width .5s var(--ease);
+}
+.quiz-body { padding: clamp(26px, 3.6vw, 44px); min-height: 300px; }
+
+.q-source {
+  font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 14px;
+}
+.q-text {
+  font-size: clamp(16px, 1.6vw, 19px);
+  line-height: 1.65;
+  margin-bottom: 26px;
+  max-width: 72ch;
+}
+.q-options { display: flex; flex-direction: column; gap: 9px; max-width: 780px; }
+.q-opt {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 15px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--surface-2);
+  cursor: pointer; text-align: left;
+  font-size: 14.5px; line-height: 1.55;
+  color: var(--text-2);
+  transition: all .3s var(--ease);
+}
+.q-opt:hover:not(:disabled) { border-color: var(--line-strong); color: var(--text); transform: translateX(3px); }
+.q-opt:disabled { cursor: default; }
+.q-letter {
+  width: 24px; height: 24px; flex: none;
+  display: grid; place-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 99px;
+  font-size: 11.5px; font-weight: 600; color: var(--text-2);
+  transition: all .3s var(--ease);
+}
+.q-opt.is-right { border-color: color-mix(in srgb, var(--ok) 55%, transparent); background: color-mix(in srgb, var(--ok) 12%, transparent); color: var(--text); }
+.q-opt.is-right .q-letter { background: var(--ok); border-color: var(--ok); color: var(--sobre-accent); }
+.q-opt.is-wrong { border-color: color-mix(in srgb, var(--err) 55%, transparent); background: color-mix(in srgb, var(--err) 12%, transparent); color: var(--text); }
+.q-opt.is-wrong .q-letter { background: var(--err); border-color: var(--err); color: var(--sobre-accent); }
+
+.q-explain {
+  margin-top: 22px; padding: 18px 20px;
+  border-left: 2px solid var(--accent);
+  background: var(--accent-dim);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  font-size: 14px; color: var(--text-2); line-height: 1.7;
+  /* entrada (desfoca + sobe + assenta) pelo useGSAP em Gabarito */
+}
+.q-explain strong { color: var(--text); }
+
+.quiz-foot {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 18px clamp(20px, 3vw, 34px);
+  border-top: 1px solid var(--line-soft);
+  flex-wrap: wrap;
+}
+.quiz-foot-acoes { display: flex; gap: 10px; flex-wrap: wrap; }
+.score { display: flex; gap: 20px; font-size: 13px; color: var(--text-3); }
+.score b { color: var(--text); font-variant-numeric: tabular-nums; }
+
+.quiz-result { text-align: center; padding: 20px 0 6px; }
+.quiz-result .big {
+  font-family: var(--serif); font-size: clamp(46px, 7vw, 76px); line-height: 1;
+  letter-spacing: -.03em;
+}
+.quiz-result .big span { color: var(--accent); }
+.ring { display: grid; place-items: center; margin: 0 auto 22px; }
+
+/* =========================================================
+   FACULDADES
+   ========================================================= */
+.uni-tools {
+  display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 26px;
+}
+.field {
+  position: relative; display: flex; align-items: center;
+}
+.field svg {
+  position: absolute; left: 14px; width: 16px; height: 16px; color: var(--text-3);
+  pointer-events: none;
+}
+.input, .select {
+  height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 14px;
+  transition: border-color .3s var(--ease), background .3s;
+  appearance: none;
+}
+.input { padding-left: 40px; min-width: min(320px, 78vw); }
+.select { padding-right: 38px; cursor: pointer; }
+.field.sel::after {
+  content: ""; position: absolute; right: 15px; width: 7px; height: 7px;
+  border-right: 1.5px solid var(--text-3); border-bottom: 1.5px solid var(--text-3);
+  transform: translateY(-2px) rotate(45deg); pointer-events: none;
+}
+/* O foco tinha `outline: none` e era reposto só por uma troca de borda para
+   --accent-line, que é o acento a 30% de opacidade: ~1,5:1 contra o campo, ou
+   seja, invisível para quem navega por teclado. O outline volta, e a borda
+   passa a usar o acento cheio — assim o campo ainda muda mesmo onde o
+   navegador desenha o outline por fora. */
+.input:focus-visible, .select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-color: var(--accent);
+  background: var(--surface-2);
+}
+/* Ponteiro: sem anel, só a borda — o clique já diz onde está o cursor. */
+.input:focus:not(:focus-visible), .select:focus:not(:focus-visible) {
+  outline: none; border-color: var(--accent-line); background: var(--surface-2);
+}
+.input::placeholder { color: var(--text-3); }
+.field-full { width: 100%; }
+.field-full .select, .field-full .input { width: 100%; padding-left: 16px; min-width: 0; }
+
+.uni-table {
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: var(--surface);
+}
+.uni-scroll { overflow-x: auto; }
+table.uni { width: 100%; border-collapse: collapse; min-width: 720px; }
+table.uni thead th {
+  text-align: left;
+  font-size: 11px; font-weight: 500; letter-spacing: .13em; text-transform: uppercase;
+  color: var(--text-3);
+  padding: 15px 20px;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+table.uni tbody td {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--line-soft);
+  font-size: 14px;
+  color: var(--text-2);
+  vertical-align: middle;
+}
+table.uni tbody tr { transition: background .3s var(--ease); }
+table.uni tbody tr:hover { background: var(--surface-2); }
+table.uni tbody tr:last-child td { border-bottom: 0; }
+.uni-name { color: var(--text); font-weight: 500; }
+.uni-name small { display: block; font-weight: 400; color: var(--text-3); font-size: 12px; }
+.uni-corte { display: flex; align-items: center; gap: 12px; }
+.tag {
+  display: inline-block; padding: 3px 10px; border-radius: 99px;
+  font-size: 11.5px; border: 1px solid var(--line); background: var(--surface-3);
+  white-space: nowrap;
+}
+.cut { font-family: var(--mono); font-size: 13.5px; color: var(--text); }
+.meter { width: 78px; height: 4px; background: var(--line); border-radius: 99px; overflow: hidden; }
+.meter i { display: block; height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-brilho)); }
+.empty-row { padding: 44px 20px; text-align: center; color: var(--text-3); font-size: 14px; }
+
+/* aviso de procedência, no topo da seção */
+.uni-aviso {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 14px 18px; margin-bottom: 22px;
+  border: 1px solid var(--accent-line); border-radius: var(--r);
+  background: var(--accent-dim);
+  font-size: 13px; line-height: 1.55; color: var(--text-2);
+}
+.uni-aviso svg { flex: none; width: 16px; height: 16px; margin-top: 2px; color: var(--accent-2); }
+
+/* badge de concorrência */
+.badge {
+  display: inline-block; padding: 3px 10px; border-radius: 99px;
+  font-size: 11px; font-weight: 500; white-space: nowrap;
+  border: 1px solid var(--line); background: var(--surface-3); color: var(--text-2);
+}
+.badge.extrema    { color: var(--err); border-color: color-mix(in srgb, var(--err) 42%, transparent); background: color-mix(in srgb, var(--err) 13%, transparent); }
+.badge.muito-alta { color: var(--accent); border-color: var(--accent-line); background: var(--accent-dim); }
+.badge.alta       { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 24%, transparent); background: color-mix(in srgb, var(--accent) 9%, transparent); }
+.badge.moderada   { color: var(--ok); border-color: color-mix(in srgb, var(--ok) 32%, transparent); background: color-mix(in srgb, var(--ok) 11%, transparent); }
+.badge.menor      { color: var(--text-3); }
+
+/* Marca de procedência ao lado do número. Três estados, três traços:
+   tracejado = chute educado (estimada); traço sólido neutro = número real,
+   mas de fonte não publicada como edital (coletada); traço sólido âmbar =
+   fonte oficial (oficial, ainda sem nenhum registro ao vivo). A escolha de
+   cor evita o verde de acerto do simulado (.q-opt.is-right): usar a mesma cor
+   de "resposta certa" aqui sugeriria uma verificação que o dado não tem. */
+.est {
+  font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--text-3); border: 1px dashed var(--line-strong);
+  border-radius: 4px; padding: 1px 5px; white-space: nowrap;
+}
+.est.coletada { color: var(--text-2); border: 1px solid var(--line-strong); }
+.est.oficial  { color: var(--accent-2); border: 1px solid var(--accent-line); background: var(--accent-dim); }
+
+table.uni tbody tr.clicavel { cursor: pointer; }
+table.uni tbody tr.clicavel:focus-visible {
+  outline: 2px solid var(--accent-line); outline-offset: -2px;
+}
+
+/* rodapé da tabela: contador + carregar mais */
+.uni-rodape {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 14px; margin-top: 18px;
+}
+.uni-rodape .dim { font-size: 13px; }
+
+/* painel lateral de detalhe */
+.drawer-fundo {
+  position: fixed; inset: 0; z-index: 60;
+  background: var(--scrim);
+  opacity: 0; animation: fade-in .25s var(--ease) forwards;
+}
+.drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 61;
+  width: min(460px, 100vw);
+  background: var(--surface);
+  border-left: 1px solid var(--line);
+  overflow-y: auto;
+  transform: translateX(100%);
+  animation: drawer-in .38s var(--ease) forwards;
+}
+@keyframes fade-in { to { opacity: 1; } }
+@keyframes drawer-in { to { transform: translateX(0); } }
+
+.drawer-topo {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+  padding: 24px 26px 18px;
+  border-bottom: 1px solid var(--line-soft);
+  position: sticky; top: 0; background: var(--surface); z-index: 1;
+}
+.drawer-fechar {
+  flex: none; width: 34px; height: 34px; border-radius: 8px;
+  border: 1px solid var(--line); background: var(--surface-2);
+  color: var(--text-2); cursor: pointer; font-size: 17px; line-height: 1;
+  transition: color .25s, border-color .25s;
+}
+.drawer-fechar:hover { color: var(--text); border-color: var(--line-strong); }
+.drawer-corpo { padding: 22px 26px 30px; }
+.drawer dl { display: grid; gap: 2px; margin: 0 0 18px; }
+.drawer dt {
+  font-size: 11px; letter-spacing: .13em; text-transform: uppercase;
+  color: var(--text-3);
+}
+.drawer dd { margin: 0 0 14px; font-size: 14px; color: var(--text-2); line-height: 1.5; }
+.drawer dd:last-child { margin-bottom: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .drawer, .drawer-fundo { animation: none; transform: none; opacity: 1; }
+}
+
+/* =========================================================
+   CRONOGRAMA
+   ========================================================= */
+.planner {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 22px;
+  align-items: start;
+}
+.planner-form {
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  padding: 26px;
+  position: sticky; top: 92px;
+}
+.form-row { margin-bottom: 20px; }
+.form-row label {
+  display: block; font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--text-3); margin-bottom: 9px;
+}
+.form-row .select, .form-row .input { width: 100%; padding-left: 16px; min-width: 0; }
+.form-full { width: 100%; }
+
+.range-wrap { display: flex; align-items: center; gap: 14px; }
+/* O `outline: none` aqui apagava o único sinal de foco do slider: como o
+   trilho tem 3px de altura e o thumb é desenhado por pseudo-elemento, quem
+   chega por Tab não via nada. O anel volta no :focus-visible — em volta do
+   trilho, com offset para não sumir sob o thumb. */
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 3px; border-radius: 99px; background: var(--line);
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 8px;
+  border-radius: 99px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 16px; height: 16px; border-radius: 99px;
+  background: var(--accent); cursor: pointer;
+  border: 3px solid var(--bg);
+  box-shadow: 0 0 0 1px var(--accent-line);
+  transition: transform .25s var(--ease);
+}
+input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.18); }
+input[type="range"]::-moz-range-thumb {
+  width: 16px; height: 16px; border-radius: 99px; background: var(--accent);
+  cursor: pointer; border: 3px solid var(--bg);
+}
+.range-val {
+  font-family: var(--mono); font-size: 13px; color: var(--text);
+  min-width: 46px; text-align: right;
+}
+
+.check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+.check {
+  display: flex; align-items: center; gap: 9px;
+  padding: 9px 11px; border: 1px solid var(--line); border-radius: 8px;
+  font-size: 13px; color: var(--text-2); cursor: pointer;
+  background: var(--surface-2);
+  transition: all .28s var(--ease);
+}
+.check:hover { border-color: var(--line-strong); color: var(--text); }
+/* `display: none` tirava a caixa da ordem de tabulação E da árvore de
+   acessibilidade: o seletor de matérias do Cronograma só funcionava com
+   mouse. Some da tela, mas continua focável — é o mesmo recorte do .sr-only.
+   O anel de foco é desenhado no rótulo, que é o que se vê. */
+.check input {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.check:has(input:focus-visible) {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-color: var(--accent);
+}
+.check .box {
+  width: 15px; height: 15px; flex: none;
+  border: 1px solid var(--line-strong); border-radius: 4px;
+  display: grid; place-items: center;
+  transition: all .28s var(--ease);
+}
+.check .box svg { width: 9px; height: 9px; opacity: 0; transform: scale(.6); transition: all .28s var(--ease); }
+.check input:checked + .box { background: var(--accent); border-color: var(--accent); }
+.check input:checked + .box svg { opacity: 1; transform: none; color: var(--sobre-accent); }
+.check:has(input:checked) { color: var(--text); border-color: var(--accent-line); }
+
+.plan-out {
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  overflow: hidden;
+  min-height: 420px;
+}
+.plan-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  padding: 18px 24px; border-bottom: 1px solid var(--line-soft);
+  background: var(--surface-2); flex-wrap: wrap;
+}
+.plan-head h3 { font-size: 15px; font-weight: 600; }
+.plan-head .dim { font-size: 12.5px; }
+.plan-days { padding: 8px; }
+.day {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 16px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  transition: background .3s;
+}
+.day:hover { background: var(--surface-2); }
+.day + .day { border-top: 1px solid var(--line-soft); }
+.day-name {
+  font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--text-3); padding-top: 4px;
+}
+.day-blocks { display: flex; flex-wrap: wrap; gap: 7px; }
+.block {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 7px 13px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-2);
+  font-size: 13px;
+  color: var(--text-2);
+  animation: popIn .45s var(--ease) both;
+}
+.block .h { font-family: var(--mono); font-size: 11px; color: var(--accent); }
+.block.rev { border-color: var(--accent-line); background: var(--accent-dim); color: var(--accent-2); }
+.block.rest { border-style: dashed; color: var(--text-3); }
+/* Matéria em cima, assunto embaixo — o assunto é o recorte que a pessoa
+   escolheu, e precisa caber sem esticar o bloco numa linha só. */
+.block-txt { display: flex; flex-direction: column; line-height: 1.35; }
+.block-tema {
+  font-size: 11px;
+  color: var(--text-3);
+  max-width: 22ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.block.rev .block-tema { color: var(--accent-2); opacity: .8; }
+
+/* --- seletor de matérias e assuntos --- */
+.cron-materias {
+  display: grid;
+  gap: 6px;
+  max-height: 320px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+.cron-materia {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface-2);
+  transition: border-color .25s var(--ease), background .25s var(--ease);
+}
+.cron-materia.is-on { border-color: var(--accent-line); background: var(--accent-dim); }
+.cron-materia-topo {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; padding: 9px 12px;
+}
+.cron-abrir {
+  display: inline-flex; align-items: center; gap: 6px;
+  border: 0; background: transparent;
+  color: var(--text-3); font-family: inherit; font-size: 11.5px;
+  cursor: pointer; white-space: nowrap;
+  transition: color .25s var(--ease);
+}
+.cron-abrir svg { width: 13px; height: 13px; }
+.cron-abrir:hover { color: var(--text); }
+.cron-abrir:focus-visible { outline: 2px solid var(--accent-line); outline-offset: 2px; border-radius: 6px; }
+
+.cron-temas {
+  display: flex; flex-wrap: wrap; gap: 5px;
+  padding: 0 12px 11px;
+}
+.cron-tema {
+  padding: 4px 9px;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  background: var(--surface);
+  color: var(--text-3);
+  font-family: inherit; font-size: 11.5px;
+  cursor: pointer;
+  transition: color .2s var(--ease), border-color .2s var(--ease), background .2s var(--ease);
+}
+.cron-tema:hover { color: var(--text-2); border-color: var(--line-strong); }
+.cron-tema:focus-visible { outline: 2px solid var(--accent-line); outline-offset: 2px; }
+.cron-tema.is-on {
+  color: var(--accent-2);
+  border-color: var(--accent-line);
+  background: var(--accent-dim);
+}
+
+/* "de ontem" / "há ~1 semana" ao lado da revisão. Fica em tom menor porque é
+   qualificador, não o nome do bloco. */
+.block-dist {
+  font-size: 11px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  opacity: .72;
+}
+@keyframes popIn { from { opacity: 0; transform: translateY(6px) scale(.97); } to { opacity: 1; transform: none; } }
+
+/* ---------- distribuição por matéria ---------- */
+.plan-dist {
+  margin: 18px 0 22px;
+  padding: 16px 18px;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r);
+  background: var(--surface-2);
+}
+.plan-dist-titulo {
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 12px;
+}
+.plan-dist-lista { list-style: none; display: grid; gap: 7px; margin: 0; padding: 0; }
+.plan-dist-lista li {
+  display: grid;
+  grid-template-columns: minmax(96px, 1fr) minmax(60px, 2fr) auto;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text-2);
+}
+.plan-dist-nome { display: flex; align-items: baseline; gap: 6px; min-width: 0; }
+.plan-dist-nome em {
+  font-style: normal;
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  border: 1px solid var(--accent-line);
+  border-radius: 99px;
+  padding: 1px 6px;
+  white-space: nowrap;
+}
+.plan-dist-barra {
+  height: 4px;
+  border-radius: 99px;
+  background: var(--line);
+  overflow: hidden;
+}
+.plan-dist-barra i {
+  display: block; height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-brilho));
+}
+.plan-dist-horas { font-family: var(--mono); font-size: 12px; color: var(--text); }
+
+@media (max-width: 560px) {
+  /* A barra some no celular: com a coluna estreita ela viraria um traço sem
+     leitura, e o número já diz a mesma coisa. */
+  .plan-dist-lista li { grid-template-columns: 1fr auto; }
+  .plan-dist-barra { display: none; }
+}
+
+.plan-empty {
+  display: grid; place-items: center; text-align: center;
+  min-height: 380px; color: var(--text-3); font-size: 14px; padding: 30px;
+  gap: 12px;
+}
+
+/* =========================================================
+   MÉTODO (timeline)
+   ========================================================= */
+.method { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1px;
+  background: var(--line-soft); border: 1px solid var(--line-soft); border-radius: var(--r-lg); overflow: hidden; }
+.step { background: var(--bg); padding: clamp(26px, 3.2vw, 38px); position: relative;
+  transition: background .4s var(--ease); }
+.step:hover { background: var(--surface); }
+.step-n {
+  font-family: var(--mono); font-size: 12px; color: var(--accent);
+  letter-spacing: .1em; margin-bottom: 18px; display: block;
+}
+.step h3 { font-size: 17px; font-weight: 600; margin-bottom: 10px; }
+.step p { font-size: 14px; color: var(--text-2); line-height: 1.68; }
+
+/* =========================================================
+   FAQ
+   ========================================================= */
+.faq { border-top: 1px solid var(--line-soft); }
+.faq-item { border-bottom: 1px solid var(--line-soft); }
+.faq-q {
+  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  padding: 24px 4px; background: none; border: 0; cursor: pointer; text-align: left;
+  font-size: clamp(15px, 1.5vw, 17.5px); font-weight: 500; color: var(--text);
+  transition: color .3s;
+}
+.faq-q:hover { color: var(--accent-2); }
+.faq-plus { width: 16px; height: 16px; flex: none; position: relative; }
+.faq-plus::before, .faq-plus::after {
+  content: ""; position: absolute; background: currentColor; border-radius: 2px;
+  transition: transform .4s var(--ease), opacity .3s;
+}
+.faq-plus::before { left: 0; right: 0; top: 7.5px; height: 1.5px; }
+.faq-plus::after  { top: 0; bottom: 0; left: 7.5px; width: 1.5px; }
+.faq-item.is-open .faq-plus::after { transform: rotate(90deg); opacity: 0; }
+.faq-a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .5s var(--ease); }
+.faq-item.is-open .faq-a { grid-template-rows: 1fr; }
+.faq-a > div { overflow: hidden; }
+.faq-a p { padding: 0 4px 26px; color: var(--text-2); font-size: 15px; max-width: 76ch; line-height: 1.75; }
+
+/* =========================================================
+   CTA FINAL
+   ========================================================= */
+.cta {
+  position: relative;
+  border: 1px solid var(--line-soft);
+  border-radius: clamp(18px, 2.4vw, 30px);
+  background:
+    radial-gradient(90% 130% at 50% 0%, var(--accent-dim) 0%, transparent 58%),
+    linear-gradient(180deg, var(--surface) 0%, var(--bg-2) 100%);
+  padding: clamp(48px, 7vw, 92px) clamp(26px, 5vw, 70px);
+  text-align: center;
+  overflow: hidden;
+}
+.cta h2 {
+  font-family: var(--serif); font-weight: 600;
+  font-size: clamp(30px, 5vw, 58px); line-height: 1.08; letter-spacing: -.03em;
+}
+.cta h2 em { font-style: normal; color: var(--accent); }
+.cta p { color: var(--text-2); margin: 20px auto 0; max-width: 52ch; font-size: 15.5px; }
+.cta .btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 34px; }
+.cta .fine { margin-top: 22px; font-size: 12.5px; color: var(--text-3); }
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.footer { border-top: 1px solid var(--line-soft); background: var(--bg-2); }
+.footer-grid {
+  display: grid; grid-template-columns: 1.6fr repeat(3, 1fr); gap: 44px;
+  padding-block: clamp(50px, 6vw, 76px);
+}
+.footer-brand p { color: var(--text-2); font-size: 14px; margin-top: 16px; max-width: 34ch; line-height: 1.7; }
+.footer h4 {
+  font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--text-3); margin-bottom: 16px; font-weight: 500;
+}
+/* O link do rodapé era um <a> inline de 19px de altura — alvo pequeno demais
+   para o dedo. Vira bloco com área própria; o `margin` saiu porque o padding
+   agora faz o espaçamento, sem esticar a lista. */
+.footer li { margin-bottom: 2px; }
+.footer li a {
+  display: inline-block;
+  padding: 7px 0;
+  font-size: 14px;
+  color: var(--text-2);
+  transition: color .3s;
+}
+.footer li a:hover { color: var(--accent-2); }
+.footer-bottom {
+  border-top: 1px solid var(--line-soft);
+  padding-block: 22px;
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  font-size: 12.5px; color: var(--text-3); flex-wrap: wrap;
+}
+
+/* =========================================================
+   REVEAL ON SCROLL
+   ========================================================= */
+/* Guarda de FOUC: invisível entre o paint do servidor e o GSAP assumir na
+   hidratação. O revelar em si é feito pelo componente Revelar (ScrollTrigger). */
+.rv { opacity: 0; }
+
+/* =========================================================
+   RESPONSIVO
+   ========================================================= */
+@media (max-width: 1080px) {
+  .planner { grid-template-columns: 1fr; }
+  .planner-form { position: static; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 34px; }
+}
+
+@media (max-width: 860px) {
+  .nav-links, .nav-actions .btn-ghost { display: none; }
+  .nav-toggle { display: block; }
+  .hero-scroll { height: 340svh; }
+  .hero-sticky { min-height: min(560px, 100dvh); }
+  .hero-rail { bottom: 24px; }
+  .scroll-hint { bottom: 68px; }
+}
+
+@media (max-width: 620px) {
+  .hero-content { top: max(88px, 11svh); width: calc(100% - 36px); }
+  .hero-stage { inset: 53% 0 10%; }
+  .hero-kicker { font-size: 9px; letter-spacing: .025em; margin-bottom: 16px; }
+  .hero-sub { font-size: 13px; line-height: 1.55; margin-top: 14px; }
+  .hero-cta { gap: 8px; margin-top: 18px; }
+  .hero-cta .btn { padding-inline: 16px; font-size: 12px; }
+  /* Abaixo daqui a marca e as ações não cabem na mesma linha: medido em
+     375px, a `.nav-actions` ia até 445px numa tela de 375 e jogava o
+     `.nav-toggle` para fora — o menu ficava inalcançável no celular.
+     O CTA sai do cabeçalho e não se perde: ele já abre a gaveta, em
+     largura total, como primeiro item. */
+  .nav-actions .btn { display: none; }
+  .stats { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .check-grid { grid-template-columns: 1fr; }
+  .day { grid-template-columns: 1fr; gap: 10px; }
+  .quiz-foot { flex-direction: column; align-items: stretch; }
+  .quiz-foot .btn { width: 100%; }
+  .quiz-foot-acoes { flex-direction: column; }
+}
+
+@media (max-width: 620px) and (max-height: 700px) {
+  .hero-content { top: 80px; }
+  h1.hero-h1 { font-size: 30px; }
+  .h1-stack { min-height: 130px; }
+  .hero-kicker { margin-bottom: 10px; }
+  .hero-cta { margin-top: 12px; }
+  .hero-stage { inset: 57% 0 9%; }
+  .scroll-hint { bottom: 50px; }
+  .scroll-hint .mouse { display: none; }
+}
+
+/* Em paisagem baixa, texto e livro ficam lado a lado. */
+@media (min-width: 621px) and (max-height: 650px) {
+  .hero-content { top: 100px; left: 5%; width: 47%; text-align: left; }
+  h1.hero-h1 { font-size: clamp(30px, 4vw, 48px); }
+  .hero-sub { margin-inline: 0; font-size: 13px; }
+  .hero-cta { justify-content: flex-start; margin-top: 16px; }
+  .hero-stage { inset: 20% 0 12% 48%; }
+  .hero-kicker { font-size: 9px; }
+}
+
+/* =========================================================
+   ALVOS DE TOQUE
+   =========================================================
+   O guia de acessibilidade dá dois patamares diferentes: 44x44 pt de alvo
+   padrão onde se toca com o dedo, e 28x28 pt onde se aponta com mouse. Este
+   site é o mesmo HTML nos dois, então a regra é condicional ao apontador em
+   vez de ao tamanho da tela: `pointer: coarse` pega celular e tablet
+   (inclusive em janela larga) e deixa o desktop com a densidade que ele já
+   tem. Medido antes: .nav-toggle 32px, .btn-tema 38px, .pill 39px,
+   .brand 26px, link de rodapé 19px. */
+@media (pointer: coarse) {
+  .nav-toggle,
+  .btn-tema {
+    width: 44px;
+    height: 44px;
+    flex: none;
+  }
+  .pill { padding-block: 11px; }
+  .brand { padding-block: 9px; }
+  .footer li a { padding: 11px 0; }
+  .drawer-fechar { width: 44px; height: 44px; }
+  .topic { padding-block: 12px; }
+  .faq-q { padding-block: 20px; }
+  .nav-links a { padding-block: 12px; }
+}
+
+/* =========================================================
+   ALTO CONTRASTE DO SISTEMA (forced-colors)
+   =========================================================
+   O modo de alto contraste do Windows descarta a paleta inteira e impõe as
+   cores do sistema. Quem depende dele não vê nada do que foi decidido aqui —
+   vê o que sobrevive à substituição. Três coisas não sobrevivem sozinhas:
+
+   1. Material translúcido. `backdrop-filter` deixa de significar qualquer
+      coisa quando o fundo vira `Canvas` chapado; sem fundo sólido o texto do
+      cabeçalho fica sobre o conteúdo que passa por baixo.
+   2. Traço desenhado com `background` em pseudo-elemento. O sistema força
+      fundo para `Canvas` e o traço some — é o caso do fio do `.eyebrow`, do
+      marcador dos `.ponto` e do "+" do FAQ.
+   3. Estado marcado apenas por cor de fundo. A pílula ativa e a alternativa
+      escolhida ficam idênticas às inativas. O guia de cor é explícito: cor
+      nunca pode ser o único portador de uma informação.
+
+   `forced-color-adjust: none` aparece só onde a forma É a informação, nunca
+   em texto — reintroduzir cor autoral em texto anula o motivo do modo. */
+@media (forced-colors: active) {
+  /* 1 — chrome opaco */
+  .nav,
+  .nav.is-stuck,
+  .nav-mobile,
+  .drawer {
+    background: Canvas;
+    backdrop-filter: none;
+    border-bottom: 1px solid CanvasText;
+  }
+  .nav::after { display: none; }
+
+  /* 2 — o que era fundo vira borda, que o sistema preserva */
+  .eyebrow::before,
+  .ponto h3::before {
+    background: none;
+    border-top: 1px solid CanvasText;
+    height: 0;
+  }
+  .faq-plus::before,
+  .faq-plus::after { background: CanvasText; }
+
+  /* 3 — estado ganha contorno, além da cor que será substituída */
+  .pill.is-active,
+  .nav-links a[aria-current="page"] {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
+
+  /* Acerto e erro são o caso grave: `--ok` e `--err` viram a mesma cor do
+     sistema, e a alternativa certa fica idêntica à errada — num site de
+     questões, é a informação inteira que se perde. A distinção passa a ser
+     de TRAÇO, que o modo preserva: contínuo para certo, tracejado para
+     errado. Não substitui o rótulo, soma a ele. */
+  .q-opt.is-right,
+  .q-opt.is-wrong {
+    outline-offset: -3px;
+    background: Canvas;
+  }
+  .q-opt.is-right { outline: 3px solid CanvasText; }
+  .q-opt.is-wrong { outline: 3px dashed CanvasText; }
+
+  /* Barra de progresso: o preenchimento é a informação, então mantém a cor
+     própria — é forma, não texto. */
+  .topic .bar i { forced-color-adjust: none; }
+
+  /* Foco pela cor de seleção do sistema, que é a que o usuário reconhece. */
+  .btn:focus-visible,
+  .pill:focus-visible,
+  .btn-tema:focus-visible,
+  .input:focus-visible,
+  .select:focus-visible {
+    outline: 3px solid Highlight;
+    outline-offset: 2px;
+  }
+
+  /* Cartão sem borda some contra o fundo: em forced-colors o `gap` colorido
+     do `.method` deixa de desenhar a divisão entre as células. */
+  .step { border: 1px solid CanvasText; }
+}
+
+/* acessibilidade — respeita quem prefere menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  /* A folha para de deslizar e passa a aparecer no lugar — o `usarFolha`
+     detecta a preferência e nem chega a montar a mola. A alça sai junto:
+     sem arrasto ela promete um gesto que não existe. */
+  .nav-mobile { opacity: 1; transform: none !important; }
+  .nav-mobile::before { display: none; }
+
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+  /* hero vira uma seção estática, sem trilho nem scrub */
+  .hero-scroll { height: auto !important; }
+  .hero-sticky {
+    position: relative;
+    height: auto;
+    min-height: 0;
+    padding: 128px 0 84px;
+    gap: 30px;
+  }
+  .hero-stage { position: relative; inset: auto; width: 100%; }
+  .hero-content { position: relative; top: auto; left: auto; order: -1; transform: none; }
+  .hero-rail, .scroll-hint, .hero-dust { display: none; }
+  .h1-stack { min-height: 0; }
+  .hero-glow { opacity: .55 !important; }
+
+  .rv { opacity: 1; transform: none; }
+  .h1-char { opacity: 1; transform: none; }
+  .hero-cta { opacity: 1; transform: none; }
+}
+
+/* =========================================================
+   APRESENTAÇÃO — a abertura do site, dividida em passos
+   =========================================================
+   Cada passo é uma rota própria em vez de um slide dentro de uma página só.
+   Custa mais que um carrossel e devolve três coisas que carrossel não dá:
+   link direto para um passo, o botão voltar do navegador funcionando, e cada
+   trecho indexável. */
+
+/* Trilha: onde estou e para onde posso ir, respondido de uma vez. Sem ela a
+   apresentação vira corredor às cegas — não dá para saber se falta um passo
+   ou seis, e "próximo" deixa de ser escolha. */
+.passos-casca {
+  display: flex;
+  justify-content: safe center;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  margin-bottom: clamp(34px, 5vw, 56px);
+}
+.passos-casca::-webkit-scrollbar { display: none; }
+
+.passos {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  position: relative;
+  padding: 4px;
+  border-radius: 99px;
+  corner-shape: round;
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  contain: layout paint;
+}
+
+.passo-aba {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border-radius: 99px;
+  corner-shape: round;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-2);
+  white-space: nowrap;
+  transition: color .24s var(--ease);
+  -webkit-tap-highlight-color: var(--accent-dim);
+}
+.passo-aba:hover { color: var(--text); }
+.passo-aba[aria-current="page"] { color: var(--text); }
+.passo-aba:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.passo-aba:active { transition-duration: .09s; }
+
+/* O numeral é dado, não enfeite: aqui a ordem CARREGA informação — é uma
+   apresentação, e o passo 3 vem mesmo depois do 2. Em lista sem sequência o
+   número seria decoração. */
+.passo-n {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-3);
+  letter-spacing: .04em;
+}
+.passo-aba[aria-current="page"] .passo-n { color: var(--accent-2); }
+
+.passos-indicador {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  border-radius: 99px;
+  corner-shape: round;
+  background: var(--surface-3);
+  z-index: 0;
+  pointer-events: none;
+  transition: opacity .2s var(--ease);
+  will-change: transform, width;
+}
+
+/* Números do banco. Vivem numa grade em vez da lista de fios porque são
+   grandeza, não assunto — e grandeza se compara lado a lado. */
+.passo-numeros {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1px;
+  background: var(--line-soft);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+.passo-numero {
+  background: var(--bg);
+  padding: clamp(26px, 3.2vw, 38px);
+  text-align: center;
+}
+.passo-numero strong {
+  display: block;
+  font-family: var(--display);
+  font-size: clamp(38px, 5.4vw, 58px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: var(--track-display);
+  color: var(--accent-2);
+}
+.passo-numero span {
+  display: block;
+  margin-top: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+}
+.passo-numero small {
+  display: block;
+  margin-top: 5px;
+  font-size: 12.5px;
+  color: var(--text-3);
+}
+
+/* Avançar à direita, voltar à esquerda — a direção do gesto tem que combinar
+   com a direção do conteúdo. */
+.passo-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: clamp(38px, 5vw, 60px);
+  padding-top: clamp(26px, 3vw, 34px);
+  border-top: 1px solid var(--line-soft);
+}
+
+/* Botão de entrada da apresentação. Fica logo abaixo da lede, dentro do
+   cabeçalho centrado, com folga suficiente para não parecer parte do texto. */
+.botao-apresentacao {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
