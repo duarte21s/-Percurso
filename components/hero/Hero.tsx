@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { useRef } from "react";
 import { gsap, useGSAP } from "@/lib/gsap/registro";
-import { MOVIMENTO_QUERY, REDUZIDO_QUERY } from "@/lib/gsap/preferencias";
+import { MOVIMENTO_QUERY } from "@/lib/gsap/preferencias";
 import { Icone, type NomeIcone } from "@/components/ui/Icone";
-import { PercursoBook, type PercursoBookRef } from "./PercursoBook";
+import { Vitrine } from "@/components/secoes/Vitrine";
 import styles from "./hero-cinematico.module.css";
 
 type Recurso = { titulo: string; texto: string; icone: NomeIcone; href: string };
@@ -26,59 +26,29 @@ function CartaoRecurso({ recurso }: { recurso: Recurso }) {
   );
 }
 
-/** A porta de entrada do Percurso. O vídeo do livro continua progressivo,
- * porém sem transformar a leitura da home em uma sequência de scroll. */
+/** A porta de entrada do Percurso. Abre com a vitrine cinematográfica (quatro
+ * planos em scroll, ver `Vitrine.tsx`) e desce para o pitch — título, CTA e
+ * os três recursos. A regra antiga era manter a home fora de sequência de
+ * scroll; foi revertida de propósito para essa reformulação. */
 export function Hero() {
   const raiz = useRef<HTMLElement>(null);
-  const livro = useRef<PercursoBookRef>(null);
 
   useGSAP(() => {
-    const livroAtual = livro.current;
-    livroAtual?.desenhar(0.54);
     const media = gsap.matchMedia();
-    media.add(REDUZIDO_QUERY, () => { livroAtual?.desenhar(1); });
     media.add(MOVIMENTO_QUERY, () => {
       const entrada = gsap.timeline({ defaults: { ease: "power3.out" } });
       entrada
         .from(`.${styles.conteudo} > *`, { autoAlpha: 0, y: 20, stagger: 0.1, duration: 0.7 })
-        .from(`.${styles.livro}`, { autoAlpha: 0, x: 34, y: 18, scale: 0.96, duration: 1 }, 0.12)
-        .from(`.${styles.cartao}`, { autoAlpha: 0, y: 18, stagger: 0.1, duration: 0.55 }, 0.45);
-      const elementoLivro = raiz.current?.querySelector<HTMLElement>(`.${styles.livro}`);
-      const areaLivro = raiz.current?.querySelector<HTMLElement>(`.${styles.cenaLivro}`);
-      if (!elementoLivro || !areaLivro) return () => entrada.kill();
-      const flutuacao = gsap.to(elementoLivro, { y: -7, rotate: -0.55, duration: 3.8, repeat: -1, yoyo: true, ease: "sine.inOut" });
-      gsap.set(elementoLivro, { transformPerspective: 1100, transformOrigin: "50% 65%" });
-      const inclinaX = gsap.quickTo(elementoLivro, "rotateX", { duration: .4, ease: "power3.out" });
-      const inclinaY = gsap.quickTo(elementoLivro, "rotateY", { duration: .4, ease: "power3.out" });
-
-      const mover = (evento: PointerEvent) => {
-        const caixa = areaLivro.getBoundingClientRect();
-        const x = (evento.clientX - caixa.left) / caixa.width - .5;
-        const y = (evento.clientY - caixa.top) / caixa.height - .5;
-        inclinaX(-y * 3.2);
-        inclinaY(x * 4.4);
-      };
-      const repousar = () => { inclinaX(0); inclinaY(0); };
-      areaLivro.addEventListener("pointermove", mover);
-      areaLivro.addEventListener("pointerleave", repousar);
-
-      return () => {
-        entrada.kill();
-        flutuacao.kill();
-        areaLivro.removeEventListener("pointermove", mover);
-        areaLivro.removeEventListener("pointerleave", repousar);
-      };
+        .from(`.${styles.cartao}`, { autoAlpha: 0, y: 18, stagger: 0.1, duration: 0.55 }, 0.3);
+      return () => entrada.kill();
     });
     return () => media.revert();
   }, { scope: raiz });
 
   return (
     <main className={styles.pagina} ref={raiz}>
+      <Vitrine />
       <section className={styles.hero} aria-labelledby="titulo-principal">
-        <span className={`${styles.folha} ${styles.folhaUm}`} aria-hidden="true" />
-        <span className={`${styles.folha} ${styles.folhaDois}`} aria-hidden="true" />
-        <span className={`${styles.traco} ${styles.tracoUm}`} aria-hidden="true" />
-        <span className={`${styles.traco} ${styles.tracoDois}`} aria-hidden="true" />
         <div className={styles.gradeHero}>
           <div className={styles.conteudo}>
             <p className={styles.sobrelinha}>ESTUDO ORGANIZADO <b>•</b> GRANDES CONQUISTAS</p>
@@ -88,11 +58,6 @@ export function Hero() {
             <ul className={styles.beneficios} aria-label="Benefícios do Percurso">
               <li><Icone nome="check" />Mais foco</li><li><Icone nome="check" />Mais organização</li><li><Icone nome="check" />Mais resultados</li>
             </ul>
-          </div>
-          <div className={styles.cenaLivro} aria-label="Livro Percurso animado">
-            <p className={styles.anotacaoTopo}>ENEM<br />Vestibulares<br />Faculdades<br />Um futuro maior</p>
-            <div className={styles.livro}><PercursoBook ref={livro} /></div>
-            <p className={styles.anotacaoLateral}>Disciplina<br />também é liberdade.</p>
           </div>
         </div>
       </section>
