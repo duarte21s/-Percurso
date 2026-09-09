@@ -1,9 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap/registro";
-import { MOVIMENTO_QUERY, REDUZIDO_QUERY } from "@/lib/gsap/preferencias";
-import { conectarVideoAoScroll } from "@/lib/movimento/video-scroll";
+import { useEffect, useRef, useState } from "react";
+import { REDUZIDO_QUERY } from "@/lib/gsap/preferencias";
 import styles from "./vitrine.module.css";
 
 const CENAS = [
@@ -13,162 +11,82 @@ const CENAS = [
   { arquivo: "/media/vitrine-4-vista.mp4", legenda: "O percurso até a aprovação." },
 ] as const;
 
-const N = CENAS.length;
-/** Largura da transição entre cenas, em unidades de "cena" (0 a N no eixo
- * contínuo). 0.5 = crossfade de meia-cena, centrado exatamente na fronteira. */
-const LARGURA_TRANSICAO = 0.5;
-
-/** 1 no platô da própria cena, decaindo linear até 0 ao entrar no platô da
- * vizinha — duas cenas adjacentes somam 1 durante a transição, nunca mais. */
-function opacidadeDaCena(x: number, indice: number): number {
-  const inicio = indice;
-  const fim = indice + 1;
-  if (x < inicio) return Math.max(0, 1 - (inicio - x) / (LARGURA_TRANSICAO / 2));
-  if (x > fim) return Math.max(0, 1 - (x - fim) / (LARGURA_TRANSICAO / 2));
-  return 1;
-}
-
-/** `quickSetter` só é rápido de verdade numa propriedade simples — `autoAlpha`
- * é opacity+visibility por baixo, e o atalho não aplica os dois de forma
- * confiável. Faz na mão: opacity pelo quickSetter, visibility direto. */
-function criarSetadorVisivel(el: HTMLElement) {
-  const opacidade = gsap.quickSetter(el, "opacity");
-  return (alfa: number) => {
-    opacidade(alfa);
-    el.style.visibility = alfa > 0.001 ? "visible" : "hidden";
-  };
-}
-
 /**
- * Vitrine cinematográfica do Percurso em ação: quatro planos que se sucedem
- * numa única travessia de scroll — cada vídeo é o mesmo motor do livro do
- * hero (`video-scroll.ts`), só que fatiado em N trechos do eixo de progresso
- * em vez de um só. Vídeos e legendas cruzam (dissolve) na mesma fronteira;
- * a cena 3 (passagem de tempo) não tem legenda própria, é respiro visual
- * entre "a repetição" e "a vista".
+ * Vitrine cinematográfica do Percurso em ação: quatro planos que tocam em
+ * sequência, sozinhos — sem depender de o visitante rolar a página. Cada
+ * vídeo toca uma vez; quando termina, o próximo entra em cross-fade (CSS,
+ * por `data-ativo`) e a legenda troca junto. No fim, volta pro primeiro —
+ * um loop ambiente, como um vídeo de fundo comum.
  *
- * Fica em /sobre, não na home — ver a nota em `Hero.tsx` sobre a home ficar
- * curta de propósito.
+ * Trocado de propósito do scroll-scrub anterior: rolar a página pra "ganhar"
+ * o próximo quadro pedia um gesto que a maioria não faz — o vídeo simplesmente
+ * não aparecia pra quem só carregava a página e olhava.
  *
- * `prefers-reduced-motion`: nenhum vídeo recebe `src` (não há JSX com `src`
- * fixo, só o efeito abaixo popula), sem pin, sem scrub. Só a legenda final
- * — a de resumo — fica visível; as outras somem.
+ * `prefers-reduced-motion`: nenhum vídeo recebe `src` (nem autoplay, nem
+ * download). Só a legenda final — a de resumo — fica visível, fixa.
  */
 export function Vitrine() {
-  const raiz = useRef<HTMLDivElement>(null);
-  const cena = useRef<HTMLDivElement>(null);
+  const [ativa, setAtiva] = useState(0);
+  const [reduzido, setReduzido] = useState(false);
   const videos = useRef<(HTMLVideoElement | null)[]>([]);
-  const legendas = useRef<(HTMLParagraphElement | null)[]>([]);
-  const [prontos, setProntos] = useState<boolean[]>(() => CENAS.map(() => false));
 
-  useGSAP(
-    () => {
-      const elCena = cena.current;
-      if (!elCena || videos.current.some((v) => !v)) return;
+  useEffect(() => {
+    const mq = window.matchMedia(REDUZIDO_QUERY);
+    setReduzido(mq.matches);
+    const aoMudar = (e: MediaQueryListEvent) => setReduzido(e.matches);
+    mq.addEventListener("change", aoMudar);
+    return () => mq.removeEventListener("change", aoMudar);
+  }, []);
 
-      const mm = gsap.matchMedia();
+  useEffect(() => {
+    if (reduzido) return;
+    const video = videos.current[ativa];
+    if (!video) return;
+    video.currentTime = 0;
+    video.play().catch(() => {
+      /* autoplay bloqueado por alguma política do navegador — a cena fica
+         no primeiro quadro em vez de travar; não é erro que valha logar. */
+    });
+  }, [ativa, reduzido]);
 
-      mm.add(MOVIMENTO_QUERY, () => {
-        const controles = CENAS.map((dado, i) => {
-          const elVideo = videos.current[i]!;
-          const controle = conectarVideoAoScroll(elVideo, {
-            aoMostrar: () => setProntos((atual) => atual.map((v, j) => (j === i ? true : v))),
-            aoFalhar: () => setProntos((atual) => atual.map((v, j) => (j === i ? false : v))),
-          });
-          elVideo.preload = "auto";
-          elVideo.src = dado.arquivo;
-          elVideo.load();
-          return controle;
-        });
-
-        const setadoresVideo = videos.current.map((v) => criarSetadorVisivel(v!));
-        const setadoresLegenda = legendas.current
-          .filter((el): el is HTMLParagraphElement => el !== null)
-          .map((el) => ({ el, setar: criarSetadorVisivel(el) }));
-        let cursorLegenda = 0;
-        const legendaPorCena = CENAS.map((dado) => {
-          if (!dado.legenda) return null;
-          return setadoresLegenda[cursorLegenda++];
-        });
-
-        function atualizar(progresso: number) {
-          const x = progresso * N;
-          CENAS.forEach((_dado, i) => {
-            const alfa = opacidadeDaCena(x, i);
-            setadoresVideo[i](alfa);
-            legendaPorCena[i]?.setar(alfa);
-            controles[i].definirProgresso(Math.min(1, Math.max(0, x - i)));
-          });
-        }
-
-        const trigger = ScrollTrigger.create({
-          trigger: raiz.current,
-          start: "top top",
-          end: "+=400%",
-          pin: elCena,
-          scrub: true,
-          onUpdate: (self) => atualizar(self.progress),
-        });
-        // Sincroniza o estado inicial sem esperar o primeiro evento de scroll —
-        // mesmo cuidado do `agendar()` em `video-scroll.ts`: nunca depender só
-        // de um evento futuro pra mostrar o quadro certo.
-        atualizar(trigger.progress);
-
-        return () => {
-          trigger.kill();
-          controles.forEach((c) => c.dispose());
-          videos.current.forEach((v) => {
-            v?.pause();
-            v?.removeAttribute("src");
-            v?.load();
-          });
-        };
-      });
-
-      mm.add(REDUZIDO_QUERY, () => {
-        const ultima = legendas.current.filter((el) => el !== null).length - 1;
-        legendas.current.filter((el): el is HTMLParagraphElement => el !== null).forEach((el, i) => {
-          gsap.set(el, { autoAlpha: i === ultima ? 1 : 0, y: 0 });
-        });
-        return () => {};
-      });
-
-      return () => mm.revert();
-    },
-    { scope: raiz }
-  );
+  function passarParaProxima() {
+    setAtiva((i) => (i + 1) % CENAS.length);
+  }
 
   return (
-    <section className={styles.vitrine} ref={raiz} aria-label="O Percurso em ação">
-      <div className={styles.cena} ref={cena}>
+    <section className={styles.vitrine} aria-label="O Percurso em ação">
+      <div className={styles.cena}>
         {CENAS.map((dado, i) => (
           <video
             key={dado.arquivo}
             className={styles.video}
+            data-ativo={!reduzido && ativa === i}
             ref={(el) => {
               videos.current[i] = el;
             }}
-            data-ready={prontos[i]}
+            src={reduzido ? undefined : dado.arquivo}
             muted
             playsInline
-            preload="none"
+            preload={reduzido ? "none" : "auto"}
             disablePictureInPicture
             tabIndex={-1}
             aria-hidden="true"
+            onEnded={i === ativa ? passarParaProxima : undefined}
           />
         ))}
         <div className={styles.legendas}>
-          {CENAS.filter((dado) => dado.legenda).map((dado, i) => (
-            <p
-              key={dado.legenda}
-              ref={(el) => {
-                legendas.current[i] = el;
-              }}
-              className={styles.legenda}
-            >
-              {dado.legenda}
-            </p>
-          ))}
+          {CENAS.map(
+            (dado, i) =>
+              dado.legenda && (
+                <p
+                  key={dado.legenda}
+                  className={styles.legenda}
+                  data-ativo={reduzido ? i === CENAS.length - 1 : ativa === i}
+                >
+                  {dado.legenda}
+                </p>
+              )
+          )}
         </div>
       </div>
     </section>

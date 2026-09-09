@@ -6,6 +6,7 @@ import { gsap, useGSAP } from "@/lib/gsap/registro";
 import { MOVIMENTO_QUERY } from "@/lib/gsap/preferencias";
 import { Icone, type NomeIcone } from "@/components/ui/Icone";
 import { Vitrine } from "@/components/secoes/Vitrine";
+import { Revelar } from "@/components/ui/Revelar";
 import styles from "./hero-cinematico.module.css";
 
 type Recurso = { titulo: string; texto: string; icone: NomeIcone; href: string };
@@ -48,6 +49,10 @@ export function Hero() {
   return (
     <main className={styles.pagina} ref={raiz}>
       <Vitrine />
+      <Revelar como="section" className={styles.faixaLogin}>
+        <p>Já é aluno do Percurso?</p>
+        <Link href="/entrar" className={styles.btnLogin}>Fazer login <span aria-hidden="true">→</span></Link>
+      </Revelar>
       <section className={styles.hero} aria-labelledby="titulo-principal">
         <div className={styles.gradeHero}>
           <div className={styles.conteudo}>
