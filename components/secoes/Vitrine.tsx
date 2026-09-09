@@ -28,6 +28,17 @@ function opacidadeDaCena(x: number, indice: number): number {
   return 1;
 }
 
+/** `quickSetter` só é rápido de verdade numa propriedade simples — `autoAlpha`
+ * é opacity+visibility por baixo, e o atalho não aplica os dois de forma
+ * confiável. Faz na mão: opacity pelo quickSetter, visibility direto. */
+function criarSetadorVisivel(el: HTMLElement) {
+  const opacidade = gsap.quickSetter(el, "opacity");
+  return (alfa: number) => {
+    opacidade(alfa);
+    el.style.visibility = alfa > 0.001 ? "visible" : "hidden";
+  };
+}
+
 /**
  * Vitrine cinematográfica do Percurso em ação: quatro planos que se sucedem
  * numa única travessia de scroll — cada vídeo é o mesmo motor do livro do
@@ -70,10 +81,10 @@ export function Vitrine() {
           return controle;
         });
 
-        const setadoresVideo = videos.current.map((v) => gsap.quickSetter(v!, "autoAlpha"));
+        const setadoresVideo = videos.current.map((v) => criarSetadorVisivel(v!));
         const setadoresLegenda = legendas.current
           .filter((el): el is HTMLParagraphElement => el !== null)
-          .map((el) => ({ el, setar: gsap.quickSetter(el, "autoAlpha") }));
+          .map((el) => ({ el, setar: criarSetadorVisivel(el) }));
         let cursorLegenda = 0;
         const legendaPorCena = CENAS.map((dado) => {
           if (!dado.legenda) return null;
