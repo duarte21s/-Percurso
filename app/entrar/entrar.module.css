@@ -258,12 +258,18 @@
   transform: rotate(90deg);
 }
 
+/* Fraunces, como todo título editorial do site — o `.title` do globals usa a
+   mesma família, o mesmo peso 600 e os mesmos tokens de tracking e leading.
+   O peso 680 anterior era o único do projeto acima de 600, e era em Inter:
+   duas divergências no mesmo seletor. `font-optical-sizing` não é enfeite —
+   o eixo `opsz` foi carregado no layout.tsx justamente para isto. */
 .titulo {
-  font-family: var(--sans);
-  font-weight: 680;
+  font-family: var(--serif);
+  font-optical-sizing: auto;
+  font-weight: 600;
   font-size: clamp(28px, 3.2vw, 38px);
-  line-height: 1.12;
-  letter-spacing: -0.025em;
+  line-height: var(--lead-display);
+  letter-spacing: var(--track-display);
 }
 .subtitulo {
   margin-top: 12px;

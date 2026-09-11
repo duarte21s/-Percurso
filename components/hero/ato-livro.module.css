@@ -1,0 +1,103 @@
+/* A altura da seção É a distância de rolagem do scrub: três telas dão ao livro
+   um curso confortável para abrir sem que um toque no trackpad pule o gesto
+   inteiro. O conteúdo em si fica preso numa tela só, pelo `sticky`. */
+.ato {
+  position: relative;
+  height: 300vh;
+  background: var(--bg);
+}
+
+.fixo {
+  position: sticky;
+  top: 0;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  height: 100vh;
+  height: 100dvh;
+  padding: clamp(24px, 5vh, 56px) clamp(20px, 5vw, 72px) clamp(32px, 7vh, 72px);
+  gap: clamp(16px, 3vh, 36px);
+  overflow: hidden;
+}
+
+/* O `.cena` do LivroAnimado é `height: 100%`, então quem define o tamanho do
+   quadro é esta caixa. */
+.cena {
+  min-height: 0;
+}
+
+.texto {
+  display: grid;
+  justify-items: center;
+  gap: clamp(14px, 2.4vh, 24px);
+  text-align: center;
+}
+
+.titulo {
+  margin: 0;
+  max-width: 20ch;
+  color: var(--text);
+  font-family: var(--fonte-display), serif;
+  font-size: clamp(28px, 4.4vw, 54px);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  font-optical-sizing: auto;
+  text-wrap: balance;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  padding: 0 32px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--sobre-accent);
+  font-family: var(--fonte-sans), sans-serif;
+  font-size: clamp(15px, 1vw, 17px);
+  font-weight: 550;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+}
+
+.cta:hover {
+  filter: brightness(0.94);
+}
+
+.cta:active {
+  transform: translateY(1px);
+}
+
+.cta:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .fixo {
+    padding: clamp(20px, 4vh, 36px) 20px clamp(28px, 6vh, 56px);
+  }
+  .cta {
+    width: 100%;
+  }
+}
+
+/* Movimento reduzido: sem trilho de rolagem e sem `sticky`. A seção vira uma
+   tela comum com o livro já aberto — o `LivroAnimado` troca para o PNG por
+   conta própria e não baixa vídeo nenhum. */
+@media (prefers-reduced-motion: reduce) {
+  .ato {
+    height: auto;
+  }
+  .fixo {
+    position: static;
+    height: auto;
+    grid-template-rows: none;
+  }
+  .cta:active {
+    transform: none;
+  }
+}

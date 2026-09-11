@@ -222,7 +222,7 @@ export function usarFolha<T extends HTMLElement>(
       velocimetro.current.limpar();
       velocimetro.current.registrar(posAtual, e.timeStamp);
 
-      el!.setPointerCapture(e.pointerId);
+      /* A captura NÃO é pedida aqui. Ver `aoMover`. */
       el!.style.willChange = "transform, opacity";
     }
 
@@ -232,6 +232,26 @@ export function usarFolha<T extends HTMLElement>(
 
       /* Histerese: abaixo do limiar ainda pode ser um toque no link. */
       if (!arrastou.current && Math.abs(dy) < LIMIAR) return;
+
+      /* A captura do ponteiro só entra DEPOIS do limiar, e é o que conserta o
+         clique nos links da folha.
+
+         Pedindo captura já no `pointerdown`, `pointerdown` e `pointerup` são
+         redirecionados para a folha; o `click` então nasce nela, e não no <a>
+         sob o dedo. O `Link` do Next nunca recebia o evento e a navegação
+         simplesmente não acontecia — medido nas duas barras, com o alvo real
+         do clique saindo como `div.folha` em vez de `<a href>`.
+         Abaixo do limiar o gesto ainda é um toque, e toque não precisa de
+         captura. Acima dele já é arrasto, e aí a captura é indispensável:
+         é ela que mantém os `pointermove` chegando quando o dedo sai da
+         folha. */
+      if (!arrastou.current) {
+        try {
+          el!.setPointerCapture(e.pointerId);
+        } catch {
+          /* ponteiro já encerrado; o arrasto segue sem captura */
+        }
+      }
       arrastou.current = true;
 
       let y = inicioPos.current + dy;
@@ -247,8 +267,10 @@ export function usarFolha<T extends HTMLElement>(
     function aoSubir(e: PointerEvent) {
       if (!arrastando.current) return;
       arrastando.current = false;
+      /* Agora a captura pode nunca ter sido pedida — toque abaixo do limiar
+         não captura nada. Perguntar antes evita usar exceção como desvio. */
       try {
-        el!.releasePointerCapture(e.pointerId);
+        if (el!.hasPointerCapture(e.pointerId)) el!.releasePointerCapture(e.pointerId);
       } catch {
         /* o ponteiro já pode ter sido liberado pelo navegador */
       }
@@ -276,15 +298,29 @@ export function usarFolha<T extends HTMLElement>(
       }
     }
 
+    /* O conteúdo da folha são links, e link é arrastável por padrão. Iniciado
+       o drag nativo, o navegador dispara `pointercancel` e o gesto morre no
+       meio — medido: sobre um link vinham 2 `pointermove` e um `pointercancel`;
+       no padding, 7 `pointermove` e um `pointerup`.
+       Pedir captura já no `pointerdown` mascarava isto, ao custo de redirecionar
+       o `click` para a folha e impedir a navegação. Adiar a captura conserta o
+       clique; cancelar o arrasto nativo devolve o gesto. As duas coisas juntas,
+       e não uma no lugar da outra. */
+    function aoArrastarNativo(e: DragEvent) {
+      if (arrastando.current) e.preventDefault();
+    }
+
     el.addEventListener("pointerdown", aoDescer);
     el.addEventListener("pointermove", aoMover);
     el.addEventListener("pointerup", aoSubir);
     el.addEventListener("pointercancel", aoSubir);
+    el.addEventListener("dragstart", aoArrastarNativo);
     return () => {
       el.removeEventListener("pointerdown", aoDescer);
       el.removeEventListener("pointermove", aoMover);
       el.removeEventListener("pointerup", aoSubir);
       el.removeEventListener("pointercancel", aoSubir);
+      el.removeEventListener("dragstart", aoArrastarNativo);
     };
   }, [montado, garantirMola, pintar, aoFechar]);
 

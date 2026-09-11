@@ -11,6 +11,7 @@ export interface LivroAnimadoRef {
 /** Take cinematográfica já gerada com Kling/Higgsfield, codificada para seek. */
 export function LivroAnimado({ ref }: { ref?: Ref<LivroAnimadoRef> }) {
   const video = useRef<HTMLVideoElement>(null);
+  const cena = useRef<HTMLDivElement>(null);
   const controlador = useRef<ReturnType<typeof conectarVideoAoScroll> | null>(null);
   const progresso = useRef(0);
   const [pronto, setPronto] = useState(false);
@@ -24,23 +25,13 @@ export function LivroAnimado({ ref }: { ref?: Ref<LivroAnimadoRef> }) {
 
   useEffect(() => {
     const elemento = video.current;
+    const alvo = cena.current;
     if (!elemento) return;
     const preferencia = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let observador: IntersectionObserver | undefined;
 
-    function configurar() {
+    function conectar() {
       if (!elemento) return;
-      controlador.current?.dispose();
-      controlador.current = null;
-      setPronto(false);
-      elemento.pause();
-
-      if (preferencia.matches) {
-        elemento.removeAttribute("src");
-        elemento.preload = "none";
-        elemento.load();
-        return;
-      }
-
       const controle = conectarVideoAoScroll(elemento, {
         aoMostrar: () => setPronto(true),
         aoFalhar: () => setPronto(false),
@@ -51,6 +42,42 @@ export function LivroAnimado({ ref }: { ref?: Ref<LivroAnimadoRef> }) {
       elemento.preload = "auto";
       elemento.src = "/media/hero-livro.mp4";
       elemento.load();
+    }
+
+    function configurar() {
+      if (!elemento) return;
+      controlador.current?.dispose();
+      controlador.current = null;
+      observador?.disconnect();
+      observador = undefined;
+      setPronto(false);
+      elemento.pause();
+
+      if (preferencia.matches) {
+        elemento.removeAttribute("src");
+        elemento.preload = "none";
+        elemento.load();
+        return;
+      }
+
+      /* O arquivo tem 5,7 MB e vive abaixo da dobra. Baixá-lo na montagem
+         disputaria rede com os planos da abertura, que é o que a pessoa está
+         vendo. A margem de duas telas dá folga para o livro chegar pronto
+         antes de aparecer, sem competir com o primeiro quadro. */
+      if (!alvo) {
+        conectar();
+        return;
+      }
+      observador = new IntersectionObserver(
+        (entradas) => {
+          if (!entradas.some((entrada) => entrada.isIntersecting)) return;
+          observador?.disconnect();
+          observador = undefined;
+          conectar();
+        },
+        { rootMargin: "200% 0px" },
+      );
+      observador.observe(alvo);
     }
 
     function visibilidade() {
@@ -64,6 +91,8 @@ export function LivroAnimado({ ref }: { ref?: Ref<LivroAnimadoRef> }) {
     return () => {
       preferencia.removeEventListener("change", configurar);
       document.removeEventListener("visibilitychange", visibilidade);
+      observador?.disconnect();
+      observador = undefined;
       controlador.current?.dispose();
       controlador.current = null;
       elemento.pause();
@@ -73,7 +102,7 @@ export function LivroAnimado({ ref }: { ref?: Ref<LivroAnimadoRef> }) {
   }, []);
 
   return (
-    <div className={styles.cena} aria-hidden="true" data-renderer={pronto ? "cinema" : "poster"}>
+    <div ref={cena} className={styles.cena} aria-hidden="true" data-renderer={pronto ? "cinema" : "poster"}>
       <div className={styles.filme}>
       <picture className={styles.poster} data-hidden={pronto}>
         <source media="(prefers-reduced-motion: reduce)" srcSet="/media/hero-open.png" />

@@ -1,10 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useRef } from "react";
+import { usePathname } from "next/navigation";
+import { BarraTopo } from "@/components/layout/BarraTopo";
 import { Icone } from "@/components/ui/Icone";
 import css from "./nav-cinema.module.css";
 
+/* A lista é a da abertura e continua dela: cinco seções mais Contato à parte.
+   A barra do site tem outra, e as duas seguem separadas de propósito. */
 const LINKS = [
   { href: "/sobre", rotulo: "Sobre" },
   { href: "/como-funciona", rotulo: "Como funciona" },
@@ -13,53 +16,63 @@ const LINKS = [
   { href: "/duvidas", rotulo: "Dúvidas" },
 ];
 
+/**
+ * Barra da abertura. A estrutura — altura, recuo, alvo de toque, anel de foco
+ * e a folha do celular — vem da `BarraTopo`, a mesma do site. O que fica aqui
+ * é só o que a abertura não divide: a paleta clara sobre o filme e os 10px com
+ * tracking largo dos links, que são o letreiro de cinema.
+ *
+ * O menu do celular era um `<details>` nativo e passa a ser a folha arrastável
+ * do `usarFolha`, movida pelo sistema próprio de molas — o mesmo gesto que a
+ * barra do site já tinha.
+ */
 export function NavCinema() {
-  const menu = useRef<HTMLDetailsElement>(null);
-
-  function fechar() {
-    if (menu.current) menu.current.open = false;
-  }
+  const caminho = usePathname();
 
   return (
-    <header className={css.cabecalho}>
-      <Link href="/" className={css.marca} aria-label="Percurso — início" prefetch={false}>
-        <Icone nome="marca" aria-hidden="true" />
-        <span>Percurso</span>
-      </Link>
-
-      <nav className={css.desktop} aria-label="Conheça o Percurso">
-        {LINKS.map(({ href, rotulo }) => (
-          <Link key={href} href={href} prefetch={false}>{rotulo}</Link>
-        ))}
-      </nav>
-
-      <Link className={css.contato} href="/contato" prefetch={false}>Contato</Link>
-
-      <details
-        ref={menu}
-        className={css.menu}
-        onKeyDown={(evento) => {
-          if (evento.key === "Escape" && menu.current?.open) {
-            evento.preventDefault();
-            fechar();
-            menu.current.querySelector("summary")?.focus();
-          }
-        }}
-        onBlur={(evento) => {
-          if (!evento.currentTarget.contains(evento.relatedTarget)) fechar();
-        }}
-      >
-        <summary className={css.abrir}>
-          Menu
-          <span className={css.iconeMenu} aria-hidden="true"><i /><i /></span>
-        </summary>
+    <BarraTopo
+      tom="filme"
+      disposicao="tres"
+      compacta="larga"
+      caminho={caminho}
+      classeExterna={css.cabecalho}
+      marca={
+        <Link
+          href="/"
+          className={css.marca}
+          aria-label="Percurso — início"
+          prefetch={false}
+        >
+          <Icone nome="marca" aria-hidden="true" />
+          <span>Percurso</span>
+        </Link>
+      }
+      navegacao={
+        <nav className={css.desktop} aria-label="Conheça o Percurso">
+          {LINKS.map(({ href, rotulo }) => (
+            <Link key={href} href={href} prefetch={false}>
+              {rotulo}
+            </Link>
+          ))}
+        </nav>
+      }
+      acoes={
+        <Link className={css.contato} href="/contato" prefetch={false}>
+          Contato
+        </Link>
+      }
+      menu={
         <nav className={css.mobile} aria-label="Conheça o Percurso no celular">
           {LINKS.map(({ href, rotulo }) => (
-            <Link key={href} href={href} prefetch={false} onClick={fechar}>{rotulo}</Link>
+            <Link key={href} href={href} prefetch={false}>
+              {rotulo}
+            </Link>
           ))}
-          <Link href="/contato" prefetch={false} onClick={fechar}>Contato</Link>
+          <Link href="/contato" prefetch={false}>
+            Contato
+          </Link>
         </nav>
-      </details>
-    </header>
+      }
+    />
   );
 }

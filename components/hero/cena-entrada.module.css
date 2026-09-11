@@ -1,12 +1,8 @@
-:global(html):has(.palco),
-:global(body):has(.palco) {
-  overflow: hidden;
-  overscroll-behavior: none;
-}
-
+/* A abertura ocupa a primeira tela inteira, e só ela. A página rola daqui para
+   o ato do livro — por isso `relative`, e não mais `fixed` com trava de
+   rolagem em html/body: o segundo ato precisa existir abaixo. */
 .palco {
-  position: fixed;
-  inset: 0;
+  position: relative;
   isolation: isolate;
   height: 100vh;
   height: 100dvh;
@@ -170,8 +166,8 @@
   outline-offset: 4px;
 }
 
-/* Telas baixas: notebook de 13" na horizontal e celular deitado. O palco é
-   fixo e não rola, então o bloco tem de caber inteiro na altura. */
+/* Telas baixas: notebook de 13" na horizontal e celular deitado. A abertura
+   trava em uma tela de altura, então o bloco tem de caber inteiro nela. */
 @media (max-height: 720px) {
   .centro { padding-top: clamp(76px, 11vh, 104px); padding-bottom: clamp(28px, 5vh, 48px); }
   .titulo { font-size: clamp(30px, 4.4vw, 48px); }

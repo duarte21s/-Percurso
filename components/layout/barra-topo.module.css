@@ -1,0 +1,139 @@
+/* Camada ESTRUTURAL compartilhada entre a barra do site e a da abertura.
+   Ela não pinta nada: altura, recuo, alvo de toque, foco e a folha do celular.
+   A cor fica com cada contexto — tokens de tema no site, claro cravado sobre
+   o filme na home — porque é a única coisa que as duas não podem dividir sem
+   uma perder legibilidade.
+
+   As medidas saem dos tokens da Etapa 1, que por sua vez saíram do código:
+   nenhum número novo nasce aqui. */
+
+.barra {
+  position: relative;
+  z-index: 4;
+}
+
+.interna {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  height: var(--nav-altura);
+}
+
+/* Três colunas centralizam a navegação entre marca e ação — é o arranjo da
+   abertura, e `space-between` não o reproduz: com flex os links encostam no
+   bloco maior. Fica como opção, não como padrão. */
+.interna[data-disposicao="tres"] {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 28px;
+}
+
+/* O tom "filme" flutua sobre o vídeo e traz o próprio recuo lateral, porque
+   não vive dentro de um `.wrap`. O tom "tema" herda o recuo do `.wrap` do
+   site, e por isso não recebe padding aqui. */
+/* O tom "tema" não pinta nada aqui de propósito: no site quem dá material,
+   blur e `is-stuck` são as classes `.nav` do globals, tunadas e já cobertas
+   por `prefers-contrast` e `prefers-reduced-transparency`. Duplicar isso num
+   módulo criaria duas fontes de verdade para o mesmo chrome. */
+.tomTema {
+  position: static;
+}
+
+.tomFilme {
+  position: absolute;
+  inset: 0 0 auto;
+  color: #f7faf4;
+}
+.tomFilme .interna {
+  padding-inline: var(--nav-recuo);
+  padding-top: env(safe-area-inset-top);
+}
+
+/* Alvo de toque único. `:where()` mantém especificidade zero de propósito:
+   qualquer regra já existente no contexto continua ganhando, então esta
+   camada agrega sem disputar. */
+.interna :where(a, button, summary) {
+  min-height: var(--nav-item-altura);
+}
+
+.interna :where(a, button, summary):focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.acoes {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Botão de menu: dois traços que viram X. Mesmo desenho nos dois tons. */
+.alternar {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: var(--nav-item-altura);
+  height: var(--nav-item-altura);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+.alternar span {
+  display: block;
+  width: 20px;
+  height: 1.5px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform var(--motion-response) var(--ease),
+              opacity var(--motion-response) var(--ease);
+}
+.alternar[aria-expanded="true"] span:first-child {
+  transform: translateY(3.25px) rotate(45deg);
+}
+.alternar[aria-expanded="true"] span:last-child {
+  transform: translateY(-3.25px) rotate(-45deg);
+}
+
+/* A folha do celular. O movimento é do `usarFolha` — mola de verdade, com
+   arrasto e peteleco — e não uma transição. Aqui só a caixa. */
+.folha {
+  position: absolute;
+  inset: 100% 0 auto;
+  display: grid;
+  gap: 2px;
+  padding: 12px var(--nav-recuo) 20px;
+}
+
+/* Onde a barra vira menu é escolha do contexto, não do componente. O site
+   troca no celular (760px); a abertura troca em 1100px, porque cinco links
+   com tracking largo não cabem antes disso. Impor um valor único criaria uma
+   faixa de larguras sem navegação alguma — nem os links, nem o botão. */
+@media (max-width: 1100px) {
+  .interna[data-disposicao="tres"] {
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+  }
+  .barra[data-compacta="larga"] .alternar {
+    display: flex;
+  }
+}
+
+@media (max-width: 760px) {
+  .interna {
+    height: var(--nav-altura-compacta);
+  }
+  .barra:not([data-compacta="larga"]) .alternar {
+    display: flex;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .alternar span {
+    transition: none;
+  }
+}

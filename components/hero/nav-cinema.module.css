@@ -1,13 +1,7 @@
+/* Posição, altura, recuo e as três colunas passaram para a `BarraTopo` — a
+   mesma casca da barra do site. Sobra aqui o que é só da abertura: o degradê
+   que sustenta o texto claro sobre o vídeo, e a família. */
 .cabecalho {
-  position: absolute;
-  inset: 0 0 auto;
-  z-index: 4;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: 28px;
-  padding: max(18px, env(safe-area-inset-top)) clamp(24px, 3vw, 56px) 22px;
-  color: #f7faf4;
   font-family: var(--fonte-sans), sans-serif;
 }
 
@@ -28,7 +22,8 @@
   min-height: 44px;
   color: inherit;
   font-size: 18px;
-  font-weight: 650;
+  /* 600 é o teto de peso do sistema; 650 era o único acima dele nesta barra. */
+  font-weight: 600;
   line-height: 1;
   letter-spacing: .25em;
   text-transform: uppercase;
@@ -36,7 +31,9 @@
 .marca svg { width: 18px; height: 18px; flex: none; color: #c7dcc1; }
 
 .desktop { display: flex; align-items: center; gap: clamp(20px, 2.3vw, 38px); }
-.desktop a, .contato, .abrir, .mobile a {
+/* Os 10px com .14em ficam: é o letreiro de cinema da abertura, e a decisão
+   foi dividir estrutura e estados com o site, não a escala do texto. */
+.desktop a, .contato, .mobile a {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
@@ -69,51 +66,33 @@
   transition: background .2s ease, border-color .2s ease;
 }
 .contato:hover { background: rgba(231, 245, 222, .12); border-color: #f7faf4; }
-.cabecalho :is(a, summary):focus-visible { outline: 2px solid #f7faf4; outline-offset: 5px; }
-.menu { display: none; }
+.cabecalho :is(a, button):focus-visible { outline: 2px solid #f7faf4; outline-offset: 5px; }
+
+/* O `<details>`/`<summary>` saiu: quem abre e fecha o menu agora é o botão da
+   `BarraTopo`, e quem o move é a folha do `usarFolha`. Por isso `.menu`,
+   `.abrir` e `.iconeMenu` deixaram de existir — nada mais os referenciava. */
+.mobile {
+  display: grid;
+  padding: 12px 20px;
+  max-height: calc(100dvh - var(--nav-altura) - env(safe-area-inset-top));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid rgba(213, 234, 204, .25);
+  border-radius: 12px;
+  background: rgba(16, 38, 28, .96);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, .2);
+}
+.mobile a { min-height: 48px; font-size: 11px; border-bottom: 1px solid rgba(213, 234, 204, .12); }
+.mobile a:last-child { border-bottom: 0; }
+.mobile a:hover { color: #c7dcc1; }
 
 @media (max-width: 1100px) {
-  .cabecalho { grid-template-columns: 1fr auto; gap: 16px; }
   .desktop, .contato { display: none; }
-  .menu { display: block; }
-  .abrir {
-    list-style: none;
-    gap: 12px;
-    padding: 0 14px;
-    border: 1px solid rgba(247, 250, 244, .5);
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  .abrir::-webkit-details-marker { display: none; }
-  .iconeMenu { display: grid; gap: 5px; width: 16px; }
-  .iconeMenu i { display: block; height: 1px; background: currentColor; transition: transform .2s ease; }
-  .menu[open] .iconeMenu i:first-child { transform: translateY(3px) rotate(45deg); }
-  .menu[open] .iconeMenu i:last-child { transform: translateY(-3px) rotate(-45deg); }
-  .mobile {
-    position: absolute;
-    top: calc(100% - 10px);
-    left: 24px;
-    right: 24px;
-    display: grid;
-    padding: 12px 20px;
-    max-height: calc(100dvh - 104px - env(safe-area-inset-top));
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    border: 1px solid rgba(213, 234, 204, .25);
-    border-radius: 12px;
-    background: rgba(16, 38, 28, .96);
-    box-shadow: 0 16px 48px rgba(0, 0, 0, .2);
-  }
-  .mobile a { min-height: 48px; font-size: 11px; border-bottom: 1px solid rgba(213, 234, 204, .12); }
-  .mobile a:last-child { border-bottom: 0; }
-  .mobile a:hover { color: #c7dcc1; }
 }
 
 @media (max-width: 520px) {
-  .cabecalho { padding: max(14px, env(safe-area-inset-top)) 20px 18px; }
   .marca { font-size: 15px; gap: 8px; letter-spacing: .21em; }
   .marca svg { width: 15px; height: 15px; }
-  .mobile { left: 20px; right: 20px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

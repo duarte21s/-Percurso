@@ -50,9 +50,12 @@
   display: block;
   margin-bottom: 22px;
   color: #f4f8f4;
+  /* A marca continua em Inter: é assinatura, não título editorial — trocar a
+     família aqui mudaria a identidade, que não é o que esta etapa faz. Só o
+     peso desce a 600, o teto do sistema. */
   font-family: var(--sans);
   font-size: 21px;
-  font-weight: 650;
+  font-weight: 600;
   letter-spacing: -0.045em;
 }
 .marca::after {
@@ -65,13 +68,16 @@
   background: rgba(169, 199, 179, 0.7);
 }
 
+/* Título editorial: Fraunces, peso 600 e os tokens de tracking e leading do
+   sistema — o mesmo tratamento do `.title` no globals. */
 .titulo {
   margin: 0;
-  font-family: var(--sans);
+  font-family: var(--serif);
+  font-optical-sizing: auto;
   font-size: clamp(26px, 3vw, 32px);
-  font-weight: 660;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: var(--track-display);
+  line-height: var(--lead-display);
   color: #f4f8f4;
 }
 
@@ -268,9 +274,10 @@
   border-radius: 14px;
   background: #e9f2eb;
   color: #123c2a;
+  /* Botão é texto funcional: Inter, peso do sistema. */
   font-family: inherit;
   font-size: 15.5px;
-  font-weight: 640;
+  font-weight: 600;
   cursor: pointer;
   transition: background 0.25s var(--ease), transform 0.2s var(--ease);
 }
@@ -328,13 +335,15 @@
 
 /* ---------- cartão de quem já entrou ---------- */
 
+/* Mesmo registro do `.titulo`: é o título da tela para quem já tem sessão. */
 .saudacao {
   margin: 0;
-  font-family: var(--sans);
+  font-family: var(--serif);
+  font-optical-sizing: auto;
   font-size: clamp(25px, 2.9vw, 31px);
-  font-weight: 660;
-  letter-spacing: -0.03em;
-  line-height: 1.12;
+  font-weight: 600;
+  letter-spacing: var(--track-display);
+  line-height: var(--lead-display);
 }
 
 .acoesVolta {

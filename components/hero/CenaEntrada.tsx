@@ -50,7 +50,7 @@ export function CenaEntrada() {
   };
 
   return (
-    <main ref={raiz} className={styles.palco} aria-label="Percurso" data-pronto={pronto}>
+    <section ref={raiz} className={styles.palco} aria-label="Percurso" data-pronto={pronto}>
       <div className={styles.filme} aria-hidden="true">
         {CENAS.map((cena, i) => (
           <video
@@ -104,6 +104,6 @@ export function CenaEntrada() {
           </div>
         </div>
       </div>
-    </main>
+    </section>
   );
 }

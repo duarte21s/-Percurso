@@ -124,6 +124,53 @@
   --r:        18px;
   --r-lg:     28px;
 
+  /* navegação — a medida única do topo.
+     Hoje existem três navegações e três formas DIFERENTES de chegar a uma
+     altura: `.nav-home .nav-inner` crava 86px; a NavCinema da abertura soma
+     18px + 44px + 22px de padding e min-height; a SidebarApp nem tem altura,
+     por ser um trilho vertical de 100vh. Três caminhos não concordam por
+     acidente — daí estes tokens, que ninguém consome ainda.
+
+     Os valores NÃO são escala nova: cada um é a medida que já está no código.
+     --nav-altura          86px  ← globals.css, `.nav-home .nav-inner`
+     --nav-altura-compacta 76px  ← nav-cinema.module.css no celular (14+44+18)
+     --nav-item-altura     44px  ← nav-cinema.module.css, e o alvo de toque
+                                   mínimo que a marca e os links já respeitam
+     --nav-item-altura-densa 38px ← sidebar-app.module.css, item do trilho
+     --nav-recuo                 ← o padding lateral da NavCinema, tal e qual
+
+     A diferença de 2px entre os 86px cravados e os 84px que a NavCinema soma
+     fica registrada aqui de propósito, em vez de arredondada em silêncio: é
+     uma das divergências que a barra única vai ter de resolver. */
+  --nav-altura:            86px;
+  --nav-altura-compacta:   76px;
+  --nav-item-altura:       44px;
+  --nav-item-altura-densa: 38px;
+  --nav-recuo:             clamp(24px, 3vw, 56px);
+
+  /* quebras de tela — contrato, não mecanismo.
+     ATENÇÃO: `@media` não lê custom property. `@media (max-width: var(--bp-tablet))`
+     é inválido, e `@custom-media` ainda não é baseline. Estes cinco nomes
+     existem para dar UMA referência conferível: o CSS continua escrevendo o
+     número, e este bloco é contra o que se confere se o número está certo.
+
+     A escala saiu da contagem do que já se usa — 18 larguras distintas hoje,
+     agrupadas por proximidade, cada token fixado no valor mais frequente do
+     seu grupo. Nada foi inventado:
+       480  (2 usos)                       → --bp-mini
+       620/621/640 (7 usos, 640 na frente) → --bp-celular
+       700/720/760/780 (8 usos, 760 na frente) → --bp-tablet
+       820/860/900/901 (9 usos, 900 na frente) → --bp-laptop
+       1040/1060/1080/1100 (5 usos, 1100 na frente) → --bp-desktop
+
+     Servem também para leitura em JS (`getComputedStyle`) e para container
+     queries, onde custom property funciona. */
+  --bp-mini:    480px;
+  --bp-celular: 640px;
+  --bp-tablet:  760px;
+  --bp-laptop:  900px;
+  --bp-desktop: 1100px;
+
   /* tipografia — tracking e leading por tamanho, nunca um valor só.
      Texto grande lê espaçado demais quando cresce → tracking negativo;
      leading aperta conforme o tamanho sobe. */
@@ -876,7 +923,10 @@ ul, ol { padding: 0; list-style: none; }
 .nav.nav-home.is-stuck::before { opacity: 0; }
 .nav.nav-home::after { background: linear-gradient(var(--bg), transparent); }
 
-.nav-home .nav-inner { height: 86px; width: min(1368px, calc(100% - clamp(40px, 10vw, 224px))); }
+/* A altura vem do token, não mais do número cravado: é o mesmo `--nav-altura`
+   que a barra da abertura passa a usar. O valor não mudou — o token nasceu
+   justamente deste 86px. */
+.nav-home .nav-inner { height: var(--nav-altura); width: min(1368px, calc(100% - clamp(40px, 10vw, 224px))); }
 
 .nav-home .brand {
   gap: 12px;
