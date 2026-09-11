@@ -71,13 +71,13 @@ export const PASSOS: Passo[] = [
     titulo: "Da escola ao ",
     destaque: "concurso",
     fim: ".",
-    lede: "Cinco objetivos diferentes, com conteúdo montado para cada um — e não a mesma trilha com outro nome.",
+    lede: "Cinco objetivos, com diferentes níveis de cobertura. ENEM e vestibulares são os mais completos; os demais ainda estão em expansão.",
     itens: [
       { titulo: "Reforço escolar", texto: "Do 6º ao 9º ano, para chegar ao ensino médio sem buraco." },
       { titulo: "ENEM", texto: "Nove matérias, as provas reais e a redação nas cinco competências." },
-      { titulo: "Vestibular", texto: "Fuvest, Unicamp, UERJ e as demais provas próprias." },
-      { titulo: "Concurso público", texto: "Português, raciocínio lógico e o que as bancas cobram." },
-      { titulo: "Carreira militar", texto: "A preparação específica dos concursos das Forças." },
+      { titulo: "Vestibular", texto: "Uma base de estudo para provas próprias, com foco nos conteúdos que já estão disponíveis." },
+      { titulo: "Concurso público", texto: "Português, raciocínio lógico, informática básica e estatística — uma base para quem também se prepara para concursos." },
+      { titulo: "Carreira militar", texto: "Uma base de exatas voltada a objetivos militares." },
     ],
   },
   {

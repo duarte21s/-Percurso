@@ -44,7 +44,7 @@ export function Footer() {
           </Link>
           <p>
             Plataforma de estudos para quem tem um objetivo com data marcada:
-            ENEM, vestibulares, concursos e a escola de todo dia.
+            ENEM, vestibulares e a escola de todo dia.
           </p>
         </div>
 
