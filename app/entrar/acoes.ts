@@ -12,34 +12,8 @@ import {
   LIMITE_VISITANTE_MINUTOS,
   ehVisitante,
 } from "@/lib/sessao";
+import { traduz } from "@/lib/auth/mensagens";
 import type { EstadoAuth } from "./estado";
-
-/**
- * Traduz o erro do Supabase, que vem em inglês e às vezes técnico demais.
- * Cair no genérico é aceitável; mostrar "AuthApiError: invalid_grant" não é.
- */
-function traduz(mensagem: string): string {
-  const m = mensagem.toLowerCase();
-
-  if (m.includes("invalid login credentials"))
-    return "E-mail ou senha incorretos.";
-  if (m.includes("user already registered") || m.includes("already been registered"))
-    return "Já existe uma conta com esse e-mail. Tente entrar.";
-  if (m.includes("password should be at least"))
-    return "A senha precisa de pelo menos 6 caracteres.";
-  if (m.includes("email not confirmed"))
-    return "Confirme seu e-mail antes de entrar. Veja a caixa de entrada.";
-  if (m.includes("unable to validate email") || m.includes("invalid email"))
-    return "Esse e-mail não parece válido.";
-  if (m.includes("anonymous sign-ins are disabled"))
-    return "O acesso de visitante está desligado no projeto. Ative Anonymous sign-ins no painel do Supabase.";
-  if (m.includes("rate limit") || m.includes("too many"))
-    return "Muitas tentativas seguidas. Espere um minuto e tente de novo.";
-  if (m.includes("provider is not enabled") || m.includes("unsupported provider"))
-    return "Esse acesso ainda não foi ligado no painel do Supabase, em Authentication → Sign In / Providers.";
-
-  return "Não consegui completar agora. Tente novamente em instantes.";
-}
 
 /* A checagem mora em lib/destino-seguro.ts: a versão anterior, feita aqui com
    startsWith, deixava passar `/\evil.com`. */

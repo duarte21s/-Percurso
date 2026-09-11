@@ -1,0 +1,208 @@
+:global(html):has(.palco),
+:global(body):has(.palco) {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+.palco {
+  position: fixed;
+  inset: 0;
+  isolation: isolate;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background: #151918;
+  color-scheme: light;
+}
+
+.filme,
+.veu,
+.centro {
+  position: absolute;
+  inset: 0;
+}
+
+/* O primeiro quadro real do plano de abertura, extraído do próprio arquivo.
+   Fica ATRÁS dos vídeos, e não só no `poster` do <video>, porque o GSAP nasce
+   com os quatro em `opacity: 0` — um poster ali ficaria invisível junto com
+   eles. É o que a página mostra enquanto os 2,4 MB do primeiro plano não
+   chegam, e o que ela continua mostrando se nunca chegarem. Como é o mesmo
+   quadro, o vídeo entra por cima sem salto. */
+.filme {
+  z-index: 0;
+  overflow: hidden;
+  background-image: url("/media/abertura-poster.webp");
+  background-size: cover;
+  background-position: center;
+}
+
+.video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Com o texto no meio da tela, o escurecimento tem de proteger o centro, não a
+   base. Uma camada fina cobre tudo e um foco elíptico adensa atrás das letras.
+   No pior quadro possível — todo branco — o centro fecha em 75% e entrega
+   7,5:1 no texto e 5,4:1 no rótulo, enquanto os cantos perdem só 26% de luz. */
+.veu {
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 78% 64% at 50% 52%,
+      rgba(9, 27, 20, 0.66) 0%,
+      rgba(9, 27, 20, 0.5) 46%,
+      rgba(9, 27, 20, 0.16) 78%,
+      rgba(9, 27, 20, 0) 100%
+    ),
+    linear-gradient(rgba(9, 27, 20, 0.26), rgba(9, 27, 20, 0.26));
+}
+
+.centro {
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  padding: clamp(92px, 13vh, 148px) clamp(24px, 5vw, 72px) clamp(52px, 8vh, 92px);
+  pointer-events: none;
+}
+
+.entrada {
+  display: grid;
+  justify-items: center;
+  gap: clamp(14px, 1.6vh, 22px);
+  max-width: 46rem;
+  font-family: var(--fonte-sans), sans-serif;
+  color: #f7faf4;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(70px);
+}
+
+.rotulo {
+  margin: 0;
+  color: #c7dcc1;
+  font-size: 11px;
+  font-weight: 550;
+  line-height: 1.4;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* Mesma família da navegação (Inter). Só a família muda: tamanho, peso,
+   entrelinha e espaçamento continuam os mesmos de antes da troca. */
+.titulo {
+  margin: 0;
+  font-family: var(--fonte-sans), sans-serif;
+  font-size: clamp(38px, 5.6vw, 76px);
+  font-weight: 600;
+  line-height: 1.03;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.linha {
+  margin: 0 auto;
+  max-width: 46ch;
+  color: rgba(247, 250, 244, 0.9);
+  font-size: clamp(15px, 1.15vw, 18px);
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: clamp(4px, 1vh, 12px);
+}
+
+.principal,
+.secundario {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 0 28px;
+  border-radius: 999px;
+  font-size: clamp(15px, 1vw, 17px);
+  font-weight: 550;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+/* Sólido, não fantasma. Branco sobre #2f7d57 dá 5,0:1 e não depende de qual
+   quadro do vídeo está por baixo na hora. */
+.principal {
+  border: 1px solid transparent;
+  background: #2f7d57; /* fixo: --accent vira #4fc2a0 no tema escuro e reprovaria com texto branco */
+  color: #fff;
+  box-shadow: 0 12px 32px rgba(9, 27, 20, 0.38);
+}
+
+.secundario {
+  border: 1px solid rgba(247, 250, 244, 0.55);
+  background: rgba(9, 27, 20, 0.28);
+  color: #f7faf4;
+}
+
+.palco[data-pronto="true"] .principal,
+.palco[data-pronto="true"] .secundario { pointer-events: auto; }
+
+.principal:hover { background: #256546; }
+.secundario:hover { background: rgba(9, 27, 20, 0.5); border-color: #f7faf4; }
+.principal:active, .secundario:active { transform: translateY(1px); }
+
+.principal svg { flex-shrink: 0; }
+
+.entrada :is(a):focus-visible {
+  outline: 2px solid #f7faf4;
+  outline-offset: 4px;
+}
+
+/* Telas baixas: notebook de 13" na horizontal e celular deitado. O palco é
+   fixo e não rola, então o bloco tem de caber inteiro na altura. */
+@media (max-height: 720px) {
+  .centro { padding-top: clamp(76px, 11vh, 104px); padding-bottom: clamp(28px, 5vh, 48px); }
+  .titulo { font-size: clamp(30px, 4.4vw, 48px); }
+  .linha { font-size: 15px; }
+  .principal, .secundario { min-height: 48px; padding: 0 22px; }
+}
+
+@media (max-width: 640px) {
+  .centro { padding: clamp(84px, 12vh, 120px) 20px clamp(36px, 7vh, 64px); }
+  .veu {
+    background:
+      radial-gradient(
+        ellipse 120% 56% at 50% 56%,
+        rgba(9, 27, 20, 0.7) 0%,
+        rgba(9, 27, 20, 0.54) 50%,
+        rgba(9, 27, 20, 0.14) 82%,
+        rgba(9, 27, 20, 0) 100%
+      ),
+      linear-gradient(rgba(9, 27, 20, 0.28), rgba(9, 27, 20, 0.28));
+  }
+  .titulo { font-size: clamp(32px, 8.6vw, 44px); }
+  .linha { max-width: 34ch; }
+  .acoes { width: 100%; }
+  .principal, .secundario { flex: 1 1 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .video { display: none; }
+  /* Neste modo o texto já entra pronto, então não há espera a cobrir — e a
+     decisão de não baixar mídia nenhuma vale também para o poster. */
+  .filme { background-image: none; }
+  .entrada { transform: none; }
+  .principal, .secundario { transition: none; }
+}

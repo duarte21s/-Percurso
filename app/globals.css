@@ -41,76 +41,46 @@
      nomeia: não usar a mesma cor para significar coisas diferentes. A saída
      foi afastá-los no matiz — 169 graus contra 95, uma distância de 74, que
      nenhum olho lê como "o mesmo verde".
-     --accent   = preenchimento (botão, pílula ativa, barra).
-     --accent-2 = a mesma cor em versão TINTA, para acento usado como texto.
-     --accent-brilho = a ponta clara dos gradientes, nunca texto. */
-  --accent:        #2f7d57;
-  --accent-2:      #123c2a;
-  --accent-brilho: #a9c7b3;
-  --accent-dim:  rgba(47, 125, 87, 0.10);
-  --accent-line: rgba(18, 60, 42, 0.28);
+     --accent   = preenchimento E texto de acento (botão, pílula, rótulo).
+     --accent-2 = a mesma cor em versão TINTA, para número e título de acento.
+     --accent-fio = fio discreto: borda decorativa, barra lateral de cartão.
+     --accent-brilho = a ponta clara dos gradientes, nunca texto.
+     --accent-superficie = fundo tênue OPACO de acento (cabeçalho de tabela,
+     bloco de gabarito). Não é --accent-dim: translúcido perde separação sobre
+     fundo escuro, medido em 1,26:1 contra os 1,38:1 que o opaco entrega.
 
-  /* Tokens da identidade editorial da homepage, usados também por módulos. */
-  --verde-profundo: #123c2a;
-  --verde-principal: #2f7d57;
-  --verde-suave: #a9c7b3;
-  --menta: #e5eee7;
-  --fundo: #f3f5f1;
-  --texto: #17231c;
-  --texto-secundario: #5b6860;
+     #2d7753 e não #2f7d57: como TEXTO, o valor anterior dava 4,23:1 sobre
+     --bg-2 e 4,42:1 sobre --surface-2, abaixo do mínimo de 4,5. Mesmo matiz
+     (150,8°) e mesma saturação (45,3%), 1,5 ponto a menos de luminosidade. */
+  --accent:        #2d7753;
+  --accent-2:      #123c2a;
+  --accent-fio:    #a9c7b3;
+  --accent-brilho: #a9c7b3;
+  --accent-dim:  rgba(45, 119, 83, 0.10);
+  --accent-line: rgba(18, 60, 42, 0.28);
+  --accent-superficie: #e5eee7;
+
+  /* Apelidos da escala acima. Cinco módulos de área interna referenciam estes
+     nomes (comunidade, estudos, provas, redação, sidebar) e não são medíveis
+     sem login, então eles continuam existindo em vez de sumirem — apontando
+     para a escala única, que é o que unifica o site sem tocar naqueles
+     arquivos. --borda fica fora: é translúcida nos dois temas e --line é opaca
+     no escuro, então trocá-la mudaria o peso de toda borda da área escura. */
+  --verde-profundo: var(--accent-2);
+  --verde-principal: var(--accent);
+  --verde-suave: var(--accent-fio);
+  --menta: var(--accent-superficie);
+  --fundo: var(--bg);
+  --texto: var(--text);
+  --texto-secundario: var(--text-2);
   --borda: rgba(18, 60, 42, 0.14);
 
-  /* Referência Apple adaptada ao Percurso. Os neutros, a escala e o ritmo
-     entram no sistema; as ações continuam verdes para preservar a marca. */
-  --color-primary-ink: #1d1d1f;
-  --color-mid-gray: #707070;
-  --color-deep-gray: #474747;
-  --color-hairline: #d6d6d6;
-  --color-canvas: #f5f5f7;
-  --color-paper: #ffffff;
-  --color-cool-wash: #e8e8ed;
-  --color-faded-surface: #fafafc;
-  --color-electric-blue: #0071e3;
-  --color-link-blue: #0066cc;
-  /* Base editorial usada na área de estudos: papel, grafite e linha. */
-  --color-page-canvas: #fafafa;
-  --color-hairline-border: #e5e7eb;
-  --color-card-surface: #ededed;
-  --color-divider-mid: #dadada;
-  --color-graphite: #242424;
-  --color-ink-black: #171717;
-  --color-pencil: #5c5c5c;
-  --color-faint-graphite: #a3a3a3;
-  --font-inter: "Inter", var(--fonte-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-instrument-serif: var(--fonte-display), "Fraunces", Georgia, serif;
-  --font-fragment-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  --font-sf-pro-display: "SF Pro Display", var(--fonte-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-sf-pro-text: "SF Pro Text", var(--fonte-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --text-micro: 12px;
-  --text-caption: 14px;
-  --text-body-sm: 17px;
-  --text-body: 21px;
-  --text-body-lg: 28px;
-  --text-subheading: 32px;
-  --text-heading-sm: 40px;
-  --text-heading: 56px;
-  --text-heading-lg: 80px;
-  --text-display: 96px;
-  --spacing-4: 4px;
-  --spacing-8: 8px;
-  --spacing-12: 12px;
-  --spacing-16: 16px;
-  --spacing-20: 20px;
-  --spacing-24: 24px;
-  --spacing-28: 28px;
-  --spacing-32: 32px;
-  --spacing-40: 40px;
-  --spacing-48: 48px;
-  --spacing-80: 80px;
-  --spacing-120: 120px;
+  /* Quatro tokens de um sistema importado, mantidos porque o acabamento no fim
+     deste arquivo os consome: `--radius-cards` e `--radius-buttons` desenham
+     cartão e botão, `--motion-response` e `--motion-press` são as duas
+     velocidades do toque. O resto do ritmo do site sai de `--gut`, `--r-sm`,
+     `--r`, `--r-lg` e da rampa de superfícies acima. */
   --radius-cards: 24px;
-  --radius-links: 10px;
-  --radius-badges: 36px;
   --radius-buttons: 16px;
   --motion-response: .4s;
   --motion-press: .1s;
@@ -127,17 +97,23 @@
   /* tipografia — DUAS VOZES: Inter para ler, Fraunces para anunciar.
      Inter é desenhada para tela: altura-x alta, aberturas largas, formas
      neutras. Em texto pequeno de interface (rótulo, contagem, tabela) ela
-     segura o que a serif perdia, e em título grande fica limpa em vez de
-     literária. Como é variável, os pesos 500/600 existem de verdade — em
-     Palatino/Georgia não existiam e a hierarquia de três pesos colapsava
-     em dois.
-     --serif é alias de --display porque dezenas de seletores antigos
-     referenciam esse nome. Reapontar o alias troca a fonte de todos os
-     títulos do site de uma vez — que é exatamente o que aconteceu aqui. */
-  --sans: var(--font-sf-pro-text), "Inter", -apple-system, BlinkMacSystemFont,
-          "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --display: var(--font-sf-pro-display), "Inter", -apple-system, BlinkMacSystemFont,
-             "Segoe UI", sans-serif;
+     segura o que a serifa perde. Fraunces fica no título, onde o corpo grande
+     deixa a modulação aparecer e a página ganha uma voz.
+
+     As duas entram pelo next/font, por `--fonte-sans` e `--fonte-display`:
+     são BAIXADAS, não herdadas do sistema. É o que faz o site ter a mesma cara
+     no Mac, no Windows e no Android, em vez de trocar de fonte conforme quem
+     abre. Nenhuma família local encabeça estas pilhas.
+
+     Os fallbacks servem só à janela do `swap`, e cada um segue a classe da sua
+     família: sem serifa cai em sem serifa, serifa cai em serifa. Assim o título
+     não troca de espécie no meio do carregamento.
+
+     --serif é alias de --display porque dezenas de seletores referenciam esse
+     nome. É o alias que faz um ajuste aqui alcançar todos os títulos do site. */
+  --sans: var(--fonte-sans), -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, "Helvetica Neue", Arial, sans-serif;
+  --display: var(--fonte-display), Georgia, "Times New Roman", Times, serif;
   --serif: var(--display);
   --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 
@@ -193,19 +169,15 @@
     --text:        #edf3eb;
     --text-2:      #a6b2a4;
     --text-3:      #8b978a;
-    --verde-profundo: #a9d1b9;
-    --verde-principal: #6aab86;
-    --verde-suave: #416d53;
-    --menta: #193226;
-    --fundo: #0c110d;
-    --texto: #edf3eb;
-    --texto-secundario: #a6b2a4;
+    /* Ver a nota no bloco [data-theme="dark"]: os apelidos acompanham sozinhos. */
     --borda: rgba(237, 243, 235, 0.14);
     --accent:        #4fc2a0;
     --accent-2:      #7edcc0;
+    --accent-fio:    #416d53;
     --accent-brilho: #a8eeda;
     --accent-dim:  rgba(79, 194, 160, 0.14);
     --accent-line: rgba(79, 194, 160, 0.32);
+    --accent-superficie: #193226;
     --sobre-accent: #05201a;
     --ok:          #82ce58;
     --err:         #f26e54;
@@ -230,19 +202,16 @@
   --text:        #edf3eb;
   --text-2:      #a6b2a4;
   --text-3:      #8b978a;
-  --verde-profundo: #a9d1b9;
-  --verde-principal: #6aab86;
-  --verde-suave: #416d53;
-  --menta: #193226;
-  --fundo: #0c110d;
-  --texto: #edf3eb;
-  --texto-secundario: #a6b2a4;
+  /* Os apelidos (--verde-*, --menta, --fundo, --texto) não se repetem aqui:
+     apontam para a escala e acompanham sozinhos. Só --borda tem valor próprio. */
   --borda: rgba(237, 243, 235, 0.14);
   --accent:        #4fc2a0;
   --accent-2:      #7edcc0;
+  --accent-fio:    #416d53;
   --accent-brilho: #a8eeda;
   --accent-dim:  rgba(79, 194, 160, 0.14);
   --accent-line: rgba(79, 194, 160, 0.32);
+  --accent-superficie: #193226;
   --sobre-accent: #05201a;
   --ok:          #82ce58;
   --err:         #f26e54;
@@ -275,6 +244,11 @@
     --line-strong: rgba(20, 30, 22, 0.42);
     --accent:      #12463c;
     --accent-2:    #0e3a32;
+    /* O fio não tinha variante de contraste: ficava em #a9c7b3, 1,66:1, num
+       modo que pede o contrário. Mesmo matiz (140°), luminosidade descida até
+       cruzar 3:1 na PIOR superfície clara, --surface-3: entrega 3,02:1 ali e
+       3,58:1 sobre --surface. */
+    --accent-fio:  #5d8f6d;
     --accent-line: rgba(18, 70, 60, 0.55);
     --ok:          #2f5a20;
     --err:         #9c2c17;
@@ -288,6 +262,10 @@
       --line-strong: rgba(237, 243, 235, 0.44);
       --accent:      #7fdcc3;
       --accent-2:    #a9ebda;
+      /* Mesmo raciocínio do claro, ao contrário: sobe até 3:1 sobre a
+         superfície escura mais CLARA (--surface-3). Dá 3,00:1 ali, 4,07:1
+         sobre --bg. Matiz 144,5° preservado. */
+      --accent-fio:  #4b7f60;
       --accent-line: rgba(127, 220, 195, 0.55);
       --ok:          #8fdd85;
       --err:         #ff9482;
@@ -301,6 +279,7 @@
     --line-strong: rgba(237, 243, 235, 0.44);
     --accent:      #7fdcc3;
     --accent-2:    #a9ebda;
+    --accent-fio:  #4b7f60;
     --accent-line: rgba(127, 220, 195, 0.55);
     --ok:          #8fdd85;
     --err:         #ff9482;
@@ -628,10 +607,11 @@ ul, ol { padding: 0; list-style: none; }
   letter-spacing: var(--track-display);
   margin-top: 16px;
 }
-/* O destaque do título sai só pela cor. O itálico saiu junto com a serif:
-   o next/font carrega o Inter apenas no estilo normal, então `italic` seria
-   sintetizado pelo navegador — uma inclinação falsa, que numa fonte única e
-   limpa aparece como defeito. */
+/* O destaque do título sai só pela cor. O `em` não inclina porque o next/font
+   carrega a Fraunces apenas no estilo normal: pedir `italic` faria o navegador
+   sintetizar a inclinação, e letra torta por cálculo aparece como defeito ao
+   lado de uma serifa desenhada. Carregar o itálico de verdade é uma decisão de
+   peso de página, não um ajuste de seletor. */
 .title em {
   font-style: normal;
   color: var(--accent);
@@ -761,8 +741,10 @@ ul, ol { padding: 0; list-style: none; }
   background: var(--material-chrome);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid transparent;
-  transition: background .4s var(--ease), backdrop-filter .4s var(--ease);
+  transition: background .4s var(--ease), backdrop-filter .4s var(--ease),
+              opacity .9s var(--ease), transform .9s var(--ease);
 }
+
 .nav.is-stuck {
   background: var(--material-chrome);
   backdrop-filter: blur(24px);
@@ -868,21 +850,88 @@ ul, ol { padding: 0; list-style: none; }
 .nav-actions { display: flex; align-items: center; gap: 10px; }
 .nav-actions .btn { padding: 9px 18px; font-size: 13px; }
 
-/* A home apresenta o Percurso como uma peça editorial clara. As outras
-   páginas institucionais preservam a navegação segmentada já existente. */
-.nav.nav-home { background: rgba(243, 245, 241, .76); color: #17231c; }
-.nav.nav-home.is-stuck { background: rgba(243, 245, 241, .94); }
-.nav.nav-home::after { background: linear-gradient(#f3f5f1, transparent); }
+/* Todo o site público usa o mesmo desenho de cabeçalho da abertura: marca em
+   caixa alta bem espaçada, links pequenos na mesma caixa e botão vazado.
+   O bloco anterior fixava rgba(243,245,241,.76) e texto #17231c na mão, então
+   no tema escuro virava uma faixa branca por cima de uma página quase preta.
+   Aqui nada é fixo: tudo sai dos tokens e acompanha os dois temas. */
+.nav.nav-home {
+  background: transparent;
+  backdrop-filter: none;
+  color: var(--text);
+}
+/* Véu curto que desce por trás do cabeçalho, no lugar de uma faixa sólida.
+   Vem do mesmo token do chrome, por isso troca junto com o tema. */
+.nav.nav-home::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 -48px;
+  z-index: -1;
+  background: linear-gradient(180deg, var(--material-chrome), transparent);
+  transition: opacity .4s var(--ease);
+  pointer-events: none;
+}
+/* Ao rolar, o conteúdo passa por baixo: o véu sai e o material sólido entra. */
+.nav.nav-home.is-stuck { background: var(--material-chrome); backdrop-filter: blur(24px); }
+.nav.nav-home.is-stuck::before { opacity: 0; }
+.nav.nav-home::after { background: linear-gradient(var(--bg), transparent); }
+
 .nav-home .nav-inner { height: 86px; width: min(1368px, calc(100% - clamp(40px, 10vw, 224px))); }
-.nav-home .brand { color: #17231c; font-size: 28px; font-weight: 650; letter-spacing: -.045em; }
-.nav-home .brand-mark { width: 31px; height: 36px; border: 0; border-radius: 0; background: transparent; color: #123c2a; }
-.nav-home .brand-mark svg { width: 31px; height: 31px; transform: rotate(37deg); }
-.nav-home .nav-links { gap: 26px; padding: 0; border: 0; border-radius: 0; background: transparent; }
-.nav-home .nav-links a { padding: 8px 0; border-radius: 0; color: #17231c; font-size: 15px; font-weight: 500; }
-.nav-home .nav-links a:hover, .nav-home .nav-links a[aria-current="page"] { color: #123c2a; }
-.nav-home .nav-indicador { top: auto; bottom: -5px; height: 2px; border-radius: 2px; background: #2f7d57; }
-.nav-home .nav-actions .btn-ghost { min-width: 120px; padding: 11px 25px; border: 1px solid #17231c; border-radius: 13px; background: transparent; color: #17231c; font-size: 15px; }
-.nav-home .nav-actions .btn-ghost:hover { border-color: #123c2a; background: #eaf4ee; color: #123c2a; }
+
+.nav-home .brand {
+  gap: 12px;
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 650;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+}
+.nav-home .brand-mark { width: 18px; height: 18px; border: 0; border-radius: 0; background: transparent; color: var(--accent); }
+/* Sem o rotate(37deg): o marcador fica em pé, como na abertura. */
+.nav-home .brand-mark svg { width: 18px; height: 18px; transform: none; }
+
+.nav-home .nav-links { gap: clamp(20px, 2.3vw, 38px); padding: 0; border: 0; border-radius: 0; background: transparent; }
+.nav-home .nav-links a {
+  padding: 8px 0;
+  border-radius: 0;
+  color: var(--text);
+  font-size: 10px;
+  font-weight: 550;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.nav-home .nav-links a:hover, .nav-home .nav-links a[aria-current="page"] { color: var(--accent-2); }
+.nav-home .nav-indicador { top: auto; bottom: -5px; height: 1px; border-radius: 0; background: var(--accent); }
+
+/* Botões na mesma caixa e no mesmo tamanho dos links. O vazado é o "Entrar".
+   O cheio continua cheio: "Meu painel" é a ação principal de quem já entrou, e
+   apagá-la custaria hierarquia sem ganhar nada no desenho. */
+.nav-home .nav-actions .btn {
+  min-width: 0;
+  min-height: 44px;
+  padding: 0 19px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 550;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.nav-home .nav-actions .btn-ghost {
+  border: 1px solid color-mix(in srgb, currentColor 50%, transparent);
+  background: transparent;
+  color: var(--text);
+}
+.nav-home .nav-actions .btn-ghost:hover { border-color: currentColor; background: var(--accent-dim); color: var(--text); }
+
+/* A folha do celular herda a mesma caixa alta, senão o menu aberto destoa
+   do cabeçalho que o abriu. */
+.nav-home .nav-mobile a:not(.btn) {
+  font-size: 11px;
+  font-weight: 550;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
 
 .nav-toggle {
   display: none;
@@ -949,7 +998,7 @@ ul, ol { padding: 0; list-style: none; }
   position: fixed; top: 0; left: 0; z-index: 101;
   height: 2px; width: 0;
   background: linear-gradient(90deg, var(--accent), var(--accent-brilho));
-  transition: width .1s linear;
+  transition: width .1s linear, opacity .9s var(--ease), transform .9s var(--ease);
 }
 
 /* Reduced-motion não desliga o material — só a barra de progresso, que é
@@ -2429,13 +2478,17 @@ input[type="range"]::-moz-range-thumb {
 /* =========================================================
    IDENTIDADE PERCURSO — acabamento compartilhado
    ========================================================= */
-body { background: var(--fundo); }
+body { background: var(--bg); }
 
 .site-content {
   min-height: 70vh;
+  /* O brilho do canto vinha cravado no valor claro do fio e não trocava com o
+     tema: no escuro era uma mancha sálvia clara sobre uma página quase preta.
+     Sai do token, então escurece junto. */
   background:
-    radial-gradient(circle at 92% 2%, rgba(169, 199, 179, .24), transparent 24rem),
-    var(--fundo);
+    radial-gradient(circle at 92% 2%,
+      color-mix(in srgb, var(--accent-fio) 24%, transparent), transparent 24rem),
+    var(--bg);
 }
 .site-content > main > .section:first-child { position: relative; overflow: hidden; }
 .site-content > main > .section:first-child::after {
@@ -2458,15 +2511,15 @@ body { background: var(--fundo); }
 .section-head { margin-bottom: clamp(30px, 4vw, 52px); }
 .title {
   max-width: 18ch;
-  font-family: var(--font-instrument-serif);
+  font-family: var(--serif);
   font-weight: 560;
   letter-spacing: -.045em;
-  color: var(--texto);
+  color: var(--text);
 }
-.title em { color: var(--verde-principal); }
-.lede { color: var(--texto-secundario); font-size: 15.5px; }
-.eyebrow { color: var(--verde-principal); font-weight: 700; letter-spacing: .18em; }
-.eyebrow::before { background: var(--verde-principal); }
+.title em { color: var(--accent); }
+.lede { color: var(--text-2); font-size: 15.5px; }
+.eyebrow { color: var(--accent); font-weight: 700; letter-spacing: .18em; }
+.eyebrow::before { background: var(--accent); }
 
 .btn {
   min-height: 44px;
@@ -2478,7 +2531,9 @@ body { background: var(--fundo); }
   --btn-bg: linear-gradient(125deg, var(--accent-2), var(--accent));
   --btn-bd: var(--accent);
   --btn-fg: var(--sobre-accent);
-  box-shadow: 0 10px 22px rgba(18, 60, 42, .15);
+  /* A sombra saía do verde-tinta claro cravado e não trocava com o tema.
+     Pelo token, ela escurece no escuro em vez de esverdear a página. */
+  box-shadow: 0 10px 22px color-mix(in srgb, var(--accent-2) 15%, transparent);
 }
 .btn-ghost { background: var(--surface); border-color: var(--borda); }
 
@@ -2493,35 +2548,42 @@ body { background: var(--fundo); }
   border: 1px solid var(--borda);
   border-radius: var(--radius-cards);
   background: var(--surface);
-  box-shadow: 0 14px 38px rgba(18, 60, 42, .045);
+  box-shadow: 0 14px 38px color-mix(in srgb, var(--accent-2) 4.5%, transparent);
 }
 .stat { padding: clamp(22px, 3vw, 34px); }
 .stat:hover { background: var(--surface-2); transform: translateY(-2px); }
-.stat-num { color: var(--verde-profundo); font-family: var(--sans); font-weight: 700; }
-.stat-label { color: var(--texto-secundario); }
+.stat-num { color: var(--accent-2); font-family: var(--sans); font-weight: 700; }
+.stat-label { color: var(--text-2); }
 
 .method { gap: 14px; border: 0; background: transparent; }
-.step { border-left: 3px solid var(--verde-suave); }
-.step:hover { background: var(--surface-2); border-left-color: var(--verde-principal); }
-.step-n { color: var(--verde-principal); }
+.step { border-left: 3px solid var(--accent-fio); }
+.step:hover { background: var(--surface-2); border-left-color: var(--accent); }
+.step-n { color: var(--accent); }
 .faq { padding-inline: clamp(18px, 3vw, 34px); overflow: hidden; }
-.faq-q { color: var(--texto); }
+.faq-q { color: var(--text); }
 .cta { border-radius: 22px; background: linear-gradient(145deg, var(--surface-2), var(--surface)); border-color: var(--borda); }
 
 .uni-table { overflow: hidden; }
-.uni thead { background: var(--menta); }
-.uni th { color: var(--verde-profundo); }
-.uni tbody tr:hover { background: rgba(234, 244, 238, .62); }
-.meter, .plan-dist-barra { background: #dcece1; }
-.meter i, .plan-dist-barra i { background: linear-gradient(90deg, var(--verde-profundo), var(--verde-principal)); }
+.uni thead { background: var(--accent-superficie); }
+.uni th { color: var(--accent-2); }
+.uni tbody tr:hover { background: var(--surface-2); }
+/* Regra dividida: `.meter` é o medidor público de /faculdades e migra para o
+   token; `.plan-dist-barra` é do cronograma, que não dá para medir sem login,
+   e fica no valor atual até haver como conferir na tela. */
+.meter { background: var(--surface-3); }
+.meter i { background: linear-gradient(90deg, var(--accent-2), var(--accent)); }
+.plan-dist-barra { background: #dcece1; }
+.plan-dist-barra i { background: linear-gradient(90deg, var(--verde-profundo), var(--verde-principal)); }
 
 .planner { gap: 22px; }
 .planner-form { padding: clamp(22px, 3vw, 34px); }
 .quiz { overflow: hidden; }
 .q-opt { border-radius: 14px; background: var(--surface); }
-.q-opt:hover:not(:disabled) { border-color: var(--verde-suave); background: var(--surface-2); }
-.q-letter { color: var(--verde-profundo); border-color: var(--borda); }
-.q-explain { border-radius: 14px; background: var(--menta); border-color: var(--borda); }
+/* Borda de hover comunica estado, então vale o mínimo de 3:1 da 1.4.11. Com o
+   fio ela dava 1,61:1 no claro; com o acento, 4,78:1. */
+.q-opt:hover:not(:disabled) { border-color: var(--accent); background: var(--surface-2); }
+.q-letter { color: var(--accent-2); border-color: var(--borda); }
+.q-explain { border-radius: 14px; background: var(--accent-superficie); border-color: var(--borda); }
 
 input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
 select,
@@ -2530,7 +2592,7 @@ textarea {
   border-radius: 14px;
   background: var(--surface);
 }
-input:focus, select:focus, textarea:focus { border-color: var(--verde-principal); }
+input:focus, select:focus, textarea:focus { border-color: var(--accent); }
 
 /* Movimento global: resposta no toque, sem bounce decorativo. A curva parte
    rápido e assenta devagar, como os controles físicos da referência. */

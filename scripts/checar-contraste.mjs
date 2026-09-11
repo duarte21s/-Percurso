@@ -120,7 +120,23 @@ const PARES = [
   { frente: "sobre-accent", fundo: "accent", min: 4.5, nota: "botão primário" },
   { frente: "accent", fundo: "bg", min: 3, nota: "anel de foco" },
   { frente: "accent", fundo: "surface-2", min: 3, nota: "anel de foco" },
+  /* O acento também é TEXTO — rótulo do eyebrow, palavra em destaque do
+     título, numeração do método. Só o limiar de 3:1 do anel estava coberto
+     aqui, e por isso o valor anterior (#2f7d57) reprovava sobre --bg-2 e
+     --surface-2 sem ninguém ver. */
+  ...FUNDOS.map((f) => ({ frente: "accent", fundo: f, min: 4.5, nota: "acento como texto" })),
 ];
+
+/* Só nos modos de contraste aumentado. Em modo normal o fio é decorativo (a
+   barra lateral do .step) e não tem mínimo; quem comunica estado é a borda do
+   .q-opt:hover, que usa --accent. Com a preferência ligada ele precisa marcar
+   presença, e é esse valor que estas linhas guardam. */
+const PARES_CONTRASTE = ["bg", "bg-2", "surface", "surface-2"].map((f) => ({
+  frente: "accent-fio",
+  fundo: f,
+  min: 3,
+  nota: "fio de acento em contraste aumentado",
+}));
 
 /* ---------- execução ---------- */
 
@@ -168,7 +184,9 @@ let falhas = 0;
 for (const [nome, tokens] of Object.entries(temas)) {
   console.log(`\n${nome.toUpperCase()}`);
 
-  for (const { frente, fundo, min, nota } of PARES) {
+  const pares = nome.includes("contraste") ? [...PARES, ...PARES_CONTRASTE] : PARES;
+
+  for (const { frente, fundo, min, nota } of pares) {
     const cf = tokens[frente];
     const cb = tokens[fundo];
     if (!cf || !cb) {

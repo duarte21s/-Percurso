@@ -13,19 +13,23 @@ export const METODO: readonly Passo[] = [
     texto:
       "Um simulado inicial mostra quais tópicos já estão sólidos e quais estão custando pontos. Sem isso, você estuda o que gosta em vez do que precisa.",
   },
+  /* Este passo prometia "aulas objetivas por tópico". Não existe aula nenhuma
+     no projeto, e a coluna `materias.aulas` que sustentava o número é herança
+     do site estático. O que existe de verdade é a lista de tópicos com a
+     incidência histórica ao lado, e é isso que o texto descreve agora. */
   {
     numero: "02",
-    fase: "Teoria",
-    titulo: "Aprenda em blocos curtos",
+    fase: "Conteúdo",
+    titulo: "Comece pelo que mais cai",
     texto:
-      "Aulas objetivas por tópico, na ordem em que a banca cobra. Blocos de 25 a 45 minutos com pausa — o cérebro consolida no intervalo, não na maratona.",
+      "Cada matéria abre numa lista de tópicos com a incidência histórica em porcentagem ao lado. Dá para atacar o que a prova cobra com frequência em vez de seguir a ordem do índice. Onde não há levantamento de incidência, o site não desenha a barra.",
   },
   {
     numero: "03",
     fase: "Questões",
     titulo: "Erre agora, não na prova",
     texto:
-      "Cada questão vem com comentário que explica também por que as outras alternativas estão erradas. É o distrator que te derruba, não o conteúdo.",
+      "As questões autorais vêm com comentário que explica também por que as outras alternativas estão erradas. É o distrator que te derruba, não o conteúdo.",
   },
   {
     numero: "04",
@@ -50,9 +54,9 @@ export interface Recurso {
 export const RECURSOS: readonly Recurso[] = [
   {
     ico: "book",
-    titulo: "Banco de questões comentadas",
+    titulo: "Banco de questões com o porquê do gabarito",
     texto:
-      "Questões no formato das principais bancas, cada uma com comentário que explica o gabarito e por que os distratores derrubam. O comentário aparece assim que você responde — logo abaixo da alternativa que marcou.",
+      "Questões no formato das principais bancas. As autorais trazem comentário que explica o gabarito e por que os distratores derrubam, e ele aparece assim que você responde, logo abaixo da alternativa que marcou. As do ENEM vêm com o gabarito do INEP.",
     href: "/como-funciona",
     ctaRotulo: "Ver a jornada",
   },

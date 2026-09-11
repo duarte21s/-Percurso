@@ -8,7 +8,7 @@ import { Revelar } from "@/components/ui/Revelar";
 export const metadata: Metadata = {
   title: "Recursos da plataforma · Percurso",
   description:
-    "Tudo o que o Percurso oferece: questões comentadas, provas do ENEM, redação nas cinco competências, cronograma, matérias e a comunidade.",
+    "Tudo o que o Percurso oferece: banco de questões com comentário nas autorais, provas do ENEM, redação nas cinco competências, cronograma, matérias e a comunidade.",
 };
 
 export default function PaginaRecursos() {

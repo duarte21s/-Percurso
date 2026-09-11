@@ -1,0 +1,15 @@
+# Somente os arquivos necessários para compilar e executar o site.
+/*
+!app
+!components
+!lib
+!public
+!next.config.ts
+!package.json
+!package-lock.json
+!tsconfig.json
+!proxy.ts
+!.vercelignore
+
+# Takes de produção não utilizados pelo site; os quatro vídeos da home ficam.
+/public/media/takes

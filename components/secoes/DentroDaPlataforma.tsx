@@ -22,9 +22,9 @@ export function DentroDaPlataforma() {
               vai ver na tela.
             </h2>
             <p className="lede">
-              Duas telas que fazem a diferença no dia a dia: a que te devolve
-              exatamente onde você parou, e a que explica o erro no instante em
-              que ele acontece.
+              Duas telas, com a marcação e o CSS reais do site em vez de uma
+              imagem de mockup: a que devolve em qual questão você parou, e a
+              que abre o gabarito logo abaixo da alternativa que você marcou.
             </p>
           </Revelar>
         </div>

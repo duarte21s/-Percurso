@@ -12,8 +12,9 @@ export function Metodo() {
               Quatro passos que se <em>repetem</em>.
             </h2>
             <p className="lede">
-              Não existe truque. Existe um ciclo curto, repetido com constância,
-              que transforma conteúdo visto em conteúdo lembrado no dia da prova.
+              O ciclo é sempre o mesmo: medir onde você está, estudar pelo que
+              mais cai, errar no treino e voltar em 1, 7 e 30 dias. O que muda
+              de um assunto para o outro é só o conteúdo.
             </p>
           </Revelar>
         </div>

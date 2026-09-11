@@ -24,13 +24,13 @@ export const FAQ: readonly ItemFaq[] = [
     categoria: "Sobre o Percurso",
     pergunta: "O que é o Percurso?",
     resposta:
-      "Uma plataforma de estudos para ENEM, vestibulares, concursos públicos, carreiras militares e reforço escolar. Reúne num lugar só um banco de questões comentadas, as provas reais do ENEM em modo prova, correção de redação nas cinco competências do INEP, um cronograma e uma comunidade. Não é um site de videoaulas.",
+      "Uma plataforma de estudos para ENEM, vestibulares, concursos públicos, carreiras militares e reforço escolar. Reúne num lugar só um banco de questões, com comentário alternativa por alternativa nas autorais, as provas reais do ENEM em modo prova, correção de redação nas cinco competências do INEP, um cronograma e uma comunidade. Não é um site de videoaulas.",
   },
   {
     categoria: "Sobre o Percurso",
     pergunta: "Para quem o Percurso foi feito?",
     resposta:
-      "Para o estudante de ensino médio que vai prestar ENEM ou vestibular, para quem se prepara para concurso público ou carreira militar, e para quem quer reforço do 6º ao 9º ano. São nove matérias de ensino médio com banco de questões comentadas, mais matérias criadas por objetivo.",
+      "Para o estudante de ensino médio que vai prestar ENEM ou vestibular, para quem se prepara para concurso público ou carreira militar, e para quem quer reforço do 6º ao 9º ano. São nove matérias de ensino médio, mais matérias criadas por objetivo. As questões autorais trazem comentário alternativa por alternativa; as do ENEM vêm com o gabarito do INEP e ganham explicação quando alguém pede.",
   },
   {
     /* Esta resposta prometia "direito e legislação, nos formatos de Cebraspe,

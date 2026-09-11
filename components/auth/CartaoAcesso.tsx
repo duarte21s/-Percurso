@@ -5,7 +5,6 @@ import { useActionState, useState } from "react";
 import { CampoSenha } from "./CampoSenha";
 import { ForcaSenha } from "./ForcaSenha";
 import { LogoGoogle } from "./LogosSociais";
-import { Icone } from "@/components/ui/Icone";
 import {
   criarConta,
   entrar,
@@ -57,26 +56,21 @@ export function CartaoAcesso({ modoInicial, proximo, erroInicial }: Props) {
 
   return (
     <div className={css.cartao}>
-      <Link href="/" className={css.voltar}>
-        <Icone nome="seta" tracoLargura={1.8} />
-        Voltar ao site
-      </Link>
-
       <h1 className={css.titulo}>
         {criandoConta ? "Comece o seu percurso." : "Bom te ver de novo."}
       </h1>
       <p className={css.subtitulo}>
         {criandoConta
-          ? "Conta criada, progresso salvo: o simulado passa a lembrar em que questão você parou."
-          : "Entre para continuar de onde parou no simulado."}
+          ? "Crie sua conta e dê o próximo passo nos estudos."
+          : "Entre para continuar de onde parou."}
       </p>
 
-      <div className={css.abas} role="tablist">
+      <div className={css.abas} role="group" aria-label="Tipo de acesso">
         <button
           className={`${css.aba}${!criandoConta ? ` ${css.abaAtiva}` : ""}`}
           onClick={() => trocaModo("entrar")}
-          role="tab"
-          aria-selected={!criandoConta}
+          aria-pressed={!criandoConta}
+          disabled={ocupado}
           type="button"
         >
           Entrar
@@ -84,8 +78,8 @@ export function CartaoAcesso({ modoInicial, proximo, erroInicial }: Props) {
         <button
           className={`${css.aba}${criandoConta ? ` ${css.abaAtiva}` : ""}`}
           onClick={() => trocaModo("criar")}
-          role="tab"
-          aria-selected={criandoConta}
+          aria-pressed={criandoConta}
+          disabled={ocupado}
           type="button"
         >
           Criar conta
@@ -181,6 +175,16 @@ export function CartaoAcesso({ modoInicial, proximo, erroInicial }: Props) {
 
         {criandoConta && <ForcaSenha senha={senha} />}
 
+        {/* Só em "entrar": quem está criando a conta ainda não tem senha para
+            esquecer, e o link ali viraria uma saída para lugar nenhum. */}
+        {!criandoConta && (
+          <p className={css.linhaEsqueci}>
+            <Link href="/recuperar-senha" className={css.elo}>
+              Esqueci minha senha
+            </Link>
+          </p>
+        )}
+
         <button
           type="submit"
           className={`btn btn-primary ${css.enviar}`}
@@ -193,7 +197,11 @@ export function CartaoAcesso({ modoInicial, proximo, erroInicial }: Props) {
             : entrando
               ? "Entrando…"
               : "Entrar"}
-          {!ocupado && <span className="arrow">→</span>}
+          {!ocupado && (
+            <svg className="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4 12h15m-6-6 6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          )}
         </button>
       </form>
 
@@ -211,8 +219,7 @@ export function CartaoAcesso({ modoInicial, proximo, erroInicial }: Props) {
       </form>
 
       <p className={css.legal}>
-        Como visitante você testa tudo e o progresso fica salvo. Ao criar uma
-        conta depois, ele continua com você.
+        Só quer conhecer? Seu progresso como visitante continua com você ao criar uma conta.
       </p>
     </div>
   );

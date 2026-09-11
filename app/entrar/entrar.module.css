@@ -1,79 +1,145 @@
-/* Tela de acesso — desenhada do zero para o Percurso.
-   Duas colunas: arte à esquerda, cartão de acesso à direita. */
-
-/* `dvh` pelo mesmo motivo do hero: com `vh`, no celular a coluna ficava mais
-   alta que a área visível e nascia uma rolagem que não devia existir. */
+/* Luz e transparência da abertura, em verde. Os vídeos ficam só na home.
+   As variáveis locais preservam as outras telas que usam este módulo. */
 .tela {
+  --text: #183c2e;
+  --text-2: #42604f;
+  --text-3: #4c6555;
+  --surface: rgba(255, 255, 248, .3);
+  --surface-2: rgba(255, 255, 248, .6);
+  --surface-3: rgba(255, 255, 248, .7);
+  --line: rgba(38, 73, 49, .23);
+  --line-soft: rgba(38, 73, 49, .17);
+  --line-strong: rgba(38, 73, 49, .48);
+  --borda: rgba(38, 73, 49, .23);
+  --accent: #235239;
+  --accent-2: #284e37;
+  --accent-line: #52785b;
+  --accent-dim: rgba(68, 110, 74, .08);
+  --sobre-accent: #f4f7ed;
+  --err: #9e3f30;
+  --ok: #28663e;
+  position: relative;
+  isolation: isolate;
   min-height: 100vh;
   min-height: 100dvh;
   display: grid;
-  grid-template-columns: 1.05fr 1fr;
+  grid-template-rows: auto 1fr;
+  padding: 24px clamp(20px, 4vw, 64px) 28px;
+  background: #dfe7d7;
+  color: var(--text);
+  color-scheme: light;
 }
 
-/* ---------- coluna da arte ---------- */
-.arte {
-  position: relative;
-  overflow: hidden;
-  background: var(--bg-2);
-  display: flex;
-  align-items: flex-end;
-  padding: clamp(34px, 4vw, 60px);
-}
-
-.arteImagem {
-  position: absolute;
+.cenario {
+  position: fixed;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* A arte é um livro aberto sob luz quente. Empurrar o brilho para cima
-     deixa o terço de baixo escuro, onde a frase vive. */
-  object-position: 50% 32%;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background: #395341;
 }
 
-/* Escurece de baixo para cima, para o texto ter contraste sem caixa. */
-.arte::after {
+.fotograma {
+  object-fit: cover;
+  object-position: right center;
+  max-width: 76%;
+  filter: saturate(.58) brightness(1.12);
+  animation: revelarCenario 3.6s cubic-bezier(.2, .65, .3, 1) both;
+}
+
+.cenario::after {
   content: "";
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(0deg, rgba(234, 244, 238, .96) 0%, rgba(234, 244, 238, .72) 28%, rgba(234, 244, 238, .08) 66%),
-    radial-gradient(70% 50% at 30% 20%, rgba(169, 199, 179, .34), transparent 70%);
+    linear-gradient(90deg, rgba(20, 46, 30, .12) 15%, rgba(223, 231, 215, .15) 32%, rgba(223, 231, 215, .94) 57%, #dfe7d7 76%),
+    linear-gradient(0deg, rgba(9, 30, 18, .65), transparent 52%);
 }
 
-.arteTexto {
-  position: relative;
-  z-index: 2;
-  max-width: 30ch;
+@keyframes revelarCenario {
+  from { opacity: .45; transform: scale(1.035); }
+  to { opacity: 1; transform: scale(1); }
 }
 
-.arteFrase {
+.conteudo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: clamp(40px, 6vw, 96px);
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.atmosfera {
+  align-self: end;
+  padding: 0 0 clamp(48px, 8vh, 100px) clamp(0px, 2vw, 32px);
+  color: #f3f4e9;
+  text-shadow: 0 2px 24px rgba(8, 28, 15, .3);
+  animation: chegar 1.3s .12s cubic-bezier(.22, 1, .36, 1) both;
+}
+.legenda { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; }
+.frase {
+  margin-top: 20px;
   font-family: var(--serif);
+  font-size: clamp(34px, 4vw, 60px);
+  line-height: 1.1;
   font-weight: 400;
-  font-size: clamp(26px, 2.7vw, 40px);
-  line-height: 1.12;
-  letter-spacing: -0.025em;
-  color: var(--verde-profundo);
+  letter-spacing: -.04em;
 }
-.arteFrase em {
-  font-style: normal;
-  color: var(--accent);
+.traco { display: block; width: 48px; height: 1px; background: rgba(243, 244, 233, .65); margin-top: 30px; }
+
+.cabecalho {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
 }
 
-.arteLegenda {
-  margin-top: 16px;
-  font-size: 14px;
-  color: var(--texto-secundario);
-  line-height: 1.65;
-  max-width: 38ch;
+.marca {
+  font-family: var(--serif);
+  font-size: 28px;
+  line-height: 1.4;
+  letter-spacing: -.06em;
+  color: #f3f4e9;
+}
+.marca span { color: #d8e4c8; }
+
+.retorno {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  color: var(--text-2);
+  font-size: 12px;
+  transition: color .2s ease;
+}
+.retorno:hover { color: var(--text); }
+
+.tela :is(a, button):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
 }
 
-/* ---------- coluna do formulário ---------- */
+/* Tela de uma coluna, para os dois passos da recuperação de senha. Sem a
+   coluna de arte de propósito: ali não há nada a decidir nem a comparar — é
+   um campo e um botão, e a arte só afastaria o campo do olho. */
+.telaSimples {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: clamp(32px, 8vh, 72px) 20px;
+  background: var(--bg);
+}
+
+/* ---------- formulário central ---------- */
 .painel {
   display: grid;
   place-items: center;
-  padding: clamp(90px, 9vw, 120px) clamp(22px, 4vw, 56px) clamp(40px, 5vw, 64px);
-  background: var(--bg);
+  min-width: 0;
+  padding: 26px 0;
 }
 
 .cartao {
@@ -85,6 +151,96 @@
   background: var(--surface);
   box-shadow: 0 24px 60px rgba(18, 60, 42, .09);
 }
+
+.tela .cartao {
+  max-width: 440px;
+  padding: 34px 24px 28px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  animation: chegar 1s .12s cubic-bezier(.22, 1, .36, 1) both;
+}
+
+@keyframes chegar {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.tela .titulo {
+  font-family: var(--serif);
+  font-size: clamp(30px, 3vw, 38px);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -.04em;
+  text-align: center;
+  text-wrap: balance;
+}
+.tela .subtitulo {
+  margin-top: 10px;
+  font-size: 13px;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.tela .abas {
+  margin: 24px 0 22px;
+  background: rgba(56, 89, 58, .04);
+}
+.tela .aba { min-height: 38px; }
+.tela .abaAtiva {
+  background: rgba(255, 255, 247, .7);
+  color: #234b34;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 247, .85), 0 2px 8px rgba(33, 65, 40, .06);
+}
+.tela .aba:disabled { cursor: wait; }
+.tela .campo .entrada { font-size: 16px; border-radius: 14px; corner-shape: round; background: var(--surface); }
+.tela .campo .entrada:focus {
+  border-color: var(--accent-line);
+  background: var(--surface-2);
+  box-shadow: 0 0 0 3px rgba(67, 110, 73, .1);
+}
+.tela .entrada:autofill {
+  -webkit-text-fill-color: var(--text);
+  box-shadow: inset 0 0 0 1000px #eaf0e3;
+  caret-color: var(--text);
+}
+.tela .olho { width: 44px; height: 44px; right: 4px; }
+.tela .entradaComBotao { padding-right: 52px; }
+.tela .botaoSocial { border-radius: 999px; font-size: 13px; }
+.tela .separador { margin: 20px 0; font-size: 10px; }
+.tela .linhaEsqueci { font-size: 12px; margin-bottom: 18px; }
+.tela .elo { font-weight: 500; }
+.tela .enviar {
+  min-height: 52px;
+  gap: 12px;
+  border: 1px solid rgba(36, 77, 48, .62);
+  border-radius: 999px;
+  background: rgba(244, 249, 236, .15);
+  color: #244a34;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 0 18px rgba(255, 255, 240, .3), inset 0 1px 0 rgba(255, 255, 248, .5);
+}
+.tela .enviar:hover:not(:disabled) {
+  background: rgba(250, 255, 243, .6);
+  border-color: #34593d;
+  filter: none;
+  box-shadow: 0 4px 20px rgba(42, 75, 47, .08);
+}
+.tela .blocoVisitante { margin-top: 14px; }
+.tela .visitante {
+  min-height: 44px;
+  border-radius: 999px;
+  border-color: transparent;
+  background: transparent;
+  color: var(--text-2);
+  font-size: 12px;
+  font-weight: 400;
+  padding: 8px 16px;
+}
+.tela .visitante:hover:not(:disabled) { background: var(--surface); border-color: var(--line); }
+.tela .legal { margin: 10px auto 0; font-size: 11px; line-height: 1.6; }
 
 .voltar {
   display: inline-flex;
@@ -327,13 +483,70 @@
   text-align: center;
 }
 
+/* Link de texto dentro do cartão — "Esqueci minha senha", "Voltar ao acesso". */
+.elo {
+  color: var(--accent-2);
+  font-weight: 600;
+  transition: color .25s var(--ease);
+}
+.elo:hover { color: var(--accent); }
+
+/* A linha do "Esqueci minha senha" encosta à direita, na altura do campo de
+   senha que ela resolve. */
+.linhaEsqueci {
+  display: flex;
+  justify-content: flex-end;
+  margin: -2px 0 14px;
+  font-size: 13px;
+}
+
+.formularioSimples { margin-top: 26px; }
+
 @media (max-width: 900px) {
-  .tela { grid-template-columns: 1fr; }
-  .arte {
-    min-height: 40vh;
-    order: -1;
+  .conteudo { grid-template-columns: 1fr; gap: 0; }
+  .atmosfera { display: none; }
+  .cenario { position: absolute; height: 460px; }
+  .fotograma { max-width: 100%; object-position: center 43%; }
+  .cenario::after {
+    background:
+      linear-gradient(180deg, rgba(15, 42, 24, .35), transparent 24%, rgba(223, 231, 215, .8) 58%, #dfe7d7 88%);
   }
-  .painel { padding-top: clamp(40px, 8vw, 64px); }
+  .retorno { color: #f3f4e9; text-shadow: 0 1px 10px rgba(9, 30, 18, .5); }
+  .retorno:hover { color: #fff; }
+  .painel { padding: 150px 0 32px; }
+  .tela .cartao { padding-inline: 24px; }
+}
+
+@media (max-width: 520px) {
+  .tela { padding: 12px 16px 20px; }
+  .marca { font-size: 26px; }
+  .retorno { font-size: 11px; }
+  .painel { padding: 112px 0 0; }
+  .cenario { height: 370px; }
+  .tela .cartao { padding: 24px 12px 22px; }
+  .tela .titulo { font-size: 32px; }
+}
+
+@media (max-height: 860px) {
+  .tela { padding-top: 12px; padding-bottom: 16px; }
+  .tela .cartao { padding-top: 24px; padding-bottom: 22px; }
+  .tela .titulo { font-size: 32px; }
+  .tela .abas { margin: 20px 0 18px; }
+  .tela .separador { margin: 14px 0; }
+}
+
+@media (min-width: 901px) and (max-height: 860px) {
+  .painel { padding-top: 16px; padding-bottom: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tela .cartao, .fotograma, .atmosfera { animation: none; }
+  .tela *, .tela *::before, .tela *::after { transition: none; }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .tela .cartao { background: #dfe7d7; border-radius: 20px; }
+  .tela .campo .entrada, .tela .botaoSocial { background: #f0f4e9; }
 }
 
 /* Alvo de dedo: 44x44. Medido antes, .voltar tinha 21px de altura (link

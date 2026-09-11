@@ -17,6 +17,7 @@
     "checar-contraste": "node scripts/checar-contraste.mjs",
     "checar-mola": "node scripts/checar-mola.mjs",
     "checar-video-scroll": "node scripts/checar-video-scroll.mjs",
+    "checar-cinema": "node scripts/checar-cinema.mjs",
     "checar-prova": "node scripts/checar-prova.mjs",
     "checar-treino": "node scripts/checar-treino.mjs",
     "checar-temas": "node scripts/checar-contagem-temas.mjs"
@@ -36,6 +37,7 @@
     "@types/node": "^24.5.2",
     "@types/react": "^19.1.13",
     "@types/react-dom": "^19.1.9",
+    "playwright": "^1.63.0",
     "typescript": "^5.9.2"
   }
 }

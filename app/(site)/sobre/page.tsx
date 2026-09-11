@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Revelar } from "@/components/ui/Revelar";
 import { BotaoApresentacao } from "@/components/secoes/BotaoApresentacao";
-import { Vitrine } from "@/components/secoes/Vitrine";
 import { Marquee } from "@/components/secoes/Marquee";
 import { Numeros } from "@/components/secoes/Numeros";
 import { Metodo } from "@/components/secoes/Metodo";
@@ -31,7 +30,7 @@ const PONTOS: { titulo: string; paragrafos: string[] }[] = [
   {
     titulo: "Para quem foi criado",
     paragrafos: [
-      "Para o estudante de ensino médio que vai prestar ENEM ou vestibular, para quem se prepara para concurso ou carreira militar, e para quem precisa de reforço do 6º ao 9º ano. São nove matérias de ensino médio com banco de questões comentadas, mais matérias criadas por objetivo.",
+      "Para o estudante de ensino médio que vai prestar ENEM ou vestibular, e para quem precisa de reforço do 6º ao 9º ano. Serve também de base a quem presta concurso. São nove matérias de ensino médio, mais matérias por objetivo que ainda estão em expansão. As questões autorais trazem comentário alternativa por alternativa; as do ENEM vêm com o gabarito do INEP e ganham explicação quando alguém pede.",
     ],
   },
   {
@@ -89,14 +88,14 @@ export default async function PaginaSobre() {
             <Revelar como="div" className="head-left head-centro">
               <span className="eyebrow">O que é o Percurso</span>
               <h2 className="title">
-                Da primeira página à <em>aprovação</em>.
+                Da primeira questão à <em>aprovação</em>.
               </h2>
               <p className="lede">
                 O Percurso é uma plataforma de estudos para quem está se
-                preparando para o ENEM e vestibulares — e também para concursos,
-                carreiras militares e reforço escolar do 6º ao 9º ano. Um lugar
-                só para estudar o conteúdo, treinar em prova e organizar a
-                semana.
+                preparando para o ENEM e vestibulares, com reforço escolar do
+                6º ao 9º ano e uma base que também serve a quem presta
+                concurso. Um lugar só para estudar o conteúdo, treinar em prova
+                e organizar a semana.
               </p>
             </Revelar>
           </div>
@@ -129,8 +128,6 @@ export default async function PaginaSobre() {
           </Revelar>
         </div>
       </section>
-
-      <Vitrine />
 
       <Marquee />
 

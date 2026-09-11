@@ -17,28 +17,35 @@ const inter = Inter({
 
 /* Fraunces é variável, e é por isso que ela volta onde Palatino/Georgia não
    podiam ficar: os pesos 500/600/700 existem de verdade no arquivo, então a
-   hierarquia de três pesos não colapsa em dois, e o itálico é desenhado em
-   vez de inclinado pelo navegador. Só em título — em texto de interface a
-   Inter continua ganhando. */
+   hierarquia de três pesos não colapsa em dois. Só em título — em texto de
+   interface a Inter continua ganhando.
+
+   `axes: ["opsz"]` não é enfeite. O next/font traz apenas o eixo de peso por
+   padrão, para poupar bytes; sem o eixo óptico, o `font-optical-sizing: auto`
+   que .title e .hero-h1 declaram no globals.css não teria o que ajustar e a
+   linha seria decorativa. Com ele, o desenho da letra acompanha o corpo — mais
+   fechado e mais fino nos títulos grandes, mais aberto nos pequenos, que é a
+   razão de usar uma serifa variável em vez de uma estática. */
 const fraunces = Fraunces({
   subsets: ["latin", "latin-ext"],
   display: "swap",
+  axes: ["opsz"],
   variable: "--fonte-display",
 });
 
 const siteUrl = urlPublicaConfigurada();
 
 export const metadata: Metadata = {
-  title: "Percurso — Estude para o ENEM, vestibulares e concursos",
+  title: "Percurso — Estude para o ENEM, vestibulares e reforço escolar",
   description:
-    "Plataforma de estudos para ENEM, vestibulares, concursos públicos e reforço escolar. Nove matérias, banco de questões comentadas, notas de corte das faculdades brasileiras e cronograma personalizado.",
+    "Plataforma de estudos para ENEM, vestibulares e reforço escolar. Nove matérias, banco de questões com comentário nas autorais, índices comparativos de faculdades brasileiras e cronograma personalizado.",
   applicationName: "Percurso",
   metadataBase: siteUrl ? new URL(siteUrl) : undefined,
   alternates: siteUrl ? { canonical: "/" } : undefined,
   keywords: [
     "ENEM",
     "vestibular",
-    "concurso público",
+    "raciocínio lógico",
     "questões ENEM",
     "redação ENEM",
     "cronograma de estudos",
@@ -48,17 +55,17 @@ export const metadata: Metadata = {
     type: "website",
     locale: "pt_BR",
     siteName: "Percurso",
-    title: "Percurso — Estude para o ENEM, vestibulares e concursos",
+    title: "Percurso — Estude para o ENEM, vestibulares e reforço escolar",
     description:
-      "Questões comentadas, provas do ENEM, redação, cronograma e acompanhamento em uma plataforma de estudos.",
+      "Banco de questões com comentário nas autorais, provas do ENEM, redação, cronograma e acompanhamento em uma plataforma de estudos.",
     url: siteUrl ? "/" : undefined,
     images: siteUrl ? [{ url: "/media/hero-open.png" }] : undefined,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Percurso — Estude para o ENEM, vestibulares e concursos",
+    title: "Percurso — Estude para o ENEM, vestibulares e reforço escolar",
     description:
-      "Questões comentadas, provas do ENEM, redação, cronograma e acompanhamento em uma plataforma de estudos.",
+      "Banco de questões com comentário nas autorais, provas do ENEM, redação, cronograma e acompanhamento em uma plataforma de estudos.",
     images: siteUrl ? ["/media/hero-open.png"] : undefined,
   },
   category: "education",
@@ -89,7 +96,7 @@ try{document.addEventListener("touchstart",function(){},{passive:true});}catch(e
 
 /**
  * Layout raiz: só o documento. Nav e rodapé vivem no grupo (site), para que
- * a tela de acesso possa ocupar a viewport inteira sem eles.
+ * a abertura e a tela de acesso possam ocupar a viewport inteira sem eles.
  */
 export default async function RootLayout({
   children,

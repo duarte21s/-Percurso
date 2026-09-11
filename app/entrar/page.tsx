@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import Image from "next/image";
 import { redirect } from "next/navigation";
 import { CartaoAcesso } from "@/components/auth/CartaoAcesso";
 import { usuarioAtual } from "@/lib/supabase/server";
-import { ehVisitante, LIMITE_VISITANTE_MINUTOS } from "@/lib/sessao";
+import { ehVisitante } from "@/lib/sessao";
 import css from "./entrar.module.css";
 import { destinoInterno } from "@/lib/destino-seguro";
 
@@ -64,46 +66,43 @@ export default async function PaginaEntrar({ searchParams }: Props) {
 
   return (
     <main className={css.tela}>
-      <aside className={css.arte}>
-        {/* Arte gerada no Higgsfield para este projeto — o mesmo livro do
-            hero, no mesmo tratamento de luz âmbar sobre fundo quase preto. */}
-        <img
-          className={css.arteImagem}
-          src="/media/hero-open.png"
+      <div className={css.cenario} aria-hidden="true">
+        <Image
+          src="/media/login-luz-natural.webp"
           alt=""
-          aria-hidden="true"
+          fill
+          sizes="100vw"
+          preload
+          className={css.fotograma}
         />
-        <div className={css.arteTexto}>
-          <p className={css.arteFrase}>
-            {tempoAcabou ? (
-              <>
-                Seu tempo de visita <em>acabou</em>.
-              </>
-            ) : (
-              <>
-                A página vira quando você <em>decide</em> virar.
-              </>
-            )}
-          </p>
-          <p className={css.arteLegenda}>
-            {tempoAcabou
-              ? `A visita dura ${LIMITE_VISITANTE_MINUTOS} minutos. Nada do que você fez se perdeu: criando a conta com este mesmo navegador, os simulados, as respostas e as redações continuam na sua.`
-              : "Nove matérias, banco de questões comentadas e um cronograma que respeita a sua semana. O progresso fica salvo — inclusive em qual questão você parou."}
-          </p>
-        </div>
-      </aside>
-
-      <section className={css.painel}>
-        <CartaoAcesso
-          modoInicial={tempoAcabou || modo === "criar" ? "criar" : "entrar"}
-          proximo={destino}
-          erroInicial={
-            tempoAcabou
-              ? "Seu tempo de visitante terminou. Crie a conta para continuar de onde parou."
-              : recadoDoRetorno(erro)
-          }
-        />
-      </section>
+      </div>
+      <header className={css.cabecalho}>
+        <Link href="/" className={css.marca} aria-label="Percurso — início">Percurso<span aria-hidden="true">.</span></Link>
+        <Link href="/" className={css.retorno}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M20 12H4m6-6-6 6 6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          Voltar ao início
+        </Link>
+      </header>
+      <div className={css.conteudo}>
+        <aside className={css.atmosfera} aria-label="Seu tempo de aprender">
+          <span className={css.legenda}>Seu tempo de aprender</span>
+          <p className={css.frase}>Um novo dia.<br />Um passo adiante.</p>
+          <span className={css.traco} aria-hidden="true" />
+        </aside>
+        <section className={css.painel} aria-label="Acesso ao Percurso">
+          <CartaoAcesso
+            modoInicial={tempoAcabou || modo === "criar" ? "criar" : "entrar"}
+            proximo={destino}
+            erroInicial={
+              tempoAcabou
+                ? "Seu tempo de visitante terminou. Crie a conta para continuar de onde parou."
+                : recadoDoRetorno(erro)
+            }
+          />
+        </section>
+      </div>
     </main>
   );
 }

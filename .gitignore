@@ -18,3 +18,15 @@ next-env.d.ts
 
 .DS_Store
 Thumbs.db
+
+.vercel
+.env*
+
+# Skills instaladas por ferramenta (npx skills add). São dependências externas,
+# reinstaláveis por comando — não versionamos, como node_modules.
+.agents/
+.claude/skills/
+# Exceção: o apple-hig já está commitado e é a autoridade de design do projeto.
+!.claude/skills/apple-hig/
+# Trava do instalador. Descreve o que está em .agents/, que também não versionamos.
+skills-lock.json

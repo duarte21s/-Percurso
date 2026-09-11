@@ -92,11 +92,18 @@ export function Numeros({ stats }: Props) {
     },
     {
       alvo: stats.provas,
-      rotulo: "Provas do ENEM na íntegra, de 2009 a 2023",
+      /* "na íntegra" saiu: `validar-provas.mjs` acusa questões ausentes em
+         vários anos, porque a API do INEP não devolve todas. São 15 provas
+         cobrindo 2009 a 2023, com o que a fonte publica. */
+      rotulo: "Provas do ENEM de 2009 a 2023, com as questões que o INEP divulga",
     },
     {
       alvo: CONTEUDOS,
-      rotulo: `Conteúdos mapeados nas ${stats.materias} matérias`,
+      /* O rótulo dizia `stats.materias`, que vem do banco e conta 17 — as nove
+         do ensino médio mais as oito criadas por objetivo. Só que CONTEUDOS
+         soma os tópicos de `MATERIAS`, que são as nove. Contagem de um
+         conjunto com rótulo de outro. Agora os dois saem da mesma fonte. */
+      rotulo: `Conteúdos mapeados nas ${MATERIAS.length} matérias de ensino médio`,
     },
     {
       alvo: CURSOS,
