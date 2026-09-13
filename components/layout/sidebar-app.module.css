@@ -47,6 +47,7 @@
   top: 0;
   z-index: 60;
   border-bottom: 1px solid var(--borda);
+  background: var(--fundo);
 
   /* Uma altura só em toda largura: a primeira linha já é o mínimo que cabe, e
      não tem de onde encolher no celular. Ela é mais baixa que a da home (86px)
@@ -61,27 +62,49 @@
   --nav-recuo:           clamp(16px, 3vw, 30px);
 }
 
-/* O material da barra — tinta translúcida e desfoque — vive numa CAMADA À
-   PARTE, não no `.topo`.
+/* A tinta da barra vive no PRÓPRIO `.topo`, e isso é uma volta atrás
+   deliberada — o caminho até aqui está escrito porque cada passo dele tem um
+   defeito medido no navegador.
+
+   Ela era `color-mix(var(--fundo) 92%, transparent)` com `blur(18px)`, e os
+   8% que sobravam eram conteúdo. A barra é `sticky`, então a página inteira
+   passa por baixo dela; 8% de um botão verde-escuro ainda é um borrão
+   verde-escuro, e o blur não resolve porque embaralha a borda e não o miolo de
+   um bloco grande.
+
+   Enquanto havia filtro, a tinta não podia morar no cabeçalho:
    `backdrop-filter` faz do elemento um bloco contentor para todo
-   `position: fixed` que esteja dentro dele. Com o filtro no cabeçalho, o véu
-   do Pomodoro e o backdrop do menu da conta — ambos `fixed; inset: 0`, que
+   `position: fixed` que esteja dentro dele. Com o filtro aqui, o véu do
+   Pomodoro e o backdrop do menu da conta — ambos `fixed; inset: 0`, que
    deveriam cobrir a tela — ficavam do tamanho da barra: 1280x125,98 em vez de
-   1280x900, medido no navegador. Resultado: clicar no meio da página não
-   fechava nem o Pomodoro nem o menu, porque não havia véu ali para receber o
-   clique.
-   Um pseudo-elemento pinta exatamente o mesmo e não é ancestral de ninguém,
-   então nenhum `fixed` se prende a ele. O `z-index: -1` o põe atrás do
-   conteúdo da barra e, por estar dentro do contexto de empilhamento do
-   `.topo` (que tem `z-index: 60`), ele não escapa para trás da página. */
-.topo::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: color-mix(in srgb, var(--fundo) 92%, transparent);
-  backdrop-filter: blur(18px);
-}
+   1280x900, medido. Clicar no meio da página não fechava nem um nem outro. Foi
+   por isso que a tinta passou a um pseudo-elemento de `z-index: -1`, que pinta
+   o mesmo e não é ancestral de ninguém.
+
+   Com `var(--fundo)` opaco o filtro não tem mais nada a revelar e sai — e
+   então o pseudo-elemento deixa de ajudar e passa a atrapalhar. `z-index: -1`
+   pinta DEPOIS do fundo e da borda do próprio pai (CSS 2.1, Apêndice E: os
+   contextos de empilhamento negativos vêm logo em seguida), então ele nunca
+   fica atrás da `border-bottom`. Os dois arranjos possíveis falham, cada um
+   de um jeito, medindo o pixel da borda com um bloco verde-escuro rolando por
+   baixo:
+
+     inset: 0        a camada para na caixa de PADDING e deixa a borda de fora.
+                     E a borda é `var(--borda)`, 14% de opacidade: 86% daquela
+                     linha de 1px eram conteúdo passando direto — rgb(20,79,44).
+     inset: 0 0 -1px a camada alcança a caixa de BORDA e pinta POR CIMA dela.
+                     A linha some — rgb(252,252,251), o fundo puro.
+
+   `background` no próprio `.topo` resolve os dois: fundo de elemento pinta sob
+   a própria borda, e a linha volta a compor sobre opaco — rgb(219,224,221),
+   contra os rgb(219,225,218) da mesma borda sobre `--fundo` parado. Nada disso
+   mexe em layout: a barra segue com 126,98px e `--topo-altura` em 127px, sem
+   tocar nos `sticky` da faixa de visitante nem nos do modo prova.
+
+   SE A TRANSLUCIDEZ VOLTAR, ela não volta para esta regra: o filtro vai para um
+   pseudo-elemento — pela armadilha do bloco contentor — e a borda tem de ir
+   JUNTO com ele, como `border-bottom` do próprio pseudo, onde ela compõe sobre
+   o fundo dele. Deixá-la no `.topo` é reabrir uma das duas linhas acima. */
 
 /* Sem um `.wrap` para dar largura, o recuo lateral é desta classe — é para
    isso que a BarraTopo aceita uma classe interna. Altura, flex e
@@ -262,7 +285,7 @@
    dois caminhos — e que também responde a `prefers-contrast: more`, coisa que
    este arquivo nunca teve. */
 
-@media (prefers-reduced-transparency: reduce) {
-  /* Segue a camada, que é onde a tinta e o desfoque passaram a morar. */
-  .topo::before { background: var(--fundo); backdrop-filter: none; }
-}
+/* O bloco `prefers-reduced-transparency` saiu daqui: ele devolvia à barra
+   fundo opaco e `backdrop-filter: none`, que é exatamente o que o `.topo`
+   passou a fazer para todo mundo. Duas regras idênticas, uma delas atrás de uma
+   media query, só criariam a dúvida de qual está valendo. */
