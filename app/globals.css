@@ -125,18 +125,26 @@
   --r-lg:     28px;
 
   /* navegação — a medida única do topo.
-     Hoje existem três navegações e três formas DIFERENTES de chegar a uma
-     altura: `.nav-home .nav-inner` crava 86px; a NavCinema da abertura soma
-     18px + 44px + 22px de padding e min-height; a SidebarApp nem tem altura,
-     por ser um trilho vertical de 100vh. Três caminhos não concordam por
-     acidente — daí estes tokens, que ninguém consome ainda.
+     Hoje existem três navegações e formas DIFERENTES de chegar a uma altura:
+     `.nav-home .nav-inner` crava 86px e a NavCinema da abertura soma
+     18px + 44px + 22px de padding e min-height. A SidebarApp era a terceira
+     forma — um trilho vertical de 100vh, sem altura nenhuma — e deixou de ser:
+     hoje ela monta a BarraTopo e REDEFINE estes tokens no próprio cabeçalho,
+     que é como um contexto se ajusta sem disputar especificidade com o
+     componente que consome.
 
      Os valores NÃO são escala nova: cada um é a medida que já está no código.
      --nav-altura          86px  ← globals.css, `.nav-home .nav-inner`
      --nav-altura-compacta 76px  ← nav-cinema.module.css no celular (14+44+18)
+     --nav-altura-densa    64px  ← sidebar-app.module.css: 13px de padding em
+                                   cima, o item de 38px, 13px embaixo. A barra
+                                   da área de estudos carrega uma SEGUNDA linha,
+                                   e por isso a primeira é mais baixa que a da
+                                   home em vez de igual a ela.
      --nav-item-altura     44px  ← nav-cinema.module.css, e o alvo de toque
                                    mínimo que a marca e os links já respeitam
      --nav-item-altura-densa 38px ← sidebar-app.module.css, item do trilho
+     --nav-gap             24px  ← o `gap` do `.interna` da BarraTopo
      --nav-recuo                 ← o padding lateral da NavCinema, tal e qual
 
      A diferença de 2px entre os 86px cravados e os 84px que a NavCinema soma
@@ -144,8 +152,10 @@
      uma das divergências que a barra única vai ter de resolver. */
   --nav-altura:            86px;
   --nav-altura-compacta:   76px;
+  --nav-altura-densa:      64px;
   --nav-item-altura:       44px;
   --nav-item-altura-densa: 38px;
+  --nav-gap:               24px;
   --nav-recuo:             clamp(24px, 3vw, 56px);
 
   /* quebras de tela — contrato, não mecanismo.

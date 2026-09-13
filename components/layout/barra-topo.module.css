@@ -7,7 +7,12 @@
    As medidas saem dos tokens da Etapa 1, que por sua vez saíram do código:
    nenhum número novo nasce aqui. */
 
-.barra {
+/* `:where()` zera a especificidade destas duas pelo mesmo motivo declarado no
+   alvo de toque mais abaixo: quem monta a barra precisa poder decidir
+   empilhamento e posicionamento sem disputar. A barra da área de estudos é
+   `sticky` com `z-index: 60`; empatando em (0,1,0) com as regras daqui, o
+   vencedor seria a ordem do bundle — que não é contrato. */
+:where(.barra) {
   position: relative;
   z-index: 4;
 }
@@ -16,7 +21,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
+  gap: var(--nav-gap);
   height: var(--nav-altura);
 }
 
@@ -36,7 +41,7 @@
    blur e `is-stuck` são as classes `.nav` do globals, tunadas e já cobertas
    por `prefers-contrast` e `prefers-reduced-transparency`. Duplicar isso num
    módulo criaria duas fontes de verdade para o mesmo chrome. */
-.tomTema {
+:where(.tomTema) {
   position: static;
 }
 

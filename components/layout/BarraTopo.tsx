@@ -22,7 +22,14 @@ interface Props {
   /** "tema" segue os tokens do site; "filme" é claro sobre o vídeo. */
   tom: "tema" | "filme";
   marca: ReactNode;
-  navegacao: ReactNode;
+  /**
+   * Primeira linha, entre a marca e as ações.
+   *
+   * Opcional porque a barra da área de estudos não tem navegação aqui — as
+   * nove ferramentas dela vivem na `trilha`. Obrigá-la a passar `null` só
+   * para satisfazer o tipo diria que falta alguma coisa quando não falta.
+   */
+  navegacao?: ReactNode;
   acoes?: ReactNode;
   /** Conteúdo da folha do celular. Sem isto, o botão de menu não aparece. */
   menu?: ReactNode;

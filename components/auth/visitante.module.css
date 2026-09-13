@@ -4,7 +4,10 @@
 
 .faixa {
   position: sticky;
-  top: 0;
+  /* Sob /app, `--topo-altura` é a altura da barra de estudos e a faixa para
+     logo abaixo dela. Em (site) a variável não existe e o fallback `0px` é a
+     resposta certa: ali a faixa gruda no topo mesmo. */
+  top: var(--topo-altura, 0px);
   z-index: 40;
   display: flex;
   align-items: center;

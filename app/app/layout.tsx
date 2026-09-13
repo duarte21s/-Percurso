@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 /**
  * Casca da área de estudos. Vive fora do grupo (site): sem a Nav institucional
  * e sem o rodapé — aqui o topo é a plataforma em uso, com navegação própria
- * (a `SidebarApp`, fixa no desktop e em gaveta no mobile).
+ * (a `SidebarApp`, uma faixa no topo em todas as larguras).
  *
  * O guarda de rota real é o proxy (redireciona /app/* sem sessão para
  * /login) somado ao `exigeSessao()` de cada página (que também derruba o

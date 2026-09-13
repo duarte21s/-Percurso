@@ -13,23 +13,84 @@
   --elev-1: none;
   --elev-2: none;
   --elev-3: none;
+
+  /* Altura real da barra, MEDIDA no navegador — 126,98px, o mesmo número em
+     1280px e em 520px:
+
+       64,00  a primeira linha (`--nav-altura-densa`)
+       61,98  o slot `trilha`: cápsula de 41,59 + 13 de respiro embaixo
+              + 7,39 de entrelinha, porque a cápsula é `inline-flex` e
+              portanto cria uma linha de texto dentro do slot
+        1,00  a borda de baixo
+     ------
+      126,98
+
+     Os 53px de antes vinham de uma conta no papel que arredondava a cápsula
+     para 40 e esquecia a entrelinha e a borda: davam 117px, e a faixa de
+     visitante e o topo do modo prova entravam 9,98px POR BAIXO da barra assim
+     que grudavam. 63px fecha em 127px — 0,02px de folga, medidos.
+
+     Quem precisa grudar ABAIXO da barra lê daqui: a faixa de visitante e os
+     dois `sticky` do modo prova. Fora do /app esta variável não existe, e o
+     fallback `0px` de cada consumidor é a resposta certa: lá a faixa gruda no
+     topo mesmo. */
+  --topo-altura: calc(var(--nav-altura-densa) + 63px);
 }
 
+/* A barra da área de estudos: faixa no topo em TODAS as larguras.
+   A estrutura é da BarraTopo; daqui saem o material, a paleta e — o ponto
+   principal — a REDEFINIÇÃO dos tokens que ela lê. Redefinir token não disputa
+   com ninguém; sobrescrever `.interna` ou `.trilha` daquele módulo, sim, e o
+   vencedor seria a ordem do bundle, que não é contrato. */
 .topo {
   position: sticky;
   top: 0;
   z-index: 60;
+  border-bottom: 1px solid var(--borda);
+
+  /* Uma altura só em toda largura: a primeira linha já é o mínimo que cabe, e
+     não tem de onde encolher no celular. Ela é mais baixa que a da home (86px)
+     porque carrega uma segunda linha embaixo. */
+  --nav-altura:          var(--nav-altura-densa);
+  --nav-altura-compacta: var(--nav-altura-densa);
+  /* 38px: densidade de ferramenta de uso repetido, não de letreiro. Onde se
+     toca com o dedo, o `pointer: coarse` do globals ainda leva o botão de tema
+     aos 44px — o alvo de toque continua garantido por lá. */
+  --nav-item-altura:     var(--nav-item-altura-densa);
+  --nav-gap:             16px;
+  --nav-recuo:           clamp(16px, 3vw, 30px);
+}
+
+/* O material da barra — tinta translúcida e desfoque — vive numa CAMADA À
+   PARTE, não no `.topo`.
+   `backdrop-filter` faz do elemento um bloco contentor para todo
+   `position: fixed` que esteja dentro dele. Com o filtro no cabeçalho, o véu
+   do Pomodoro e o backdrop do menu da conta — ambos `fixed; inset: 0`, que
+   deveriam cobrir a tela — ficavam do tamanho da barra: 1280x125,98 em vez de
+   1280x900, medido no navegador. Resultado: clicar no meio da página não
+   fechava nem o Pomodoro nem o menu, porque não havia véu ali para receber o
+   clique.
+   Um pseudo-elemento pinta exatamente o mesmo e não é ancestral de ninguém,
+   então nenhum `fixed` se prende a ele. O `z-index: -1` o põe atrás do
+   conteúdo da barra e, por estar dentro do contexto de empilhamento do
+   `.topo` (que tem `z-index: 60`), ele não escapa para trás da página. */
+.topo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   background: color-mix(in srgb, var(--fundo) 92%, transparent);
   backdrop-filter: blur(18px);
-  border-bottom: 1px solid var(--borda);
 }
+
+/* Sem um `.wrap` para dar largura, o recuo lateral é desta classe — é para
+   isso que a BarraTopo aceita uma classe interna. Altura, flex e
+   space-between são dela; aqui só o recuo, para que não haja duas regras
+   disputando a mesma propriedade no mesmo elemento. */
 .topoLinha {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 13px clamp(16px, 3vw, 30px) 0;
+  padding-inline: var(--nav-recuo);
 }
+
 .brand {
   display: inline-flex;
   align-items: center;
@@ -64,14 +125,16 @@
 }
 .brandMark svg { width: 15px; height: 15px; }
 
+/* O `position: relative` daqui é o que ancora o menu da conta. */
 .topoAcoes {
   position: relative;
   display: flex;
   align-items: center;
   gap: 8px;
 }
+/* O `min-height: 38px` saiu: agora vem do `--nav-item-altura` que esta barra
+   redefine, e que a BarraTopo aplica a todo link e botão da primeira linha. */
 .conta {
-  min-height: 38px;
   max-width: 24ch;
   padding: 8px 14px;
   overflow: hidden;
@@ -90,10 +153,13 @@
 .conta:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
 .contaMobile { display: none; }
 .backdrop { position: fixed; inset: 0; z-index: 1; }
+
+/* Abre para BAIXO, sempre. Abria para cima porque o botão vivia no rodapé da
+   coluna lateral; no topo, para cima é para fora da tela. */
 .menuConta {
   position: absolute;
   right: 0;
-  bottom: calc(100% + 8px);
+  top: calc(100% + 8px);
   z-index: 2;
   min-width: 190px;
   display: flex;
@@ -102,7 +168,7 @@
   border: 1px solid var(--borda);
   border-radius: 16px;
   background: var(--surface);
-  transform-origin: bottom right;
+  transform-origin: top right;
 }
 .itemConta {
   display: block;
@@ -119,16 +185,19 @@
 .itemConta:hover,
 .itemConta[aria-current="page"] { color: var(--text); background: var(--surface-2); }
 
-.trilhaCasca {
-  display: flex;
-  justify-content: safe center;
-  padding: 10px clamp(16px, 3vw, 30px) 13px;
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scrollbar-width: none;
+/* O `<nav>` dentro do slot `trilha`: um item de flex que não encolhe. A
+   rolagem, a centralização e o recuo são do slot — dois roladores aninhados
+   fariam o `scrollIntoView` do indicador rolar os dois, e a aba ativa nunca
+   pararia no centro. */
+.ferramentas {
+  flex: none;
 }
-.trilhaCasca::-webkit-scrollbar { display: none; }
-.trilha {
+
+/* A cápsula. Chamava-se `.trilha`, o mesmo nome do slot da BarraTopo que agora
+   a contém; dois `trilha` diferentes na mesma subárvore é confusão programada.
+   O `contain` impede que o custo de layout da largura do indicador vaze para a
+   barra em volta. */
+.capsula {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -156,7 +225,7 @@
 .aba:hover { color: var(--text); }
 .aba[aria-current="page"] { color: var(--sobre-accent); }
 .aba:focus-visible { outline: 2px solid var(--text); outline-offset: -2px; }
-.trilhaIndicador {
+.indicador {
   position: absolute;
   top: 4px;
   bottom: 4px;
@@ -169,73 +238,15 @@
   transition: opacity .2s var(--ease);
   will-change: transform, width;
 }
+
+/* A coluna de 232px saiu daqui: era `margin-left: 232px` para desviar dela.
+   Com a faixa no topo, o conteúdo começa na borda da tela em toda largura. */
 .main { min-height: 100vh; background: var(--fundo); }
 
-@media (min-width: 901px) {
-  .topo {
-    position: fixed;
-    inset: 0 auto 0 0;
-    width: 232px;
-    display: grid;
-    grid-template-rows: auto minmax(0, 1fr) auto;
-    padding: 0 16px;
-    border-right: 1px solid var(--borda);
-    border-bottom: 0;
-    background: var(--fundo);
-    backdrop-filter: none;
-  }
-  .topoLinha { display: contents; }
-  .brand {
-    grid-row: 1;
-    margin: 0 4px;
-    padding: 28px 0 22px;
-    border-bottom: 1px solid var(--borda);
-  }
-  .brand small { display: none; }
-  .topoAcoes {
-    grid-row: 3;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 8px;
-    padding: 16px 0 22px;
-    border-top: 1px solid var(--borda);
-  }
-  .conta { grid-column: 1 / -1; grid-row: 1; max-width: none; text-align: left; }
-  .trilhaCasca {
-    grid-row: 2;
-    justify-content: flex-start;
-    padding: 24px 0;
-    overflow: auto;
-  }
-  .trilha {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 4px;
-    padding: 0;
-    border: 0;
-    border-radius: 0;
-    background: transparent;
-  }
-  .trilhaIndicador { display: none; }
-  .aba {
-    min-height: 42px;
-    gap: 12px;
-    padding: 10px 12px;
-    border-radius: 16px;
-  }
-  .aba svg { width: 17px; height: 17px; }
-  .aba:hover { color: var(--text); background: var(--surface-2); }
-  .aba[aria-current="page"] { color: var(--sobre-accent); background: var(--accent); }
-  .main { margin-left: 232px; }
-}
-
-@media (max-width: 900px) {
-  .menuConta { top: calc(100% + 8px); bottom: auto; transform-origin: top right; }
-}
 @media (max-width: 560px) {
-  .topoLinha { gap: 8px; padding-inline: 12px; }
+  /* Tela estreita: o recuo e o vão encolhem pelos tokens, e não por regra que
+     dispute com a BarraTopo pela mesma propriedade. */
+  .topo { --nav-recuo: 12px; --nav-gap: 8px; }
   .topoAcoes { gap: 4px; }
   .brand { font-size: 18px; }
   .brand small { display: none; }
@@ -252,5 +263,6 @@
    este arquivo nunca teve. */
 
 @media (prefers-reduced-transparency: reduce) {
-  .topo { background: var(--fundo); backdrop-filter: none; }
+  /* Segue a camada, que é onde a tinta e o desfoque passaram a morar. */
+  .topo::before { background: var(--fundo); backdrop-filter: none; }
 }

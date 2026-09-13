@@ -57,7 +57,10 @@
 /* ---------- modo prova ---------- */
 .provaTopo {
   position: sticky;
-  top: 0;
+  /* Abaixo da barra da área de estudos, não atrás dela. Antes era `0`, o que
+     no celular já escondia esta faixa sob a barra; com a faixa no topo em
+     todas as larguras, valeria no desktop também. */
+  top: var(--topo-altura, 0px);
   z-index: 20;
   display: flex;
   align-items: center;
@@ -252,7 +255,9 @@
 /* ---------- grade de navegação ---------- */
 .lateral {
   position: sticky;
-  top: 96px;
+  /* Os 96px de antes não correspondiam a barra nenhuma: eram a altura de uma
+     versão do topo que já não existia. Agora a medida vem de quem a conhece. */
+  top: calc(var(--topo-altura, 0px) + 16px);
   border: 1px solid var(--line);
   border-radius: 18px;
   background: var(--surface);

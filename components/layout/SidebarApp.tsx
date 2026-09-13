@@ -5,23 +5,26 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Icone, type NomeIcone } from "@/components/ui/Icone";
 import { BotaoTema } from "@/components/ui/BotaoTema";
+import { BarraTopo } from "@/components/layout/BarraTopo";
 import { Pomodoro } from "@/components/layout/Pomodoro";
 import { sair } from "@/app/entrar/acoes";
 import { usarIndicador } from "@/lib/movimento/usarIndicador";
 import css from "./sidebar-app.module.css";
 
-/* Navegação da área de estudos, no TOPO.
+/* Navegação da área de estudos, no TOPO — e agora em TODAS as larguras.
  *
- * Era uma coluna fixa de 248px à esquerda. Virou uma faixa horizontal acima do
- * conteúdo, com as ferramentas numa cápsula e o indicador deslizante — o mesmo
- * mecanismo da navegação institucional, porque duas navegações que se parecem
- * precisam se comportar igual, senão o que a pessoa aprendeu numa não vale na
- * outra.
+ * Havia duas formas para a mesma navegação: faixa no topo até 900px e coluna
+ * fixa de 232px a partir de 901px. Duas formas é a pessoa aprendendo o produto
+ * duas vezes, e a coluna cobrava 232px de largura em toda tela — justamente
+ * nas telas daqui, que são tabela, painel e grade de questões, o que mais pede
+ * largura. Ficou a faixa.
  *
- * O ganho não é só estético: a coluna comia 248px de largura em toda tela, e
- * as telas daqui são tabela, painel e grade de questões — justamente o que
- * pede largura. No celular a faixa continua rolando na horizontal em vez de
- * virar gaveta, porque o destino continua visível o tempo todo.
+ * A estrutura vem da `BarraTopo`, a mesma da abertura: altura, recuo, alvo de
+ * toque e anel de foco. O que é só daqui — a cápsula, o indicador, a paleta —
+ * fica aqui. E esta barra não sobrescreve regra da `BarraTopo`: ela REDEFINE
+ * os tokens de navegação no próprio cabeçalho (ver `.topo` no CSS), porque
+ * duas regras disputando a mesma propriedade em módulos diferentes seriam
+ * decididas pela ordem do bundle, que não é contrato.
  *
  * São nove ferramentas, mais do que um controle segmentado normalmente
  * comporta. A trilha rola na horizontal e leva a aba ativa para o centro
@@ -87,15 +90,26 @@ export function SidebarApp({ nome }: Props) {
     href === "/app" ? caminho === "/app" : caminho.startsWith(href);
 
   return (
-    <header className={css.topo}>
-      <div className={css.topoLinha}>
+    <BarraTopo
+      tom="tema"
+      caminho={caminho}
+      classeExterna={css.topo}
+      classeInterna={css.topoLinha}
+      /* Sem `menu`: aqui não há folha de celular, porque a trilha continua
+         visível e rolável em tela estreita. Sem folha, o botão de menu da
+         `BarraTopo` nem chega a ser renderizado. */
+      marca={
         <Link href="/app" className={css.brand}>
           <span className={css.brandMark}>
             <Icone nome="marca" tracoLargura={1.7} />
           </span>
           Percurso <small>Estudos</small>
         </Link>
-
+      }
+      acoes={
+        /* A caixa própria fica: é o `position: relative` contra o qual o menu
+           da conta se posiciona. Sem ela, o menu ancoraria no cabeçalho
+           inteiro e abriria fora do lugar. */
         <div className={css.topoAcoes}>
           {/* O cronômetro de foco fica na barra, e não numa página própria:
               ele só serve enquanto se estuda, e numa página separada obrigaria
@@ -139,26 +153,28 @@ export function SidebarApp({ nome }: Props) {
             </>
           )}
         </div>
-      </div>
-
-      {/* A trilha das ferramentas. `aria-label` porque agora existem duas
-          navegações na página e o leitor de tela precisa distinguir. */}
-      <nav className={css.trilhaCasca} aria-label="Ferramentas de estudo">
-        <div className={css.trilha} ref={refLista}>
-          <span className={css.trilhaIndicador} ref={refIndicador} aria-hidden="true" />
-          {FERRAMENTAS.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className={css.aba}
-              aria-current={ativo(l.href) ? "page" : undefined}
-            >
-              <Icone nome={ICONE_DA_FERRAMENTA[l.href]} tracoLargura={1.7} />
-              {l.rotulo}
-            </Link>
-          ))}
-        </div>
-      </nav>
-    </header>
+      }
+      /* A trilha das ferramentas, na segunda linha da barra. `aria-label`
+         porque existem duas navegações na página e o leitor de tela precisa
+         distinguir. A rolagem é do slot da `BarraTopo`; aqui só a cápsula. */
+      trilha={
+        <nav className={css.ferramentas} aria-label="Ferramentas de estudo">
+          <div className={css.capsula} ref={refLista}>
+            <span className={css.indicador} ref={refIndicador} aria-hidden="true" />
+            {FERRAMENTAS.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                className={css.aba}
+                aria-current={ativo(l.href) ? "page" : undefined}
+              >
+                <Icone nome={ICONE_DA_FERRAMENTA[l.href]} tracoLargura={1.7} />
+                {l.rotulo}
+              </Link>
+            ))}
+          </div>
+        </nav>
+      }
+    />
   );
 }
