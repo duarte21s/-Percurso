@@ -15,8 +15,37 @@
   flex-wrap: wrap;
   padding: 12px 20px;
   border-bottom: 1px solid var(--accent-line);
-  background: var(--accent-dim);
-  backdrop-filter: blur(10px);
+
+  /* A tinta verde, agora sobre uma BASE OPACA — duas camadas no mesmo
+     `background`, a de cima primeiro.
+
+     Era só `var(--accent-dim)`: 10% de verde e mais nada atrás. Dez por cento
+     não cobrem, e o que a faixa tinha para cobrir é o conteúdo inteiro da
+     página, que passa por baixo dela enquanto se rola — ela é `sticky`. O
+     resultado media-se na tela: em 520px o botão "Escolher o que estudar",
+     verde-escuro, atravessava a faixa e caía em cima da linha do aviso, que é
+     texto de 12,5px. O `blur` não salvava porque blur embaralha, não esconde:
+     de um botão inteiro ele devolve um borrão do mesmo verde-escuro.
+
+     A camada de cima é o MESMO `--accent-dim` de antes, então a faixa parada
+     tem exatamente a cor de antes — a tinta já era composta sobre o `--fundo`
+     do `.main`, que é o que a camada de baixo repete. A diferença é que agora
+     esse fundo é da faixa, e não uma sorte de quem está atrás dela.
+
+     Os dois temas se resolvem sozinhos: `--accent-dim` e `--fundo` já trocam
+     de valor no escuro (verde mais claro a 14% sobre #0c110d), e nenhum número
+     novo é cravado aqui.
+
+     O `backdrop-filter: blur(10px)` que acompanhava a tinta saiu. Com a base
+     opaca ele não tinha mais nada para revelar — nenhum pixel de diferença nos
+     recortes, medido —, e não era declaração inofensiva: `backdrop-filter` faz
+     do elemento um bloco contentor para todo `position: fixed` que esteja
+     dentro dele, que é a armadilha que a barra logo acima teve de desarmar
+     movendo o material para um `::before`. A faixa não tem nenhum `fixed`
+     hoje; o que sai é a chance de o próximo ficar preso aqui. */
+  background:
+    linear-gradient(var(--accent-dim), var(--accent-dim)),
+    var(--fundo);
 }
 
 .relogio {
@@ -46,7 +75,16 @@
    que ainda dá para criar a conta sem interromper o que está em andamento. */
 .urgente {
   border-bottom-color: var(--err);
-  background: color-mix(in srgb, var(--err) 10%, transparent);
+  /* Mesma correção da `.faixa`, e aqui ela importa ainda mais: este é o estado
+     dos últimos dez minutos, quando o aviso precisa ser lido de primeira. A
+     tinta de 10% do vermelho continua idêntica; o que mudou é o que está
+     atrás dela. */
+  background:
+    linear-gradient(
+      color-mix(in srgb, var(--err) 10%, transparent),
+      color-mix(in srgb, var(--err) 10%, transparent)
+    ),
+    var(--fundo);
 }
 .urgente .relogio {
   border-color: var(--err);
