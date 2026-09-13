@@ -41,6 +41,7 @@ rodou**. Um teste que passou em setembro não é garantia sobre o código de hoj
 | Barra do topo opaca | Chromium pelo Playwright, sessão de visitante | recorte idêntico nas 8 combinações; detalhe abaixo |
 | Rotas públicas EM PRODUÇÃO | Playwright em 1280px e 520px | as cinco em 200; detalhe abaixo |
 | `/app` EM PRODUÇÃO | Playwright em 1280px e 520px, conta anônima | passou nos sete pontos; detalhe abaixo |
+| Banco de questões, ponta a ponta | consultas de leitura com a chave pública | 9.819 no banco, 7.063 visíveis; detalhe abaixo |
 
 A conferência da área logada foi feita com sessão de visitante, medindo o DOM em
 vez de olhar a captura:
@@ -117,6 +118,63 @@ o dado se perdeu com ele. Identificá-la agora depende de listar os usuários
 anônimos por `created_at` e pegar o mais recente do dia 13. Nada foi respondido,
 alterado ou configurado sob essa conta — a conferência foi só leitura, mais
 abrir e fechar menu, véu e tema.
+
+#### O banco de questões, contado de ponta a ponta
+
+Auditoria feita porque havia a suspeita de que as cerca de 9.000 questões
+geradas não estivessem aparecendo no app. **Elas aparecem.** Das 7.070 questões
+autorais no banco, 7.063 estão visíveis — 99,9%. O número ~9.000 é o total da
+tabela, e quem não aparece é o ENEM.
+
+Tudo abaixo saiu de consulta de leitura com a chave pública, sem `service_role`,
+sem criar conta e sem escrever nada.
+
+| | questões |
+| --- | --- |
+| Nos arquivos autorais gerados do repositório | 7.046 |
+| Autorais no banco | 7.070 |
+| Do ENEM no banco | 2.749 |
+| **Total no banco** | **9.819** |
+| Disponíveis no app | 7.063 |
+| Ocultas | 2.756 |
+
+As ocultas, por motivo — as três faixas do ENEM foram medidas uma a uma, não
+deduzidas por subtração, e são disjuntas:
+
+| motivo | questões | origem |
+| --- | --- | --- |
+| sem `materia_id` | 1.451 | ENEM |
+| com matéria, sem `tema` | 454 | ENEM |
+| com matéria e tema, mas sem explicação | 844 | ENEM |
+| sem `tema` | 7 | autoral |
+
+**As questões dos arquivos foram encontradas no banco.** Amostrei enunciados de
+arquivos em pontos distintos da lista e eles estão lá, com `origem=autoral` e a
+matéria certa; a contagem por matéria bate arquivo a arquivo. O banco tem 24
+autorais a MAIS que os arquivos, em oito matérias, exatamente +3 em cada. O
+sentido é de sobra, não de falta — nenhuma questão gerada está faltando —, e a
+origem desses 24 não foi identificada.
+
+**O critério de "disponível" é ter explicação.** `vw_temas.comentadas` é
+`count(*) filter (where explicacao <> '')`, e o seletor usa `comentadas`, nunca
+`total`. Por isso as 844 questões do ENEM que já têm matéria E tema continuam
+invisíveis: falta só o comentário. As outras 1.905 precisam de classificação
+antes disso.
+
+**Produção apresenta os mesmos números.** Não foi lida nenhuma variável de
+ambiente da Vercel: `vw_estatisticas` devolve `aulas 1.219, questões 9.819,
+matérias 17, provas 15`, e a página `/sobre` em produção renderiza os quatro. É
+a mesma base.
+
+**As quatro matérias vazias continuam as mesmas** — Cálculo I, Estatística,
+Exatas nível militar e Matemática · 6º ao 9º, zero questão cada, agora
+confirmadas por uma terceira contagem. Informática básica segue com 15.
+
+**Não há log completo dos seeds.** Existem 3 relatórios em
+`gerado/_relatorios/`, de português-banca e português-fund; para os outros 164
+pares matéria-tema não há nenhum, e `scripts/seed-questoes.mjs` imprime na tela
+sem gravar arquivo. A prova de que o seed rodou é indireta: os arquivos batem
+com o banco.
 
 ### Rodados em checkpoint anterior, NÃO repetidos agora
 
@@ -245,18 +303,73 @@ não havia nenhum: erro de renderização deixava tela branca sem rastro.
 Cada item aparece uma vez só. O estado dos testes está na seção de verificações
 e não é repetido aqui.
 
-1. **Quatro matérias sem questão nenhuma** — são exatamente estas: Cálculo I,
-   Estatística, Informática básica e Exatas nível militar. Os 15 conteúdos de
-   cada uma aparecem, todos com traço, nenhum clicável. Proposta na mesa: trocar
-   os 15 traços por uma linha só dizendo que a matéria ainda não tem questão.
-   Aguardando decisão.
-2. **`supabase/estatisticas-honestas.sql`** — escrito, não confirmado aplicado.
-   Faz `vw_estatisticas.materias` contar só matéria que tem questão: 17 vira 12.
-3. **`/diagnostico`** e `components/secoes/Diagnostico.tsx` — página temporária,
+1. **Matérias vazias e matérias parciais** — a lista anterior daqui estava
+   errada em duas frentes, e a auditoria de 13 de setembro mediu as 17 matérias
+   contra a `vw_temas` para corrigir. **Informática básica NÃO está vazia**: tem
+   15 questões, uma por conteúdo, nos 15 conteúdos. Ela saiu da lista. Quem
+   entrou foi **Matemática · 6º ao 9º**, que a versão anterior não mencionava.
+
+   As quatro vazias, com os 15 conteúdos sem questão nenhuma, são: Cálculo I,
+   Estatística, Exatas nível militar e Matemática · 6º ao 9º.
+
+   E existe um terceiro grupo que a versão anterior não previa: **três matérias
+   parciais**, com parte dos conteúdos disponível e parte não — Raciocínio
+   lógico, Português de banca e Português · 6º ao 9º, cada uma com 2 conteúdos
+   clicáveis e 13 com traço. Elas são o motivo de o traço por conteúdo ter de
+   continuar existindo: uma correção que o remova quebra as três.
+
+   São 99 traços no total — 60 nas quatro vazias e 39 nas três parciais. O traço
+   sai de um lugar só, `EscolherConteudo.tsx`, e o botão é `disabled` quando a
+   contagem é zero, portanto nenhum deles é clicável. A página da matéria já
+   trata o caso com frase, não com traço.
+
+   Proposta na mesa: nas vazias, trocar os 15 traços por uma linha dizendo que a
+   matéria ainda não tem questão. O ramo tem de sair do total MEDIDO da matéria,
+   nunca de uma lista de ids cravada — foi exatamente esse atalho que teria
+   escondido as 15 questões de Informática. Aguardando decisão.
+2. **2.756 questões no banco que o seletor não oferece** — são DOIS problemas
+   diferentes, com soluções diferentes, e tratá-los como um só é o erro a
+   evitar. Somar tudo em "2.749 do ENEM" esconde exatamente a distinção que
+   decide o trabalho.
+
+   **(a) 1.905 sem classificação completa.** Destas, 1.451 estão sem
+   `materia_id` e 454 têm matéria mas estão sem `tema`. Elas sequer chegam à
+   `vw_temas`, que exige as duas colunas. Nenhuma tela as alcança hoje, e
+   comentar uma delas não adiantaria nada enquanto não tiverem onde morar.
+
+   **(b) 844 com matéria E tema, sem explicação.** Estas já estão classificadas
+   e aparecem em `vw_temas.total`. O que as mantém fora é só o comentário:
+   `comentadas` conta `explicacao <> ''`, e o seletor lê `comentadas`, nunca
+   `total`. É um trabalho de redação, não de classificação.
+
+   **(c) 7 questões autorais sem `tema`** — matemática, física, química (2),
+   inglês (2) e artes. Volume desprezível ao lado dos outros dois, mas é defeito
+   de classificação numa leva que deveria estar inteira, e some com uma
+   correção pontual.
+
+   **Antes de qualquer uma das três, falta uma decisão que não é técnica:** se
+   as questões do ENEM devem ser classificadas e comentadas ANTES de serem
+   liberadas para estudo, ou se podem ser liberadas sem comentário. O site
+   promete comentário em /apresentacao/honestidade, e a régua atual —
+   `comentadas` e não `total` — foi escrita para não prometer o que não existe.
+   Liberar as 844 sem comentar é mudar essa régua, e isso é escolha de produto.
+   Enquanto ela não for tomada, nenhum dos três caminhos deve começar.
+
+3. **`supabase/estatisticas-honestas.sql`** — escrito, não confirmado aplicado.
+   Faz `vw_estatisticas.materias` contar só matéria que tem questão: **17 vira
+   13**, e não 12. O 12 vinha do mesmo engano da pendência 1 — Informática
+   básica contada como vazia depois de já ter recebido questão. A consulta em si
+   nunca teve número cravado: ela é um `exists` avaliado na hora, então devolve
+   13 hoje sem precisar de mudança. Quem estava errado era só o comentário do
+   arquivo, agora corrigido junto com este.
+
+   **Continua pendente, e agora com prova:** a auditoria leu `vw_estatisticas` e
+   ela devolve `materias: 17`. Se o arquivo tivesse sido aplicado, seriam 13.
+4. **`/diagnostico`** e `components/secoes/Diagnostico.tsx` — página temporária,
    marcada para apagar, ainda no ar com `robots: noindex`.
-4. **Tela branca no iPhone** — a causa provável era o CSP com `strict-dynamic`
+5. **Tela branca no iPhone** — a causa provável era o CSP com `strict-dynamic`
    bloqueando um chunk do Turbopack sem nonce, corrigido só em desenvolvimento.
-5. **Não começado:** flashcards com repetição espaçada, plano de estudos
+6. **Não começado:** flashcards com repetição espaçada, plano de estudos
    persistido (é o que devolve o item ao menu) e sugestão de repertório na
    redação. Os dois primeiros pedem tabela nova.
 
