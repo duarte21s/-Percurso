@@ -138,15 +138,26 @@ sem criar conta e sem escrever nada.
 | Disponíveis no app | 7.063 |
 | Ocultas | 2.756 |
 
-As ocultas, por motivo — as três faixas do ENEM foram medidas uma a uma, não
-deduzidas por subtração, e são disjuntas:
+As ocultas, por motivo. As categorias não se sobrepõem e as faixas do ENEM
+foram medidas uma a uma, não deduzidas por subtração — 1.451 + 454 + 844 + 7
+fecha em 2.756. A coluna de interpretação existe porque "oculta" não quer dizer
+a mesma coisa nas quatro linhas: a primeira é escolha, as outras três são
+trabalho pendente.
 
-| motivo | questões | origem |
+| Motivo | Quantidade | Interpretação |
 | --- | --- | --- |
-| sem `materia_id` | 1.451 | ENEM |
-| com matéria, sem `tema` | 454 | ENEM |
-| com matéria e tema, mas sem explicação | 844 | ENEM |
-| sem `tema` | 7 | autoral |
+| ENEM sem `materia_id` | 1.451 | decisão de projeto: questões por área, adequadas ao modo prova |
+| ENEM com `materia_id`, mas sem `tema` | 454 | classificação incompleta |
+| ENEM com `materia_id` e `tema`, mas sem explicação | 844 | falta redação da explicação |
+| Autorais sem `tema` | 7 | correção pontual de classificação |
+| **Total** | **2.756** | |
+
+Entre as 1.451 sem `materia_id`, **434 já possuem `tema`** — o classificador
+reconheceu o assunto sem reconhecer a matéria. Elas continuam fora do seletor
+mesmo assim, porque `vw_temas` exige as duas colunas e o seletor é organizado
+por matéria: sem pertencer a uma, não há onde listá-las. Isso não as move para
+outra linha da tabela; elas seguem na primeira, e pelo mesmo motivo — no modo
+prova, que trabalha por área, elas já funcionam.
 
 **As questões dos arquivos foram encontradas no banco.** Amostrei enunciados de
 arquivos em pontos distintos da lista e eles estão lá, com `origem=autoral` e a
@@ -327,33 +338,81 @@ e não é repetido aqui.
    matéria ainda não tem questão. O ramo tem de sair do total MEDIDO da matéria,
    nunca de uma lista de ids cravada — foi exatamente esse atalho que teria
    escondido as 15 questões de Informática. Aguardando decisão.
-2. **2.756 questões no banco que o seletor não oferece** — são DOIS problemas
-   diferentes, com soluções diferentes, e tratá-los como um só é o erro a
-   evitar. Somar tudo em "2.749 do ENEM" esconde exatamente a distinção que
-   decide o trabalho.
+2. **As 2.749 questões do ENEM, e o que falta em cada faixa** — auditadas em
+   13 de setembro, só leitura, com a chave pública. A versão anterior deste
+   item chamava as 1.451 sem `materia_id` de "sem classificação". **Estava
+   errado**, e o erro importa porque leva à correção errada.
 
-   **(a) 1.905 sem classificação completa.** Destas, 1.451 estão sem
-   `materia_id` e 454 têm matéria mas estão sem `tema`. Elas sequer chegam à
-   `vw_temas`, que exige as duas colunas. Nenhuma tela as alcança hoje, e
-   comentar uma delas não adiantaria nada enquanto não tiverem onde morar.
+   **De onde vêm as 9.819 do banco:** 7.046 estão nos arquivos autorais do
+   repositório, mais 24 autorais que já existiam no banco e não vêm de arquivo
+   nenhum (+3 em oito matérias, origem não identificada), mais as 2.749 do
+   ENEM. As 7.070 autorais estão praticamente todas visíveis; quem não aparece
+   é o ENEM inteiro.
 
-   **(b) 844 com matéria E tema, sem explicação.** Estas já estão classificadas
-   e aparecem em `vw_temas.total`. O que as mantém fora é só o comentário:
-   `comentadas` conta `explicacao <> ''`, e o seletor lê `comentadas`, nunca
-   `total`. É um trabalho de redação, não de classificação.
+   **(a) 1.451 sem `materia_id` — isto é de PROJETO, não é defeito.** O ENEM
+   não agrupa por matéria, e sim por área: "Ciências da Natureza" mistura
+   física, química e biologia na mesma prova, e a API não diz qual é qual.
+   `supabase/provas.sql` deixa `materia_id` nulo de propósito e guarda a
+   `area`, com o comentário registrando o motivo — chutar a matéria encheria o
+   filtro de Física de questões de biologia. **Elas NÃO devem receber
+   `materia_id` automaticamente**, e continuam adequadas ao modo prova, que é
+   onde fazem sentido e onde já funcionam hoje. Detalhe que a divisão esconde:
+   434 destas já têm `tema`, mesmo sem matéria.
 
-   **(c) 7 questões autorais sem `tema`** — matemática, física, química (2),
-   inglês (2) e artes. Volume desprezível ao lado dos outros dois, mas é defeito
-   de classificação numa leva que deveria estar inteira, e some com uma
-   correção pontual.
+   **(b) 454 têm `materia_id` e não têm `tema`.** Estas sim são classificação
+   incompleta: o classificador reconheceu a matéria e não o assunto. Não
+   chegam à `vw_temas`, que exige as duas colunas.
 
-   **Antes de qualquer uma das três, falta uma decisão que não é técnica:** se
-   as questões do ENEM devem ser classificadas e comentadas ANTES de serem
-   liberadas para estudo, ou se podem ser liberadas sem comentário. O site
-   promete comentário em /apresentacao/honestidade, e a régua atual —
-   `comentadas` e não `total` — foi escrita para não prometer o que não existe.
-   Liberar as 844 sem comentar é mudar essa régua, e isso é escolha de produto.
-   Enquanto ela não for tomada, nenhum dos três caminhos deve começar.
+   **(c) 844 têm `materia_id` E `tema`, e não têm explicação.** Já estão
+   classificadas e aparecem em `vw_temas.total`. O que as mantém fora é só o
+   comentário: `comentadas` conta `explicacao <> ''`, e o seletor lê
+   `comentadas`, nunca `total`. É trabalho de redação, não de classificação.
+
+   **Todas as 2.749 estão sem explicação** — não só as 844. A coluna
+   `explicada_em`, que o esquema já tem, está zerada nas 2.749.
+
+   **Problemas de conteúdo, que nenhuma das faixas acima resolve:**
+
+   - **30 questões com enunciado truncado e sem imagem** que as complete. São
+     inrespondíveis como estão: `enem-2014 n.146` é "O número de divisores de
+     N, diferentes de N, é", sem o texto que define N. Não têm conserto sem
+     reimportar o texto-base, e devem ser marcadas inaptas seja qual for a
+     classificação.
+   - **62 questões citam material visual que não está guardado.** A tabela tem
+     `imagens` e `opcoes_imagens`, e 1.047 questões têm material visual — mas
+     destas 62 o texto promete uma figura que não existe no banco.
+   - **Até 1.278 classificações automáticas precisam de amostragem humana.**
+     `regras-temas.mjs` exige 3 pontos mínimos e 2 de vantagem sobre o segundo
+     colocado, e o banco ainda impõe `materia_cabe_na_area()` — a postura é a
+     certa, e o próprio arquivo diz que "questão sem tema é melhor que questão
+     no tema errado". Ainda assim passa erro.
+   - **1 falso positivo já confirmado:** `enem-2022 n.59` está em História /
+     "Brasil Colônia: economia e escravidão", e o enunciado é sobre o Programa
+     de Aquisição de Alimentos, de 2003 — provavelmente disparado por
+     "quilombolas" na lista de beneficiários. Um exemplo não é uma taxa; é
+     prova de que a régua léxica passa erro e de que a taxa precisa ser medida
+     antes de liberar as 1.278.
+
+   **(d) 7 questões autorais continuam sem `tema`** — matemática, física,
+   química (2), inglês (2) e artes. Volume desprezível, mas é defeito de
+   classificação numa leva que deveria estar inteira.
+
+   **DUAS COISAS QUE NÃO SE DEVE FAZER**, e é para isso que este item existe:
+
+   1. **Não liberar as questões apenas removendo o filtro de explicação.**
+      Trocar `comentadas` por `total` no seletor libera 844 de uma vez e
+      desmonta a régua que o projeto construiu de propósito, quebrando o que
+      /apresentacao/honestidade promete. Se for para mudar, que seja decisão
+      explícita, com aquela página reescrita junto.
+   2. **Não classificar automaticamente as questões sem `materia_id`.** É
+      exatamente a decisão que `provas.sql` tomou e documentou. Elas não estão
+      esperando classificação; estão onde deveriam estar.
+
+   Ordem recomendada, se a decisão for seguir: conferir por amostragem as 1.278
+   já classificadas ANTES de comentar qualquer uma — comentar questão mal
+   classificada custa o dobro, porque o comentário fica certo e o tema errado.
+   Depois, as 818 prontas (as 844 menos as 26 que citam visual ausente), usando
+   `explicada_em` para deixar o rastro que faltou no seed.
 
 3. **`supabase/estatisticas-honestas.sql`** — escrito, não confirmado aplicado.
    Faz `vw_estatisticas.materias` contar só matéria que tem questão: **17 vira
