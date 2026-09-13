@@ -16,14 +16,20 @@
   letter-spacing: .12em;
   text-transform: uppercase;
 }
+/* Fraunces com o peso e os tokens do sistema, como no `.title` do globals e
+   nos títulos do login. O 520 era um peso que não existe em nenhum outro
+   lugar do projeto. `font-optical-sizing` é o que faz o eixo `opsz` — carregado
+   no layout.tsx — ajustar o desenho ao corpo; sem ele, usar uma serifa variável
+   em título grande não tem razão de ser. */
 .titulo {
   max-width: 13ch;
   color: var(--text);
   font-family: var(--serif);
+  font-optical-sizing: auto;
   font-size: clamp(48px, 6vw, 78px);
-  font-weight: 520;
-  line-height: .98;
-  letter-spacing: -.055em;
+  font-weight: 600;
+  line-height: var(--lead-display);
+  letter-spacing: var(--track-hero);
 }
 .titulo em { font-weight: 400; }
 .lede {
@@ -45,12 +51,14 @@
   box-shadow: none;
 }
 .stats :global(.stat:hover) { background: var(--surface-2); transform: none; }
+/* Número de destaque: mesmo registro editorial do título. */
 .stats :global(.stat-num) {
   color: var(--text);
   font-family: var(--serif);
+  font-optical-sizing: auto;
   font-size: clamp(38px, 4vw, 54px);
-  font-weight: 500;
-  letter-spacing: -.045em;
+  font-weight: 600;
+  letter-spacing: var(--track-display);
 }
 .stats :global(.stat-label) { max-width: 15ch; font-size: 12px; font-weight: 500; line-height: 1.4; }
 .continuar { display: flex; gap: 10px; margin: 24px 0; flex-wrap: wrap; }
@@ -78,9 +86,10 @@
   justify-content: space-between;
   gap: 12px;
   font-family: var(--serif);
+  font-optical-sizing: auto;
   font-size: 24px;
-  font-weight: 520;
-  letter-spacing: -.035em;
+  font-weight: 600;
+  letter-spacing: var(--track-title);
 }
 .seta { font-family: var(--sans); font-size: 18px; font-weight: 400; }
 .atalhoTexto { max-width: 27ch; color: var(--text-2); font-size: 13px; font-weight: 500; line-height: 1.55; }
@@ -91,7 +100,13 @@
   gap: 16px;
   margin-bottom: 18px;
 }
-.historicoTitulo { font-family: var(--serif); font-size: 28px; font-weight: 520; letter-spacing: -.03em; }
+.historicoTitulo {
+  font-family: var(--serif);
+  font-optical-sizing: auto;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: var(--track-title);
+}
 .verTudo { color: var(--text-2); font-size: 13px; font-weight: 500; }
 .verTudo:hover { color: var(--text); }
 .tabela { border-radius: 24px; box-shadow: none; }
