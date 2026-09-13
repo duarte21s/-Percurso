@@ -1,18 +1,16 @@
 # Estado do Percurso
 
-Checkpoint de **13 de setembro de 2026**. O código descrito aqui é o do commit
-`f6179ee` ("Fecha a faixa de visitante com uma base opaca"), o último desta
-sequência a tocar em código. Este arquivo é escrito depois dele e ganha commit
-próprio, então o `HEAD` do repositório fica à frente de `f6179ee` sem que o
-código tenha mudado — se os dois divergirem por mais de um commit de documento,
-é sinal de que houve trabalho depois deste checkpoint.
+Checkpoint de **13 de setembro de 2026**, revisado no mesmo dia depois de a
+barra do topo ser fechada — o item que estava listado como pendente e não
+decidido. O código descrito aqui é o de `15d39ee` ("Fecha a barra do topo com
+fundo opaco e borda visível"), que é o commit dessa correção.
 
 `main` está à frente do `origin/main` e nada foi empurrado, então o deploy da
 Vercel ainda serve o estado anterior a esta sequência. Quantos commits de
 diferença, `git rev-list --count origin/main..main` responde na hora; o número
 não fica cravado aqui porque muda no instante em que este próprio arquivo for
-commitado. Na árvore, fora este documento, só `.claude/settings.local.json`
-aparece modificado, e ele não entra em commit.
+commitado. Fora este documento, só `.claude/settings.local.json` aparece
+modificado na árvore, e ele não entra em commit.
 
 Este arquivo existe para que qualquer pessoa — inclusive eu, numa sessão nova —
 saiba em dois minutos o que está de pé, o que está verificado e o que ficou
@@ -34,6 +32,7 @@ rodou**. Um teste que passou em setembro não é garantia sobre o código de hoj
 | Build de produção | `npm run build` | passou, 26 páginas |
 | Contraste WCAG AA (5 estados de tema) | `npm run checar-contraste` | todos os pares passam |
 | Área logada no navegador | Chromium pelo Playwright, 1280px e 520px | sem falha; detalhe abaixo |
+| Barra do topo opaca | Chromium pelo Playwright, sessão de visitante | recorte idêntico nas 8 combinações; detalhe abaixo |
 
 A conferência da área logada foi feita com sessão de visitante, medindo o DOM em
 vez de olhar a captura:
@@ -55,6 +54,14 @@ vez de olhar a captura:
   `localStorage`, e voltando no segundo clique;
 - tokens idênticos entre `/app`, `/` e `/entrar`;
 - console sem nenhum erro em qualquer das passagens.
+
+A barra do topo foi medida do mesmo jeito que a faixa, e mais um pixel: o
+recorte da barra inteira sai idêntico em cinco posições de rolagem, nas duas
+larguras e nos dois temas — 4 combinações, 4 hashes estáveis, e o mesmo para a
+linha de 1px da borda isolada. Que a borda continua DESENHADA, e não apenas
+estável, é o pixel: rgb(211,218,213) no claro e rgb(43,48,44) no escuro, que é
+exatamente `var(--borda)` a 14% composta sobre o fundo da barra. Coberta, ela
+daria o fundo puro.
 
 A faixa de visitante foi medida à parte, por comparação de bytes: o recorte da
 faixa inteira sai idêntico em cinco posições de rolagem, nas duas larguras, nos
@@ -147,6 +154,23 @@ tinta do `--err` e é justamente o dos últimos dez minutos. Com a base opaca o
 `backdrop-filter` não tinha mais nada a revelar e saiu, levando junto o risco de
 a faixa virar bloco contentor para algum `fixed` futuro.
 
+**Barra do topo opaca.** Era o último lugar por onde a página aparecia:
+`color-mix(var(--fundo) 92%, transparent)` com `blur(18px)`, e nos 8% restantes
+dava para ver formas cruzando ao rolar. O fundo agora é `var(--fundo)` sem
+mistura, e o `backdrop-filter` saiu com ele — sem translucidez não havia o que
+revelar, e um filtro inerte é só a armadilha do bloco contentor esperando o
+próximo `fixed`.
+
+A tinta também VOLTOU para o `.topo`, desfazendo o pseudo-elemento que existia
+por causa do filtro. Sem filtro ele não ajuda e atrapalha uma coisa:
+`z-index: -1` pinta depois do fundo E DA BORDA do pai, nunca atrás deles. Com a
+camada parando na caixa de padding, a `border-bottom` ficava de fora — e ela é
+`var(--borda)`, 14% de opacidade, então 86% daquela linha de 1px eram conteúdo
+passando direto. Esticar a camada até a caixa de borda não conserta: ela cobre a
+borda e a linha some. Fundo no próprio elemento pinta sob a própria borda, que é
+o que faz a linha compor sobre opaco. Layout intocado: 126,98px e
+`--topo-altura` em 127px, como antes.
+
 **Apresentação.** Oito passos, cada um numa rota própria (`/apresentacao/…`),
 com os números lidos ao vivo de `vw_estatisticas`.
 
@@ -182,17 +206,12 @@ e não é repetido aqui.
    marcada para apagar, ainda no ar com `robots: noindex`.
 4. **Tela branca no iPhone** — a causa provável era o CSP com `strict-dynamic`
    bloqueando um chunk do Turbopack sem nonce, corrigido só em desenvolvimento.
-5. **A barra do topo ainda deixa passar um fantasma do conteúdo** — a tinta dela
-   é `color-mix(in srgb, var(--fundo) 92%, transparent)`, e nos 8% restantes dá
-   para ver formas cruzando ao rolar, numa faixa de uns 8px logo acima do aviso
-   de visitante. É o mesmo fenômeno que a faixa tinha, em grau menor, e ficou de
-   fora daquela correção de propósito. Não decidido.
-6. **Enviar os commits locais para `origin/main`** — a sequência vai do
-   `b7ab413` ao `f6179ee`, mais o commit deste documento. Nada disso foi
+5. **Enviar os commits locais para `origin/main`** — a sequência vai do
+   `b7ab413` ao `15d39ee`, mais o commit deste documento. Nada disso foi
    empurrado, e é o que separa o que está descrito aqui do que a Vercel serve
    hoje. `git log --oneline origin/main..main` mostra a lista exata no momento
    em que for consultada.
-7. **Não começado:** flashcards com repetição espaçada, plano de estudos
+6. **Não começado:** flashcards com repetição espaçada, plano de estudos
    persistido (é o que devolve o item ao menu) e sugestão de repertório na
    redação. Os dois primeiros pedem tabela nova.
 
@@ -206,6 +225,12 @@ e não é repetido aqui.
   Blur embaralha, não esconde: de um botão inteiro ele devolve um borrão da
   mesma cor. Se a camada é `sticky` sobre conteúdo que rola, ela precisa de base
   opaca.
+- **`z-index: -1` não põe um filho atrás da borda do pai.** Contexto de
+  empilhamento negativo pinta logo DEPOIS do fundo e da borda do elemento que
+  abre o contexto (CSS 2.1, Apêndice E). Camada de material em pseudo-elemento,
+  então, nunca serve de base para a `border-bottom` da casca: ou para antes
+  dela e deixa a borda translúcida vazando, ou a cobre e apaga a linha. Medido
+  nos dois arranjos.
 - **O painel do navegador congela o `requestAnimationFrame`** — medi 1 quadro a
   cada 500ms. Mola, GSAP, scroll suave e transição de CSS parecem todos
   quebrados ali. Verificar por medição ou fora do painel.
