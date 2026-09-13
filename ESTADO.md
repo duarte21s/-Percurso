@@ -42,6 +42,7 @@ rodou**. Um teste que passou em setembro não é garantia sobre o código de hoj
 | Rotas públicas EM PRODUÇÃO | Playwright em 1280px e 520px | as cinco em 200; detalhe abaixo |
 | `/app` EM PRODUÇÃO | Playwright em 1280px e 520px, conta anônima | passou nos sete pontos; detalhe abaixo |
 | Banco de questões, ponta a ponta | consultas de leitura com a chave pública | 9.819 no banco, 7.063 visíveis; detalhe abaixo |
+| Classificação automática do ENEM | amostra de 100, conferência humana | 45% de erro; detalhe abaixo |
 
 A conferência da área logada foi feita com sessão de visitante, medindo o DOM em
 vez de olhar a captura:
@@ -186,6 +187,70 @@ confirmadas por uma terceira contagem. Informática básica segue com 15.
 pares matéria-tema não há nenhum, e `scripts/seed-questoes.mjs` imprime na tela
 sem gravar arquivo. A prova de que o seed rodou é indireta: os arquivos batem
 com o banco.
+
+#### A classificação automática do ENEM, medida por amostragem
+
+Amostra de **100 questões** das 1.278 com tema atribuído pelo classificador
+léxico, aleatória, estratificada por área na proporção do universo (linguagens
+48, natureza 21, humanas 20, matemática 11). Sorteio com semente fixa
+`20260913`, então a amostra é reproduzível. Conferência **humana**, questão a
+questão, com critério binário: o tema atribuído é o mais adequado e específico
+disponível no catálogo? Nenhum veredito foi dado por modelo — o que estava sob
+teste era se um classificador acerta, e trocá-lo por outro não mediria nada.
+
+**Resultado: 55 corretas, 45 incorretas — 45,0% de erro.** Com correção de
+população finita, a margem a 95% é de ±9,4 pontos: o intervalo vai de **35,6% a
+54,4%**, ou seja, entre ~455 e ~695 das 1.278 estão mal classificadas. **O
+intervalo inteiro fica acima dos 15%** que separavam "corrigir por regra" de
+"repensar a abordagem", então a conclusão não depende da margem.
+
+**O classificador léxico atual não é confiável para liberar as 1.278 no
+seletor.** Quem clicar num conteúdo recebe outro quase metade das vezes — que é
+exatamente o que `regras-temas.mjs` diz querer evitar: "questão sem tema é
+melhor que questão no tema errado, porque o filtro de conteúdo é uma promessa".
+
+As 45 incorretas se dividem assim:
+
+| natureza | quantas | o que significa |
+| --- | --- | --- |
+| erro real do classificador | 41 | havia conteúdo adequado e ele escolheu outro |
+| sem conteúdo adequado no catálogo | 4 | nenhuma regra conserta: o destino não existe |
+
+Somando a questão 041 — Educação Física, que **nenhum** dos 17 catálogos cobre —
+são **5 em 100** sem destino possível, o que projeta ~64 nas 1.278. E, em
+paralelo, **7 erros de matéria** (~89 projetados), todos dentro da área certa:
+`materia_cabe_na_area()` faz o portão funcionar no nível da ÁREA, não no da
+matéria. Num dos sete o tema estava certo e só a matéria errada — as duas
+colunas falham de forma independente.
+
+**Três padrões de erro, e eles pedem correções diferentes:**
+
+1. **Rótulo genérico onde havia específico.** `Interpretação e compreensão de
+   texto` erra 14 de 31. Não é um rótulo ruim — acerta 17 —, é o depósito de
+   tudo que não disparou outra regra.
+2. **Palavra isolada puxando o tema.** `Cidadania e direitos humanos` erra 5 de
+   7, inclusive numa questão de hidrologia e numa de Sêneca; num dos casos o
+   gatilho estava no TÍTULO DO LIVRO citado na referência, não no texto.
+   `África e América pré-colonial` erra 2 de 2, uma delas sobre trabalho
+   precarizado em IA, de 2021.
+3. **Tema vizinho dentro da matéria certa.** `Eletromagnetismo e indução` erra 4
+   de 5 (circuitos, espectro, capilaridade, transferência de calor);
+   `Química orgânica` erra 4 de 5 (genética, radioatividade, forças
+   intermoleculares).
+
+**Matemática acertou as 11 da amostra.** É o recorte mais nítido: o vocabulário
+matemático é unívoco — "mediana", "progressão aritmética", "inversamente
+proporcional" nomeiam o conteúdo no próprio enunciado. Nas outras áreas a mesma
+palavra serve a vários conteúdos, e é aí que a régua léxica quebra.
+
+Por `materia_id`: 40,3% de erro nas 67 com matéria e 54,5% nas 33 sem. A
+diferença de 14 pontos aponta na direção esperada, mas os intervalos se
+sobrepõem largamente (±11,7 e ±17,0) — **não sustenta** a correção barata de
+descartar o tema onde a matéria é nula. Isso removeria 18 erros e 15 acertos, e
+deixaria 27 erros de pé nas questões com matéria.
+
+Material visual não explica nada: 46,2% de erro sem imagem, 44,1% com imagem
+guardada. O classificador lê só texto.
 
 ### Rodados em checkpoint anterior, NÃO repetidos agora
 
@@ -381,23 +446,27 @@ e não é repetido aqui.
    - **62 questões citam material visual que não está guardado.** A tabela tem
      `imagens` e `opcoes_imagens`, e 1.047 questões têm material visual — mas
      destas 62 o texto promete uma figura que não existe no banco.
-   - **Até 1.278 classificações automáticas precisam de amostragem humana.**
+   - **AS 1.278 FORAM AMOSTRADAS: 45% de erro** (100 questões, conferência
+     humana, intervalo de 35,6% a 54,4%). A seção "A classificação automática
+     do ENEM, medida por amostragem", nas verificações, traz o detalhe. O que
+     era suspeita virou medição, e o veredito é que **o classificador léxico
+     atual não sustenta o filtro por conteúdo**.
      `regras-temas.mjs` exige 3 pontos mínimos e 2 de vantagem sobre o segundo
      colocado, e o banco ainda impõe `materia_cabe_na_area()` — a postura é a
      certa, e o próprio arquivo diz que "questão sem tema é melhor que questão
-     no tema errado". Ainda assim passa erro.
+     no tema errado". Ainda assim erra 45% das vezes, e o portão da área não
+     impede erro de matéria: os 7 medidos estavam todos na área correta.
    - **1 falso positivo já confirmado:** `enem-2022 n.59` está em História /
      "Brasil Colônia: economia e escravidão", e o enunciado é sobre o Programa
      de Aquisição de Alimentos, de 2003 — provavelmente disparado por
-     "quilombolas" na lista de beneficiários. Um exemplo não é uma taxa; é
-     prova de que a régua léxica passa erro e de que a taxa precisa ser medida
-     antes de liberar as 1.278.
+     "quilombolas" na lista de beneficiários. Era o primeiro caso conhecido; a
+     amostragem mediu o resto e achou o mesmo padrão em escala.
 
    **(d) 7 questões autorais continuam sem `tema`** — matemática, física,
    química (2), inglês (2) e artes. Volume desprezível, mas é defeito de
    classificação numa leva que deveria estar inteira.
 
-   **DUAS COISAS QUE NÃO SE DEVE FAZER**, e é para isso que este item existe:
+   **TRÊS COISAS QUE NÃO SE DEVE FAZER**, e é para isso que este item existe:
 
    1. **Não liberar as questões apenas removendo o filtro de explicação.**
       Trocar `comentadas` por `total` no seletor libera 844 de uma vez e
@@ -405,13 +474,29 @@ e não é repetido aqui.
       /apresentacao/honestidade promete. Se for para mudar, que seja decisão
       explícita, com aquela página reescrita junto.
    2. **Não classificar automaticamente as questões sem `materia_id`.** É
-      exatamente a decisão que `provas.sql` tomou e documentou. Elas não estão
-      esperando classificação; estão onde deveriam estar.
+      exatamente a decisão que `provas.sql` tomou e documentou. Elas seguem
+      valendo POR ÁREA no modo prova, que é onde fazem sentido e onde já
+      funcionam. Não estão esperando classificação.
+   3. **Não corrigir as 1.278 automaticamente.** Com 45% de erro medido, uma
+      passagem de máquina sobre o que a máquina já errou não tem como ser
+      validada, e os três padrões abaixo pedem intervenções diferentes entre si.
+      Ajustar limiar ou acrescentar regra não alcança o padrão 1, que é
+      estrutural: decidir qual das cinco descrições possíveis é "a mais
+      específica" é julgamento que contagem de pontos léxicos não modela.
 
-   Ordem recomendada, se a decisão for seguir: conferir por amostragem as 1.278
-   já classificadas ANTES de comentar qualquer uma — comentar questão mal
-   classificada custa o dobro, porque o comentário fica certo e o tema errado.
-   Depois, as 818 prontas (as 844 menos as 26 que citam visual ausente), usando
+   **Recomendação para quando houver decisão:** reclassificar com apoio de
+   modelo, **em ambiente separado do banco de produção** — o catálogo inteiro no
+   contexto, uma questão por vez, resultado gravado em arquivo. Depois, revisão
+   e nova amostragem sobre esse resultado ANTES de qualquer escrita em
+   `questoes`. A classificação léxica foi escolhida porque "classificar com a
+   Claude custaria dinheiro"; 1.278 chamadas são baratas perto das ~50 horas de
+   conferência humana que a alternativa exige, e o problema medido é semântico,
+   não lexical. Nenhuma gravação sem a amostragem de controle: foi justamente
+   ela que revelou o tamanho do problema desta vez.
+
+   Ordem, se a decisão for seguir: resolver a classificação ANTES de comentar
+   qualquer questão — comentário certo em tema errado custa o dobro. Depois, as
+   818 prontas (as 844 menos as 26 que citam visual ausente), usando
    `explicada_em` para deixar o rastro que faltou no seed.
 
 3. **`supabase/estatisticas-honestas.sql`** — escrito, não confirmado aplicado.
