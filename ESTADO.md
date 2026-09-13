@@ -5,12 +5,18 @@ barra do topo ser fechada — o item que estava listado como pendente e não
 decidido. O código descrito aqui é o de `15d39ee` ("Fecha a barra do topo com
 fundo opaco e borda visível"), que é o commit dessa correção.
 
-`main` está à frente do `origin/main` e nada foi empurrado, então o deploy da
-Vercel ainda serve o estado anterior a esta sequência. Quantos commits de
-diferença, `git rev-list --count origin/main..main` responde na hora; o número
-não fica cravado aqui porque muda no instante em que este próprio arquivo for
-commitado. Fora este documento, só `.claude/settings.local.json` aparece
-modificado na árvore, e ele não entra em commit.
+Os onze commits locais foram empurrados para `origin/main` — de `b7ab413` a
+`f09f3bf`, atualizando o remoto de `0adc5e6`. `main` e `origin/main` ficaram no
+mesmo ponto, então o que este documento descreve é, pela primeira vez desde o
+início da sequência, o que está no ar. Fora este documento, só
+`.claude/settings.local.json` aparece modificado na árvore, e ele não entra em
+commit.
+
+A Vercel construiu `f09f3bf` em produção, no deploy
+`dpl_GyCfc3bv8cSt3nwiKVQCmsjNpukg`: estado `READY`, build de 32s, servindo em
+<https://percurso-56zb.vercel.app>. O SHA não sai do `vercel inspect`, que não
+traz metadado de git; veio da API de deployments. O deploy anterior era de 10 de
+setembro, no `0adc5e6` — a distância entre os dois é exatamente esta sequência.
 
 Este arquivo existe para que qualquer pessoa — inclusive eu, numa sessão nova —
 saiba em dois minutos o que está de pé, o que está verificado e o que ficou
@@ -33,6 +39,8 @@ rodou**. Um teste que passou em setembro não é garantia sobre o código de hoj
 | Contraste WCAG AA (5 estados de tema) | `npm run checar-contraste` | todos os pares passam |
 | Área logada no navegador | Chromium pelo Playwright, 1280px e 520px | sem falha; detalhe abaixo |
 | Barra do topo opaca | Chromium pelo Playwright, sessão de visitante | recorte idêntico nas 8 combinações; detalhe abaixo |
+| Rotas públicas EM PRODUÇÃO | Playwright em 1280px e 520px | as cinco em 200; detalhe abaixo |
+| `/app` EM PRODUÇÃO | Playwright em 1280px e 520px, conta anônima | passou nos sete pontos; detalhe abaixo |
 
 A conferência da área logada foi feita com sessão de visitante, medindo o DOM em
 vez de olhar a captura:
@@ -67,6 +75,48 @@ A faixa de visitante foi medida à parte, por comparação de bytes: o recorte d
 faixa inteira sai idêntico em cinco posições de rolagem, nas duas larguras, nos
 dois temas e nos dois estados (normal e urgente) — 8 combinações, 8 hashes
 estáveis. É o que prova que nada do conteúdo atravessa mais.
+
+Tudo acima rodou no `localhost`. **Depois do push, a mesma área foi conferida na
+Vercel**, no `f09f3bf` publicado — e isso é uma verificação diferente, não a
+mesma repetida: o pendente da tela branca no iPhone é justamente um caso em que
+desenvolvimento e produção divergiram, e um não vale como prova do outro.
+
+Nas rotas públicas, em 1280px e em 520px: `/`, `/entrar`, `/sobre`, `/recursos`
+e `/faculdades` respondem 200, e `/app` sem sessão responde 307 para
+`/entrar?proximo=%2Fapp`. Nenhum `console.error`, nenhum `pageerror`, nenhuma
+resposta ≥ 400 e nenhuma rolagem horizontal do documento nas dez passagens. Um
+único sinal: em `/recursos`, nas duas larguras, o prefetch RSC de `/faculdades`
+termina em `net::ERR_ABORTED`. Não é o roteiro abortando ao navegar — acontece
+com a página parada por cinco segundos —, e a navegação pelo link completa sem
+evento nenhum. É prefetch cancelado, não carregamento quebrado.
+
+Na área logada em produção, nas duas larguras: barra de 126,98px `sticky` em 0,
+fundo `rgb(243,245,241)`, `backdrop-filter: none` e nenhum `::before` — a
+correção da barra chegou ao ar como foi escrita; zero `<aside>` e `main` em
+`left: 0`; as nove ferramentas na trilha, com 1111px de conteúdo em 520px de
+vão; exatamente um `aria-current="page"`; menu da conta abrindo para baixo
+(botão termina em 51, painel de 59,72 a 187,72 em tela de 900), dentro da tela e
+fechando no clique fora sem navegar; véu do Pomodoro em 1280×900 sobre tela de
+1280×900, fechando no clique; faixa de visitante de 1280×76 grudada em y=127,
+sem `backdrop-filter`, com recorte idêntico nas cinco posições de rolagem nas
+duas larguras; console, `pageerror` e rede sem nada.
+
+O tema troca nos dois sentidos — `data-theme`, fundo do corpo e o registro em
+`localStorage` acompanham —, mas com uma ressalva que o teste no `localhost` não
+expôs: o estado inicial é "sem `data-theme`", seguindo o sistema, e o botão não
+tem como voltar a ele. Depois do primeiro clique há sempre um valor explícito.
+Não é defeito conhecido, é comportamento não decidido, e fica registrado aqui
+porque ninguém tinha olhado.
+
+**Uma conta anônima descartável foi criada em produção para essa conferência**,
+com um clique em "Entrar como visitante" — é a única porta para `/app`, que sem
+sessão devolve 307. Ela continua existindo no Supabase e **o UUID dela não foi
+registrado**: a captura leu o `localStorage`, e a sessão do Supabase SSR vive em
+cookie `httpOnly`, que só `context.cookies()` enxerga. O navegador foi fechado e
+o dado se perdeu com ele. Identificá-la agora depende de listar os usuários
+anônimos por `created_at` e pegar o mais recente do dia 13. Nada foi respondido,
+alterado ou configurado sob essa conta — a conferência foi só leitura, mais
+abrir e fechar menu, véu e tema.
 
 ### Rodados em checkpoint anterior, NÃO repetidos agora
 
@@ -206,12 +256,7 @@ e não é repetido aqui.
    marcada para apagar, ainda no ar com `robots: noindex`.
 4. **Tela branca no iPhone** — a causa provável era o CSP com `strict-dynamic`
    bloqueando um chunk do Turbopack sem nonce, corrigido só em desenvolvimento.
-5. **Enviar os commits locais para `origin/main`** — a sequência vai do
-   `b7ab413` ao `15d39ee`, mais o commit deste documento. Nada disso foi
-   empurrado, e é o que separa o que está descrito aqui do que a Vercel serve
-   hoje. `git log --oneline origin/main..main` mostra a lista exata no momento
-   em que for consultada.
-6. **Não começado:** flashcards com repetição espaçada, plano de estudos
+5. **Não começado:** flashcards com repetição espaçada, plano de estudos
    persistido (é o que devolve o item ao menu) e sugestão de repertório na
    redação. Os dois primeiros pedem tabela nova.
 
