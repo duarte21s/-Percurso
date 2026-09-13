@@ -1,29 +1,15 @@
+/* A paleta daqui era uma escala de cinzas própria: 24 tokens que trocavam o
+   sistema inteiro dentro de /app. O --accent saía de #2d7753 para #242424, e os
+   apelidos --verde-profundo, --verde-principal e --verde-suave apontavam para
+   preto e cinza — nomes que diziam verde sobre valores que não eram.
+   Removidos, a área de estudos herda os tokens canônicos do globals.css e volta
+   a ser o mesmo produto da home. --ok e --err nunca estiveram aqui: sempre
+   vieram da raiz, e continuam vindo.
+
+   Os três --elev ficam. Não são cor: zeram a sombra dos cartões, e devolvê-la
+   mudaria o desenho da área, que não é o que esta etapa faz. */
 .wrap {
   min-height: 100vh;
-  --bg: #fafafa;
-  --bg-2: #f3f3f1;
-  --surface: #fafafa;
-  --surface-2: #ededed;
-  --surface-3: #e4e4e1;
-  --line: #e5e5e1;
-  --line-soft: rgba(23, 23, 23, .08);
-  --line-strong: rgba(23, 23, 23, .2);
-  --text: #171717;
-  --text-2: #5c5c5c;
-  --text-3: #6b6b68;
-  --accent: #242424;
-  --accent-2: #171717;
-  --accent-dim: rgba(36, 36, 36, .07);
-  --accent-line: rgba(36, 36, 36, .28);
-  --sobre-accent: #fafafa;
-  --verde-profundo: #171717;
-  --verde-principal: #242424;
-  --verde-suave: #a3a3a3;
-  --menta: #ededed;
-  --fundo: #fafafa;
-  --texto: #171717;
-  --texto-secundario: #5c5c5c;
-  --borda: #e5e5e1;
   --elev-1: none;
   --elev-2: none;
   --elev-3: none;
@@ -259,30 +245,11 @@
   .contaMobile { display: inline; }
 }
 
-@media (prefers-color-scheme: dark) {
-  :global(:root:not([data-theme="light"])) .wrap {
-    --bg: #141414; --bg-2: #191919; --surface: #1b1b1b;
-    --surface-2: #282828; --surface-3: #333; --line: #353535;
-    --line-soft: rgba(250,250,250,.08); --line-strong: rgba(250,250,250,.22);
-    --text: #f4f4f1; --text-2: #b8b8b3; --text-3: #a1a19b;
-    --accent: #f0f0ec; --accent-2: #f4f4f1; --accent-dim: rgba(255,255,255,.08);
-    --accent-line: rgba(255,255,255,.3); --sobre-accent: #171717;
-    --verde-profundo: #f4f4f1; --verde-principal: #f0f0ec; --verde-suave: #777;
-    --menta: #282828; --fundo: #141414; --texto: #f4f4f1;
-    --texto-secundario: #b8b8b3; --borda: #353535;
-  }
-}
-:global(:root[data-theme="dark"]) .wrap {
-  --bg: #141414; --bg-2: #191919; --surface: #1b1b1b;
-  --surface-2: #282828; --surface-3: #333; --line: #353535;
-  --line-soft: rgba(250,250,250,.08); --line-strong: rgba(250,250,250,.22);
-  --text: #f4f4f1; --text-2: #b8b8b3; --text-3: #a1a19b;
-  --accent: #f0f0ec; --accent-2: #f4f4f1; --accent-dim: rgba(255,255,255,.08);
-  --accent-line: rgba(255,255,255,.3); --sobre-accent: #171717;
-  --verde-profundo: #f4f4f1; --verde-principal: #f0f0ec; --verde-suave: #777;
-  --menta: #282828; --fundo: #141414; --texto: #f4f4f1;
-  --texto-secundario: #b8b8b3; --borda: #353535;
-}
+/* Os dois blocos de tema escuro saíram junto com a paleta clara: eram a mesma
+   escala de cinzas duplicada para `prefers-color-scheme` e para `data-theme`.
+   O tema escuro da área logada passa a ser o do globals.css, que já trata os
+   dois caminhos — e que também responde a `prefers-contrast: more`, coisa que
+   este arquivo nunca teve. */
 
 @media (prefers-reduced-transparency: reduce) {
   .topo { background: var(--fundo); backdrop-filter: none; }

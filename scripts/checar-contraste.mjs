@@ -15,7 +15,6 @@ import { dirname, resolve } from "node:path";
 
 const AQUI = dirname(fileURLToPath(import.meta.url));
 const CSS = resolve(AQUI, "..", "app", "globals.css");
-
 /* ---------- cor ---------- */
 
 function hexParaRgb(hex) {
@@ -141,31 +140,43 @@ const PARES_CONTRASTE = ["bg", "bg-2", "surface", "surface-2"].map((f) => ({
 /* ---------- execução ---------- */
 
 const css = await readFile(CSS, "utf8");
+
+/* A área logada (/app) não tem cenário próprio aqui. O `.wrap` do
+   sidebar-app.module.css deixou de trocar a paleta — só zera as sombras dos
+   cartões —, então as 15 rotas de estudo mostram os tokens da raiz e os quatro
+   cenários abaixo já as cobrem. Se um dia o `.wrap` voltar a redefinir cor, ele
+   precisa voltar a ser medido: espalhe os tokens dele sobre a raiz, como o
+   herói faz aqui embaixo. */
+const raizClara = extraiTokens(css, /^:root\s*\{/m);
+const raizEscura = extraiTokens(css, /:root:not\(\[data-theme="light"\]\)\s*\{/);
+const raizClaraContraste = {
+  ...raizClara,
+  ...extraiTokens(css, /@media \(prefers-contrast: more\)\s*\{\s*:root\s*\{/),
+};
+const raizEscuraContraste = {
+  ...raizEscura,
+  ...extraiTokens(
+    css,
+    /@media \(prefers-contrast: more\)[\s\S]*?:root:not\(\[data-theme="light"\]\)\s*\{/
+  ),
+};
+
 const temas = {
-  claro: extraiTokens(css, /^:root\s*\{/m),
-  escuro: extraiTokens(css, /:root:not\(\[data-theme="light"\]\)\s*\{/),
+  claro: raizClara,
+  escuro: raizEscura,
+  /* Contraste aumentado: o guia pede que este modo seja conferido nos dois
+     temas, não só declarado. Ele só sobrescreve parte dos tokens — o resto
+     vem do tema base, por isso o espalhamento. */
+  "claro+contraste": raizClaraContraste,
+  "escuro+contraste": raizEscuraContraste,
   /* O herói é um terceiro tema: fica escuro nos dois modos e redefine os
      tokens localmente. Entra na checagem porque o H1 dele é a maior linha de
      texto do site — e foi justamente ali que o acento do tema claro já caiu
      sobre um palco preto sem ninguém ver. */
-  /* Contraste aumentado: o guia pede que este modo seja conferido nos dois
-     temas, não só declarado. Ele só sobrescreve parte dos tokens — o resto
-     vem do tema base, por isso o espalhamento. */
-  "claro+contraste": {
-    ...extraiTokens(css, /^:root\s*\{/m),
-    ...extraiTokens(css, /@media \(prefers-contrast: more\)\s*\{\s*:root\s*\{/),
-  },
-  "escuro+contraste": {
-    ...extraiTokens(css, /:root:not\(\[data-theme="light"\]\)\s*\{/),
-    ...extraiTokens(
-      css,
-      /@media \(prefers-contrast: more\)[\s\S]*?:root:not\(\[data-theme="light"\]\)\s*\{/
-    ),
-  },
   "herói": {
     /* O que o herói não redefine ele herda do tema em volta. O claro é o pior
        caso dos dois — é dele que vinha a esmeralda fechada sobre o preto. */
-    ...extraiTokens(css, /^:root\s*\{/m),
+    ...raizClara,
     ...extraiTokens(css, /^\.hero-sticky\s*\{/m),
     /* Fundo do palco JÁ GRADUADO. A correção de cor do livro levanta as pretas
        com um `screen` de #0c2a22 a 15%, e #080a07 vira #0a100c — mais claro que
