@@ -7,7 +7,10 @@
   height: 100vh;
   height: 100dvh;
   overflow: hidden;
-  background: #151918;
+  /* Grafite quente, e não o #151918 de antes, que era cinza puxado ao verde.
+     Este fundo aparece na borda do `object-fit: cover` e enquanto a mídia não
+     chega — se ele for esverdeado, a tela inteira nasce esverdeada. */
+  background: #17150f;
   color-scheme: light;
 }
 
@@ -32,6 +35,28 @@
   background-position: center;
 }
 
+/* Gradação do plano de fundo, aplicada ao PÔSTER e ao VÍDEO juntos — se só um
+   dos dois receber, a troca de um para o outro vira um salto de cor.
+
+   Medido antes de escrever isto: a média do vídeo desenhado em canvas é
+   rgb(77, 77, 72), ou seja, o arquivo já é neutro e levemente quente. O verde
+   da tela vinha do véu e do fundo do palco, não da mídia. Por isso a correção
+   aqui é LEVE: dessaturar de verdade achataria uma imagem que não tem
+   dominante, e o pedido era tirar o peso esverdeado, não desbotar a cena.
+
+   `saturate(.82)` tira o excesso sem chegar perto de preto e branco;
+   `sepia(.10)` puxa os meios-tons para bege/marrom, que é o que dá o ar de
+   filme; `contrast(1.06)` recupera o pretos que a sépia levanta; e o
+   `brightness(.98)` compensa o ganho de luz do contraste.
+
+   Fica só no `.filme`, e não também no `.video`: os quatro vídeos são FILHOS
+   dele, e filtro de pai já alcança os filhos. Declarar nos dois aplicaria a
+   gradação duas vezes sobre o vídeo e uma só sobre o pôster — os dois
+   deixariam de combinar, que é justamente o que este bloco evita. */
+.filme {
+  filter: saturate(0.82) sepia(0.1) contrast(1.06) brightness(0.98);
+}
+
 .video {
   position: absolute;
   inset: 0;
@@ -46,19 +71,29 @@
 /* Com o texto no meio da tela, o escurecimento tem de proteger o centro, não a
    base. Uma camada fina cobre tudo e um foco elíptico adensa atrás das letras.
    No pior quadro possível — todo branco — o centro fecha em 75% e entrega
-   7,5:1 no texto e 5,4:1 no rótulo, enquanto os cantos perdem só 26% de luz. */
+   7,5:1 no texto e 5,4:1 no rótulo, enquanto os cantos perdem só 26% de luz.
+
+   A TINTA era `rgba(9, 27, 20, …)`, e ERA ELA a dominante esverdeada da tela:
+   com 26% cobrindo tudo e até 66% no centro, um preto de canal verde 27 tinge
+   a cena inteira. Passa a grafite quente, `rgba(20, 18, 16, …)`.
+
+   As opacidades não mudam, e o contraste do texto não piora: o canal verde
+   pesa 0,7152 na luminância relativa, e ele cai de 27 para 18 — o véu novo é
+   um pouco MAIS escuro que o antigo, então a conta acima continua valendo com
+   folga. Trocar por preto puro seria mais escuro ainda, mas apagaria o calor
+   que a gradação do `.filme` acabou de introduzir. */
 .veu {
   z-index: 1;
   pointer-events: none;
   background:
     radial-gradient(
       ellipse 78% 64% at 50% 52%,
-      rgba(9, 27, 20, 0.66) 0%,
-      rgba(9, 27, 20, 0.5) 46%,
-      rgba(9, 27, 20, 0.16) 78%,
-      rgba(9, 27, 20, 0) 100%
+      rgba(20, 18, 16, 0.66) 0%,
+      rgba(20, 18, 16, 0.5) 46%,
+      rgba(20, 18, 16, 0.16) 78%,
+      rgba(20, 18, 16, 0) 100%
     ),
-    linear-gradient(rgba(9, 27, 20, 0.26), rgba(9, 27, 20, 0.26));
+    linear-gradient(rgba(20, 18, 16, 0.26), rgba(20, 18, 16, 0.26));
 }
 
 .centro {
@@ -177,16 +212,18 @@
 
 @media (max-width: 640px) {
   .centro { padding: clamp(84px, 12vh, 120px) 20px clamp(36px, 7vh, 64px); }
+  /* Mesma troca de tinta do véu de cima, pelo mesmo motivo. Se ficasse só lá,
+     o celular continuaria com a tela esverdeada. */
   .veu {
     background:
       radial-gradient(
         ellipse 120% 56% at 50% 56%,
-        rgba(9, 27, 20, 0.7) 0%,
-        rgba(9, 27, 20, 0.54) 50%,
-        rgba(9, 27, 20, 0.14) 82%,
-        rgba(9, 27, 20, 0) 100%
+        rgba(20, 18, 16, 0.7) 0%,
+        rgba(20, 18, 16, 0.54) 50%,
+        rgba(20, 18, 16, 0.14) 82%,
+        rgba(20, 18, 16, 0) 100%
       ),
-      linear-gradient(rgba(9, 27, 20, 0.28), rgba(9, 27, 20, 0.28));
+      linear-gradient(rgba(20, 18, 16, 0.28), rgba(20, 18, 16, 0.28));
   }
   .titulo { font-size: clamp(32px, 8.6vw, 44px); }
   .linha { max-width: 34ch; }
