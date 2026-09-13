@@ -26,6 +26,17 @@ interface Props {
   acoes?: ReactNode;
   /** Conteúdo da folha do celular. Sem isto, o botão de menu não aparece. */
   menu?: ReactNode;
+  /**
+   * Segunda linha opcional, abaixo da principal.
+   *
+   * Existe porque nem toda barra cabe em uma linha só: a área de estudos tem
+   * marca e ações em cima e uma trilha de ferramentas embaixo. Omitida, nada é
+   * renderizado — a abertura e o site seguem com uma linha, como hoje.
+   *
+   * A caixa só resolve rolagem horizontal e recuo. Cor, cápsula e indicador
+   * são de quem preenche o slot.
+   */
+  trilha?: ReactNode;
   /** Fecha a folha a cada navegação. */
   caminho: string;
   /** Material do contexto: no site, as classes `.nav` que já existem. */
@@ -44,6 +55,7 @@ export function BarraTopo({
   navegacao,
   acoes,
   menu,
+  trilha,
   caminho,
   classeExterna = "",
   classeInterna = "",
@@ -133,6 +145,8 @@ export function BarraTopo({
           )}
         </div>
       </div>
+
+      {trilha && <div className={styles.trilha}>{trilha}</div>}
 
       {menu && montado && (
         <div

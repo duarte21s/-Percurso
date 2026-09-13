@@ -69,6 +69,22 @@
   gap: 12px;
 }
 
+/* Segunda linha opcional. Só estrutura: rolagem horizontal quando os itens não
+   couberem, e o mesmo recuo lateral da linha de cima. Nenhuma cor, nenhuma
+   cápsula, nenhum indicador — isso é de quem preenche o slot.
+   Sem `trilha`, esta regra não alcança elemento nenhum. */
+.trilha {
+  display: flex;
+  justify-content: safe center;
+  padding: 0 var(--nav-recuo) 13px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+.trilha::-webkit-scrollbar {
+  display: none;
+}
+
 /* Botão de menu: dois traços que viram X. Mesmo desenho nos dois tons. */
 .alternar {
   display: none;
