@@ -16,39 +16,19 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 /* O dashboard é resumo + prévia. Cada ferramenta tem a sua própria página
-   completa sob /app/*; aqui ficam os números, os atalhos e o histórico curto. */
-const ATALHOS = [
-  {
-    href: "/app/questoes",
-    titulo: "Questões",
-    texto: "Escolha um assunto e responda com o gabarito comentado.",
-  },
-  {
-    href: "/app/cronograma",
-    titulo: "Cronograma",
-    texto: "Monte a semana com revisão espaçada e descanso.",
-  },
-  {
-    href: "/app/simulados",
-    titulo: "Simulados",
-    texto: "As 15 provas do ENEM, cronometradas, nota só no fim.",
-  },
-  {
-    href: "/app/redacao",
-    titulo: "Redação",
-    texto: "Escreva sobre os temas reais e receba a nota nas 5 competências.",
-  },
-  {
-    href: "/app/desempenho",
-    titulo: "Desempenho",
-    texto: "Aproveitamento por área e o histórico completo.",
-  },
-  {
-    href: "/app/materias",
-    titulo: "Matérias",
-    texto: "Quanto você já respondeu de cada uma das nove.",
-  },
-];
+   completa sob /app/*; aqui ficam os números e o histórico curto.
+ *
+ * A GRADE DE ATALHOS saiu daqui. Eram seis cartões — Questões, Cronograma,
+ * Simulados, Redação, Desempenho e Matérias — apontando para as mesmas rotas
+ * que a barra do topo já oferece na trilha das nove ferramentas. Duas
+ * navegações para o mesmo destino, uma em cima da outra, e a de baixo custava
+ * uma tela inteira antes do histórico.
+ *
+ * As rotas, as páginas e a trilha continuam inteiras: o que saiu foi a
+ * repetição, não o caminho. As classes `.atalhos`, `.atalho`, `.atalhoTitulo`,
+ * `.atalhoTexto` e `.seta` ficaram sem uso em `dashboard.module.css`, junto com
+ * duas regras de media query — CSS morto, deixado de propósito para que voltar
+ * atrás seja restaurar este bloco e nada mais. */
 
 export default async function Dashboard() {
   // Pelo guarda comum, e não por checagem própria: é ele que também derruba a
@@ -154,17 +134,6 @@ export default async function Dashboard() {
             )}
           </div>
         )}
-
-        <RevelarGrade className={css.atalhos}>
-          {ATALHOS.map((a) => (
-            <Link key={a.href} href={a.href} className={css.atalho}>
-              <strong className={css.atalhoTitulo}>
-                {a.titulo} <span className={css.seta}>→</span>
-              </strong>
-              <span className={css.atalhoTexto}>{a.texto}</span>
-            </Link>
-          ))}
-        </RevelarGrade>
 
         <div className={css.historicoTopo}>
           <h2 className={css.historicoTitulo}>Histórico recente</h2>

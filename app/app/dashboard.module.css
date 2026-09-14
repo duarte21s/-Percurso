@@ -93,11 +93,20 @@
 }
 .seta { font-family: var(--sans); font-size: 18px; font-weight: 400; }
 .atalhoTexto { max-width: 27ch; color: var(--text-2); font-size: 13px; font-weight: 500; line-height: 1.55; }
+/* O `margin-top` é herança da grade de atalhos que ficava acima daqui. Ela
+   tinha `margin: 40px 0 64px`, e eram esses 64px que davam ar ao histórico —
+   o `.historicoTopo` nunca precisou declarar margem superior própria.
+   Com a grade removida, sobrava o `margin-bottom: 16px` das estatísticas e o
+   "Histórico recente" encostava nos números. 64px repõe exatamente a distância
+   que o bloco sempre teve; como margens de irmãos adjacentes colapsam pelo
+   maior valor, o resultado é 64px tanto depois das estatísticas quanto depois
+   do bloco "continuar", que aparece só às vezes. */
 .historicoTopo {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: 16px;
+  margin-top: 64px;
   margin-bottom: 18px;
 }
 .historicoTitulo {
