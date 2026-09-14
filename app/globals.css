@@ -113,7 +113,21 @@
      nome. É o alias que faz um ajuste aqui alcançar todos os títulos do site. */
   --sans: var(--fonte-sans), -apple-system, BlinkMacSystemFont, "Segoe UI",
           Roboto, "Helvetica Neue", Arial, sans-serif;
-  --display: var(--fonte-display), Georgia, "Times New Roman", Times, serif;
+  /* Montserrat. A reserva deixou de ser Georgia/Times: a regra de "sem serifa
+     cai em sem serifa" continua valendo, e agora o título é sem serifa. Manter
+     a pilha antiga faria o título aparecer em serifa durante a janela do
+     `swap` e virar geométrica depois — troca de espécie no carregamento, que é
+     exatamente o que os fallbacks existem para evitar.
+     A ordem começa por geométricas de sistema (Futura, Century Gothic) e cai
+     em grotescas comuns, porque geométrica errada incomoda menos que serifa. */
+  --display: var(--fonte-display), "Futura", "Century Gothic", "Avenir Next",
+             "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* ATENÇÃO AO NOME: `--serif` é alias histórico e HOJE APONTA PARA UMA SEM
+     SERIFA. Trinta e três declarações referenciam este nome; renomear todas é
+     mecânico e cabe num commit próprio, mas não neste. Enquanto isso, leia
+     `--serif` como "a fonte de título", não como "uma serifa" — é o mesmo tipo
+     de alias enganoso que o comentário do `body`, mais abaixo, conta ter
+     cobrado o preço uma vez. */
   --serif: var(--display);
   --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 
@@ -655,13 +669,21 @@ ul, ol { padding: 0; list-style: none; }
 /* Sem amarrar ao elemento: a mesma classe serve o H1 de uma página de
    erro e o H2 de uma seção. Presa a `h2`, o `h1.title` do 404 não recebia
    estilo nenhum e caía no padrão do navegador. */
+/* DECLARAÇÃO ÚNICA da `.title`. Havia duas — esta e outra ~1.900 linhas abaixo,
+   com `font-weight: 560` e `letter-spacing: -.045em`. Mesma especificidade, e
+   a de baixo vencia: o site inteiro rodava em 560 e com mais que o dobro do
+   tracking do token, enquanto o bloco documentado aqui não valia nada.
+   As propriedades que só existiam lá — `max-width: 18ch` e `color` — vieram
+   para cá; o peso e o tracking voltam ao sistema. */
 .title {
+  max-width: 18ch;
   font-family: var(--serif);
   font-optical-sizing: auto;
   font-weight: 600;
   font-size: clamp(30px, 4.4vw, 52px);
   line-height: 1.1;
   letter-spacing: var(--track-display);
+  color: var(--text);
   margin-top: 16px;
 }
 /* O destaque do título sai só pela cor. O `em` não inclina porque o next/font
@@ -1382,6 +1404,7 @@ h1.hero-h1 em { font-style: normal; color: var(--accent); }
 .stat:hover { background: var(--surface); }
 .stat-num {
   font-family: var(--serif);
+  font-weight: 600;
   font-size: clamp(32px, 4vw, 48px);
   line-height: 1;
   letter-spacing: -.02em;
@@ -2569,13 +2592,9 @@ body { background: var(--bg); }
 .section { padding-block: clamp(72px, 8vw, 112px); }
 .section + .section { border-top-color: var(--borda); }
 .section-head { margin-bottom: clamp(30px, 4vw, 52px); }
-.title {
-  max-width: 18ch;
-  font-family: var(--serif);
-  font-weight: 560;
-  letter-spacing: -.045em;
-  color: var(--text);
-}
+/* A `.title` que existia aqui foi fundida na declaração única lá de cima. Este
+   bloco guardava o peso e o tracking que de fato valiam, e ninguém percebia
+   porque a distância entre os dois escondia o conflito. */
 .title em { color: var(--accent); }
 .lede { color: var(--text-2); font-size: 15.5px; }
 .eyebrow { color: var(--accent); font-weight: 700; letter-spacing: .18em; }

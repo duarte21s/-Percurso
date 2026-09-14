@@ -170,7 +170,9 @@
 .tela .titulo {
   font-family: var(--serif);
   font-size: clamp(30px, 3vw, 38px);
-  font-weight: 400;
+  /* Era 400. A geometrica nesse corpo em 400 nao le como titulo: fica um
+     paragrafo grande. 600 e o mesmo degrau do resto do sistema. */
+  font-weight: 600;
   line-height: 1.15;
   letter-spacing: -.04em;
   text-align: center;

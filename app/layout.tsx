@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Inter, Montserrat } from "next/font/google";
 import { headers } from "next/headers";
 import { ScriptInline } from "@/components/ui/ScriptInline";
 import { urlPublicaConfigurada } from "@/lib/site-url";
 import "./globals.css";
 
-/* Duas fontes com papéis separados: Inter carrega corpo e interface, Fraunces
+/* Duas fontes com papéis separados: Inter carrega corpo e interface, Montserrat
    carrega os títulos.
    `latin-ext` entra por causa do português (ã, õ, ç, í): sem ele o navegador
    troca de fonte no meio da palavra para desenhar o acento. */
@@ -15,21 +15,24 @@ const inter = Inter({
   variable: "--fonte-sans",
 });
 
-/* Fraunces é variável, e é por isso que ela volta onde Palatino/Georgia não
-   podiam ficar: os pesos 500/600/700 existem de verdade no arquivo, então a
-   hierarquia de três pesos não colapsa em dois. Só em título — em texto de
-   interface a Inter continua ganhando.
+/* Montserrat no lugar da Fraunces. A troca muda a ESPÉCIE do título: sai uma
+   serifa de contraste modulado, entra uma geométrica de traço uniforme. Duas
+   consequências que o resto do sistema teve de acompanhar:
 
-   `axes: ["opsz"]` não é enfeite. O next/font traz apenas o eixo de peso por
-   padrão, para poupar bytes; sem o eixo óptico, o `font-optical-sizing: auto`
-   que .title e .hero-h1 declaram no globals.css não teria o que ajustar e a
-   linha seria decorativa. Com ele, o desenho da letra acompanha o corpo — mais
-   fechado e mais fino nos títulos grandes, mais aberto nos pequenos, que é a
-   razão de usar uma serifa variável em vez de uma estática. */
-const fraunces = Fraunces({
+   1. O eixo `opsz` era da Fraunces e não existe aqui, então `axes` sai. Os
+      `font-optical-sizing: auto` espalhados pelo CSS viram inertes — ficam,
+      porque são inofensivos e voltam a valer se uma variável óptica retornar,
+      mas não fazem mais nada.
+   2. Geométrica de traço uniforme pesa mais no olho que serifa de mesmo
+      número. O 560 que a `.title` usava viraria um bloco; por isso a escala de
+      título se firmou em 600, e nada passa de 700.
+
+   Montserrat também é variável, então os pesos 600 e 700 existem desenhados no
+   arquivo — não são simulados por engrossamento, que é o que estragaria a
+   hierarquia. */
+const montserrat = Montserrat({
   subsets: ["latin", "latin-ext"],
   display: "swap",
-  axes: ["opsz"],
   variable: "--fonte-display",
 });
 
@@ -108,7 +111,7 @@ export default async function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${inter.variable} ${fraunces.variable}`}
+      className={`${inter.variable} ${montserrat.variable}`}
       suppressHydrationWarning
     >
       <head>

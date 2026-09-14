@@ -26,6 +26,7 @@
 
 .ano {
   font-family: var(--serif);
+  font-weight: 600;
   font-size: 34px;
   line-height: 1;
   letter-spacing: -0.03em;
@@ -133,6 +134,7 @@
 }
 .numero {
   font-family: var(--serif);
+  font-weight: 600;
   font-size: 26px;
   line-height: 1;
   color: var(--accent-2);
@@ -392,6 +394,7 @@
 }
 .placarNumero {
   font-family: var(--serif);
+  font-weight: 600;
   font-size: 32px;
   line-height: 1;
   color: var(--text);

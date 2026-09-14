@@ -45,17 +45,23 @@
   padding: 18px;
   gap: 13px;
 }
+/* Estes três blocos cravavam `Georgia, "Times New Roman", serif` — as únicas
+   declarações do projeto fora do sistema de tokens. Se a fonte de título
+   carregasse, eles continuavam em Georgia e não acompanhavam ninguém.
+   Agora seguem `--sans`, e não `--serif`, porque pelo papel são LABEL: nome de
+   matéria a 15px, contagem a 12px e item de lista a 13px. A fonte de título
+   cobre título, número e chamada; informação miúda é da Inter. */
 .painel :global(.subject-glyph) {
   width: 36px;
   height: 36px;
   border: 0;
   border-radius: 9px;
   background: var(--surface-3);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--sans);
   font-size: 15px;
 }
 .painel :global(.subject-title) {
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--sans);
 }
 .painel :global(.subject-title strong) {
   font-size: 15px;
@@ -80,7 +86,7 @@
   min-height: 40px;
   gap: 10px;
   padding: 9px 10px;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--sans);
   font-size: 13px;
   line-height: 1.6;
 }
