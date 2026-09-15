@@ -81,7 +81,12 @@ export default async function PaginaMaterias() {
                 <tr>
                   <th>Matéria</th>
                   <th>Respondidas</th>
-                  <th>No banco</th>
+                  {/* "No banco" contava o acervo inteiro, inclusive o que a
+                      sessão não sorteia — questão do ENEM sem comentário e
+                      questão sem assunto classificado. O rótulo agora diz o
+                      que o número é: o que dá para estudar hoje. Ver o
+                      recorte em `contagensPorMateria`. */}
+                  <th>Disponíveis</th>
                   <th>Aproveitamento</th>
                   <th />
                 </tr>
@@ -89,14 +94,14 @@ export default async function PaginaMaterias() {
               <tbody>
                 {TODAS_AS_MATERIAS.map((m) => {
                   const dados = porMateria.get(m.id) ?? { acertos: 0, total: 0 };
-                  const noBanco = disponiveis[m.id] ?? 0;
+                  const paraEstudar = disponiveis[m.id] ?? 0;
                   const aprov =
                     dados.total > 0
                       ? Math.round((dados.acertos / dados.total) * 100)
                       : null;
                   const pct =
-                    noBanco > 0
-                      ? Math.min(100, Math.round((dados.total / noBanco) * 100))
+                    paraEstudar > 0
+                      ? Math.min(100, Math.round((dados.total / paraEstudar) * 100))
                       : 0;
 
                   return (
@@ -110,7 +115,7 @@ export default async function PaginaMaterias() {
                           <i style={{ width: `${pct}%` }} />
                         </span>
                       </td>
-                      <td>{noBanco.toLocaleString("pt-BR")}</td>
+                      <td>{paraEstudar.toLocaleString("pt-BR")}</td>
                       <td>
                         {aprov === null ? (
                           <span className="dim">—</span>

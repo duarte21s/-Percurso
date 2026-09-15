@@ -46,16 +46,22 @@ export async function contagensPorTema(
 }
 
 /**
- * Quantas questões existem em cada matéria, com ou sem tema marcado.
+ * Quantas questões de cada matéria a sessão de estudo consegue sortear.
  *
- * Somar `vw_temas` não serve para isto: quase 500 questões de Matemática têm
- * matéria mas não têm tema — o classificador reconheceu a área e não o
- * assunto. Elas entram num simulado da matéria inteira, então precisam contar
- * aqui, senão a tela promete menos do que tem.
+ * O RECORTE É O MESMO de `app/api/simulado/route.ts` — `prova_id is null`,
+ * `explicacao <> ''` e `tema is not null` — e isso é o ponto da função, não um
+ * detalhe de implementação. Contar sem os filtros dava um número que a pessoa
+ * nunca alcançava: a tela de Matérias anunciava 1.182 questões de Matemática e
+ * o sorteio entregava 752, porque 430 são do ENEM (sem comentário) ou ficaram
+ * sem assunto classificado. Somadas as nove matérias, a promessa passava o
+ * estoque em 1.305 questões.
  *
- * São nove consultas HEAD paralelas, sem transferir linha nenhuma: só o
- * cabeçalho com a contagem. Mais barato que ler 1.800 ids para contar no
- * cliente, e não exige view nova.
+ * O comentário anterior justificava contar as questões sem tema dizendo que
+ * elas entravam num simulado da matéria inteira. Não entram: o `.not("tema",
+ * "is", null)` da API vale para os dois caminhos, com tema escolhido e sem.
+ *
+ * São consultas HEAD paralelas, uma por matéria, sem transferir linha nenhuma:
+ * só o cabeçalho com a contagem.
  */
 export async function contagensPorMateria(
   supabase: SupabaseClient,
@@ -66,7 +72,10 @@ export async function contagensPorMateria(
       const { count } = await supabase
         .from("questoes")
         .select("*", { count: "exact", head: true })
-        .eq("materia_id", id);
+        .eq("materia_id", id)
+        .is("prova_id", null)
+        .neq("explicacao", "")
+        .not("tema", "is", null);
       return [id, count ?? 0] as const;
     })
   );

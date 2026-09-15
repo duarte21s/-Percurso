@@ -131,6 +131,35 @@ for (const cenario of ["sucesso", "vazio", "falha"]) {
 }
 console.log("ok: questões respeitam matéria e assunto; falha ou conteúdo vazio preserva estudo anterior");
 
+/* A contagem exibida na tela de Matérias tem que usar O MESMO recorte do
+   sorteio. Contando o acervo inteiro, a coluna anunciava 1.182 questões de
+   Matemática enquanto a sessão conseguia servir 752: as do ENEM não têm
+   comentário e as sem assunto classificado não entram em recorte nenhum.
+   Este cenário monta as quatro situações e confere que só a estudável conta. */
+{
+  const supabase = banco({
+    questoes: [
+      questao("ok1", "matematica", "Frações"),
+      questao("ok2", "matematica", "Geometria"),
+      // Do ENEM: tem matéria e assunto, mas o INEP não publica comentário.
+      { ...questao("enem", "matematica", "Frações", "enem-2023"), explicacao: "" },
+      // Autoral sem comentário escrito ainda.
+      { ...questao("sem-comentario", "matematica", "Frações"), explicacao: "" },
+      // Classificador reconheceu a matéria e não o assunto.
+      questao("sem-tema", "matematica", null),
+      // Outra matéria não pode vazar para o balde de Matemática.
+      questao("outra", "fisica", "Cinemática"),
+    ],
+  });
+  const { contagensPorMateria } = carregar("lib/temas.ts", {});
+  const contagens = await contagensPorMateria(supabase, ["matematica", "fisica"]);
+
+  assert.equal(contagens.matematica, 2, "só as questões que o sorteio alcança contam");
+  assert.equal(contagens.fisica, 1);
+  assert.equal(supabase.gravacoes.length, 0, "contar não escreve nada");
+}
+console.log("ok: a contagem por matéria usa o mesmo recorte do sorteio");
+
 /* Uma matéria pode passar de mil questões. O PostgREST entrega no máximo mil
    ids por resposta, portanto esta regressão confirma que a sessão considera a
    segunda página também, em vez de sortear sempre a mesma primeira fatia. */

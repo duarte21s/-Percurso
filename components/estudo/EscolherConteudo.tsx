@@ -88,11 +88,45 @@ export function EscolherConteudo({
   const teto = Math.min(45, Math.max(1, disponiveis));
   const pedido = Math.min(quantidade, teto);
 
+  /* Marca ou desmarca um conteúdo.
+   *
+   * Isto existia no desenho e não no código: `setTemas` e `setMateriaId` nunca
+   * eram chamados depois da montagem, então quem entrava por /app/questoes —
+   * ou seja, pela aba do topo — ficava com a seleção presa em vazio. O resumo
+   * dizia "nenhum conteúdo escolhido" para sempre, o controle de quantidade
+   * nascia desabilitado e "Estudar agora" nunca acendia. Clicar num conteúdo
+   * abria a sessão na hora, com as 10 do padrão, sem passar por escolha
+   * nenhuma. Agora o clique escolhe, e quem abre a sessão é o botão.
+   *
+   * Trocar de matéria troca a seleção INTEIRA: a API aceita uma matéria por
+   * sessão (`materia` é campo, não lista), então guardar os temas da anterior
+   * montaria um recorte que o servidor não sabe responder. */
+  function alternarTema(idMateria: string, titulo: string) {
+    setErro(null);
+
+    if (materiaId !== idMateria) {
+      setMateriaId(idMateria);
+      setTemas([titulo]);
+      return;
+    }
+
+    const proximos = temas.includes(titulo)
+      ? temas.filter((t) => t !== titulo)
+      : [...temas, titulo];
+
+    setTemas(proximos);
+    /* Desmarcar o último conteúdo solta a matéria junto — senão o resumo
+       seguiria nomeando uma matéria sem nada escolhido dentro dela. Fora do
+       atualizador de `setTemas` de propósito: com StrictMode ligado o
+       atualizador roda duas vezes, e efeito ali dentro acontece em dobro. */
+    if (proximos.length === 0) setMateriaId(null);
+  }
+
   /* Monta a sessão. `temas` vazio significa MATÉRIA INTEIRA — a API sempre
-     aceitou isso (`if (temas.length > 0)` antes de filtrar), mas a tela nunca
-     ofereceu: o botão só habilitava com conteúdo escolhido, então era
-     obrigatório entrar na matéria e catar assunto por assunto para estudar
-     algo. Quem quer só "praticar matemática" não tinha caminho. */
+     aceitou isso (`if (temas.length > 0)` antes de filtrar), e é o que os
+     botões "Praticar banco completo" e "Estudar a matéria inteira" usam. Esses
+     dois continuam abrindo direto: são ações declaradas pelo próprio rótulo,
+     não escolha a ser confirmada depois. */
   async function abrirSessao(idMateria: string, listaTemas: string[], quantas: number) {
     if (!idMateria) return;
     setIndo(true);
@@ -123,8 +157,9 @@ export function EscolherConteudo({
         <span className={css.titulo}>Estudar um conteúdo</span>
       </div>
       <p className={css.lede}>
-        Abra uma matéria e clique em um conteúdo para começar. Os números
-        indicam as questões comentadas disponíveis em cada assunto.
+        Abra uma matéria e marque os conteúdos que quer treinar — dá para
+        escolher mais de um. Os números indicam as questões comentadas
+        disponíveis em cada assunto; escolha quantas quer e comece embaixo.
       </p>
 
       <div className={css.bancoCompleto}>
@@ -205,13 +240,7 @@ export function EscolherConteudo({
                           key={titulo}
                           type="button"
                           className={`topic ${css.topico}${escolhido ? ` ${css.escolhido}` : ""}`}
-                          onClick={() =>
-                            void abrirSessao(
-                              m.id,
-                              [titulo],
-                              Math.min(quantidade, disponivel)
-                            )
-                          }
+                          onClick={() => alternarTema(m.id, titulo)}
                           disabled={indo || disponivel === 0}
                           aria-pressed={escolhido}
                           title={
