@@ -210,6 +210,15 @@
   /* materiais e profundidade — chrome translúcido quente, sombras
      marrom-quentes suaves (não pretas). */
   --material-chrome: rgba(243, 245, 241, 0.88);
+  /* A folha do menu tem material PRÓPRIO, e mais fechado que o do cabeçalho.
+     O cabeçalho é uma faixa fina com o conteúdo correndo por baixo — ali a
+     translucidez informa onde a página está. A folha cobre a tela e É a tela
+     enquanto está aberta: nada do que passa por baixo precisa ser lido, e o
+     pouco que aparecia só disputava contraste com os links.
+     A 0,97 o fundo deixa de ser fundo, e com isso o `backdrop-filter` da folha
+     sai — não havia mais nada para desfocar, e desfoque é a propriedade cara
+     da lista. Sobram os 0,03 que ainda dizem que existe algo atrás. */
+  --material-folha:  rgba(248, 250, 247, 0.97);
   --material-borda:  rgba(20, 30, 22, 0.09);
   --scrim:           rgba(8, 14, 9, 0.44);
   --elev-1: 0 1px 2px rgba(20, 30, 22, 0.07), 0 1px 3px rgba(20, 30, 22, 0.05);
@@ -253,6 +262,7 @@
     --ok:          #82ce58;
     --err:         #f26e54;
     --material-chrome: rgba(12, 17, 13, 0.72);
+    --material-folha:  rgba(21, 27, 21, 0.97);
     --material-borda:  rgba(237, 243, 235, 0.09);
     --scrim:           rgba(4, 6, 4, 0.62);
     --elev-1: 0 1px 2px rgba(0, 0, 0, 0.50), 0 2px 8px rgba(0, 0, 0, 0.34);
@@ -287,6 +297,7 @@
   --ok:          #82ce58;
   --err:         #f26e54;
   --material-chrome: rgba(12, 17, 13, 0.72);
+  --material-folha:  rgba(21, 27, 21, 0.97);
   --material-borda:  rgba(237, 243, 235, 0.09);
   --scrim:           rgba(4, 6, 4, 0.62);
   --elev-1: 0 1px 2px rgba(0, 0, 0, 0.50), 0 2px 8px rgba(0, 0, 0, 0.34);
@@ -495,7 +506,7 @@ ul, ol { padding: 0; list-style: none; }
 }
 
 .nav-links a:active,
-.nav-mobile a:active,
+.nav-mobile a:not(.btn):active,
 .faq-q:active,
 .topic:active,
 .q-opt:active {
@@ -503,14 +514,17 @@ ul, ol { padding: 0; list-style: none; }
   transition-duration: .09s;
 }
 
-/* O menu móvel não tinha estado nenhum — nem ponteiro, nem toque. */
-.nav-mobile a {
+/* O menu móvel não tinha estado nenhum — nem ponteiro, nem toque.
+   Fora do `.btn` pelo mesmo motivo do bloco de lista: o raio pequeno e o
+   recuo negativo são o alvo de toque de uma LINHA, e a cápsula já tem os
+   seus; o realce de hover em `--surface-2` apagaria o gradiente do botão. */
+.nav-mobile a:not(.btn) {
   border-radius: var(--r-sm);
   padding-inline: 10px;
   margin-inline: -10px;
   transition: color .22s var(--ease), background .22s var(--ease);
 }
-.nav-mobile a:hover { color: var(--text); background: var(--surface-2); }
+.nav-mobile a:not(.btn):hover { color: var(--text); background: var(--surface-2); }
 
 /* ---------- Vibrância sobre material ---------- */
 /* Texto sobre superfície translúcida não pode ser cinza chapado: o fundo
@@ -518,7 +532,7 @@ ul, ol { padding: 0; list-style: none; }
    claras. Meio degrau de peso e um respiro de tracking devolvem a leitura
    sem escurecer a cor e sem endurecer o material. */
 .nav-links a,
-.nav-mobile a {
+.nav-mobile a:not(.btn) {
   font-weight: 500;
   letter-spacing: 0.004em;
 }
@@ -1036,12 +1050,14 @@ ul, ol { padding: 0; list-style: none; }
 
 .nav-mobile {
   border-top: 1px solid var(--line-soft);
-  background: var(--material-chrome);
-  /* Valor de repouso. Quem manda no raio durante a entrada e a saída é o
-     `usarFolha`, que o anima em degraus junto com a escala; esta linha cobre
-     o quadro anterior ao primeiro passo do JS e o caso de movimento reduzido,
-     onde não há animação mas o material continua. */
-  backdrop-filter: blur(20px);
+  /* Quase opaco, e sem `backdrop-filter` nenhum — nem animado, nem parado.
+     O raio era escrito quadro a quadro pelo `usarFolha`; cada valor novo
+     obrigava o navegador a refazer o desfoque da região inteira, fora do
+     compositor, enquanto quatro vídeos decodificavam por baixo na abertura.
+     A 0,97 de fundo não sobra o que desfocar: a conta saiu e a superfície não
+     mudou de aparência. O que faz a folha ler como material que CHEGA é a
+     escala subindo com a opacidade, e essa continua. */
+  background: var(--material-folha);
   padding: 14px var(--gut) 24px;
   overflow: hidden;
   /* O arrasto vertical é nosso: sem isto o navegador rola a página no lugar
@@ -1066,7 +1082,17 @@ ul, ol { padding: 0; list-style: none; }
   border-radius: 99px;
   background: var(--line-strong);
 }
-.nav-mobile a {
+/* `:not(.btn)` porque esta é a régua do ITEM DE LISTA, e o botão não é um.
+   Sem a exclusão, `.nav-mobile a` (0,2,0) passava por cima de `.btn` (0,1,0) e
+   levava junto quatro coisas que não eram para ele: a cor `--text-2`, que é
+   cinza de lista e ficava ilegível sobre o verde do `.btn-primary`; o
+   `display: block`, que tirava o `inline-flex` e com ele a centralização do
+   rótulo; o `padding: 13px 0`, que zerava o recuo lateral da cápsula; e um
+   `border-bottom` de divisória no meio de um botão arredondado.
+   O `.btn` volta a pintar com o próprio `--btn-fg`, que no primário é
+   `--sobre-accent` — claro no tema claro, escuro no escuro. A régua de lista
+   segue idêntica para os links, que são todos os outros itens da folha. */
+.nav-mobile a:not(.btn) {
   display: block;
   padding: 13px 0;
   font-size: 16px;

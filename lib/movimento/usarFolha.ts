@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Mola, Velocimetro, elastico, projetar } from "./mola";
+import { ocuparCamada } from "./camada";
 
 /* Folha superior arrastável — o menu do celular.
  *
@@ -19,23 +20,22 @@ import { Mola, Velocimetro, elastico, projetar } from "./mola";
 /** Movimento mínimo antes de assumir que é arrasto e não toque. */
 const LIMIAR = 10;
 
-/** Desfoque do material quando a folha está inteira na tela. */
-const DESFOQUE_MAX = 20;
-/**
- * Degrau do desfoque, em px.
+/* O desfoque ANIMADO saiu daqui, e não foi por gosto.
  *
- * O raio anima junto com a escala — o guia pede os dois juntos para a
- * superfície ler como material que CHEGA, e não como fundo que acende. Mas
- * `backdrop-filter` é a propriedade cara da lista: cada valor novo obriga o
- * navegador a refazer o desfoque da região inteira, e escrever um valor
- * diferente a cada quadro é o que tira o compositor do caminho.
+ * O raio subia junto com a escala, quantizado em 1px para escrever ~20 valores
+ * em vez de ~60. Menos escritas, mas cada uma ainda obrigava o navegador a
+ * refazer o desfoque da região inteira, fora do compositor — num aparelho de
+ * entrada, com quatro vídeos decodificando por baixo, é justamente o quadro
+ * que falta. Quantizar reduziu a conta; não mudou a natureza dela.
  *
- * O degrau resolve a tensão sem escolher um lado. Quantizado em 1px, a
- * animação inteira escreve ~20 valores em vez de ~60, e o olho não vê degrau
- * nenhum: 1px de raio a essa escala está abaixo do limiar de percepção. O
- * `transform` e a `opacity` seguem contínuos, quadro a quadro.
- */
-const DESFOQUE_DEGRAU = 1;
+ * A troca é a do material: o painel virou quase opaco no CSS. Com ~0,97 de
+ * fundo não sobra fundo para desfocar — o desfoque era caro e, ali, invisível.
+ * A folha continua chegando como superfície e não como decalque, porque a
+ * ESCALA continua subindo com a opacidade; o que sumiu foi só a conta que o
+ * olho não via.
+ *
+ * `transform` e `opacity` são o que fica, e são exatamente as duas que o
+ * compositor resolve sozinho. */
 
 /** Aberta: chega e para. Não ultrapassa, porque nada foi arremessado. */
 const MOLA_ABRIR = { amortecimento: 1, resposta: 0.34 };
@@ -51,7 +51,16 @@ interface Retorno<T> {
 
 export function usarFolha<T extends HTMLElement>(
   aberta: boolean,
-  aoFechar: () => void
+  aoFechar: () => void,
+  /**
+   * O controle que abriu a folha.
+   *
+   * Serve a duas coisas que não dá para fazer sem ele: devolver o foco quando
+   * Escape fecha — sem isso o teclado fica num elemento que acabou de virar
+   * `inert` — e excluir o próprio botão do fechamento por clique fora, que
+   * senão fecharia no `pointerdown` e o `click` reabriria em seguida.
+   */
+  refBotao?: React.RefObject<HTMLElement | null>
 ): Retorno<T> {
   const ref = useRef<T | null>(null);
   const [montado, setMontado] = useState(aberta);
@@ -64,57 +73,39 @@ export function usarFolha<T extends HTMLElement>(
   const inicioY = useRef(0);
   const inicioPos = useRef(0);
   const fechandoPorGesto = useRef(false);
-  const ultimoDesfoque = useRef(-1);
   /* Espelho de `aberta` para os callbacks da mola, que vivem fora do ciclo de
      render e leriam um valor velho pela closure. */
   const abertaRef = useRef(aberta);
-  /* Quem pediu menos transparência não recebe desfoque nenhum, nem animado:
-     o CSS já troca o material por superfície sólida, e um estilo em linha
-     escrito daqui passaria por cima justamente de quem pediu para não ter. */
-  const semTransparencia = useRef(false);
+
+  /* Espelho de `aoFechar` pelo mesmo motivo, e por mais um: quem chama passa
+     uma seta nova a cada render. Nas dependências de um efeito, isso derrubava
+     e recolocava os cinco ouvintes de ponteiro a cada render do cabeçalho —
+     no meio de um arrasto, inclusive. Com o espelho, o efeito do gesto passa a
+     depender só de `montado`, e os ouvintes são registrados uma vez. */
+  const aoFecharRef = useRef(aoFechar);
+  useEffect(() => {
+    aoFecharRef.current = aoFechar;
+  });
 
   const semMovimento = () =>
     typeof window !== "undefined" &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-transparency: reduce)");
-    const ler = () => {
-      semTransparencia.current = mq.matches;
-    };
-    ler();
-    mq.addEventListener("change", ler);
-    return () => mq.removeEventListener("change", ler);
-  }, []);
-
-  /* `transform` e `opacity` são contínuos, quadro a quadro — o compositor
-     resolve os dois sem recalcular layout. O desfoque acompanha em degraus,
-     pelo motivo explicado em DESFOQUE_DEGRAU. */
+  /* DUAS escritas por quadro, e as duas que o compositor resolve sozinho:
+     nenhuma delas recalcula layout nem repinta a região de baixo. É a lista
+     inteira do que sai daqui — ver o bloco sobre o desfoque, lá em cima. */
   const pintar = useCallback((y: number) => {
     const el = ref.current;
     if (!el) return;
     const h = altura.current || 1;
     const p = Math.min(Math.max(1 + y / h, 0), 1);
 
-    /* Escala e desfoque sobem juntos: é a diferença entre uma superfície que
+    /* Escala e opacidade sobem juntas: é a diferença entre uma superfície que
        chega e um retângulo que acende. Um material real ganha corpo enquanto
        se aproxima; se só a opacidade muda, a folha lê como decalque. */
     const escala = 0.985 + 0.015 * p;
     el.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0) scale(${escala.toFixed(4)})`;
     el.style.opacity = String(Math.min(1, p * 3));
-
-    if (semTransparencia.current) return;
-    const desfoque =
-      Math.round((DESFOQUE_MAX * p) / DESFOQUE_DEGRAU) * DESFOQUE_DEGRAU;
-    if (desfoque !== ultimoDesfoque.current) {
-      ultimoDesfoque.current = desfoque;
-      const valor = desfoque > 0 ? `blur(${desfoque}px)` : "none";
-      el.style.backdropFilter = valor;
-      /* Safari só ganhou a forma sem prefixo tarde, e a gaveta é justamente a
-         tela onde o Safari de iPhone é maioria. */
-      (el.style as CSSStyleDeclaration & { webkitBackdropFilter?: string })
-        .webkitBackdropFilter = valor;
-    }
   }, []);
 
   const garantirMola = useCallback(() => {
@@ -179,9 +170,6 @@ export function usarFolha<T extends HTMLElement>(
       if (!aberta) setMontado(false);
       return;
     }
-
-    /* Força a primeira escrita do desfoque a cada montagem. */
-    ultimoDesfoque.current = -1;
 
     el.style.willChange = "transform, opacity";
 
@@ -294,7 +282,7 @@ export function usarFolha<T extends HTMLElement>(
         /* Retorno tátil só no encaixe, que é um momento com significado.
            Espalhar vibração por toda interação ensina a ignorá-la. */
         navigator.vibrate?.(8);
-        aoFechar();
+        aoFecharRef.current();
       }
     }
 
@@ -322,7 +310,68 @@ export function usarFolha<T extends HTMLElement>(
       el.removeEventListener("pointercancel", aoSubir);
       el.removeEventListener("dragstart", aoArrastarNativo);
     };
-  }, [montado, garantirMola, pintar, aoFechar]);
+  }, [montado, garantirMola, pintar]);
+
+  /* ---------- as outras duas saídas ---------- */
+
+  /* Uma folha tem TRÊS saídas, e o botão é só a primeira. Escape é a saída de
+     quem está no teclado; o clique fora é a de quem já decidiu ir para outro
+     lugar da tela e não deveria precisar mirar um alvo de 44px para isso.
+     As duas moram aqui, e não em quem chama, porque as duas dependem de saber
+     onde a folha está — e isso é o que este gancho sabe e o cabeçalho não. */
+
+  /* Escape fecha e DEVOLVE O FOCO ao botão que abriu. Sem a segunda metade o
+     foco fica num elemento que acabou de virar `inert` e o teclado se perde.
+     O ouvinte é do documento, e não da folha, porque ela trava a rolagem do
+     corpo e se comporta como camada: Escape precisa valer com o foco fora
+     dela. Só existe enquanto está aberta. */
+  useEffect(() => {
+    if (!aberta) return;
+    function aoTeclar(evento: KeyboardEvent) {
+      if (evento.key !== "Escape") return;
+      evento.preventDefault();
+      aoFecharRef.current();
+      refBotao?.current?.focus();
+    }
+    document.addEventListener("keydown", aoTeclar);
+    return () => document.removeEventListener("keydown", aoTeclar);
+  }, [aberta, refBotao]);
+
+  /* Clique fora. `pointerdown` e não `click`: a folha some no instante em que
+     o dedo encosta, que é quando a decisão foi tomada — esperar o `click`
+     deixa um intervalo em que a tela já não corresponde à intenção.
+     O botão fica DE FORA da conta de propósito. Sem essa exclusão ele fecharia
+     no `pointerdown` e o `click` seguinte reabriria, e o menu piscaria sem sair
+     do lugar. Aqui o foco NÃO volta para o botão: quem clicou fora está
+     olhando para outro canto da tela, e puxar o foco de volta seria discordar
+     do gesto. */
+  useEffect(() => {
+    if (!aberta) return;
+    function aoApontarFora(evento: PointerEvent) {
+      const alvo = evento.target as Node | null;
+      if (!alvo) return;
+      if (ref.current?.contains(alvo)) return;
+      if (refBotao?.current?.contains(alvo)) return;
+      aoFecharRef.current();
+    }
+    document.addEventListener("pointerdown", aoApontarFora);
+    return () => document.removeEventListener("pointerdown", aoApontarFora);
+  }, [aberta, refBotao]);
+
+  /* ---------- aviso para quem está por baixo ---------- */
+
+  /* Enquanto a folha ocupa a tela, ela é o assunto — e o que estiver correndo
+     embaixo pode parar. Na abertura são quatro vídeos decodificando; pausá-los
+     devolve o quadro a quem está com o dedo na tela. Ver `camada.ts`.
+
+     O sinal segue `montado`, e não `aberta`: a folha só solta a camada quando
+     termina de sair. Soltar em `aberta === false` faria o vídeo voltar a
+     decodificar no meio da animação de saída — exatamente o quadro que se
+     queria proteger. */
+  useEffect(() => {
+    if (!montado) return;
+    return ocuparCamada();
+  }, [montado]);
 
   useEffect(() => () => mola.current?.parar(), []);
 

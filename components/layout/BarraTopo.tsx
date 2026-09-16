@@ -77,7 +77,7 @@ export function BarraTopo({
     ref: refFolha,
     montado,
     aoClicarCapturando,
-  } = usarFolha<HTMLDivElement>(aberto, () => setAberto(false));
+  } = usarFolha<HTMLDivElement>(aberto, () => setAberto(false), refBotao);
 
   // Rede de segurança: cobre um link que aponte para a rota atual, em que o
   // clique não muda `caminho`. O fechamento normal acontece no próprio clique.
@@ -85,22 +85,11 @@ export function BarraTopo({
     setAberto(false);
   }, [caminho]);
 
-  /* Escape fecha e DEVOLVE O FOCO ao botão que abriu — sem a segunda metade,
-     o foco fica num elemento que acabou de virar `inert` e o teclado se perde.
-     O ouvinte é do documento, e não do cabeçalho, porque a folha trava a
-     rolagem do corpo e se comporta como camada: Escape precisa valer mesmo com
-     o foco fora dela. Só existe enquanto está aberta. */
-  useEffect(() => {
-    if (!aberto) return;
-    function aoTeclar(evento: KeyboardEvent) {
-      if (evento.key !== "Escape") return;
-      evento.preventDefault();
-      setAberto(false);
-      refBotao.current?.focus();
-    }
-    document.addEventListener("keydown", aoTeclar);
-    return () => document.removeEventListener("keydown", aoTeclar);
-  }, [aberto]);
+  /* Escape e clique fora passaram para o `usarFolha`, junto com a devolução
+     do foco ao botão. As três saídas da folha — botão, Escape e clique fora —
+     são do mesmo assunto, e o gancho é quem sabe onde a folha está; mantê-las
+     aqui obrigava a barra do site a reimplementar as duas, e ela só tinha o
+     botão. */
 
   /* Fecha no clique do link, sem esperar a rota. Roda na fase de bolha, depois
      do `aoClicarCapturando`: quando houve arrasto, aquele já chamou

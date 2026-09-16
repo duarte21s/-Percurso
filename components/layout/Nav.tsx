@@ -36,12 +36,17 @@ export function Nav({ nome }: Props) {
   /* Menu do celular: folha arrastável, não transição.
      Ela desce do topo e fecha para cima — mesmo caminho nos dois sentidos. O
      dedo pode agarrá-la no meio do voo, inverter, ou soltá-la com um peteleco
-     que a projeta para fora. Ver lib/movimento/usarFolha.ts. */
+     que a projeta para fora. Ver lib/movimento/usarFolha.ts.
+
+     O `refToggle` vai junto: com ele o gancho fecha também no Escape (e
+     devolve o foco ao botão) e no clique fora. Esta barra tinha só o botão —
+     abrir o menu e tocar na página não o fechava, e o teclado não tinha saída
+     nenhuma. */
   const {
     ref: refMenu,
     montado: menuMontado,
     aoClicarCapturando,
-  } = usarFolha<HTMLDivElement>(menuAberto, () => setMenuAberto(false));
+  } = usarFolha<HTMLDivElement>(menuAberto, () => setMenuAberto(false), refToggle);
 
   useEffect(() => {
     function aoRolar() {
@@ -53,9 +58,19 @@ export function Nav({ nome }: Props) {
   }, []);
 
   // Fecha o menu ao navegar — sem isso ele fica aberto por cima da página nova.
+  // Rede de segurança: cobre o link que aponta para a rota atual, em que o
+  // clique não muda `caminho`. O fechamento normal é o do clique, abaixo.
   useEffect(() => {
     setMenuAberto(false);
   }, [caminho]);
+
+  /* Fecha no clique do link, sem esperar a rota — a mesma regra da `BarraTopo`.
+     Roda na bolha, depois do `aoClicarCapturando`: houve arrasto, aquele já
+     chamou `stopPropagation` e este nem é alcançado, que é o certo — arrasto
+     terminando sobre um link não deve navegar nem fechar. */
+  function aoClicarNoMenu(evento: React.MouseEvent) {
+    if ((evento.target as HTMLElement).closest("a")) setMenuAberto(false);
+  }
 
   // Trava o scroll do body enquanto o menu mobile está aberto.
   useEffect(() => {
@@ -106,6 +121,7 @@ export function Nav({ nome }: Props) {
           className="nav-mobile"
           ref={refMenu}
           onClickCapture={aoClicarCapturando}
+          onClick={aoClicarNoMenu}
         >
           {links.map((l) => (
             <Link key={l.href} href={l.href}>

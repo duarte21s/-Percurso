@@ -79,7 +79,13 @@
   overscroll-behavior: contain;
   border: 1px solid rgba(213, 234, 204, .25);
   border-radius: 12px;
-  background: rgba(16, 38, 28, .96);
+  /* Quase opaco, e sem `backdrop-filter`. Este painel é o único que fica
+     sobre o filme, e era ele que mais pagava pelo desfoque animado que o
+     `usarFolha` escrevia na folha: quatro vídeos decodificando por baixo e,
+     a cada quadro, o navegador refazendo o desfoque da região inteira.
+     A .97 não sobra vídeo para desfocar — e o que sobra dele atrás do texto
+     de 11px era ruído, não material. */
+  background: rgba(16, 38, 28, .97);
   box-shadow: 0 16px 48px rgba(0, 0, 0, .2);
 }
 .mobile a { min-height: 48px; font-size: 11px; border-bottom: 1px solid rgba(213, 234, 204, .12); }
@@ -93,6 +99,14 @@
 @media (max-width: 520px) {
   .marca { font-size: 15px; gap: 8px; letter-spacing: .21em; }
   .marca svg { width: 15px; height: 15px; }
+}
+
+/* Quem pediu menos transparência fecha os 3% que sobraram. Antes a
+   preferência era lida no JS, para não escrever desfoque em linha por cima de
+   quem não o queria; sem desfoque nenhum, ela volta a ser o que deveria ser —
+   uma linha de CSS. */
+@media (prefers-reduced-transparency: reduce) {
+  .mobile { background: #102620; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,3 +1,5 @@
+import { camadaAberta, observarCamada } from "./camada";
+
 /** Originais de Downloads, conferidos byte a byte. Todos são 16:9 (720p).
  * Plano geral → manuscritos → caderno → livro aberto e luz da janela. */
 export const CENAS = [
@@ -64,6 +66,18 @@ export function iniciarCinema({ videos, botao, animador: gsap, reduzido, aoRevel
   const timelines: gsap.core.Timeline[] = [];
   const retomar = new Set<number>();
 
+  /* Duas razões para a sequência esperar, e as duas valem a mesma coisa: a
+     aba está escondida, ou há uma camada na tela — hoje, o menu do celular.
+     Nos dois casos o filme não está sendo visto, e decodificá-lo é trabalho
+     jogado fora. Na camada é pior que desperdício: o dedo está segurando a
+     folha, e o quadro que o decodificador leva é o quadro que ela perde.
+
+     Eram dois caminhos idênticos escritos separados; agora é um. Quem quiser
+     uma terceira razão para esperar acrescenta aqui e não em sete lugares. */
+  function esperando() {
+    return document.hidden || camadaAberta();
+  }
+
   function pararVigia() {
     clearTimeout(vigia);
     vigia = undefined;
@@ -125,7 +139,7 @@ export function iniciarCinema({ videos, botao, animador: gsap, reduzido, aoRevel
 
   function armarVigia() {
     pararVigia();
-    if (document.hidden || concluido || contingencia) return;
+    if (esperando() || concluido || contingencia) return;
     // Somente contingência para rede parada: nunca troca cenas por timeout.
     vigia = setTimeout(mostrarAcesso, 15000);
   }
@@ -142,7 +156,7 @@ export function iniciarCinema({ videos, botao, animador: gsap, reduzido, aoRevel
 
   function reproduzir(i: number) {
     videos[i].play().catch((erro: unknown) => {
-      if (desmontado || concluido || contingencia || document.hidden) return;
+      if (desmontado || concluido || contingencia || esperando()) return;
       if (erro instanceof Error && erro.name === "NotAllowedError") mostrarAcesso();
       else if (!(erro instanceof Error) || erro.name !== "AbortError") falhou(i);
       // AbortError pode ser um load/seek ou uma pausa; a vigia cobre a falta de progresso.
@@ -161,7 +175,7 @@ export function iniciarCinema({ videos, botao, animador: gsap, reduzido, aoRevel
     preparar(i);
     preparar(i + 1);
     armarVigia();
-    if (!document.hidden) reproduzir(i);
+    if (!esperando()) reproduzir(i);
     else retomar.add(i);
   }
 
@@ -194,7 +208,7 @@ export function iniciarCinema({ videos, botao, animador: gsap, reduzido, aoRevel
   }
 
   function atualizar() {
-    if (desmontado || concluido || contingencia || document.hidden || ativo < 0) return;
+    if (desmontado || concluido || contingencia || esperando() || ativo < 0) return;
     const video = videos[ativo];
     const tempo = video.currentTime;
     const duracao = video.duration;
@@ -232,9 +246,13 @@ export function iniciarCinema({ videos, botao, animador: gsap, reduzido, aoRevel
     else if (solicitado === ativo) solicitar(i + 1);
   }
 
-  function visibilidade() {
+  /* Chamada quando qualquer das razões de espera muda: a aba trocou de estado
+     ou uma camada entrou/saiu. Pausa o que estava tocando e ANOTA quem era,
+     para devolver exatamente aqueles ao voltar — `retomar` é o que faz o filme
+     continuar de onde parou em vez de recomeçar. */
+  function sincronizar() {
     if (concluido || contingencia) return;
-    if (document.hidden) {
+    if (esperando()) {
       pararVigia();
       videos.forEach((video, i) => {
         if (!video.paused) {
@@ -266,7 +284,8 @@ export function iniciarCinema({ videos, botao, animador: gsap, reduzido, aoRevel
         removerListeners.push(() => video.removeEventListener(nome, listener));
       });
     });
-    document.addEventListener("visibilitychange", visibilidade);
+    document.addEventListener("visibilitychange", sincronizar);
+    removerListeners.push(observarCamada(sincronizar));
     gsap.ticker.add(atualizar);
     resgate = setTimeout(resgatar, RESGATE_MS);
     solicitar(0);
@@ -277,7 +296,7 @@ export function iniciarCinema({ videos, botao, animador: gsap, reduzido, aoRevel
     pararVigia();
     pararResgate();
     gsap.ticker.remove(atualizar);
-    document.removeEventListener("visibilitychange", visibilidade);
+    document.removeEventListener("visibilitychange", sincronizar);
     removerListeners.forEach((remover) => remover());
     timelines.forEach((timeline) => timeline.kill());
     retomar.clear();
