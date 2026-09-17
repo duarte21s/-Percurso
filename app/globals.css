@@ -833,8 +833,11 @@ ul, ol { padding: 0; list-style: none; }
      descarta backdrop-filter com múltiplas funções. */
   background: var(--material-chrome);
   backdrop-filter: blur(16px);
+  /* Transparente por padrão: reserva o 1px para o alto contraste acender sem
+     empurrar o layout, e agora também para a separação ao rolar. */
   border-bottom: 1px solid transparent;
   transition: background .4s var(--ease), backdrop-filter .4s var(--ease),
+              border-bottom-color .4s var(--ease),
               opacity .9s var(--ease), transform .9s var(--ease);
 }
 
@@ -842,35 +845,22 @@ ul, ol { padding: 0; list-style: none; }
   background: var(--material-chrome);
   backdrop-filter: blur(24px);
 }
-/* Scroll-edge: um degradê curto onde o chrome sobrepõe o conteúdo, no lugar
-   de uma borda dura de 1px. Só aparece depois de rolar.
-   Ele é a CONTINUAÇÃO do material do cabeçalho derramando para fora da caixa,
-   e não uma segunda faixa por cima do conteúdo — as duas linhas abaixo são o
-   que garante isso. */
-.nav::after {
-  content: "";
-  position: absolute;
-  left: 0; right: 0;
-  /* `top: 100%` resolve contra a PADDING box, e a `.nav` tem
-     `border-bottom: 1px` (transparente, reservado para o modo de alto
-     contraste). Sem o +1px o degradê nascia 1px ACIMA da base real e pintava
-     por cima da última linha do próprio cabeçalho — medido: a linha y=86,
-     ainda dentro do header, escurecia 8,5 de luminância, e era esse fio que
-     aparecia como recorte. Agora ele começa onde o cabeçalho termina. */
-  top: calc(100% + 1px);
-  height: 12px;
-  /* Parte do MESMO material do cabeçalho, e não de `--bg` opaco.
-     `--bg` é 100% opaco; o chrome é 0,88 (claro) / 0,72 (escuro). O degradê
-     saltava de "0,72 com o fundo desfocado atrás" para "1,00 tapando tudo" na
-     mesma linha — um degrau de 28 pontos de luminância sobre o texto grande
-     que passa por trás. Com o token do material a cobertura é contínua na
-     borda: o vidro simplesmente se dissolve nos 12px seguintes. */
-  background: linear-gradient(var(--material-chrome), transparent);
-  opacity: 0;
-  transition: opacity .4s var(--ease);
-  pointer-events: none;
+/* O scroll-edge saiu. Ele era um degradê de 12px DESENHADO POR FORA da caixa
+   do cabeçalho, e o problema não estava na sua borda superior — estava na sua
+   própria existência: qualquer que fosse a cor de partida, era uma camada
+   opaca por cima do que passava por baixo. Medido nesta página, com o título
+   de 66px cruzando a faixa, ele tirava até 38 pontos de luminância das letras.
+   Suavizar o encaixe (tentativa anterior) deixou a emenda contínua e manteve
+   a camada; o texto seguia manchado.
+   Quem separa o cabeçalho do conteúdo agora é a BORDA de 1px que já estava
+   reservada na `.nav` — antes transparente, só para o modo de alto contraste
+   poder acendê-la sem empurrar o layout. Ela custa uma linha, não doze, e não
+   tem degradê para invadir nada.
+   O vidro em si não muda: material, `blur(24px)` e transição seguem no
+   cabeçalho, e em lugar nenhum além dele. */
+.nav.is-stuck {
+  border-bottom-color: var(--material-borda);
 }
-.nav.is-stuck::after { opacity: 1; }
 .nav-inner {
   height: 68px;
   display: flex;
@@ -1149,7 +1139,6 @@ ul, ol { padding: 0; list-style: none; }
     background: var(--bg);
     border-bottom: 1px solid var(--line-strong);
   }
-  .nav::after { display: none; }
 }
 
 /* =========================================================
@@ -2378,7 +2367,6 @@ input[type="range"]::-moz-range-thumb {
     backdrop-filter: none;
     border-bottom: 1px solid CanvasText;
   }
-  .nav::after { display: none; }
 
   /* 2 — o que era fundo vira borda, que o sistema preserva */
   .eyebrow::before,
