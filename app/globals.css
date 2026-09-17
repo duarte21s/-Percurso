@@ -843,13 +843,29 @@ ul, ol { padding: 0; list-style: none; }
   backdrop-filter: blur(24px);
 }
 /* Scroll-edge: um degradê curto onde o chrome sobrepõe o conteúdo, no lugar
-   de uma borda dura de 1px. Só aparece depois de rolar. */
+   de uma borda dura de 1px. Só aparece depois de rolar.
+   Ele é a CONTINUAÇÃO do material do cabeçalho derramando para fora da caixa,
+   e não uma segunda faixa por cima do conteúdo — as duas linhas abaixo são o
+   que garante isso. */
 .nav::after {
   content: "";
   position: absolute;
-  left: 0; right: 0; top: 100%;
+  left: 0; right: 0;
+  /* `top: 100%` resolve contra a PADDING box, e a `.nav` tem
+     `border-bottom: 1px` (transparente, reservado para o modo de alto
+     contraste). Sem o +1px o degradê nascia 1px ACIMA da base real e pintava
+     por cima da última linha do próprio cabeçalho — medido: a linha y=86,
+     ainda dentro do header, escurecia 8,5 de luminância, e era esse fio que
+     aparecia como recorte. Agora ele começa onde o cabeçalho termina. */
+  top: calc(100% + 1px);
   height: 12px;
-  background: linear-gradient(var(--bg), transparent);
+  /* Parte do MESMO material do cabeçalho, e não de `--bg` opaco.
+     `--bg` é 100% opaco; o chrome é 0,88 (claro) / 0,72 (escuro). O degradê
+     saltava de "0,72 com o fundo desfocado atrás" para "1,00 tapando tudo" na
+     mesma linha — um degrau de 28 pontos de luminância sobre o texto grande
+     que passa por trás. Com o token do material a cobertura é contínua na
+     borda: o vidro simplesmente se dissolve nos 12px seguintes. */
+  background: linear-gradient(var(--material-chrome), transparent);
   opacity: 0;
   transition: opacity .4s var(--ease);
   pointer-events: none;
@@ -967,7 +983,10 @@ ul, ol { padding: 0; list-style: none; }
 /* Ao rolar, o conteúdo passa por baixo: o véu sai e o material sólido entra. */
 .nav.nav-home.is-stuck { background: var(--material-chrome); backdrop-filter: blur(24px); }
 .nav.nav-home.is-stuck::before { opacity: 0; }
-.nav.nav-home::after { background: linear-gradient(var(--bg), transparent); }
+/* A sobrescrita de `.nav.nav-home::after` saiu: repetia, palavra por palavra,
+   o valor que o bloco base já tinha (`linear-gradient(var(--bg), transparent)`).
+   Como toda barra do site carrega `nav-home`, era ELA que valia — mantê-la
+   depois de corrigir o bloco base só reintroduziria o degrau. */
 
 /* A altura vem do token, não mais do número cravado: é o mesmo `--nav-altura`
    que a barra da abertura passa a usar. O valor não mudou — o token nasceu
