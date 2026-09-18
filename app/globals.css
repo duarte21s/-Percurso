@@ -833,11 +833,11 @@ ul, ol { padding: 0; list-style: none; }
      descarta backdrop-filter com múltiplas funções. */
   background: var(--material-chrome);
   backdrop-filter: blur(16px);
-  /* Transparente por padrão: reserva o 1px para o alto contraste acender sem
-     empurrar o layout, e agora também para a separação ao rolar. */
+  /* Transparente, e só isso: reserva o 1px para o modo de alto contraste
+     acender a borda sem empurrar o layout. Não serve de separação ao rolar —
+     ver o bloco abaixo de `.nav.is-stuck`. */
   border-bottom: 1px solid transparent;
   transition: background .4s var(--ease), backdrop-filter .4s var(--ease),
-              border-bottom-color .4s var(--ease),
               opacity .9s var(--ease), transform .9s var(--ease);
 }
 
@@ -845,22 +845,22 @@ ul, ol { padding: 0; list-style: none; }
   background: var(--material-chrome);
   backdrop-filter: blur(24px);
 }
-/* O scroll-edge saiu. Ele era um degradê de 12px DESENHADO POR FORA da caixa
-   do cabeçalho, e o problema não estava na sua borda superior — estava na sua
-   própria existência: qualquer que fosse a cor de partida, era uma camada
-   opaca por cima do que passava por baixo. Medido nesta página, com o título
-   de 66px cruzando a faixa, ele tirava até 38 pontos de luminância das letras.
-   Suavizar o encaixe (tentativa anterior) deixou a emenda contínua e manteve
-   a camada; o texto seguia manchado.
-   Quem separa o cabeçalho do conteúdo agora é a BORDA de 1px que já estava
-   reservada na `.nav` — antes transparente, só para o modo de alto contraste
-   poder acendê-la sem empurrar o layout. Ela custa uma linha, não doze, e não
-   tem degradê para invadir nada.
-   O vidro em si não muda: material, `blur(24px)` e transição seguem no
-   cabeçalho, e em lugar nenhum além dele. */
-.nav.is-stuck {
-  border-bottom-color: var(--material-borda);
-}
+/* NADA é desenhado na base do cabeçalho ao rolar, e isso é o resultado de
+   duas tentativas medidas que falharam.
+   Primeiro havia um `::after`: um degradê de 12px por FORA da caixa do
+   cabeçalho. Qualquer que fosse a cor de partida, era uma camada opaca sobre o
+   que passava por baixo — tirava até 38 pontos de luminância do título.
+   Removido, ele foi trocado por uma borda inferior em `--material-borda`, na
+   suposição de que 9% de alfa fosse um fio discreto. Medido no fundo puro, não
+   era: no escuro `rgba(237,243,235,.09)` sobre um fundo de luminância ~19 dá
+   `19 + .09×(240−19) ≈ 39` — um salto de ~20 pontos, de largura inteira,
+   aparecendo no exato limiar de `is-stuck`. Era a faixa, agora por outra
+   causa. Sem a borda, o mesmo salto cai para 2–8 pontos.
+   A separação, portanto, é o próprio material: o vidro tem cor e desfoque
+   diferentes do conteúdo, e isso já delimita o cabeçalho sem nenhuma linha.
+   `border-bottom: 1px solid transparent` continua declarado na `.nav` de
+   propósito — reserva a altura para o modo de alto contraste acender a borda
+   sem empurrar o layout. Só a COR visível saiu daqui. */
 .nav-inner {
   height: 68px;
   display: flex;
