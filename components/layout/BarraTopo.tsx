@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
+import { createPortal } from "react-dom";
 import { usarFolha } from "@/lib/movimento/usarFolha";
 import styles from "./barra-topo.module.css";
 
@@ -54,6 +55,32 @@ interface Props {
   disposicao?: "entre" | "tres";
   /** Em que largura a barra vira menu: "larga" troca em 1100px, o padrão em 760px. */
   compacta?: "padrao" | "larga";
+  /**
+   * Camada que cobre a tela ATRÁS da folha, enquanto ela está no ar.
+   *
+   * A barra só cuida da geometria e da opacidade da camada; ONDE ela entra na
+   * pilha é decidido por quem oferece o abrigo (ver `veuAlvo`). O que a camada
+   * PINTA também não é dela — é de quem a passa, e na abertura é um
+   * instantâneo desfocado do filme.
+   *
+   * Opcional porque só a abertura precisa dela: lá a folha se abre sobre um
+   * filme em movimento. No site ela se abre sobre texto parado, que o painel
+   * quase opaco já separa sozinho.
+   */
+  veu?: ReactNode;
+  /**
+   * Onde pendurar a camada, quando ela não puder ficar dentro da barra.
+   *
+   * Dentro do cabeçalho a camada cobre a PÁGINA inteira, porque o cabeçalho é
+   * um contexto de empilhamento acima de tudo — e aí ela apaga o título e o
+   * CTA junto com o fundo. Recebendo um alvo, a camada vai por portal para
+   * onde o contexto mandar, e quem empilha decide o que ela cobre.
+   *
+   * Sem alvo, ou antes de ele existir, a camada fica na barra mesmo: é o
+   * comportamento antigo, e continua correto para quem não tem nada abaixo
+   * que precise sobreviver.
+   */
+  veuAlvo?: React.RefObject<HTMLElement | null>;
 }
 
 export function BarraTopo({
@@ -68,6 +95,8 @@ export function BarraTopo({
   classeInterna = "",
   disposicao = "entre",
   compacta = "padrao",
+  veu,
+  veuAlvo,
 }: Props) {
   const [aberto, setAberto] = useState(false);
   const refBotao = useRef<HTMLButtonElement>(null);
@@ -75,6 +104,7 @@ export function BarraTopo({
 
   const {
     ref: refFolha,
+    refVeu,
     montado,
     aoClicarCapturando,
   } = usarFolha<HTMLDivElement>(aberto, () => setAberto(false), refBotao);
@@ -107,11 +137,38 @@ export function BarraTopo({
 
   const tomClasse = tom === "filme" ? styles.tomFilme : styles.tomTema;
 
-  return (
+  /* A camada de fundo. Fora do JSX principal porque ela pode sair da barra:
+     com `veuAlvo`, vai por portal para onde a cena mandar — lá ela cobre o
+     filme sem cobrir o que estiver empilhado acima dela.
+
+     Dentro da barra ela é o PRIMEIRO filho de propósito, para ser pintada
+     antes da `.interna`: senão a marca e o botão entrariam no fundo que ela
+     cobre, e o botão de fechar é justamente o que tem de ficar nítido. */
+  const camada =
+    veu && montado ? (
+      <div
+        className={styles.veuFolha}
+        ref={refVeu as React.RefObject<HTMLDivElement>}
+        aria-hidden="true"
+      >
+        {veu}
+      </div>
+    ) : null;
+
+  const alvo = veuAlvo?.current ?? null;
+
+  const barra = (
     <header
       className={[styles.barra, tomClasse, classeExterna].filter(Boolean).join(" ")}
       data-compacta={compacta}
+      /* Liga as regras de empilhamento da camada, e SÓ quando ela fica dentro
+         da barra: saindo por portal, o cabeçalho volta a ser o de sempre.
+         Sem o atributo, a barra do site computa exatamente o que computava
+         antes — `.interna` sem posição e a folha sem `z-index`. */
+      data-veu={camada && !alvo ? "" : undefined}
     >
+      {!alvo && camada}
+
       <div
         className={[styles.interna, classeInterna].filter(Boolean).join(" ")}
         data-disposicao={disposicao}
@@ -156,5 +213,14 @@ export function BarraTopo({
         </div>
       )}
     </header>
+  );
+
+  return alvo ? (
+    <>
+      {barra}
+      {camada && createPortal(camada, alvo)}
+    </>
+  ) : (
+    barra
   );
 }

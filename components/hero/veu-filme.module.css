@@ -1,0 +1,41 @@
+/* O instantâneo cobre a camada inteira, ampliado a partir de 192px de largura.
+
+   Repare no que NÃO está aqui: nenhum `filter`, nenhum `backdrop-filter`,
+   nenhum `transform`. O desfoque já vem pronto dentro do canvas, feito uma
+   vez só e no tamanho pequeno — ver `VeuFilme.tsx`. O que sobra para o
+   navegador é esticar uma imagem parada, e a ampliação ainda amacia o
+   resultado de graça.
+
+   Assim a única coisa que muda a 60Hz é a opacidade da camada. */
+.tela {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* A ampliação clareia as bordas do quadro; o carvão devolve o peso e
+     garante o contraste do painel mesmo num plano estourado.
+
+     Grafite quente, e não o verde-escuro: é a mesma tinta do `.veu` da cena,
+     trocada lá justamente porque um preto de canal verde 27 tingia a tela
+     inteira de verde. Repetir o verde aqui traria de volta o problema, e bem
+     atrás do painel. */
+  background: #141210;
+}
+
+/* Reserva: sem quadro capturado, um véu chapado. Separa o painel do fundo
+   igual, não custa passe nenhum, e o filme continua visível por trás dele —
+   só que sem desfoque. É o que aparece se o vídeo ainda não tiver quadro
+   pronto quando o menu abrir. */
+.reserva {
+  width: 100%;
+  height: 100%;
+  background: rgba(20, 18, 16, .72);
+}
+
+/* Quem pediu menos transparência não quer o filme atrás de nada: fica o
+   carvão chapado da camada, que separa igual e não custa passe nenhum. */
+@media (prefers-reduced-transparency: reduce) {
+  .tela,
+  .reserva {
+    display: none;
+  }
+}

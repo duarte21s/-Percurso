@@ -130,6 +130,65 @@
   padding: 12px var(--nav-recuo) 20px;
 }
 
+/* O VÉU — a camada que cobre a tela entre o conteúdo e o painel.
+
+   Camada PRÓPRIA, e não um `filter` no painel: desfocar o painel desfocaria
+   os links dentro dele, que é o oposto do que se quer.
+
+   O que ela PINTA não se decide aqui — é `children`, e na abertura é um
+   quadro do filme capturado e desfocado uma única vez. Aqui ficam só a
+   geometria e o empilhamento, que são o que toda camada desse tipo precisa.
+
+   O que entra e sai é a opacidade, escrita pelo `usarFolha` na mesma mola que
+   move a folha — assim o véu acompanha o arrasto, inclusive quando o dedo
+   muda de ideia no meio.
+
+   `pointer-events: none` mantém o toque exatamente como era antes do véu:
+   quem estava atrás continua recebendo o clique, e o fechamento por clique
+   fora segue valendo porque o alvo não é nem a folha nem o botão. */
+.veuFolha {
+  /* `absolute` porque o destino normal é o abrigo da cena, que já é uma caixa
+     do tamanho do palco. Ficando dentro da barra — o caso de reserva, quando
+     ninguém oferece abrigo —, a barra tem só a altura dela, e aí a camada
+     precisa se soltar para a viewport: ver a regra de `data-veu` abaixo. */
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0;
+  pointer-events: none;
+  /* A caixa não pinta: quem preenche a camada decide o material. E `contain`
+     fecha a conta — nada do que entrar aqui afeta o layout, a pintura ou o
+     estilo de fora, então o navegador pode tratá-la como textura própria e
+     só recompor enquanto a opacidade sobe e desce. */
+  contain: layout paint style;
+}
+
+/* Reserva: a camada ficou DENTRO da barra, por falta de abrigo. Aí ela se
+   solta para a viewport e o empilhamento precisa ser dito, porque o cabeçalho
+   é um contexto próprio. A ordem é: degradê (`::before`, z-index -1) → camada
+   (0) → marca e botão (1) → folha (2).
+
+   `data-veu` só existe nesse caso, então a barra do site — e a abertura, que
+   hoje sempre tem abrigo — computam exatamente o que computavam antes. */
+.barra[data-veu] .veuFolha {
+  position: fixed;
+}
+.barra[data-veu] .interna {
+  position: relative;
+  z-index: 1;
+}
+.barra[data-veu] .folha {
+  z-index: 2;
+}
+
+/* Quem pediu menos transparência recebe um carvão chapado no lugar do
+   material — a separação continua, o filme atrás não. */
+@media (prefers-reduced-transparency: reduce) {
+  .veuFolha {
+    background: rgba(20, 18, 16, .82);
+  }
+}
+
 /* Onde a barra vira menu é escolha do contexto, não do componente. O site
    troca no celular (760px); a abertura troca em 1100px, porque cinco links
    com tracking largo não cabem antes disso. Impor um valor único criaria uma

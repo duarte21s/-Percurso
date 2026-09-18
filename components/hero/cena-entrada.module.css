@@ -89,6 +89,16 @@
   pointer-events: none;
 }
 
+/* O abrigo do desfoque do menu. Mesma camada do véu e ANTES dele na ordem do
+   documento, então o véu pinta por cima e continua garantindo o contraste do
+   texto. `.centro` (z-index 2) e o cabeçalho (4) ficam acima dos dois. */
+.abrigoDesfoque {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
 /* Com o texto no meio da tela, o escurecimento tem de proteger o centro, não a
    base. Uma camada fina cobre tudo e um foco elíptico adensa atrás das letras.
    No pior quadro possível — todo branco — o centro fecha em 75% e entrega

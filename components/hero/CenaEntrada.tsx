@@ -14,6 +14,10 @@ export function CenaEntrada() {
      a abertura sem dizer o que é o site; agora é o bloco inteiro de texto e
      ações, e a API de `iniciarCinema` continua a mesma. */
   const entrada = useRef<HTMLDivElement>(null);
+  /* Onde o desfoque do menu é pendurado. Fica AQUI, e não dentro do
+     cabeçalho, porque daqui ele cobre o filme sem cobrir o título e o CTA —
+     que são irmãos posteriores e pintam por cima. Ver `BarraTopo`. */
+  const abrigoDesfoque = useRef<HTMLDivElement>(null);
   const videos = useRef<(HTMLVideoElement | null)[]>([]);
   const [pronto, setPronto] = useState(false);
 
@@ -74,12 +78,23 @@ export function CenaEntrada() {
         ))}
       </div>
 
+      {/* O abrigo do desfoque do menu, entre o filme e o véu.
+
+          A ordem é o ponto inteiro: o instantâneo desfocado entra DEPOIS dos
+          vídeos e ANTES do véu, então cobre o filme, recebe o véu por cima
+          (que é quem garante o contraste do texto) e fica abaixo do `.centro`
+          e do cabeçalho — título, CTA, marca e botão seguem nítidos.
+
+          Vazio enquanto o menu está fechado: quem o preenche é a `BarraTopo`,
+          por portal, e só enquanto a folha existe. */}
+      <div ref={abrigoDesfoque} className={styles.abrigoDesfoque} aria-hidden="true" />
+
       {/* O véu não é enfeite: o vídeo passa por um pôr do sol estourado, e sem
           ele o texto branco cai para 1,6:1 sobre o céu claro. Com ele, o pior
           quadro possível ainda entrega 6,7:1. */}
       <div className={styles.veu} aria-hidden="true" />
 
-      <NavCinema />
+      <NavCinema abrigoDesfoque={abrigoDesfoque} />
 
       <div className={styles.centro}>
         <div ref={entrada} className={styles.entrada} aria-hidden={!pronto}>

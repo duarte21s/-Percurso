@@ -84,16 +84,18 @@
      inteira, fora do compositor, e aqui há quatro vídeos decodificando por
      baixo. Um fundo chapado custa zero e resolve a legibilidade sozinho.
 
-     .94, e não .97: o filme continua correndo atrás do painel (a folha deixou
-     de pausá-lo) e 6% é o que deixa esse movimento PERCEPTÍVEL sem disputar
-     leitura. A conta do contraste segura com folga mesmo no pior quadro: texto
-     #f7faf4 sobre .94 de #102620 misturado a 6% de branco puro dá ~13:1, muito
-     acima dos 4,5:1 da AA.
+     OPACO, e não quase. Houve aqui um .94, aberto para o filme correndo atrás
+     do painel ser percebido. A razão morreu: o fundo agora é um instantâneo
+     PARADO e desfocado, e a camada que o segura não cobre mais o título nem o
+     CTA — que ficam nítidos, logo atrás do painel. Com .94, os 6% que passavam
+     eram fundo escuro; passaram a ser o título em #f7faf4 a 64px, e o fantasma
+     dele atravessava a lista do menu. Fechar é o que resolve: 6% de material
+     não valem uma palavra ilegível.
 
      `contain` isola o painel: o navegador sabe que nada aqui dentro afeta o
      layout, a pintura ou o estilo de fora, e pode tratá-lo como uma camada
      própria enquanto a mola o move sobre o vídeo. */
-  background: rgba(16, 38, 28, .94);
+  background: #102620;
   box-shadow: 0 16px 48px rgba(0, 0, 0, .2);
   contain: layout paint style;
 }
@@ -110,13 +112,8 @@
   .marca svg { width: 15px; height: 15px; }
 }
 
-/* Quem pediu menos transparência fecha os 6% que sobraram. Antes a
-   preferência era lida no JS, para não escrever desfoque em linha por cima de
-   quem não o queria; sem desfoque nenhum, ela volta a ser o que deveria ser —
-   uma linha de CSS. */
-@media (prefers-reduced-transparency: reduce) {
-  .mobile { background: #102620; }
-}
+/* Nada a fechar aqui: o painel já é opaco. A regra que existia cobria os
+   últimos 6% de translucidez, e eles saíram — ver o bloco acima. */
 
 @media (prefers-reduced-motion: reduce) {
   .cabecalho *, .cabecalho *::after { transition: none; }

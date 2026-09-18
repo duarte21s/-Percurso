@@ -110,11 +110,6 @@ conferir("o painel da abertura não tem backdrop-filter", () => {
 
 /** Teto de translucidez do painel do SITE, que não tem vídeo atrás. */
 const ALFA_MINIMO = 0.95;
-/* O painel da ABERTURA fica sobre o filme, que continua correndo: uns poucos
-   por cento de translucidez são de propósito, para o movimento ser percebido.
-   O piso é mais baixo, mas continua existindo — abaixo dele a leitura sobre um
-   quadro claro começa a sofrer. */
-const ALFA_ABERTURA = 0.92;
 
 function alfasDe(fonte, rotulo) {
   const valores = [...fonte.matchAll(/rgba\([^)]*?,\s*([\d.]+)\s*\)/g)].map((m) => Number(m[1]));
@@ -134,14 +129,21 @@ conferir(`--material-folha é opaco em >= ${ALFA_MINIMO} nos dois temas`, () => 
   }
 });
 
-conferir(`o painel da abertura é opaco em >= ${ALFA_ABERTURA}`, () => {
+/* O painel da abertura é OPACO, e isso é um requisito, não um gosto: o título
+   do hero fica nítido logo atrás dele desde que o desfoque parou de cobri-lo,
+   e qualquer translucidez deixa passar texto branco a 64px por cima da lista
+   do menu. Houve aqui um teto de 0,92; virou opacidade cravada. */
+conferir("o painel da abertura é opaco", () => {
   const css = cssSemComentarios(cinema);
   const bloco = css.slice(css.indexOf("\n.mobile {"));
   const regra = bloco.slice(0, bloco.indexOf("}"));
   const fundo = regra.match(/background:\s*([^;]+);/);
   assert.ok(fundo, ".mobile sem background");
-  const [alfa] = alfasDe(fundo[1], ".mobile");
-  assert.ok(alfa >= ALFA_ABERTURA, `alfa ${alfa} em .mobile`);
+  const cor = fundo[1].trim();
+  assert.ok(
+    /^#(?:[0-9a-f]{3}|[0-9a-f]{6})$/i.test(cor) || /^rgb\(/.test(cor),
+    `.mobile deveria ser opaco; veio "${cor}"`
+  );
 });
 
 conferir(".nav-mobile usa o material da folha, não o do cabeçalho", () => {
@@ -187,8 +189,52 @@ conferir("Escape e clique fora não estão duplicados nas barras", () => {
   }
 });
 
+/* ---------- 4. o véu do menu da abertura ---------- */
+
+/* A camada atrás da folha existe para desfocar o filme, e a regra que a torna
+   barata é NÃO refazer o desfoque a cada quadro. Três coisas a sustentam, e
+   as três são verificáveis sem navegador. */
+
+/* Sem os comentários: estes arquivos EXPLICAM, em prosa, o que não fazem —
+   e uma busca ingênua encontraria `backdrop-filter` e `drawImage` no texto
+   que diz justamente que eles não estão lá. */
+const semProsa = (fonte) => fonte.replace(/\/\*[\s\S]*?\*\//g, "").replace(/^\s*\/\/.*$/gm, "");
+
+const veuCss = semProsa(ler("../components/hero/veu-filme.module.css"));
+const barraCss = semProsa(ler("../components/layout/barra-topo.module.css"));
+const veuTsx = semProsa(ler("../components/hero/VeuFilme.tsx"));
+
+conferir("o véu não usa backdrop-filter em regra nenhuma", () => {
+  for (const [rotulo, fonte] of [["veu-filme", veuCss], ["barra-topo", barraCss]]) {
+    assert.ok(!/backdrop-filter/.test(fonte), `backdrop-filter em ${rotulo}.module.css`);
+  }
+});
+
+conferir("o desfoque não é aplicado pelo CSS, e sim dentro do canvas", () => {
+  assert.ok(!/[^-]filter:\s*blur/.test(veuCss), "filter: blur() no CSS do véu");
+  assert.ok(/pincel\.filter\s*=\s*`blur\(/.test(veuTsx), "o canvas não desfoca o quadro");
+});
+
+conferir("o quadro é capturado UMA vez, sem relógio por trás", () => {
+  assert.ok(!/setInterval|requestAnimationFrame/.test(veuTsx),
+    "o véu voltou a repintar periodicamente");
+  assert.equal((veuTsx.match(/drawImage/g) ?? []).length, 1, "mais de um drawImage");
+});
+
+conferir("há reserva para quando a captura falhar", () => {
+  assert.ok(/setSemQuadro\(true\)/.test(veuTsx), "sem caminho de reserva");
+  assert.ok(/\.reserva\s*{/.test(veuCss), "a classe de reserva não existe");
+});
+
+conferir("o véu só é montado por quem pede — a barra do site não tem", () => {
+  const nav = ler("../components/layout/Nav.tsx");
+  assert.ok(!/veu/.test(nav), "a barra do site passou a montar um véu");
+  assert.ok(/veu=\{<VeuFilme/.test(ler("../components/hero/NavCinema.tsx")),
+    "a abertura deixou de montar o véu");
+});
+
 if (falhas) {
   console.error(`\nFolha: ${falhas} falha(s).`);
   process.exit(1);
 }
-console.log("Folha: sem desfoque animado, painel quase opaco nos dois temas, três saídas no gancho OK.");
+console.log("Folha: sem desfoque animado, material da folha opaco, painel da abertura opaco, três saídas no gancho e véu de quadro único OK.");

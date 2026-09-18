@@ -43,6 +43,13 @@ const MOLA_SOLTAR = { amortecimento: 0.82, resposta: 0.3 };
 
 interface Retorno<T> {
   ref: React.RefObject<T | null>;
+  /**
+   * Cola no véu, quando o contexto quiser um.
+   *
+   * O gancho não exige que exista: a barra do site não tem véu nenhum, e sem
+   * o elemento montado `pintar` simplesmente não escreve nada ali.
+   */
+  refVeu: React.RefObject<HTMLElement | null>;
   montado: boolean;
   /** Cola no elemento: bloqueia o clique do link quando houve arrasto. */
   aoClicarCapturando: (e: React.MouseEvent) => void;
@@ -74,6 +81,10 @@ export function usarFolha<T extends HTMLElement>(
   const fechandoPorGesto = useRef(false);
   /* Última opacidade escrita, para não reescrever a mesma. Ver `pintar`. */
   const ultimaOpacidade = useRef(-1);
+  /* O véu — a camada de desfoque entre o filme e o painel. Opcional: fica
+     `null` em toda barra que não montar um. Ver `pintar`. */
+  const refVeu = useRef<HTMLElement | null>(null);
+  const ultimoVeu = useRef(-1);
   /* Espelho de `aberta` para os callbacks da mola, que vivem fora do ciclo de
      render e leriam um valor velho pela closure. */
   const abertaRef = useRef(aberta);
@@ -116,6 +127,24 @@ export function usarFolha<T extends HTMLElement>(
       ultimaOpacidade.current = opacidade;
       el.style.opacity = String(opacidade);
     }
+
+    /* O VÉU. Uma terceira escrita, e de novo só `opacity` — nunca desfoque.
+       O que a camada mostra é um quadro do filme já capturado e já desfocado,
+       uma vez só, quando ela montou; daqui para a frente ela é uma imagem
+       parada, e o gancho só a faz aparecer e sumir. Ver `VeuFilme.tsx`.
+
+       Segue `p` cru, e não a curva do painel: o véu é o fundo se afastando,
+       e a distância que ele percorre é a mesma que a folha percorre. Em 50
+       degraus — ~0,02 de opacidade por passo, abaixo do que se enxerga num
+       desfoque, e ~1/3 das escritas. */
+    const veu = refVeu.current;
+    if (veu) {
+      const opacidadeVeu = Math.round(p * 50) / 50;
+      if (opacidadeVeu !== ultimoVeu.current) {
+        ultimoVeu.current = opacidadeVeu;
+        veu.style.opacity = String(opacidadeVeu);
+      }
+    }
   }, []);
 
   const garantirMola = useCallback(() => {
@@ -134,6 +163,7 @@ export function usarFolha<T extends HTMLElement>(
            a folha fica montada para sempre — invisível, mas presente. */
         if (!abertaRef.current) setMontado(false);
         el.style.willChange = "";
+        if (refVeu.current) refVeu.current.style.willChange = "";
       },
     });
     return mola.current;
@@ -183,8 +213,11 @@ export function usarFolha<T extends HTMLElement>(
 
     /* Força a primeira escrita de opacidade a cada montagem. */
     ultimaOpacidade.current = -1;
+    ultimoVeu.current = -1;
 
     el.style.willChange = "transform, opacity";
+    /* Só `opacity`: é literalmente a única coisa que muda no véu. */
+    if (refVeu.current) refVeu.current.style.willChange = "opacity";
 
     if (aberta) {
       /* Só posiciona fora da tela se ela ainda não estiver em movimento —
@@ -225,6 +258,7 @@ export function usarFolha<T extends HTMLElement>(
 
       /* A captura NÃO é pedida aqui. Ver `aoMover`. */
       el!.style.willChange = "transform, opacity";
+      if (refVeu.current) refVeu.current.style.willChange = "opacity";
     }
 
     function aoMover(e: PointerEvent) {
@@ -390,5 +424,5 @@ export function usarFolha<T extends HTMLElement>(
     }
   }, []);
 
-  return { ref, montado, aoClicarCapturando };
+  return { ref, refVeu, montado, aoClicarCapturando };
 }

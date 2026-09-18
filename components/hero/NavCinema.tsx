@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BarraTopo } from "@/components/layout/BarraTopo";
 import { Icone } from "@/components/ui/Icone";
+import { VeuFilme } from "./VeuFilme";
 import css from "./nav-cinema.module.css";
 
 /* A lista é a da abertura e continua dela: cinco seções mais Contato à parte.
@@ -26,7 +27,18 @@ const LINKS = [
  * do `usarFolha`, movida pelo sistema próprio de molas — o mesmo gesto que a
  * barra do site já tinha.
  */
-export function NavCinema() {
+interface Props {
+  /**
+   * Onde pendurar o desfoque de fundo do menu.
+   *
+   * A barra não escolhe o lugar: quem sabe onde o desfoque pode ficar sem
+   * cobrir o título e o CTA é a cena, porque é ela quem empilha as camadas.
+   * Ver `CenaEntrada`.
+   */
+  abrigoDesfoque?: React.RefObject<HTMLElement | null>;
+}
+
+export function NavCinema({ abrigoDesfoque }: Props) {
   const caminho = usePathname();
 
   return (
@@ -35,6 +47,10 @@ export function NavCinema() {
       disposicao="tres"
       compacta="larga"
       caminho={caminho}
+      /* A abertura é a única barra com véu: é a única cuja folha se abre
+         sobre um filme em movimento. Ver `BarraTopo` e `VeuFilme`. */
+      veu={<VeuFilme />}
+      veuAlvo={abrigoDesfoque}
       classeExterna={css.cabecalho}
       marca={
         <Link
