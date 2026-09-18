@@ -79,14 +79,23 @@
   overscroll-behavior: contain;
   border: 1px solid rgba(213, 234, 204, .25);
   border-radius: 12px;
-  /* Quase opaco, e sem `backdrop-filter`. Este painel é o único que fica
-     sobre o filme, e era ele que mais pagava pelo desfoque animado que o
-     `usarFolha` escrevia na folha: quatro vídeos decodificando por baixo e,
-     a cada quadro, o navegador refazendo o desfoque da região inteira.
-     A .97 não sobra vídeo para desfocar — e o que sobra dele atrás do texto
-     de 11px era ruído, não material. */
-  background: rgba(16, 38, 28, .97);
+  /* Quase opaco, e sem `backdrop-filter` — nem animado, nem parado. O desfoque
+     é a propriedade cara da lista: obriga o navegador a refazer a região
+     inteira, fora do compositor, e aqui há quatro vídeos decodificando por
+     baixo. Um fundo chapado custa zero e resolve a legibilidade sozinho.
+
+     .94, e não .97: o filme continua correndo atrás do painel (a folha deixou
+     de pausá-lo) e 6% é o que deixa esse movimento PERCEPTÍVEL sem disputar
+     leitura. A conta do contraste segura com folga mesmo no pior quadro: texto
+     #f7faf4 sobre .94 de #102620 misturado a 6% de branco puro dá ~13:1, muito
+     acima dos 4,5:1 da AA.
+
+     `contain` isola o painel: o navegador sabe que nada aqui dentro afeta o
+     layout, a pintura ou o estilo de fora, e pode tratá-lo como uma camada
+     própria enquanto a mola o move sobre o vídeo. */
+  background: rgba(16, 38, 28, .94);
   box-shadow: 0 16px 48px rgba(0, 0, 0, .2);
+  contain: layout paint style;
 }
 .mobile a { min-height: 48px; font-size: 11px; border-bottom: 1px solid rgba(213, 234, 204, .12); }
 .mobile a:last-child { border-bottom: 0; }
@@ -101,7 +110,7 @@
   .marca svg { width: 15px; height: 15px; }
 }
 
-/* Quem pediu menos transparência fecha os 3% que sobraram. Antes a
+/* Quem pediu menos transparência fecha os 6% que sobraram. Antes a
    preferência era lida no JS, para não escrever desfoque em linha por cima de
    quem não o queria; sem desfoque nenhum, ela volta a ser o que deveria ser —
    uma linha de CSS. */

@@ -24,7 +24,6 @@
 
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { ocuparCamada, camadaAberta, zerarCamadas } from "../lib/movimento/camada.ts";
 
 const ler = (caminho) => readFileSync(new URL(caminho, import.meta.url), "utf8");
 
@@ -109,8 +108,13 @@ conferir("o painel da abertura não tem backdrop-filter", () => {
 
 /* ---------- 2. painel quase opaco ---------- */
 
-/** Teto de translucidez do painel: abaixo disso o desfoque volta a fazer falta. */
+/** Teto de translucidez do painel do SITE, que não tem vídeo atrás. */
 const ALFA_MINIMO = 0.95;
+/* O painel da ABERTURA fica sobre o filme, que continua correndo: uns poucos
+   por cento de translucidez são de propósito, para o movimento ser percebido.
+   O piso é mais baixo, mas continua existindo — abaixo dele a leitura sobre um
+   quadro claro começa a sofrer. */
+const ALFA_ABERTURA = 0.92;
 
 function alfasDe(fonte, rotulo) {
   const valores = [...fonte.matchAll(/rgba\([^)]*?,\s*([\d.]+)\s*\)/g)].map((m) => Number(m[1]));
@@ -130,14 +134,14 @@ conferir(`--material-folha é opaco em >= ${ALFA_MINIMO} nos dois temas`, () => 
   }
 });
 
-conferir(`o painel da abertura é opaco em >= ${ALFA_MINIMO}`, () => {
+conferir(`o painel da abertura é opaco em >= ${ALFA_ABERTURA}`, () => {
   const css = cssSemComentarios(cinema);
   const bloco = css.slice(css.indexOf("\n.mobile {"));
   const regra = bloco.slice(0, bloco.indexOf("}"));
   const fundo = regra.match(/background:\s*([^;]+);/);
   assert.ok(fundo, ".mobile sem background");
   const [alfa] = alfasDe(fundo[1], ".mobile");
-  assert.ok(alfa >= ALFA_MINIMO, `alfa ${alfa} em .mobile`);
+  assert.ok(alfa >= ALFA_ABERTURA, `alfa ${alfa} em .mobile`);
 });
 
 conferir(".nav-mobile usa o material da folha, não o do cabeçalho", () => {
@@ -183,24 +187,8 @@ conferir("Escape e clique fora não estão duplicados nas barras", () => {
   }
 });
 
-/* ---------- a camada, isolada ---------- */
-
-conferir("a camada conta em vez de guardar um booleano", () => {
-  zerarCamadas();
-  const a = ocuparCamada();
-  const b = ocuparCamada();
-  assert.equal(camadaAberta(), true);
-  a();
-  assert.equal(camadaAberta(), true, "a segunda camada sumiu com a saída da primeira");
-  a();
-  assert.equal(camadaAberta(), true, "soltar duas vezes derrubou a contagem alheia");
-  b();
-  assert.equal(camadaAberta(), false);
-  zerarCamadas();
-});
-
 if (falhas) {
   console.error(`\nFolha: ${falhas} falha(s).`);
   process.exit(1);
 }
-console.log("Folha: sem desfoque animado, painel quase opaco nos dois temas, três saídas no gancho e camada contada OK.");
+console.log("Folha: sem desfoque animado, painel quase opaco nos dois temas, três saídas no gancho OK.");

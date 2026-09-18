@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Mola, Velocimetro, elastico, projetar } from "./mola";
-import { ocuparCamada } from "./camada";
 
 /* Folha superior arrastável — o menu do celular.
  *
@@ -73,6 +72,8 @@ export function usarFolha<T extends HTMLElement>(
   const inicioY = useRef(0);
   const inicioPos = useRef(0);
   const fechandoPorGesto = useRef(false);
+  /* Última opacidade escrita, para não reescrever a mesma. Ver `pintar`. */
+  const ultimaOpacidade = useRef(-1);
   /* Espelho de `aberta` para os callbacks da mola, que vivem fora do ciclo de
      render e leriam um valor velho pela closure. */
   const abertaRef = useRef(aberta);
@@ -91,9 +92,13 @@ export function usarFolha<T extends HTMLElement>(
     typeof window !== "undefined" &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* DUAS escritas por quadro, e as duas que o compositor resolve sozinho:
-     nenhuma delas recalcula layout nem repinta a região de baixo. É a lista
-     inteira do que sai daqui — ver o bloco sobre o desfoque, lá em cima. */
+  /* No máximo DUAS escritas por quadro, e as duas que o compositor resolve
+     sozinho: nenhuma recalcula layout nem repinta a região de baixo. É a lista
+     inteira do que sai daqui — ver o bloco sobre o desfoque, lá em cima.
+     E quase sempre é UMA só: a opacidade satura em 1 no primeiro terço do
+     percurso e depois é a mesma string a cada quadro. Escrevê-la de novo
+     invalida o estilo à toa, e agora há um filme decodificando ao lado
+     disputando o mesmo quadro. */
   const pintar = useCallback((y: number) => {
     const el = ref.current;
     if (!el) return;
@@ -105,7 +110,12 @@ export function usarFolha<T extends HTMLElement>(
        se aproxima; se só a opacidade muda, a folha lê como decalque. */
     const escala = 0.985 + 0.015 * p;
     el.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0) scale(${escala.toFixed(4)})`;
-    el.style.opacity = String(Math.min(1, p * 3));
+
+    const opacidade = Math.min(1, p * 3);
+    if (opacidade !== ultimaOpacidade.current) {
+      ultimaOpacidade.current = opacidade;
+      el.style.opacity = String(opacidade);
+    }
   }, []);
 
   const garantirMola = useCallback(() => {
@@ -170,6 +180,9 @@ export function usarFolha<T extends HTMLElement>(
       if (!aberta) setMontado(false);
       return;
     }
+
+    /* Força a primeira escrita de opacidade a cada montagem. */
+    ultimaOpacidade.current = -1;
 
     el.style.willChange = "transform, opacity";
 
@@ -358,20 +371,13 @@ export function usarFolha<T extends HTMLElement>(
     return () => document.removeEventListener("pointerdown", aoApontarFora);
   }, [aberta, refBotao]);
 
-  /* ---------- aviso para quem está por baixo ---------- */
-
-  /* Enquanto a folha ocupa a tela, ela é o assunto — e o que estiver correndo
-     embaixo pode parar. Na abertura são quatro vídeos decodificando; pausá-los
-     devolve o quadro a quem está com o dedo na tela. Ver `camada.ts`.
-
-     O sinal segue `montado`, e não `aberta`: a folha só solta a camada quando
-     termina de sair. Soltar em `aberta === false` faria o vídeo voltar a
-     decodificar no meio da animação de saída — exatamente o quadro que se
-     queria proteger. */
-  useEffect(() => {
-    if (!montado) return;
-    return ocuparCamada();
-  }, [montado]);
+  /* A folha NÃO avisa mais ninguém que está na tela.
+     Houve aqui um sinal de "camada aberta" que mandava a abertura pausar os
+     quatro vídeos enquanto o menu estivesse no ar — o quadro economizado ia
+     para a mola. A decisão foi revista: o filme é o fundo da cena e some atrás
+     de um painel quase opaco, mas continua correndo, e reencontrá-lo parado ao
+     fechar o menu lia como falha. O custo volta para a animação, e é lá que
+     ele foi absorvido — ver o bloco sobre o que `pintar` escreve. */
 
   useEffect(() => () => mola.current?.parar(), []);
 

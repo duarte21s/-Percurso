@@ -1,14 +1,10 @@
 /* Verifica lib/movimento/sequencia-cinematica.ts fora do navegador.
  *
  *   npm run checar-cinema
- *
- * O `--import ./scripts/_resolver-ts.mjs` do npm script não é enfeite: sem ele
- * o Node não resolve o `./camada` que a sequência importa. Ver o arquivo.
  */
 import assert from "node:assert/strict";
 import pacote from "gsap/dist/gsap.js";
 import { iniciarCinema, CENAS, RESGATE_MS } from "../lib/movimento/sequencia-cinematica.ts";
-import { ocuparCamada, camadaAberta } from "../lib/movimento/camada.ts";
 
 const { gsap } = pacote;
 const documentoAnterior = globalThis.document;
@@ -151,77 +147,9 @@ try {
     assert.equal(parada.revelacoes, 1, "O resgate não deixa a página sem texto");
   } finally { parada.limpar(); }
 
-  /* ---- camada sobre o filme (o menu do celular) ----
-     O mesmo contrato da aba oculta, por outra porta: enquanto a folha está na
-     tela nada decodifica, e ao sair o filme continua DE ONDE PAROU. */
-  const comMenu = montar();
-  try {
-    comMenu.videos[0].avancar(1.2);
-    assert.equal(comMenu.videos[0].paused, false, "O filme está tocando antes do menu");
-
-    const soltar = ocuparCamada();
-    assert.equal(camadaAberta(), true, "A folha registrou a camada");
-    assert.equal(comMenu.videos[0].paused, true, "Abrir o menu pausa o plano em cena");
-
-    const tempoAntes = comMenu.videos[0].currentTime;
-    comMenu.videos[0].avancar(2.0);
-    assert.equal(comMenu.videos[0].paused, true, "Segue pausado durante o menu");
-
-    soltar();
-    assert.equal(camadaAberta(), false, "A folha soltou a camada ao sair");
-    assert.equal(comMenu.videos[0].paused, false, "Fechar o menu retoma o plano");
-    assert.ok(
-      comMenu.videos[0].currentTime >= tempoAntes,
-      "Retoma de onde parou, nao do comeco"
-    );
-  } finally { comMenu.limpar(); }
-
-  /* Duas camadas empilhadas: a primeira a sair nao pode devolver o video
-     enquanto a segunda ainda esta na tela. E o motivo de `camada` contar em
-     vez de guardar um booleano. */
-  const duasCamadas = montar();
-  try {
-    duasCamadas.videos[0].avancar(1);
-    const soltarA = ocuparCamada();
-    const soltarB = ocuparCamada();
-    assert.equal(duasCamadas.videos[0].paused, true, "Duas camadas pausam");
-    soltarA();
-    assert.equal(duasCamadas.videos[0].paused, true, "Uma saiu, a outra ainda cobre a tela");
-    soltarB();
-    assert.equal(duasCamadas.videos[0].paused, false, "A ultima a sair devolve o filme");
-  } finally { duasCamadas.limpar(); }
-
-  /* Liberacao repetida nao pode derrubar a contagem de mais ninguem. */
-  const repetida = montar();
-  try {
-    repetida.videos[0].avancar(1);
-    const soltarUm = ocuparCamada();
-    const soltarDois = ocuparCamada();
-    soltarUm();
-    soltarUm();
-    assert.equal(repetida.videos[0].paused, true, "Soltar duas vezes nao vale por duas");
-    soltarDois();
-    assert.equal(repetida.videos[0].paused, false, "A contagem fechou certo");
-  } finally { repetida.limpar(); }
-
-  /* Camada aberta ANTES de o plano ser pedido: ele entra na fila em vez de
-     tocar por baixo do menu. */
-  const menuPrimeiro = ocuparCamada();
-  const abertoComMenu = montar();
-  try {
-    assert.equal(abertoComMenu.videos[0].paused, true, "Nao toca por baixo de um menu ja aberto");
-    menuPrimeiro();
-    assert.equal(abertoComMenu.videos[0].paused, false, "Toca quando o menu sai");
-  } finally { abertoComMenu.limpar(); }
-
-  /* Camada que entra e sai depois do cleanup nao pode achar ouvinte pendurado. */
-  const vazando = montar();
-  vazando.limpar();
-  const tocandoAntes = vazando.videos[0].paused;
-  const soltarSolto = ocuparCamada();
-  soltarSolto();
-  assert.equal(camadaAberta(), false, "Sem camada pendurada depois do cleanup");
-  assert.equal(vazando.videos[0].paused, tocandoAntes, "Cleanup removeu o ouvinte da camada");
+  /* A folha do menu NÃO pausa mais o filme. O contrato que vale hoje é só o da
+     aba oculta, coberto logo acima; não há caso de menu aqui porque não há
+     mais nada no código que o observe. Ver `usarFolha.ts`. */
 
   const desmontada = montar();
   desmontada.limpar();
@@ -229,7 +157,7 @@ try {
   desmontada.videos[0].dispatchEvent(new Event("playing"));
   assert.equal(desmontada.revelacoes, 0, "Listeners removidos não reagem após desmontar");
 
-  console.log("Cinema: subida na abertura, resgate por relógio, crossfades, fim da sequência, rede lenta, erros, autoplay, aba oculta, camada do menu (pausa, retomada, empilhamento), movimento reduzido e cleanup OK.");
+  console.log("Cinema: subida na abertura, resgate por relógio, crossfades, fim da sequência, rede lenta, erros, autoplay, aba oculta, movimento reduzido e cleanup OK.");
 } finally {
   gsap.ticker.sleep();
   if (documentoAnterior === undefined) delete globalThis.document;

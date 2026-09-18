@@ -1,5 +1,3 @@
-import { camadaAberta, observarCamada } from "./camada";
-
 /** Originais de Downloads, conferidos byte a byte. Todos são 16:9 (720p).
  * Plano geral → manuscritos → caderno → livro aberto e luz da janela. */
 export const CENAS = [
@@ -60,22 +58,28 @@ export function iniciarCinema({ videos, botao, animador: gsap, reduzido, aoRevel
   let vigia: ReturnType<typeof setTimeout> | undefined;
   let resgate: ReturnType<typeof setTimeout> | undefined;
   let ultimoTempo = -1;
+  /* Com o menu aberto o filme continua correndo, então `atualizar` passou a
+     rodar a 60Hz POR CIMA da mola da folha. Estes dois registros são o que
+     impede que cada quadro pague duas contas que não mudam nada:
+     o rearme da vigia e a escrita do zoom. */
+  let ultimoArme = 0;
+  let ultimaEscala = -1;
   const carregados = new Set<number>();
   const indisponiveis = new Set<number>();
   const removerListeners: (() => void)[] = [];
   const timelines: gsap.core.Timeline[] = [];
   const retomar = new Set<number>();
 
-  /* Duas razões para a sequência esperar, e as duas valem a mesma coisa: a
-     aba está escondida, ou há uma camada na tela — hoje, o menu do celular.
-     Nos dois casos o filme não está sendo visto, e decodificá-lo é trabalho
-     jogado fora. Na camada é pior que desperdício: o dedo está segurando a
-     folha, e o quadro que o decodificador leva é o quadro que ela perde.
+  /* Uma única razão para a sequência esperar: a aba está escondida. Aí o filme
+     não está sendo visto por ninguém e decodificá-lo é trabalho jogado fora.
 
-     Eram dois caminhos idênticos escritos separados; agora é um. Quem quiser
-     uma terceira razão para esperar acrescenta aqui e não em sete lugares. */
+     Houve uma segunda razão — o menu do celular aberto por cima. Saiu: o filme
+     é o fundo da cena e deve continuar correndo mesmo coberto, porque encontrar
+     o plano parado ao fechar o menu lê como travamento, não como economia.
+     A função fica, com um motivo só, porque é ela que mantém as sete checagens
+     abaixo falando a mesma língua. */
   function esperando() {
-    return document.hidden || camadaAberta();
+    return document.hidden;
   }
 
   function pararVigia() {
@@ -137,9 +141,19 @@ export function iniciarCinema({ videos, botao, animador: gsap, reduzido, aoRevel
     soltarSubida();
   }
 
-  function armarVigia() {
+  /* A vigia é um detector de 15 segundos sem progresso. Rearmá-la a cada
+     quadro em que o vídeo andou custava um `clearTimeout` + `setTimeout` 60
+     vezes por segundo, e o limiar não muda por isso: com o rearme a cada meio
+     segundo, o detector dispara entre 15,0s e 15,5s — a mesma coisa, por 1/30
+     do trabalho. O `forcar` existe para os pontos onde o rearme é a própria
+     decisão (trocar de plano, voltar de aba oculta) e não pode ser engolido. */
+  const INTERVALO_ARME = 500;
+  function armarVigia(forcar = false) {
+    const agora = Date.now();
+    if (!forcar && vigia && agora - ultimoArme < INTERVALO_ARME) return;
     pararVigia();
     if (esperando() || concluido || contingencia) return;
+    ultimoArme = agora;
     // Somente contingência para rede parada: nunca troca cenas por timeout.
     vigia = setTimeout(mostrarAcesso, 15000);
   }
@@ -174,7 +188,7 @@ export function iniciarCinema({ videos, botao, animador: gsap, reduzido, aoRevel
     solicitado = i;
     preparar(i);
     preparar(i + 1);
-    armarVigia();
+    armarVigia(true);
     if (!esperando()) reproduzir(i);
     else retomar.add(i);
   }
@@ -233,8 +247,17 @@ export function iniciarCinema({ videos, botao, animador: gsap, reduzido, aoRevel
       subida.progress(Math.min(1, Math.max(0, tempo / ABERTURA)));
     }
     if (!Number.isFinite(duracao) || duracao <= 0) return;
-    // Zoom mínimo, proporcional à mídia; sem deformar os arquivos 16:9.
-    gsap.set(video, { scale: 1 + 0.025 * Math.min(1, tempo / duracao) });
+    /* Zoom mínimo, proporcional à mídia; sem deformar os arquivos 16:9.
+       Quantizado: o zoom inteiro é de 2,5% ao longo de ~6s, ou seja ~0,00007
+       por quadro — escrever isso 60 vezes por segundo invalida o estilo do
+       vídeo sem mover nada que o olho alcance. Em degraus de 0,0005 são ~50
+       escritas em vez de ~360, e o degrau vale 0,4px na borda de uma tela de
+       852px: abaixo do que se enxerga, e agora o quadro é da mola da folha. */
+    const escala = Math.round((1 + 0.025 * Math.min(1, tempo / duracao)) / 0.0005) * 0.0005;
+    if (escala !== ultimaEscala) {
+      ultimaEscala = escala;
+      gsap.set(video, { scale: escala });
+    }
     if (ativo < videos.length - 1 && duracao - tempo <= DISSOLUCAO && solicitado === ativo) {
       solicitar(ativo + 1);
     }
@@ -246,10 +269,9 @@ export function iniciarCinema({ videos, botao, animador: gsap, reduzido, aoRevel
     else if (solicitado === ativo) solicitar(i + 1);
   }
 
-  /* Chamada quando qualquer das razões de espera muda: a aba trocou de estado
-     ou uma camada entrou/saiu. Pausa o que estava tocando e ANOTA quem era,
-     para devolver exatamente aqueles ao voltar — `retomar` é o que faz o filme
-     continuar de onde parou em vez de recomeçar. */
+  /* Chamada quando a aba troca de estado. Pausa o que estava tocando e ANOTA
+     quem era, para devolver exatamente aqueles ao voltar — `retomar` é o que
+     faz o filme continuar de onde parou em vez de recomeçar. */
   function sincronizar() {
     if (concluido || contingencia) return;
     if (esperando()) {
@@ -261,7 +283,7 @@ export function iniciarCinema({ videos, botao, animador: gsap, reduzido, aoRevel
         }
       });
     } else {
-      armarVigia();
+      armarVigia(true);
       retomar.forEach(reproduzir);
       retomar.clear();
     }
@@ -285,7 +307,6 @@ export function iniciarCinema({ videos, botao, animador: gsap, reduzido, aoRevel
       });
     });
     document.addEventListener("visibilitychange", sincronizar);
-    removerListeners.push(observarCamada(sincronizar));
     gsap.ticker.add(atualizar);
     resgate = setTimeout(resgatar, RESGATE_MS);
     solicitar(0);
