@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Montserrat } from "next/font/google";
 import { headers } from "next/headers";
 import { ScriptInline } from "@/components/ui/ScriptInline";
@@ -74,8 +74,26 @@ export const metadata: Metadata = {
   category: "education",
 };
 
-/* Sem `viewport.themeColor` fixo: o `<meta name="theme-color">` abaixo troca
-   com o tema (claro/escuro) via media query. */
+/**
+ * O `theme-color` saiu do `<head>` cravado e virou este export.
+ *
+ * O motivo é a home. Ela precisa de um `theme-color` ESCURO — a abertura é um
+ * filme quase preto, e com a cor clara o Safari do iPhone pinta a barra de
+ * status e a de endereço de branco, emoldurando a cena com duas faixas. Mas
+ * `<meta>` escrita à mão no `<head>` não se sobrescreve: a página só
+ * acrescentaria uma terceira, e o Safari usa a PRIMEIRA cujo `media` casa — a
+ * clara. Pelo export, o Next resolve a precedência por segmento, e o
+ * `app/page.tsx` troca só a dela.
+ *
+ * Os valores são os mesmos de antes, então nada muda fora da home.
+ */
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f9fbf8" },
+    { media: "(prefers-color-scheme: dark)", color: "#0c110d" },
+  ],
+};
+
 
 /* Lê o tema salvo ANTES do primeiro paint — sem isto, o site pisca no claro
    e escurece na hidratação. Roda inline no <head>. */
@@ -115,16 +133,6 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <meta
-          name="theme-color"
-          content="#f9fbf8"
-          media="(prefers-color-scheme: light)"
-        />
-        <meta
-          name="theme-color"
-          content="#0c110d"
-          media="(prefers-color-scheme: dark)"
-        />
         <ScriptInline html={SCRIPT_TEMA} nonce={nonce} />
       </head>
       <body>{children}</body>

@@ -1,9 +1,30 @@
-/* A abertura ocupa a primeira tela inteira, e só ela. A página rola daqui para
-   o ato do livro — por isso `relative`, e não mais `fixed` com trava de
-   rolagem em html/body: o segundo ato precisa existir abaixo. */
+/* Trava de rolagem da HOME, e só dela.
+   O gancho é a `.cena-home` que `app/page.tsx` põe no `<main>`; o `:has()`
+   sobe daí até o `html`, então nenhuma outra rota é alcançada — e onde o
+   `:has()` não existe a página simplesmente continua como está, porque o
+   documento já tem a altura exata da viewport e não há o que rolar.
+   `overscroll-behavior: none` é o que importa no iPhone: sem ele, o efeito
+   elástico ao arrastar descola o documento e revela o fundo do canvas, que no
+   tema claro é quase branco — a faixa. O `overflow: hidden` é o cinto: sem
+   nada abaixo do hero, não custa nada.
+   O scroll INTERNO do menu não é afetado: quem rola lá é a `.mobile`, com o
+   próprio `overflow-y: auto`, e `overscroll-behavior` no `html` não alcança
+   filho que rola sozinho. */
+:global(html:has(.cena-home)),
+:global(html:has(.cena-home) > body) {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+/* A abertura ocupa a tela inteira, e é tudo o que a home tem.
+   `relative` porque não há mais nada abaixo para disputar empilhamento. */
 .palco {
   position: relative;
   isolation: isolate;
+  /* `100vh` é o piso para quem não tem `dvh`. Com `viewport-fit=cover` ligado
+     em `app/page.tsx`, `100dvh` passa a medir a tela FÍSICA do iPhone —
+     entalhe e indicador de gesto inclusive — e é por isso que o filme chega
+     até as bordas em vez de parar no retângulo seguro. */
   height: 100vh;
   height: 100dvh;
   overflow: hidden;
@@ -96,11 +117,20 @@
     linear-gradient(rgba(20, 18, 16, 0.26), rgba(20, 18, 16, 0.26));
 }
 
+/* O recuo ganha as safe areas SOMADAS, não substituídas: com o documento
+   cobrindo a tela inteira, o texto e os botões passariam por baixo do entalhe
+   e do indicador de gesto. No desktop `env()` devolve zero, então
+   `calc(X + 0px)` é X e nada muda — é o que mantém esta correção invisível
+   fora do celular. */
 .centro {
   z-index: 2;
   display: grid;
   place-items: center;
-  padding: clamp(92px, 13vh, 148px) clamp(24px, 5vw, 72px) clamp(52px, 8vh, 92px);
+  padding:
+    calc(clamp(92px, 13vh, 148px) + env(safe-area-inset-top))
+    calc(clamp(24px, 5vw, 72px) + env(safe-area-inset-right))
+    calc(clamp(52px, 8vh, 92px) + env(safe-area-inset-bottom))
+    calc(clamp(24px, 5vw, 72px) + env(safe-area-inset-left));
   pointer-events: none;
 }
 
@@ -204,14 +234,23 @@
 /* Telas baixas: notebook de 13" na horizontal e celular deitado. A abertura
    trava em uma tela de altura, então o bloco tem de caber inteiro nela. */
 @media (max-height: 720px) {
-  .centro { padding-top: clamp(76px, 11vh, 104px); padding-bottom: clamp(28px, 5vh, 48px); }
+  .centro {
+    padding-top: calc(clamp(76px, 11vh, 104px) + env(safe-area-inset-top));
+    padding-bottom: calc(clamp(28px, 5vh, 48px) + env(safe-area-inset-bottom));
+  }
   .titulo { font-size: clamp(30px, 4.4vw, 48px); }
   .linha { font-size: 15px; }
   .principal, .secundario { min-height: 48px; padding: 0 22px; }
 }
 
 @media (max-width: 640px) {
-  .centro { padding: clamp(84px, 12vh, 120px) 20px clamp(36px, 7vh, 64px); }
+  .centro {
+    padding:
+      calc(clamp(84px, 12vh, 120px) + env(safe-area-inset-top))
+      calc(20px + env(safe-area-inset-right))
+      calc(clamp(36px, 7vh, 64px) + env(safe-area-inset-bottom))
+      calc(20px + env(safe-area-inset-left));
+  }
   /* Mesma troca de tinta do véu de cima, pelo mesmo motivo. Se ficasse só lá,
      o celular continuaria com a tela esverdeada. */
   .veu {

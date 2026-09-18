@@ -1,4 +1,26 @@
+import type { Viewport } from "next";
 import { CenaEntrada } from "@/components/hero/CenaEntrada";
+
+/**
+ * A viewport desta página, e SÓ dela — as outras herdam o layout raiz sem
+ * nenhuma das duas linhas abaixo.
+ *
+ * `viewportFit: "cover"` faz o documento cobrir a tela FÍSICA do iPhone, e não
+ * o retângulo seguro entre o entalhe e o indicador de gesto. É o que põe o
+ * filme atrás da barra de status em vez de deixar ali uma faixa do fundo da
+ * página. É também o que liga os `env(safe-area-inset-*)`, que já existiam no
+ * CSS da barra da abertura e até agora devolviam zero.
+ *
+ * `themeColor` escuro é a outra metade: mesmo com o documento cobrindo a tela,
+ * o Safari pinta a barra de status e a de endereço com esta cor. Clara, ela
+ * emoldurava o filme com duas faixas brancas. `#17150f` é a MESMA tinta do
+ * `.palco` em `cena-entrada.module.css` — o chrome do navegador passa a ser a
+ * continuação do fundo da cena, não um contraste com ele.
+ */
+export const viewport: Viewport = {
+  viewportFit: "cover",
+  themeColor: "#17150f",
+};
 
 /**
  * A home fica fora do grupo (site), que traz nav, avisos e barra de leitura —
@@ -31,7 +53,10 @@ import { CenaEntrada } from "@/components/hero/CenaEntrada";
  */
 export default function Home() {
   return (
-    <main>
+    /* A classe não pinta nada: é o gancho que deixa o CSS da cena travar a
+       rolagem DESTA página sem alcançar o resto do site. Ver `cena-home` em
+       cena-entrada.module.css. */
+    <main className="cena-home">
       <CenaEntrada />
     </main>
   );
