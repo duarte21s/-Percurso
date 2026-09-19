@@ -113,7 +113,10 @@
   background: var(--surface);
   color: var(--text);
   font-family: inherit;
-  font-size: 14px;
+  /* Mesmo limiar de 16px dos campos de acesso: abaixo disso o Safari do
+     iPhone dá zoom ao focar, e quem procura na comunidade perde o
+     enquadramento da página no primeiro toque. */
+  font-size: 16px;
 }
 .buscaCampo::placeholder { color: var(--text-3); }
 .buscaCampo:focus-visible {

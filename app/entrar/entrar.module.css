@@ -189,14 +189,20 @@
   margin: 24px 0 22px;
   background: rgba(56, 89, 58, .04);
 }
-.tela .aba { min-height: 38px; }
+/* 44px é o alvo mínimo de toque. Com 38px estas duas abas mediam 40px na
+   tela e eram a ÚNICA forma de alternar entre entrar e criar conta no
+   celular — o controle mais importante da página era o mais difícil de
+   acertar. A cápsula em volta cresce junto; nada mais se move. */
+.tela .aba { min-height: 44px; }
 .tela .abaAtiva {
   background: rgba(255, 255, 247, .7);
   color: #234b34;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 247, .85), 0 2px 8px rgba(33, 65, 40, .06);
 }
 .tela .aba:disabled { cursor: wait; }
-.tela .campo .entrada { font-size: 16px; border-radius: 14px; corner-shape: round; background: var(--surface); }
+/* `font-size` saiu daqui: virou o padrão da `.entrada`, para valer também
+   fora desta tela. Ver o bloco do limiar de 16px, mais abaixo. */
+.tela .campo .entrada { border-radius: 14px; corner-shape: round; background: var(--surface); }
 .tela .campo .entrada:focus {
   border-color: var(--accent-line);
   background: var(--surface-2);
@@ -322,7 +328,13 @@
   border-radius: 14px;
   background: var(--surface);
   color: var(--text);
-  font-size: 15px;
+  /* 16px é um LIMIAR, não uma escolha de tamanho: abaixo disso o Safari do
+     iPhone dá zoom sozinho ao focar o campo, e a página fica torta até a
+     pessoa pinçar de volta. O valor já existia em `.tela .campo .entrada`,
+     mas só alcançava a tela de acesso — /recuperar-senha e /nova-senha usam
+     esta mesma classe FORA de `.tela` e caíam nos 15px. Sobe para a base, que
+     é onde deveria estar desde o começo. */
+  font-size: 16px;
   transition: border-color .3s var(--ease), background .3s var(--ease);
 }
 .entrada:focus {
