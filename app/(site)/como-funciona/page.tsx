@@ -57,7 +57,7 @@ const JORNADA: { n: string; titulo: string; texto: string }[] = [
     n: "08",
     titulo: "Acompanhe o desempenho",
     texto:
-      "A Visão geral traz o resumo; Desempenho mostra o histórico completo e o aproveitamento por área; Matérias mostra quanto você já respondeu de cada uma.",
+      "A Visão geral traz o resumo; Desempenho mostra o histórico completo e o aproveitamento por área; e em Matérias, o link no fim do seletor abre quanto você já respondeu de cada uma.",
   },
   {
     n: "09",

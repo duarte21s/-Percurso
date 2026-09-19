@@ -284,6 +284,23 @@
 /* `.opcao` saiu junto com a caixa "só as comentadas": a sessão passou a servir
    apenas questões com comentário, então não há mais o que optar. */
 
+/* A linha de volta para o histórico. Fica na cor de apoio e no tamanho do
+   texto fino: é consulta, não o próximo passo de quem chegou para estudar. */
+.rodapeHistorico {
+  margin: 18px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--line-soft);
+  font-size: 13px;
+  color: var(--text-3);
+}
+.rodapeHistorico a {
+  color: var(--text-2);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--line);
+}
+.rodapeHistorico a:hover { color: var(--text); text-decoration-color: currentColor; }
+
 .erro {
   margin-top: 16px;
   padding: 13px 16px;

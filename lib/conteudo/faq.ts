@@ -113,7 +113,7 @@ export const FAQ: readonly ItemFaq[] = [
     categoria: "Conta e plataforma",
     pergunta: "Como acompanho meu desempenho?",
     resposta:
-      "Na Visão geral você vê um resumo — sessões concluídas, questões respondidas e aproveitamento. Em Desempenho, o histórico completo e o aproveitamento por área. Em Matérias, quanto você já respondeu de cada uma.",
+      "Na Visão geral você vê um resumo — sessões concluídas, questões respondidas e aproveitamento. Em Desempenho, o histórico completo e o aproveitamento por área. E no fim do seletor de conteúdo, em Matérias, o link \"Ver histórico por matéria\" abre quanto você já respondeu de cada uma.",
   },
   {
     categoria: "Conta e plataforma",

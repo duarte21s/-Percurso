@@ -26,9 +26,9 @@ import css from "./sidebar-app.module.css";
  * duas regras disputando a mesma propriedade em módulos diferentes seriam
  * decididas pela ordem do bundle, que não é contrato.
  *
- * São nove ferramentas, mais do que um controle segmentado normalmente
+ * São oito ferramentas, mais do que um controle segmentado normalmente
  * comporta. A trilha rola na horizontal e leva a aba ativa para o centro
- * sozinha; sem isso, a nona ferramenta seria inalcançável em tela estreita.
+ * sozinha; sem isso, a última seria inalcançável em tela estreita.
  */
 
 const FERRAMENTAS = [
@@ -42,8 +42,20 @@ const FERRAMENTAS = [
      que foi cumprido marcado — que é aí que os dois nomes passam a ser duas
      coisas diferentes de verdade. */
   { href: "/app/cronograma", rotulo: "Cronograma" },
-  { href: "/app/materias", rotulo: "Matérias" },
-  { href: "/app/questoes", rotulo: "Questões" },
+  /* "Matérias" e "Questões" eram duas abas para o mesmo começo. A primeira
+     abria uma tabela de histórico por matéria cujo único caminho adiante era
+     escolher uma matéria — e escolher uma matéria leva ao seletor, que é o
+     que a segunda aba já abria direto. Quem clicava em "Matérias" pagava uma
+     tela a mais para chegar onde "Questões" chegava num clique.
+
+     Ficou uma aba só, e com o nome que descreve a ESCOLHA que se faz nela:
+     o seletor abre com as nove matérias, e é por matéria que se entra. Quem
+     lia "Questões" e procurava uma lista de questões não a encontrava.
+
+     A rota `/app/materias` continua de pé — a tabela de histórico não foi
+     apagada e segue respondendo no endereço dela; o que saiu foi a aba. Ver
+     `ABRIGADAS`, que mantém a trilha acesa para quem chegar lá. */
+  { href: "/app/questoes", rotulo: "Matérias" },
   { href: "/app/simulados", rotulo: "Simulados" },
   { href: "/app/desempenho", rotulo: "Desempenho" },
   { href: "/app/redacao", rotulo: "Redação" },
@@ -54,13 +66,28 @@ const FERRAMENTAS = [
 const ICONE_DA_FERRAMENTA: Record<string, NomeIcone> = {
   "/app": "alta",
   "/app/cronograma": "agenda",
-  "/app/materias": "book",
-  "/app/questoes": "marcador",
+  /* `book`, e não o `marcador` que a aba usava quando se chamava "Questões":
+     o glifo acompanha o rótulo, e o livro era justamente o da aba que saiu. */
+  "/app/questoes": "book",
   "/app/simulados": "cap",
   "/app/desempenho": "alta",
   "/app/redacao": "codigo",
   "/app/faculdades": "compass",
   "/comunidade": "pessoas",
+};
+
+/* Rotas SEM aba própria que acendem a aba de outra ferramenta.
+ *
+ * `/app/materias` perdeu a aba, não a rota: a tabela de histórico por matéria
+ * continua respondendo no endereço dela, e ainda se chega lá pelo link de
+ * volta da página de uma matéria ou por um endereço salvo. Sem este mapa a
+ * trilha ficaria com NENHUMA aba acesa nessas telas — o indicador sumiria e o
+ * leitor de tela não teria `aria-current` nenhum para anunciar.
+ *
+ * O destino é `/app/questoes` porque é a aba "Matérias" de hoje: quem está
+ * vendo matérias está na ferramenta que essa aba nomeia. */
+const ABRIGADAS: Record<string, string> = {
+  "/app/materias": "/app/questoes",
 };
 
 const CONTA = [
@@ -86,8 +113,15 @@ export function SidebarApp({ nome }: Props) {
     setContaAberta(false);
   }, [caminho]);
 
+  /* O caminho que a TRILHA usa para decidir a aba acesa. É o caminho real,
+     exceto nas rotas abrigadas, que emprestam a aba de outra ferramenta. */
+  const abrigo = Object.keys(ABRIGADAS).find((rota) => caminho.startsWith(rota));
+  const caminhoDaAba = abrigo ? ABRIGADAS[abrigo] : caminho;
+
   const ativo = (href: string) =>
-    href === "/app" ? caminho === "/app" : caminho.startsWith(href);
+    href === "/app"
+      ? caminhoDaAba === "/app"
+      : caminhoDaAba.startsWith(href);
 
   return (
     <BarraTopo

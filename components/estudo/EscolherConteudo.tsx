@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Icone } from "@/components/ui/Icone";
 import { chaveTema, type ContagensPorTema } from "@/lib/temas";
@@ -335,6 +336,20 @@ export function EscolherConteudo({
       )}
 
       {erro && <div className={css.erro}>{erro}</div>}
+
+      {/* A porta de volta para o histórico por matéria.
+
+          A trilha de ferramentas tinha duas abas para o mesmo começo —
+          "Matérias", que abria a tabela de histórico, e "Questões", que abria
+          este seletor. Ficou uma só, e ela abre aqui: é daqui que se estuda.
+          A tabela continua existindo, e quem quer saber quanto já respondeu de
+          cada matéria precisa de um caminho até ela — este.
+
+          Discreto de propósito: quem chega nesta tela veio para estudar, e o
+          histórico é consulta, não o próximo passo. */}
+      <p className={css.rodapeHistorico}>
+        <Link href="/app/materias">Ver histórico por matéria</Link>
+      </p>
     </div>
   );
 }
