@@ -4,15 +4,6 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { criaClienteServidor } from "@/lib/supabase/server";
 
-const OBJETIVOS_VALIDOS = [
-  "enem",
-  "vestibular",
-  "concurso",
-  "militar",
-  "escola",
-  "graduacao",
-] as const;
-
 /** Salva os campos de estudo do perfil (nome + preferências do cronograma).
  *  O perfil público da comunidade (foto, bio, título) é editado em outro lugar. */
 export async function salvarPerfil(formData: FormData) {
@@ -25,14 +16,10 @@ export async function salvarPerfil(formData: FormData) {
   if (!user) redirect("/entrar?proximo=/app/perfil");
 
   const nome = String(formData.get("nome") ?? "").trim();
-  const objetivo = String(formData.get("objetivo") ?? "");
   const horasDia = Number(formData.get("horas_dia"));
   const diasSemana = Number(formData.get("dias_semana"));
 
   if (!nome) redirect("/app/perfil?erro=nome");
-  if (!(OBJETIVOS_VALIDOS as readonly string[]).includes(objetivo)) {
-    redirect("/app/perfil?erro=objetivo");
-  }
   if (!Number.isInteger(horasDia) || horasDia < 1 || horasDia > 10) {
     redirect("/app/perfil?erro=horas");
   }
@@ -42,9 +29,11 @@ export async function salvarPerfil(formData: FormData) {
 
   const { error } = await supabase
     .from("perfis")
+    /* `objetivo` saiu do update junto com o campo que o alimentava. A coluna
+       continua no banco, com o valor que a conta já tinha — apagar isso é uma
+       migração, não um efeito colateral de salvar o nome. */
     .update({
       nome,
-      objetivo,
       horas_dia: horasDia,
       dias_semana: diasSemana,
     })

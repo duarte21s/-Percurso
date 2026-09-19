@@ -53,20 +53,17 @@ const PESOS: Record<Objetivo, string[]> = {
 /** Quantas semanas tem um mês, em média. 365,25 / 12 / 7. */
 const SEMANAS_POR_MES = 4.348;
 
-/* Os seis objetivos do tipo `Objetivo`, na ordem em que aparecem no formulário.
-   "graduacao" faltava aqui, embora existisse no tipo e em PESOS — era um
-   objetivo que só se alcançava pela página de trilha, que não existe mais.
-   Sem esta linha, Cálculo I (a única matéria exclusiva de graduacao) ficaria
-   invisível no cronograma, porque o seletor de matérias filtra pelo objetivo
-   escolhido neste select. */
-export const OBJETIVOS: { valor: Objetivo; rotulo: string }[] = [
-  { valor: "enem",       rotulo: "ENEM" },
-  { valor: "vestibular", rotulo: "Vestibular específico" },
-  { valor: "concurso",   rotulo: "Concurso público" },
-  { valor: "militar",    rotulo: "Carreira militar" },
-  { valor: "escola",     rotulo: "Reforço escolar" },
-  { valor: "graduacao",  rotulo: "Já na faculdade" },
-];
+/* Havia aqui um `OBJETIVOS`, com os seis rótulos de tipo de prova — ENEM,
+   "Vestibular específico", "Concurso público", "Carreira militar", "Reforço
+   escolar" e "Já na faculdade" — que alimentavam um <select> no topo deste
+   formulário e outro no perfil. O site passou a tratar de um exame só, e a
+   lista de categorias saiu com os dois campos.
+
+   O que NÃO saiu, de propósito: `PESOS` acima e o tipo `Objetivo`. Eles
+   continuam com os seis valores porque é `Objetivo` que tipa
+   `Materia.objetivos` nas 17 matérias do catálogo, e nenhuma matéria foi
+   removida. O que deixou de existir é a escolha de categoria, não o
+   vocabulário que organiza o conteúdo. */
 
 export type TipoBloco = "materia" | "revisao" | "redacao" | "descanso";
 
@@ -305,9 +302,11 @@ export function geraCronograma({
   /* Quantos blocos da semana não são conteúdo novo.
      Revisão: um por dia de estudo a partir do segundo, e só quando o dia tem
      3h ou mais — abaixo disso ela comeria metade da sessão.
-     Redação: quem vai prestar ENEM ou vestibular escreve uma por semana. */
-  const querRedacao = objetivo === "enem" || objetivo === "vestibular";
-  const blocosRedacao = querRedacao && totalBlocos >= 4 ? 1 : 0;
+     Redação: uma por semana, desde que a semana tenha 4 blocos ou mais. A
+     condição por tipo de prova ("ENEM ou vestibular") saiu junto com a
+     escolha de categoria — a redação aqui é a do ENEM, e ela é de todo
+     mundo que monta um plano. */
+  const blocosRedacao = totalBlocos >= 4 ? 1 : 0;
   const blocosRevisao = horas >= 3 ? Math.max(0, indicesEstudo.length - 1) : 0;
   const blocosMateria = Math.max(0, totalBlocos - blocosRedacao - blocosRevisao);
 
@@ -416,8 +415,9 @@ export function geraCronograma({
 
   return {
     objetivo,
-    rotuloObjetivo:
-      OBJETIVOS.find((o) => o.valor === objetivo)?.rotulo ?? "ENEM",
+    /* Sem seletor, o cronograma é sempre montado com `objetivo: "enem"` —
+       ver components/secoes/Cronograma.tsx. O rótulo acompanha. */
+    rotuloObjetivo: "ENEM",
     horasSemana,
     horasMes: Math.round(horasSemana * SEMANAS_POR_MES),
     dias: planejados,

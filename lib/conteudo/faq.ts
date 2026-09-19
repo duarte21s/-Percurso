@@ -24,24 +24,13 @@ export const FAQ: readonly ItemFaq[] = [
     categoria: "Sobre o Percurso",
     pergunta: "O que é o Percurso?",
     resposta:
-      "Uma plataforma de estudos para ENEM, vestibulares, concursos públicos, carreiras militares e reforço escolar. Reúne num lugar só um banco de questões, com comentário alternativa por alternativa nas autorais, as provas reais do ENEM em modo prova, correção de redação nas cinco competências do INEP, um cronograma e uma comunidade. Não é um site de videoaulas.",
+      "Uma plataforma de estudos para o ENEM. Reúne num lugar só um banco de questões, com comentário alternativa por alternativa nas autorais, as provas reais do ENEM em modo prova, correção de redação nas cinco competências do INEP, um cronograma e uma comunidade. Não é um site de videoaulas.",
   },
   {
     categoria: "Sobre o Percurso",
     pergunta: "Para quem o Percurso foi feito?",
     resposta:
-      "Para o estudante de ensino médio que vai prestar ENEM ou vestibular, para quem se prepara para concurso público ou carreira militar, e para quem quer reforço do 6º ao 9º ano. São nove matérias de ensino médio, mais matérias criadas por objetivo. As questões autorais trazem comentário alternativa por alternativa; as do ENEM vêm com o gabarito do INEP e ganham explicação quando alguém pede.",
-  },
-  {
-    /* Esta resposta prometia "direito e legislação, nos formatos de Cebraspe,
-       FGV e Cesgranrio" e um "treino específico" do item de certo ou errado.
-       Nada disso existe: uma busca por banca no campo `fonte` das questões
-       devolve zero para as três, não há matéria de direito nem de legislação,
-       e todas as questões do site são de múltipla escolha. */
-    categoria: "Sobre o Percurso",
-    pergunta: "Serve para concurso público também?",
-    resposta:
-      "Em parte, e vale saber em qual parte. Em Questões você encontra português, raciocínio lógico, informática básica e estatística — a base que quase todo edital cobra na prova objetiva. O que não existe aqui é direito, legislação e questão de banca: nenhuma questão do site foi aplicada por Cebraspe, FGV ou Cesgranrio, e todas são de múltipla escolha, sem o item de certo ou errado. Para as provas aplicadas, o acervo do Cebraspe é público e gratuito.",
+      "Para quem vai prestar o ENEM — do primeiro ano do ensino médio a quem já saiu da escola e vai tentar de novo. As nove matérias de ensino médio que o exame cobra estão todas no catálogo. As questões autorais trazem comentário alternativa por alternativa; as do ENEM vêm com o gabarito do INEP e ganham explicação quando alguém pede.",
   },
   {
     categoria: "Sobre o Percurso",
@@ -67,13 +56,13 @@ export const FAQ: readonly ItemFaq[] = [
     categoria: "Estudos",
     pergunta: "Como funciona o cronograma?",
     resposta:
-      "Você diz o seu objetivo, quantas horas tem por dia e quantos dias por semana consegue estudar. O cronograma distribui as matérias ao longo da semana, com blocos de revisão em 1, 7 e 30 dias e um dia de descanso. Hoje ele gera o plano na hora, na tela; salvar o plano e marcar o que foi cumprido fica para uma próxima versão.",
+      "Você diz quantas horas tem por dia e quantos dias por semana consegue estudar. O cronograma distribui as matérias ao longo da semana, com blocos de revisão em 1, 7 e 30 dias e um dia de descanso. Hoje ele gera o plano na hora, na tela; salvar o plano e marcar o que foi cumprido fica para uma próxima versão.",
   },
   {
     categoria: "Estudos",
-    pergunta: "Posso estudar para ENEM e vestibular ao mesmo tempo?",
+    pergunta: "O conteúdo serve para outras provas além do ENEM?",
     resposta:
-      "Pode. O conteúdo de ensino médio é o mesmo — o que muda é o recorte e a forma da prova. Escolha o objetivo no cronograma e ajuste as matérias; nada impede treinar questões de qualquer assunto a qualquer momento.",
+      "O Percurso é feito para o ENEM, e é só isso que ele promete. Como o conteúdo é o do ensino médio, boa parte dele reaparece em vestibulares e em provas de escola — mas o recorte das matérias, o peso dos assuntos, as provas do modo prova e a correção da redação seguem o ENEM. Quem usa para outra coisa está aproveitando a sobreposição, não um recurso que exista aqui.",
   },
 
   /* ---------- Provas e ENEM ---------- */

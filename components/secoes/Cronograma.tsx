@@ -4,7 +4,6 @@ import { useRef, useState, type FormEvent } from "react";
 import { materiasDoObjetivo } from "@/lib/conteudo/materias";
 import {
   geraCronograma,
-  OBJETIVOS,
   type Cronograma as Plano,
   type Selecao,
 } from "@/lib/cronograma";
@@ -13,7 +12,11 @@ import { Revelar } from "@/components/ui/Revelar";
 import type { Objetivo } from "@/lib/tipos";
 
 export function Cronograma() {
-  const [objetivo, setObjetivo] = useState<Objetivo>("enem");
+  /* Não é mais estado: o site trata só do ENEM, e o <select> de objetivo que
+     ficava no topo deste formulário saiu. A constante fica porque
+     `geraCronograma` continua recebendo o objetivo — é ele que define os
+     pesos das matérias e a presença do bloco de redação. */
+  const objetivo: Objetivo = "enem";
   const [horas, setHoras] = useState(4);
   const [dias, setDias] = useState(6);
   /** matéria → temas. Lista vazia = matéria inteira. */
@@ -21,30 +24,6 @@ export function Cronograma() {
   const [aberta, setAberta] = useState<string | null>(null);
   const [plano, setPlano] = useState<Plano | null>(null);
   const saida = useRef<HTMLDivElement>(null);
-
-  /**
-   * Troca o objetivo e descarta o que a nova lista não contempla.
-   *
-   * Sem essa poda, marcar Raciocínio lógico em "Concurso público" e depois
-   * mudar para "ENEM" deixaria a matéria selecionada e fora da tela: ela some
-   * da lista, mas continua em `selecao` e entra no plano gerado. A pessoa
-   * receberia um cronograma com uma matéria que ela não consegue ver nem
-   * desmarcar.
-   */
-  function trocaObjetivo(novo: Objetivo) {
-    setObjetivo(novo);
-    const permitidas = new Set(materiasDoObjetivo(novo).map((m) => m.id));
-    setSelecao((atual) => {
-      const podada = Object.fromEntries(
-        Object.entries(atual).filter(([id]) => permitidas.has(id))
-      );
-      // Só troca a referência se algo saiu, para não re-renderizar à toa.
-      return Object.keys(podada).length === Object.keys(atual).length
-        ? atual
-        : podada;
-    });
-    setAberta((a) => (a && permitidas.has(a) ? a : null));
-  }
 
   /** Marca ou desmarca a matéria inteira. */
   function alternaMateria(id: string) {
@@ -103,24 +82,6 @@ export function Cronograma() {
           <Revelar como="div" atraso={1}>
             <form className="planner-form" onSubmit={gerar}>
               <div className="form-row">
-                <label htmlFor="pObjetivo">Objetivo</label>
-                <div className="field sel field-full">
-                  <select
-                    className="select"
-                    id="pObjetivo"
-                    value={objetivo}
-                    onChange={(e) => trocaObjetivo(e.target.value as Objetivo)}
-                  >
-                    {OBJETIVOS.map((o) => (
-                      <option key={o.valor} value={o.valor}>
-                        {o.rotulo}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-
-              <div className="form-row">
                 <label htmlFor="pHoras">Horas de estudo por dia</label>
                 <div className="range-wrap">
                   <input
@@ -160,11 +121,13 @@ export function Cronograma() {
                     : `${escolhidas.length} ${escolhidas.length === 1 ? "matéria escolhida" : "matérias escolhidas"} — o plano terá só isso. Abra para escolher assuntos.`}
                 </p>
 
-                {/* A lista acompanha o objetivo escolhido logo acima. Antes
-                    eram sempre as nove matérias do ensino médio, então quem
-                    marcava "Concurso público" não via Raciocínio lógico nem
-                    Informática — e quem estudava para o ENEM via Cálculo I.
-                    O pertencimento vem de `Materia.objetivos`. */}
+                {/* O pertencimento vem de `Materia.objetivos`, e o filtro
+                    `materiasDoObjetivo` continua exatamente como era. O que
+                    mudou é que o objetivo não é mais escolhido na tela: era
+                    "enem" por padrão e segue "enem", então esta lista abre
+                    igual à de antes. O catálogo inteiro — as 17 matérias,
+                    informática e reforço do 6º ao 9º incluídos — continua em
+                    /app/questoes e /app/materias. */}
                 <div className="cron-materias">
                   {materiasDoObjetivo(objetivo).map((m) => {
                     const escolhida = m.id in selecao;

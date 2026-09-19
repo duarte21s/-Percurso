@@ -14,7 +14,7 @@ import type { Estatisticas } from "@/lib/tipos";
 export const metadata: Metadata = {
   title: "Conheça o Percurso",
   description:
-    "O que é o Percurso, para quem foi feito, o problema que resolve e como ele ajuda quem estuda para o ENEM e vestibulares a organizar e acompanhar a preparação.",
+    "O que é o Percurso, para quem foi feito, o problema que resolve e como ele ajuda quem estuda para o ENEM a organizar e acompanhar a preparação.",
 };
 
 /* Os números vêm do banco a cada request. Sem cache estático de propósito:
@@ -30,7 +30,7 @@ const PONTOS: { titulo: string; paragrafos: string[] }[] = [
   {
     titulo: "Para quem foi criado",
     paragrafos: [
-      "Para o estudante de ensino médio que vai prestar ENEM ou vestibular, e para quem precisa de reforço do 6º ao 9º ano. Serve também de base a quem presta concurso. São nove matérias de ensino médio, mais matérias por objetivo que ainda estão em expansão. As questões autorais trazem comentário alternativa por alternativa; as do ENEM vêm com o gabarito do INEP e ganham explicação quando alguém pede.",
+      "Para quem vai prestar o ENEM: do estudante que está no primeiro ano do ensino médio a quem já saiu da escola e vai tentar de novo. As nove matérias de ensino médio que o exame cobra estão todas no catálogo. As questões autorais trazem comentário alternativa por alternativa; as do ENEM vêm com o gabarito do INEP e ganham explicação quando alguém pede.",
     ],
   },
   {
@@ -92,10 +92,8 @@ export default async function PaginaSobre() {
               </h1>
               <p className="lede">
                 O Percurso é uma plataforma de estudos para quem está se
-                preparando para o ENEM e vestibulares, com reforço escolar do
-                6º ao 9º ano e uma base que também serve a quem presta
-                concurso. Um lugar só para estudar o conteúdo, treinar em prova
-                e organizar a semana.
+                preparando para o ENEM. Um lugar só para estudar o conteúdo,
+                treinar em prova e organizar a semana.
               </p>
             </Revelar>
           </div>

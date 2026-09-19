@@ -40,7 +40,11 @@ export const ABAS: { valor: AbaComunidade; rotulo: string; soLogado?: boolean }[
   { valor: "salvos", rotulo: "Salvos", soLogado: true },
 ];
 
-/** Tags oferecidas no editor. Livre também é aceito (ver validaTags). */
+/** Tags oferecidas no editor. Livre também é aceito (ver validaTags).
+ *  "vestibular" e "concurso" saíram quando o site passou a tratar só do ENEM.
+ *  Elas continuam aceitas se alguém digitar — a lista é de sugestão, não de
+ *  permissão, e posts antigos marcados assim seguem encontráveis pela busca e
+ *  pelo filtro de tag. */
 export const TAGS_SUGERIDAS = [
   "matemática",
   "português",
@@ -53,8 +57,6 @@ export const TAGS_SUGERIDAS = [
   "filosofia",
   "inglês",
   "enem",
-  "vestibular",
-  "concurso",
   "método",
 ];
 

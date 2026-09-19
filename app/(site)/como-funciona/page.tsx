@@ -19,9 +19,9 @@ const JORNADA: { n: string; titulo: string; texto: string }[] = [
   },
   {
     n: "02",
-    titulo: "Defina seu objetivo",
+    titulo: "Diga o seu tempo",
     texto:
-      "Em Perfil você diz para o que está estudando (ENEM, vestibular, concurso, carreira militar ou reforço) e quanto tempo tem por semana.",
+      "Em Perfil você diz quantas horas por dia e quantos dias por semana consegue estudar. É disso que o cronograma parte.",
   },
   {
     n: "03",

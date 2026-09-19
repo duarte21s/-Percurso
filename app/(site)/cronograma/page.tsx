@@ -54,8 +54,8 @@ export default function PaginaCronogramaPublica() {
               <p>
                 Cada matéria recebe uma fatia de horas proporcional à
                 prioridade, e o plano mostra essa distribuição para você
-                conferir. Quem escolhe ENEM ou vestibular ganha também um bloco
-                de redação na semana.
+                conferir. Toda semana com 4 blocos ou mais ganha também um
+                bloco de redação.
               </p>
             </div>
           </div>

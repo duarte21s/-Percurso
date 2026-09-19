@@ -39,18 +39,18 @@ const montserrat = Montserrat({
 const siteUrl = urlPublicaConfigurada();
 
 export const metadata: Metadata = {
-  title: "Percurso — Estude para o ENEM, vestibulares e reforço escolar",
+  title: "Percurso — Estude para o ENEM",
   description:
-    "Plataforma de estudos para ENEM, vestibulares e reforço escolar. Nove matérias, banco de questões com comentário nas autorais, índices comparativos de faculdades brasileiras e cronograma personalizado.",
+    "Plataforma de estudos para o ENEM. As nove matérias que o exame cobra, banco de questões com comentário nas autorais, provas reais em modo prova, correção de redação, índices comparativos de faculdades brasileiras e cronograma personalizado.",
   applicationName: "Percurso",
   metadataBase: siteUrl ? new URL(siteUrl) : undefined,
   alternates: siteUrl ? { canonical: "/" } : undefined,
   keywords: [
     "ENEM",
-    "vestibular",
-    "raciocínio lógico",
     "questões ENEM",
+    "provas do ENEM",
     "redação ENEM",
+    "simulado ENEM",
     "cronograma de estudos",
     "plataforma de estudos",
   ],
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "pt_BR",
     siteName: "Percurso",
-    title: "Percurso — Estude para o ENEM, vestibulares e reforço escolar",
+    title: "Percurso — Estude para o ENEM",
     description:
       "Banco de questões com comentário nas autorais, provas do ENEM, redação, cronograma e acompanhamento em uma plataforma de estudos.",
     url: siteUrl ? "/" : undefined,
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Percurso — Estude para o ENEM, vestibulares e reforço escolar",
+    title: "Percurso — Estude para o ENEM",
     description:
       "Banco de questões com comentário nas autorais, provas do ENEM, redação, cronograma e acompanhamento em uma plataforma de estudos.",
     images: siteUrl ? ["/media/hero-open.png"] : undefined,

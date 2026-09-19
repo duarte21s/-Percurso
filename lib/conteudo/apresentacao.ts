@@ -68,16 +68,15 @@ export const PASSOS: Passo[] = [
   {
     slug: "para-quem",
     eyebrow: "Para quem é",
-    titulo: "Da escola ao ",
-    destaque: "concurso",
+    titulo: "Um exame, ",
+    destaque: "por inteiro",
     fim: ".",
-    lede: "Cinco objetivos, com diferentes níveis de cobertura. ENEM e vestibulares são os mais completos; os demais ainda estão em expansão.",
+    lede: "O Percurso prepara para o ENEM e não se divide em mais nada. Tudo aqui — as matérias, o peso dos assuntos, as provas, a redação — segue o formato do exame.",
     itens: [
-      { titulo: "Reforço escolar", texto: "Do 6º ao 9º ano, para chegar ao ensino médio sem buraco." },
-      { titulo: "ENEM", texto: "Nove matérias, as provas reais e a redação nas cinco competências." },
-      { titulo: "Vestibular", texto: "Uma base de estudo para provas próprias, com foco nos conteúdos que já estão disponíveis." },
-      { titulo: "Concurso público", texto: "Português, raciocínio lógico, informática básica e estatística — uma base para quem também se prepara para concursos." },
-      { titulo: "Carreira militar", texto: "Uma base de exatas voltada a objetivos militares." },
+      { titulo: "Primeiro e segundo ano", texto: "Acompanhar a escola pelo assunto que a turma está vendo, em vez da ordem do livro." },
+      { titulo: "Terceiro ano", texto: "As nove matérias do exame, as provas reais em modo prova e a redação nas cinco competências." },
+      { titulo: "Quem vai tentar de novo", texto: "Diagnóstico por matéria, para atacar o que derrubou a nota em vez de recomeçar do zero." },
+      { titulo: "Quem estuda sozinho", texto: "Cronograma com revisão espaçada e uma comunidade para a dúvida que trava o estudo." },
     ],
   },
   {

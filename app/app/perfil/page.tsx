@@ -11,7 +11,6 @@ export const dynamic = "force-dynamic";
 
 const RECADO_ERRO: Record<string, string> = {
   nome: "O nome não pode ficar vazio.",
-  objetivo: "Objetivo inválido.",
   horas: "As horas por dia precisam ficar entre 1 e 10.",
   dias: "Os dias por semana precisam ficar entre 3 e 7.",
   salvar: "Não consegui salvar agora. Tente de novo.",
@@ -28,7 +27,7 @@ export default async function PaginaPerfil({ searchParams }: Props) {
 
   const { data: perfil } = await supabase
     .from("perfis")
-    .select("nome, objetivo, horas_dia, dias_semana")
+    .select("nome, horas_dia, dias_semana")
     .eq("id", user.id)
     .maybeSingle();
 
@@ -44,8 +43,8 @@ export default async function PaginaPerfil({ searchParams }: Props) {
               Seus dados de <em>estudo</em>.
             </h1>
             <p className="lede">
-              Nome e preferências de preparação. É daqui que o cronograma puxa o
-              seu objetivo e o tempo disponível.
+              Nome e preferências de preparação. É daqui que o cronograma puxa
+              o tempo que você tem.
             </p>
           </div>
         </div>
@@ -70,7 +69,6 @@ export default async function PaginaPerfil({ searchParams }: Props) {
 
         <FormPerfil
           nome={perfil?.nome ?? ""}
-          objetivo={perfil?.objetivo ?? "enem"}
           horasDia={perfil?.horas_dia ?? 4}
           diasSemana={perfil?.dias_semana ?? 6}
         />
