@@ -138,7 +138,19 @@ export default async function PaginaSobre() {
       <Metodo />
 
       <section className="section" style={{ paddingTop: 0 }}>
-        <div className="wrap">
+        {/* O botão é o único conteúdo desta faixa, e encostado à esquerda ele
+            lia como sobra da seção anterior em vez de convite para a próxima.
+            Centralizado, fica no mesmo arranjo do `.cta .btns` e do
+            `.hero-cta`: passo isolado, no meio da página.
+
+            O `flex` vai no `.wrap` e não no `Revelar`: aquele componente
+            expõe só `children`, `atraso`, `como` e `className`, e dar um
+            `style` a ele obrigaria a alargar a API de um componente usado no
+            site inteiro por causa de um botão. E `flex` em vez de
+            `text-align: center` porque o alvo é a CAIXA do link, que tem
+            padding próprio — centralizar o texto dentro dela deixaria a caixa
+            à esquerda do mesmo jeito. */}
+        <div className="wrap" style={{ display: "flex", justifyContent: "center" }}>
           <Revelar como="div">
             <Link href="/como-funciona" className="btn btn-ghost">
               Ver a jornada completa, passo a passo{" "}

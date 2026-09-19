@@ -2586,7 +2586,17 @@ input[type="range"]::-moz-range-thumb {
 /* Botão de entrada da apresentação. Fica logo abaixo da lede, dentro do
    cabeçalho centrado, com folga suficiente para não parecer parte do texto. */
 .botao-apresentacao {
+  /* Espaço dos DOIS lados. Só havia `margin-top`, e o que vem logo abaixo nas
+     quatro páginas que montam este botão é a `.pontos`, que abre com
+     `border-top` — então o botão ficava apoiado na linha, sem folga nenhuma.
+
+     Os números de baixo não são escolha de gosto: são os que a folga de CIMA
+     mede de fato, em cada ponta. O espaço acima nasce do `margin-bottom` do
+     `.section-head` colapsando com o `margin-top` daqui, e dá 30px a 393 e
+     52px a 1440. A régua de baixo reproduz essa curva, então o botão fica no
+     meio das duas folgas em qualquer largura, e não só numa. */
   margin-top: 30px;
+  margin-bottom: clamp(30px, 3.6vw, 52px);
   display: flex;
   justify-content: center;
 }
