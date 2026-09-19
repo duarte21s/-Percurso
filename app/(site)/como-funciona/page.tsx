@@ -81,9 +81,9 @@ export default function PaginaComoFunciona() {
           <div className="section-head">
             <Revelar como="div" className="head-left head-centro">
               <span className="eyebrow">Como funciona</span>
-              <h2 className="title">
+              <h1 className="title">
                 A jornada, do cadastro à <em>prova</em>.
-              </h2>
+              </h1>
               <p className="lede">
                 O Percurso é um ciclo curto que se repete: diagnosticar, estudar,
                 testar, revisar. Estes são os passos — nesta página eles são

@@ -23,11 +23,11 @@ function Cabecalho() {
     <div className="section-head">
       <div className="head-left">
         <span className="eyebrow">Questões</span>
-        <h2 className="title">
+        <h1 className="title">
           Escolha o assunto.
           <br />
           Descubra <em>por que</em> errou.
-        </h2>
+        </h1>
         <p className="lede">
           Questões comentadas, organizadas por conteúdo. O porquê abre logo
           abaixo da alternativa que você marcou, e cada resposta fica salva —

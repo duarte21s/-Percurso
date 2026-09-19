@@ -50,7 +50,16 @@ export function Footer() {
 
         {COLUNAS.map((c) => (
           <div key={c.titulo}>
-            <h4>{c.titulo}</h4>
+            {/* `h2`, e não o `h4` que estava aqui. O rodapé é uma região de
+                topo da página, e suas colunas são cabeçalhos de primeiro
+                nível dentro dela — depois do `h1` do documento, o nível certo
+                é `h2`. Com `h4` havia um buraco de dois níveis; em páginas
+                cujo único conteúdo é o título, como /contato e /comunidade, a
+                ordem passa a ser h1 → h2, sem salto nenhum.
+                Descer de `h3` para `h2` no meio da página é válido: o que
+                confunde o leitor de tela é PULAR para baixo, não voltar.
+                O estilo é do `.footer h2` no globals. */}
+            <h2>{c.titulo}</h2>
             <ul>
               {c.itens.map((i) => (
                 <li key={i.rotulo}>

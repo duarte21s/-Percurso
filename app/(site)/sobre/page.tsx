@@ -87,9 +87,9 @@ export default async function PaginaSobre() {
           <div className="section-head">
             <Revelar como="div" className="head-left head-centro">
               <span className="eyebrow">O que é o Percurso</span>
-              <h2 className="title">
+              <h1 className="title">
                 Da primeira questão à <em>aprovação</em>.
-              </h2>
+              </h1>
               <p className="lede">
                 O Percurso é uma plataforma de estudos para quem está se
                 preparando para o ENEM e vestibulares, com reforço escolar do

@@ -20,10 +20,24 @@ export function Recursos({ abertura = false }: Props) {
             className={`head-left${abertura ? " head-centro" : ""}`}
           >
             <span className="eyebrow">O que você recebe</span>
-            <h2 className="title">
-              Não é uma lista de aulas.
-              <br />É um <em>sistema de estudo</em>.
-            </h2>
+            {/* `abertura` já dizia que esta seção é o começo da página — era
+                só o alinhamento que mudava. Agora decide também o NÍVEL: como
+                abertura, este é o cabeçalho da página e precisa ser `h1`.
+                Sem isso, /duvidas e /recursos ficavam sem h1 nenhum, e quem
+                navega por cabeçalhos no leitor de tela não encontrava a porta
+                de entrada do documento. O estilo é da classe, não da tag, e
+                não muda. */}
+            {abertura ? (
+              <h1 className="title">
+                Não é uma lista de aulas.
+                <br />É um <em>sistema de estudo</em>.
+              </h1>
+            ) : (
+              <h2 className="title">
+                Não é uma lista de aulas.
+                <br />É um <em>sistema de estudo</em>.
+              </h2>
+            )}
             <p className="lede">
               Tudo aqui existe para responder uma pergunta: o que eu estudo
               agora, e como sei que está funcionando? Estas são as peças que

@@ -17,9 +17,9 @@ export default function PaginaFaculdadesPublica() {
         <div className="section-head">
           <Revelar como="div" className="head-left head-centro">
             <span className="eyebrow">Faculdades e vestibulares</span>
-            <h2 className="title">
+            <h1 className="title">
               Onde você quer <em>entrar</em>?
-            </h2>
+            </h1>
             <p className="lede">
               Antes de escolher o que estudar, vale entender como se entra no
               ensino superior no Brasil e o que a concorrência de cada curso

@@ -13,9 +13,9 @@ export default function PaginaContato() {
         <div className="section-head">
           <Revelar como="div" className="head-left head-centro">
             <span className="eyebrow">Contato</span>
-            <h2 className="title">
+            <h1 className="title">
               Fale com a <em>gente</em>.
-            </h2>
+            </h1>
             <p className="lede">
               Dúvidas, sugestões, um erro numa questão ou interesse em usar o
               Percurso na sua escola ou cursinho.

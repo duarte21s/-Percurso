@@ -18,6 +18,7 @@
     "checar-mola": "node scripts/checar-mola.mjs",
     "checar-video-scroll": "node scripts/checar-video-scroll.mjs",
     "checar-cinema": "node scripts/checar-cinema.mjs",
+    "checar-escolha-conteudo": "node scripts/checar-escolha-conteudo.mjs",
     "checar-prova": "node scripts/checar-prova.mjs",
     "checar-treino": "node scripts/checar-treino.mjs",
     "checar-temas": "node scripts/checar-contagem-temas.mjs",

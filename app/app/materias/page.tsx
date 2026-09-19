@@ -57,9 +57,9 @@ export default async function PaginaMaterias() {
         <div className="section-head">
           <div className="head-left">
             <span className="eyebrow">Matérias</span>
-            <h2 className="title">
+            <h1 className="title">
               Onde você <em>já andou</em>.
-            </h2>
+            </h1>
             <p className="lede">
               As nove matérias do ensino médio. Ao lado de cada uma, quantas
               questões você já respondeu dela e o seu aproveitamento até aqui.

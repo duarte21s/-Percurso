@@ -40,9 +40,9 @@ export default async function PaginaPerfil({ searchParams }: Props) {
         <div className="section-head">
           <div className="head-left">
             <span className="eyebrow">Perfil</span>
-            <h2 className="title">
+            <h1 className="title">
               Seus dados de <em>estudo</em>.
-            </h2>
+            </h1>
             <p className="lede">
               Nome e preferências de preparação. É daqui que o cronograma puxa o
               seu objetivo e o tempo disponível.

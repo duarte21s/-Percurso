@@ -51,11 +51,11 @@ export default async function PaginaRedacao() {
         <div className="section-head">
           <div className="head-left">
             <span className="eyebrow">Redação</span>
-            <h2 className="title">
+            <h1 className="title">
               Escreva.
               <br />
               <em>Descubra a nota.</em>
-            </h2>
+            </h1>
             <p className="lede">
               Os temas que caíram de verdade, de 2009 a 2023. Você escreve
               digitando ou fotografa a folha manuscrita, e recebe a nota nas

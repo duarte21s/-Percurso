@@ -53,7 +53,7 @@ export default async function PaginaProva({ params }: Props) {
           <div className="section-head">
             <div className="head-left">
               <span className="eyebrow">{prova.banca}</span>
-              <h2 className="title">{prova.nome}</h2>
+              <h1 className="title">{prova.nome}</h1>
               <p className="lede">
                 A prova aplicada, na íntegra. Você responde tudo e só depois vê
                 a nota — como no dia.
@@ -106,7 +106,7 @@ export default async function PaginaProva({ params }: Props) {
         <div className="section-head">
           <div className="head-left">
             <span className="eyebrow">{prova.banca}</span>
-            <h2 className="title">{prova.nome}</h2>
+            <h1 className="title">{prova.nome}</h1>
           </div>
         </div>
 

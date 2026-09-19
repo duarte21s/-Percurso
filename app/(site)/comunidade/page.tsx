@@ -64,9 +64,9 @@ export default async function PaginaComunidade() {
         <div className="section-head">
           <div className="head-left">
             <span className="eyebrow">Comunidade</span>
-            <h2 className="title">
+            <h1 className="title">
               {primeiroNome ? <>Bom te ver, <em>{primeiroNome}</em>.</> : "Estude junto."}
-            </h2>
+            </h1>
             <p className="lede">
               Pergunte sobre uma questão específica, compartilhe o que funcionou,
               discuta método. Ler é aberto; publicar precisa de conta.

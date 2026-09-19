@@ -45,11 +45,11 @@ export default async function PaginaProvas() {
         <div className="section-head">
           <div className="head-left">
             <span className="eyebrow">Provas reais</span>
-            <h2 className="title">
+            <h1 className="title">
               O ENEM de verdade.
               <br />
               <em>Do jeito que caiu.</em>
-            </h2>
+            </h1>
             <p className="lede">
               As provas aplicadas de 2009 a 2023, com as questões originais, as
               figuras e o gabarito oficial do INEP. Você responde tudo primeiro

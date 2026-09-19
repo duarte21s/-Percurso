@@ -34,9 +34,9 @@ export default async function PaginaConfiguracoes({ searchParams }: Props) {
         <div className="section-head">
           <div className="head-left">
             <span className="eyebrow">Configurações</span>
-            <h2 className="title">
+            <h1 className="title">
               Ajuste a <em>experiência</em>.
-            </h2>
+            </h1>
           </div>
         </div>
 

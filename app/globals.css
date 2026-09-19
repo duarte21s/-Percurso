@@ -2220,7 +2220,7 @@ input[type="range"]::-moz-range-thumb {
   padding-block: clamp(50px, 6vw, 76px);
 }
 .footer-brand p { color: var(--text-2); font-size: 14px; margin-top: 16px; max-width: 34ch; line-height: 1.7; }
-.footer h4 {
+.footer h2 {
   font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
   color: var(--text-3); margin-bottom: 16px; font-weight: 500;
 }

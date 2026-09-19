@@ -16,9 +16,9 @@ export default function PaginaCronogramaPublica() {
         <div className="section-head">
           <Revelar como="div" className="head-left head-centro">
             <span className="eyebrow">Cronograma</span>
-            <h2 className="title">
+            <h1 className="title">
               Um plano que respeita a <em>sua</em> rotina.
-            </h2>
+            </h1>
             <p className="lede">
               O cronograma do Percurso transforma &ldquo;preciso estudar mais&rdquo;
               em uma semana concreta: o que estudar, quando revisar e quando

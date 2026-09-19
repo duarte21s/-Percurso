@@ -62,9 +62,9 @@ export default async function PaginaDesempenho() {
         <div className="section-head">
           <div className="head-left">
             <span className="eyebrow">Desempenho</span>
-            <h2 className="title">
+            <h1 className="title">
               Tudo o que você <em>já respondeu</em>.
-            </h2>
+            </h1>
             <p className="lede">
               O histórico completo das suas sessões de estudo e provas do ENEM.
               Cada resposta gravada entra aqui.
