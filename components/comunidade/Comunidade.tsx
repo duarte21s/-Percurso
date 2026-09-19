@@ -15,6 +15,8 @@ import type { AbaComunidade, Autor, Comentario, Post } from "@/lib/tipos";
 
 interface Props {
   feedInicial: Post[];
+  /** Havia mais de uma página no feed servido junto com a casca? */
+  temMaisInicial: boolean;
   /** Quem está logado, ou null. */
   eu: Autor | null;
   /** Logado, mas ainda sem nome de usuário escolhido. */
@@ -23,13 +25,28 @@ interface Props {
 
 const LOGIN = "/entrar?proximo=/comunidade";
 
-export function Comunidade({ feedInicial, eu, precisaUsername }: Props) {
+export function Comunidade({
+  feedInicial,
+  temMaisInicial,
+  eu,
+  precisaUsername,
+}: Props) {
   const router = useRouter();
 
   const [aba, setAba] = useState<AbaComunidade>("recentes");
   const [tag, setTag] = useState<string | null>(null);
   const [posts, setPosts] = useState<Post[]>(feedInicial);
+  /* O que está DIGITADO e o que já foi PROCURADO são dois estados, não um.
+     O primeiro acompanha cada tecla; o segundo só muda quando a digitação
+     assenta. Fundir os dois dispararia uma consulta por caractere. */
+  const [digitado, setDigitado] = useState("");
+  const [busca, setBusca] = useState("");
+  const [pagina, setPagina] = useState(0);
+  const [temMais, setTemMais] = useState(temMaisInicial);
   const [carregando, setCarregando] = useState(false);
+  /* Separado de `carregando`: "Carregar mais" não pode trocar o feed inteiro
+     pelo esqueleto de carregamento — o que já está lido fica na tela. */
+  const [carregandoMais, setCarregandoMais] = useState(false);
   const [erroFeed, setErroFeed] = useState(false);
   const [aviso, setAviso] = useState<string | null>(null);
   /* Sobe a cada feed novo carregado (não a cada curtida) — é o gatilho da
@@ -115,21 +132,51 @@ export function Comunidade({ feedInicial, eu, precisaUsername }: Props) {
     { dependencies: [feedRev], scope: refFeed }
   );
 
-  async function carregar(a: AbaComunidade = aba, t: string | null = tag) {
-    setCarregando(true);
+  /* A última busca disparada. Resposta de uma busca já abandonada não pode
+     sobrescrever a atual: sem isto, digitar rápido deixa na tela o resultado
+     de um termo que a pessoa já apagou, porque a ordem de chegada das
+     respostas não é a ordem dos pedidos. */
+  const pedido = useRef(0);
+
+  async function carregar(
+    a: AbaComunidade = aba,
+    t: string | null = tag,
+    b: string = busca,
+    p = 0
+  ) {
+    const meu = ++pedido.current;
+    const acrescentando = p > 0;
+    if (acrescentando) setCarregandoMais(true);
+    else setCarregando(true);
     setErroFeed(false);
     try {
       const qs = new URLSearchParams({ aba: a });
       if (t) qs.set("tag", t);
+      if (b) qs.set("busca", b);
+      if (p) qs.set("pagina", String(p));
       const r = await fetch(`/api/comunidade/feed?${qs}`);
       if (!r.ok) throw new Error();
       const dados = await r.json();
-      setPosts(dados.posts ?? []);
+      if (meu !== pedido.current) return; // chegou atrasada: descarta
+      const novos: Post[] = dados.posts ?? [];
+      /* Acrescentar pode repetir um post que entrou no topo entre uma página
+         e a seguinte — a janela do banco desliza. Sem esta guarda, o React
+         acusaria chave repetida e o post apareceria duas vezes. */
+      setPosts((atuais) => {
+        if (!acrescentando) return novos;
+        const vistos = new Set(atuais.map((x) => x.id));
+        return [...atuais, ...novos.filter((x) => !vistos.has(x.id))];
+      });
+      setTemMais(Boolean(dados.temMais));
+      setPagina(p);
       setFeedRev((n) => n + 1);
     } catch {
-      setErroFeed(true);
+      if (meu === pedido.current) setErroFeed(true);
     } finally {
-      setCarregando(false);
+      if (meu === pedido.current) {
+        setCarregando(false);
+        setCarregandoMais(false);
+      }
     }
   }
 
@@ -144,9 +191,18 @@ export function Comunidade({ feedInicial, eu, precisaUsername }: Props) {
       primeira.current = false;
       return;
     }
-    carregar(aba, tag);
+    carregar(aba, tag, busca, 0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [aba, tag, logado]);
+  }, [aba, tag, busca, logado]);
+
+  /* Espera a digitação assentar antes de virar busca. 350ms é o intervalo em
+     que uma pausa ainda parece parte de digitar; abaixo disso a tela pisca a
+     cada tecla, acima disso a busca parece travada. */
+  useEffect(() => {
+    if (digitado.trim() === busca) return;
+    const t = setTimeout(() => setBusca(digitado.trim()), 350);
+    return () => clearTimeout(t);
+  }, [digitado, busca]);
 
   function exigeLogin(): boolean {
     if (euEfetivo) return false;
@@ -340,8 +396,12 @@ export function Comunidade({ feedInicial, eu, precisaUsername }: Props) {
   function aoPublicar() {
     setAba("recentes");
     setTag(null);
-    // Se já estava em "recentes" sem tag, o efeito não dispara — recarrega à mão.
-    if (aba === "recentes" && !tag) carregar("recentes", null);
+    /* A busca também é zerada: publicar e continuar vendo um feed filtrado por
+       um termo antigo faria o post recém-criado parecer perdido. */
+    setDigitado("");
+    setBusca("");
+    // Se nada disso mudou de fato, o efeito não dispara — recarrega à mão.
+    if (aba === "recentes" && !tag && !busca) carregar("recentes", null, "", 0);
   }
 
   /* ---------- render ---------- */
@@ -376,6 +436,36 @@ export function Comunidade({ feedInicial, eu, precisaUsername }: Props) {
           </div>
         )
       )}
+
+      {/* A busca vem ANTES das abas porque atravessa todas: procurar em
+          "Salvos" é procurar dentro do que você salvou, e o resultado continua
+          obedecendo a aba e a tag ativas. */}
+      <div className={css.busca}>
+        <label htmlFor="busca-comunidade" className="sr-only">
+          Procurar na comunidade
+        </label>
+        <input
+          id="busca-comunidade"
+          type="search"
+          className={css.buscaCampo}
+          placeholder="Procurar por palavra no título ou no texto…"
+          value={digitado}
+          onChange={(e) => setDigitado(e.target.value)}
+          autoComplete="off"
+        />
+        {busca && (
+          <button
+            type="button"
+            className="btn btn-ghost"
+            onClick={() => {
+              setDigitado("");
+              setBusca("");
+            }}
+          >
+            Limpar
+          </button>
+        )}
+      </div>
 
       <div
         className={css.abas}
@@ -417,18 +507,26 @@ export function Comunidade({ feedInicial, eu, precisaUsername }: Props) {
       ) : posts.length === 0 ? (
         <SemNada
           titulo={
-            aba === "minhas"
-              ? "Você ainda não publicou nada"
-              : aba === "salvos"
-                ? "Você ainda não salvou nada"
-                : "Nada por aqui ainda"
+            busca
+              ? `Nada encontrado para "${busca}"`
+              : aba === "sem_resposta"
+                ? "Nenhuma pergunta esperando"
+                : aba === "minhas"
+                  ? "Você ainda não publicou nada"
+                  : aba === "salvos"
+                    ? "Você ainda não salvou nada"
+                    : "Nada por aqui ainda"
           }
           texto={
-            aba === "minhas"
-              ? "O que você publicar aparece aqui."
-              : aba === "salvos"
-                ? "Toque em Salvar num post para guardá-lo aqui e ler depois."
-                : "Os primeiros posts são da Equipe Percurso. Publique o seu — a comunidade está começando."
+            busca
+              ? "Tente outra palavra, ou limpe a busca para ver o feed inteiro."
+              : aba === "sem_resposta"
+                ? "Toda pergunta em aberto já recebeu pelo menos uma resposta. É um bom sinal."
+                : aba === "minhas"
+                  ? "O que você publicar aparece aqui."
+                  : aba === "salvos"
+                    ? "Toque em Salvar num post para guardá-lo aqui e ler depois."
+                    : "Os primeiros posts são da Equipe Percurso. Publique o seu — a comunidade está começando."
           }
         />
       ) : (
@@ -451,6 +549,22 @@ export function Comunidade({ feedInicial, eu, precisaUsername }: Props) {
               aoAceitar={aoAceitar}
             />
           ))}
+        </div>
+      )}
+
+      {/* Só depois do feed, e só quando há próxima página. O feed tinha um
+          teto de 40 posts sem nenhuma continuação: o 41º era inalcançável por
+          qualquer caminho do produto. */}
+      {!carregando && !erroFeed && temMais && posts.length > 0 && (
+        <div className={css.maisLinha}>
+          <button
+            type="button"
+            className="btn btn-ghost"
+            onClick={() => carregar(aba, tag, busca, pagina + 1)}
+            disabled={carregandoMais}
+          >
+            {carregandoMais ? "Carregando…" : "Carregar mais"}
+          </button>
         </div>
       )}
     </div>

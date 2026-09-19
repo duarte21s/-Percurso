@@ -364,5 +364,9 @@ export type AbaComunidade =
   | "recentes"
   | "populares"
   | "perguntas"
+  /* Pergunta em aberto e sem NENHUMA resposta. É a fila de quem está
+     esperando: sem ela, uma dúvida sem sorte no dia em que foi feita desce no
+     feed e não volta mais. */
+  | "sem_resposta"
   | "minhas"
   | "salvos";

@@ -333,16 +333,76 @@ function autoresDe(rows: PostRow[]): string[] {
 
 const LIMITE_FEED = 40;
 
-/** Feed: "recentes"/"populares"/"perguntas" mostram o mural geral (sem
- *  `questao_id`); "minhas" é o que a pessoa publicou; "salvos" é o que ela
- *  guardou (aí sim inclui dúvida ancorada em questão). */
+/** Janela de recência de onde "Populares" tira o topo.
+ *
+ *  Esta aba NÃO pagina, e é de propósito: ela é a vitrine do que está em alta
+ *  agora, e "a segunda página do que está em alta" não quer dizer nada. Quem
+ *  quer percorrer o acervo usa "Recentes", que pagina. */
+const JANELA_POPULARES = 80;
+
+/** O maior termo de busca aceito. Acima disso é colagem, não busca. */
+const MAX_BUSCA = 80;
+
+/**
+ * Prepara o termo para o `ilike` do PostgREST.
+ *
+ * Dois perigos, e os dois são de sintaxe, não de injeção — o supabase-js já
+ * parametriza os valores:
+ *
+ * 1. `or=(a.ilike.*x*,b.ilike.*x*)` é uma string com gramática própria. Uma
+ *    vírgula ou um parêntese no termo parte a expressão ao meio e o filtro
+ *    inteiro passa a significar outra coisa.
+ * 2. `%` e `_` são curingas do LIKE. Quem digita `100%` procuraria, sem isso,
+ *    qualquer coisa começada em `100`.
+ *
+ * Os dois viram espaço. Perder um parêntese numa busca é invisível; deixá-lo
+ * passar não é.
+ */
+function termoDeBusca(bruto: string | null | undefined): string | null {
+  if (!bruto) return null;
+  const limpo = bruto
+    .slice(0, MAX_BUSCA)
+    .replace(/[,()%_*\\]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  /* Um caractere casa com quase tudo e devolveria o feed inteiro embaralhado,
+     dando a impressão de que a busca não funciona. */
+  return limpo.length >= 2 ? limpo : null;
+}
+
+/** Uma página do feed. `temMais` diz se vale oferecer "Carregar mais". */
+export interface PaginaFeed {
+  posts: Post[];
+  temMais: boolean;
+}
+
+/** Feed: "recentes"/"populares"/"perguntas"/"sem_resposta" mostram o mural
+ *  geral (sem `questao_id`); "minhas" é o que a pessoa publicou; "salvos" é o
+ *  que ela guardou (aí sim inclui dúvida ancorada em questão). */
 export async function buscarFeed(
   supabase: SupabaseClient,
-  opcoes: { aba: AbaComunidade; tag?: string | null; uid: string | null }
-): Promise<Post[]> {
+  opcoes: {
+    aba: AbaComunidade;
+    tag?: string | null;
+    /** Texto procurado no título e no corpo. Ver `termoDeBusca`. */
+    busca?: string | null;
+    /** Página, base zero. Ver `PaginaFeed`. */
+    pagina?: number;
+    uid: string | null;
+  }
+): Promise<PaginaFeed> {
   const { aba, tag, uid } = opcoes;
+  const busca = termoDeBusca(opcoes.busca);
+  const pagina = Math.max(0, Math.floor(opcoes.pagina ?? 0));
+  const vazio: PaginaFeed = { posts: [], temMais: false };
 
-  if ((aba === "minhas" || aba === "salvos") && !uid) return [];
+  if ((aba === "minhas" || aba === "salvos") && !uid) return vazio;
+
+  /* Quantas linhas pedir ao banco. Uma a mais que a página, para saber se há
+     próxima sem precisar de um `count` que varreria a tabela. */
+  const janela = aba === "populares" ? JANELA_POPULARES : LIMITE_FEED;
+  const de = pagina * janela;
+  const ate = de + janela; // `range` é inclusivo nas duas pontas
 
   // "Salvos" parte da lista de ids em com_salvos, na ordem em que foram salvos.
   let idsSalvos: string[] = [];
@@ -352,9 +412,9 @@ export async function buscarFeed(
       .select("post_id, criado_em")
       .eq("usuario_id", uid as string)
       .order("criado_em", { ascending: false })
-      .limit(LIMITE_FEED);
+      .range(de, ate);
     idsSalvos = ((salvos as SalvoRow[] | null) ?? []).map((s) => s.post_id);
-    if (idsSalvos.length === 0) return [];
+    if (idsSalvos.length === 0) return vazio;
   }
 
   let q = supabase.from("com_posts").select(SEL_POST).eq("oculto", false);
@@ -364,17 +424,27 @@ export async function buscarFeed(
   } else {
     q = q.is("questao_id", null);
     if (aba === "perguntas") q = q.eq("tipo", "pergunta");
+    /* "Sem resposta" é pergunta AINDA ABERTA. O "sem nenhuma resposta" não
+       cabe no banco daqui — ver a filtragem logo abaixo. */
+    if (aba === "sem_resposta") q = q.eq("tipo", "pergunta").eq("resolvido", false);
     if (aba === "minhas") q = q.eq("autor_id", uid as string);
   }
   if (tag) q = q.contains("tags", [tag]);
+  if (busca) q = q.or(`titulo.ilike.*${busca}*,texto.ilike.*${busca}*`);
 
   // Popular ordena depois, por curtidas; as outras já saem ordenadas do banco.
-  q = q.order("criado_em", { ascending: false }).limit(aba === "populares" ? 80 : LIMITE_FEED);
+  q = q.order("criado_em", { ascending: false });
+  /* "Salvos" já recortou a página pelos ids; recortar de novo aqui cortaria a
+     página pela metade. */
+  if (aba !== "salvos") q = q.range(de, ate);
 
   const { data, error } = await q;
-  if (error || !data) return [];
+  if (error || !data) return vazio;
 
-  const rows = data as unknown as PostRow[];
+  const bruto = data as unknown as PostRow[];
+  const temMais = aba === "populares" ? false : bruto.length > janela;
+  const rows = bruto.slice(0, janela);
+
   const postIds = rows.map((r) => r.id);
   const comentarioIds = rows.flatMap((r) => (r.comentarios ?? []).map((c) => c.id));
   const [ctx, perfis] = await Promise.all([
@@ -388,13 +458,22 @@ export async function buscarFeed(
       .sort((a, b) => b.curtidas - a.curtidas || b.criadoEm.localeCompare(a.criadoEm))
       .slice(0, LIMITE_FEED);
   }
+  if (aba === "sem_resposta") {
+    /* O último filtro é aqui, e não no banco, porque o número de respostas não
+       existe como coluna nem na `vw_com_contagens`, que só conta curtidas.
+       O custo é conhecido e limitado: a página pode vir com menos de 40 itens,
+       e "Carregar mais" continua respondendo pela janela do banco. Some no dia
+       em que houver uma contagem de comentários por post para filtrar na
+       consulta — é uma view, não uma coluna nova. */
+    posts = posts.filter((p) => p.comentarios.length === 0);
+  }
   if (aba === "salvos") {
     const ordem = new Map(idsSalvos.map((id, i) => [id, i]));
     posts = posts.sort(
       (a, b) => (ordem.get(a.id) ?? 99) - (ordem.get(b.id) ?? 99)
     );
   }
-  return posts;
+  return { posts, temMais };
 }
 
 /** Dúvidas ancoradas numa questão. Fio: mais antigo primeiro. */

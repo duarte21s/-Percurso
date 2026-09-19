@@ -33,6 +33,9 @@ export const ABAS: { valor: AbaComunidade; rotulo: string; soLogado?: boolean }[
   { valor: "recentes", rotulo: "Recentes" },
   { valor: "populares", rotulo: "Populares" },
   { valor: "perguntas", rotulo: "Perguntas" },
+  /* Depois de "Perguntas" de propósito: quem vem ajudar passa primeiro pelo
+     conjunto inteiro e encontra a fila logo ao lado. */
+  { valor: "sem_resposta", rotulo: "Sem resposta" },
   { valor: "minhas", rotulo: "Meus posts", soLogado: true },
   { valor: "salvos", rotulo: "Salvos", soLogado: true },
 ];

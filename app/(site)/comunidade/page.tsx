@@ -25,6 +25,7 @@ export default async function PaginaComunidade() {
   let eu: Autor | null = null;
   let precisaUsername = false;
   let feed: Post[] = [];
+  let temMais = false;
   let chama: EstadoChama | null = null;
   let sessaoAberta = false;
 
@@ -48,11 +49,11 @@ export default async function PaginaComunidade() {
       await checaLembreteChama(supabase, user.id, chama);
     }
 
-    feed = await buscarFeed(supabase, {
+    ({ posts: feed, temMais } = await buscarFeed(supabase, {
       aba: "recentes",
       tag: null,
       uid: user?.id ?? null,
-    });
+    }));
   }
 
   const primeiroNome = eu ? eu.nome.split(/\s+/)[0] : null;
@@ -89,7 +90,12 @@ export default async function PaginaComunidade() {
           </div>
         )}
 
-        <Comunidade feedInicial={feed} eu={eu} precisaUsername={precisaUsername} />
+        <Comunidade
+          feedInicial={feed}
+          temMaisInicial={temMais}
+          eu={eu}
+          precisaUsername={precisaUsername}
+        />
       </div>
     </main>
   );

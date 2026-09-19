@@ -91,6 +91,49 @@
 
 /* ---------- abas ---------- */
 
+/* ---------- busca ---------- */
+
+/* A linha da busca fica acima das abas e as atravessa: procurar em "Salvos" é
+   procurar dentro do que foi salvo. Por isso ela não entra na fita de abas —
+   ficaria parecendo mais um filtro entre os outros, e rolaria para fora da
+   tela junto com eles no celular. */
+.busca {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.buscaCampo {
+  flex: 1;
+  min-width: 0;
+  padding: 11px 14px;
+  border: 1px solid var(--line-soft);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+}
+.buscaCampo::placeholder { color: var(--text-3); }
+.buscaCampo:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -1px;
+  border-color: transparent;
+}
+/* O X nativo do `type=search` no WebKit não segue o tema e fica cinza-claro
+   sobre fundo escuro. O botão "Limpar" ao lado faz o mesmo trabalho, visível
+   nos dois temas e alcançável pelo teclado. */
+.buscaCampo::-webkit-search-cancel-button { display: none; }
+
+/* ---------- continuação do feed ---------- */
+
+.maisLinha {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
 .abas {
   position: relative;
   display: flex;
