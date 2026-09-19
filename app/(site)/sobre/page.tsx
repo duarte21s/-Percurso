@@ -137,7 +137,23 @@ export default async function PaginaSobre() {
 
       <Metodo />
 
-      <section className="section" style={{ paddingTop: 0 }}>
+      {/* A folga é SIMÉTRICA, e esse é o conserto.
+
+          Havia `paddingTop: 0` aqui — o único do projeto — provavelmente para
+          a faixa não somar mais um vão depois do Método. O efeito foi outro:
+          `.section + .section` desenha um `border-top`, e com o topo zerado o
+          botão nascia a 1px dessa linha, com os 112px do `padding-block`
+          inteiros sobrando embaixo. Ele não estava centrado na faixa; estava
+          pregado no teto dela.
+
+          O valor é menor que o `clamp(72px, 8vw, 112px)` de uma seção de
+          conteúdo, de propósito: aqui mora um controle só, e repetir a régua
+          de um bloco de texto abriria uma faixa de 275px para um botão de
+          51px. */}
+      <section
+        className="section"
+        style={{ paddingBlock: "clamp(44px, 5vw, 72px)" }}
+      >
         {/* O botão é o único conteúdo desta faixa, e encostado à esquerda ele
             lia como sobra da seção anterior em vez de convite para a próxima.
             Centralizado, fica no mesmo arranjo do `.cta .btns` e do
