@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { PostCard } from "./PostCard";
 import { Compositor } from "./Compositor";
 import { Icone } from "@/components/ui/Icone";
@@ -13,7 +13,10 @@ interface Props {
   questaoId: string;
 }
 
-const LOGIN = "/entrar?proximo=/comunidade";
+/* Havia aqui um `LOGIN = "/entrar?proximo=/comunidade"` cravado. Quem estava
+   no meio de uma sessão de estudo e tocava em curtir voltava do acesso na
+   Comunidade, sem a questão, sem a sessão e sem o lugar onde parou. O destino
+   agora é a página de onde a pessoa saiu — ver `voltarPara` abaixo. */
 
 /**
  * Discussão ancorada numa questão. Aparece recolhida abaixo do gabarito no
@@ -22,46 +25,88 @@ const LOGIN = "/entrar?proximo=/comunidade";
  */
 export function DiscussaoQuestao({ questaoId }: Props) {
   const router = useRouter();
+  const caminho = usePathname();
+  const busca = useSearchParams();
   const [aberto, setAberto] = useState(false);
   const [carregou, setCarregou] = useState(false);
   const [posts, setPosts] = useState<Post[]>([]);
   const [eu, setEu] = useState<Autor | null>(null);
   const [carregando, setCarregando] = useState(false);
   const [aviso, setAviso] = useState<string | null>(null);
+  const [falhou, setFalhou] = useState(false);
+  const refBotao = useRef<HTMLButtonElement>(null);
+  const refPainel = useRef<HTMLDivElement>(null);
 
-  async function carregar() {
-    setCarregando(true);
-    try {
-      const [fp, fe] = await Promise.all([
-        fetch(`/api/comunidade/questao/${questaoId}`),
-        carregou ? Promise.resolve(null) : fetch("/api/comunidade/eu"),
-      ]);
-      const dados = await fp.json();
-      setPosts(dados.posts ?? []);
-      if (fe) {
-        const de = await fe.json().catch(() => ({ eu: null }));
-        setEu(de.eu ?? null);
+  /** Para onde o acesso devolve a pessoa: exatamente onde ela estava, com a
+   *  querystring inteira — é ela que carrega `?sessao=…` no Estudar. */
+  const voltarPara = `/entrar?proximo=${encodeURIComponent(
+    busca?.toString() ? `${caminho}?${busca}` : caminho
+  )}`;
+
+  const carregar = useCallback(
+    async (primeira = false) => {
+      setCarregando(true);
+      setFalhou(false);
+      try {
+        const [fp, fe] = await Promise.all([
+          fetch(`/api/comunidade/questao/${questaoId}`),
+          primeira ? fetch("/api/comunidade/eu") : Promise.resolve(null),
+        ]);
+        /* `fetch` não lança em 4xx/5xx. Sem este `fp.ok`, um 400 ou 500 caía
+           no `dados.posts ?? []` e a tela dizia "ninguém comentou ainda" —
+           um vazio falso, indistinguível de uma questão sem discussão. */
+        if (!fp.ok) {
+          const d = await fp.json().catch(() => ({}));
+          setAviso(d?.erro ?? "Não consegui carregar a discussão.");
+          setFalhou(true);
+          return;
+        }
+        const dados = await fp.json().catch(() => ({}));
+        setPosts(dados.posts ?? []);
+        setAviso(null);
+        if (fe) {
+          const de = await fe.json().catch(() => ({ eu: null }));
+          setEu(de.eu ?? null);
+        }
+      } catch {
+        setAviso("Falha de rede ao carregar a discussão.");
+        setFalhou(true);
+      } finally {
+        setCarregando(false);
+        setCarregou(true);
       }
-    } catch {
-      setAviso("Não consegui carregar a discussão.");
-    } finally {
-      setCarregando(false);
-      setCarregou(true);
-    }
-  }
+    },
+    [questaoId]
+  );
 
   function abrir() {
-    setAberto((v) => {
-      const proximo = !v;
-      if (proximo && !carregou) carregar();
-      return proximo;
+    const proximo = !aberto;
+    setAberto(proximo);
+
+    if (!proximo) {
+      // Fechou: devolve o foco ao botão, para quem navega por teclado.
+      refBotao.current?.focus();
+      return;
+    }
+
+    if (!carregou) void carregar(true);
+
+    /* O painel abre logo abaixo do gabarito, no fim de uma questão longa. Na
+       medição em 1440×900 ele nascia com o topo em 915px — abaixo da dobra,
+       com 0% visível, e nada rolava. Clicar parecia não fazer nada. Trazer o
+       painel para a tela é o que torna o clique perceptível. */
+    requestAnimationFrame(() => {
+      const el = refPainel.current;
+      if (!el) return;
+      const suave = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      el.scrollIntoView({ behavior: suave ? "smooth" : "auto", block: "nearest" });
     });
   }
 
   function precisaLogin(): boolean {
     if (eu?.username) return false;
     if (eu) setAviso("Escolha um nome de usuário na Comunidade para participar.");
-    else router.push(LOGIN);
+    else router.push(voltarPara);
     return true;
   }
 
@@ -132,7 +177,7 @@ export function DiscussaoQuestao({ questaoId }: Props) {
       .then((r) => {
         if (!r.ok) throw new Error();
       })
-      .catch(carregar);
+      .catch(() => void carregar());
   }
 
   async function aoComentar(idPost: string, idPai: string | null, texto: string) {
@@ -147,7 +192,7 @@ export function DiscussaoQuestao({ questaoId }: Props) {
       setAviso(dados.erro ?? "Não consegui comentar.");
       return;
     }
-    carregar();
+    void carregar();
   }
 
   async function aoDenunciar(
@@ -220,7 +265,7 @@ export function DiscussaoQuestao({ questaoId }: Props) {
       const d = await r.json().catch(() => ({}));
       return d.erro ?? "Não consegui aceitar a resposta.";
     }
-    carregar();
+    void carregar();
     return null;
   }
 
@@ -229,10 +274,18 @@ export function DiscussaoQuestao({ questaoId }: Props) {
   return (
     <div style={{ marginTop: 20 }}>
       <button
+        ref={refBotao}
+        type="button"
         className="btn btn-ghost"
         onClick={abrir}
         aria-expanded={aberto}
-        style={{ display: "inline-flex", alignItems: "center", gap: 8 }}
+        aria-controls={`discussao-${questaoId}`}
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 8,
+          minHeight: 44,
+        }}
       >
         <Icone nome="balao" />
         {total > 0 ? `Discussão da comunidade (${total})` : "Discutir esta questão"}
@@ -240,10 +293,31 @@ export function DiscussaoQuestao({ questaoId }: Props) {
       </button>
 
       {aberto && (
-        <div style={{ marginTop: 14 }}>
+        <div id={`discussao-${questaoId}`} ref={refPainel} style={{ marginTop: 14 }}>
           {aviso && (
-            <p className={css.fine} role="status" style={{ color: "var(--err)", marginBottom: 10 }}>
-              {aviso}
+            <p
+              className={css.fine}
+              role="alert"
+              style={{ color: "var(--err)", marginBottom: 10 }}
+            >
+              {aviso}{" "}
+              {falhou && (
+                <button
+                  type="button"
+                  onClick={() => void carregar(!carregou)}
+                  style={{
+                    border: 0,
+                    background: "none",
+                    padding: 0,
+                    font: "inherit",
+                    color: "var(--accent-2)",
+                    cursor: "pointer",
+                    textDecoration: "underline",
+                  }}
+                >
+                  Tentar de novo
+                </button>
+              )}
             </p>
           )}
 
@@ -258,7 +332,7 @@ export function DiscussaoQuestao({ questaoId }: Props) {
             />
           ) : (
             <p className={css.fine} style={{ marginBottom: 14 }}>
-              <Link href={eu ? "/comunidade" : LOGIN}>
+              <Link href={eu ? "/comunidade" : voltarPara}>
                 {eu ? "Escolha um nome de usuário" : "Entre"}
               </Link>{" "}
               para perguntar sobre esta questão.
@@ -266,8 +340,13 @@ export function DiscussaoQuestao({ questaoId }: Props) {
           )}
 
           {carregando ? (
-            <p className={css.fine}>Carregando…</p>
-          ) : total === 0 ? (
+            <p className={css.fine} role="status">
+              Carregando…
+            </p>
+          ) : falhou ? null : total === 0 ? (
+            /* Só diz "ninguém comentou" quando a busca voltou de verdade.
+               Com `falhou`, quem fala é o aviso acima — um vazio falso depois
+               de um 500 é pior que uma mensagem de erro. */
             <p className={css.fine}>
               Ninguém comentou esta questão ainda. Seja a primeira pessoa.
             </p>

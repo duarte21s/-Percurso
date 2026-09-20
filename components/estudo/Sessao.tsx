@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Alternativas } from "./Alternativas";
 import { Gabarito } from "./Gabarito";
+import { GabaritoCompleto } from "./GabaritoCompleto";
 import { DiscussaoQuestao } from "@/components/comunidade/DiscussaoQuestao";
 import { AvisoRecompensa } from "@/components/comunidade/AvisoRecompensa";
 import { gsap, useGSAP } from "@/lib/gsap/registro";
@@ -316,32 +317,39 @@ export function Sessao({ sessao, questoes, respondidas, recorte }: Props) {
   if (fase === "resultado") {
     const aproveitamento = total > 0 ? Math.round((acertos / total) * 100) : 0;
     return (
-      <div className="quiz">
-        <div className="quiz-body">
-          <div className="quiz-result" ref={refResultado}>
-            <div className="big">
-              {acertos}
-              <span>/{total}</span>
+      <>
+        <div className="quiz">
+          <div className="quiz-body">
+            <div className="quiz-result" ref={refResultado}>
+              <div className="big">
+                {acertos}
+                <span>/{total}</span>
+              </div>
+              <p className="lede" style={{ margin: "18px auto 0" }}>
+                {aproveitamento}% de aproveitamento em {recorte}. O resultado
+                entrou no seu histórico — dá para comparar com os próximos e ver
+                onde a agulha anda.
+              </p>
             </div>
-            <p className="lede" style={{ margin: "18px auto 0" }}>
-              {aproveitamento}% de aproveitamento em {recorte}. O resultado
-              entrou no seu histórico — dá para comparar com os próximos e ver
-              onde a agulha anda.
-            </p>
+          </div>
+          <div className="quiz-foot">
+            <span className="dim fine">Sessão concluída e salva.</span>
+            <div className="quiz-foot-acoes">
+              <Link href="/app" className="btn btn-ghost">
+                Ver meu histórico
+              </Link>
+              <Link href="/app/questoes" className="btn btn-primary">
+                Estudar outro conteúdo <span className="arrow">→</span>
+              </Link>
+            </div>
           </div>
         </div>
-        <div className="quiz-foot">
-          <span className="dim fine">Sessão concluída e salva.</span>
-          <div className="quiz-foot-acoes">
-            <Link href="/app" className="btn btn-ghost">
-              Ver meu histórico
-            </Link>
-            <Link href="/app/questoes" className="btn btn-primary">
-              Estudar outro conteúdo <span className="arrow">→</span>
-            </Link>
-          </div>
-        </div>
-      </div>
+
+        {/* Só existe nesta fase. Enquanto há questão em aberto, nem o
+            componente é montado nem a rota que ele chama responde: o
+            /api/simulado/gabarito devolve 409 se faltar resposta. */}
+        <GabaritoCompleto simuladoId={sessao.id} recorte={recorte} />
+      </>
     );
   }
 

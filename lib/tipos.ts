@@ -257,6 +257,35 @@ export interface Gabarito {
   recompensa?: RecompensaEstudo;
 }
 
+/**
+ * Uma linha do gabarito completo, exibido só depois que a sessão termina.
+ *
+ * Carrega `correta` e `explicacao`, que são exatamente os campos que a página
+ * de Questões nunca recebe enquanto há questão em aberto. Quem monta isto é
+ * GET /api/simulado/gabarito, que se recusa a responder antes de todas as
+ * questões terem resposta gravada.
+ */
+export interface ItemGabarito {
+  /** Posição na sessão, começando em 1 — a ordem de `questao_ids`. */
+  numero: number;
+  questaoId: string;
+  fonte: string;
+  enunciado: string;
+  opcoes: string[];
+  /** O que a pessoa marcou. */
+  marcada: number;
+  correta: number;
+  acertou: boolean;
+  explicacao: string;
+}
+
+export interface GabaritoDaSessao {
+  itens: ItemGabarito[];
+  acertos: number;
+  erros: number;
+  total: number;
+}
+
 export interface Estatisticas {
   questoes: number;
   materias: number;
