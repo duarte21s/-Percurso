@@ -32,7 +32,20 @@ interface Props {
   recorte: string;
 }
 
-type Fase = "retomada" | "vazio" | "respondendo" | "resultado";
+/**
+ * As quatro etapas do fim de uma sessão, separadas de propósito:
+ *
+ *   respondendo — ainda há questão em aberto;
+ *   pronta      — a última resposta foi GRAVADA, e nada mais. Nenhum
+ *                 gabarito, nenhuma explicação, nenhum resultado. A sessão
+ *                 segue "em_andamento" no banco e continua retomável;
+ *   resultado   — a pessoa clicou em "Finalizar sessão", o status virou
+ *                 "concluido" e só então o gabarito é liberado.
+ *
+ * "retomada" e "vazio" são as entradas: voltar a uma sessão aberta e não ter
+ * sessão nenhuma.
+ */
+type Fase = "retomada" | "vazio" | "respondendo" | "pronta" | "resultado";
 
 const dois = (n: number) => String(n).padStart(2, "0");
 
@@ -56,7 +69,12 @@ export function Sessao({ sessao, questoes, respondidas, recorte }: Props) {
 
   const [fase, setFase] = useState<Fase>(() => {
     if (!sessao || total === 0) return "vazio";
-    if (respondidas >= total) return "resultado";
+    /* O status manda. Uma sessão já finalizada abre direto no resultado —
+       é o que faz o gabarito sobreviver a um F5 depois de finalizar. Ter
+       todas as respostas gravadas NÃO basta: isso leva à tela de
+       encerramento, onde a pessoa ainda precisa clicar. */
+    if (sessao.status === "concluido") return "resultado";
+    if (respondidas >= total) return "pronta";
     return respondidas > 0 ? "retomada" : "respondendo";
   });
 
@@ -199,10 +217,43 @@ export function Sessao({ sessao, questoes, respondidas, recorte }: Props) {
     }
   }
 
+  /**
+   * Conclui a sessão de propósito, a pedido da pessoa.
+   *
+   * Usa a mesma rota de `encerrar` — o efeito no banco é o mesmo, mover o
+   * status para "concluido" — mas o significado é outro, e por isso os dois
+   * botões existem separados: "Encerrar e escolher outro" abandona uma
+   * sessão pela metade, e este finaliza uma que já foi respondida inteira.
+   * É este clique, e só ele, que libera /api/simulado/gabarito.
+   */
+  async function finalizar() {
+    setOcupado(true);
+    setErro(null);
+    try {
+      const r = await fetch("/api/simulado/encerrar", { method: "POST" });
+      if (!r.ok) {
+        const d = await r.json().catch(() => ({}));
+        setErro(d?.erro ?? "Não consegui finalizar a sessão. Tente de novo.");
+        setOcupado(false);
+        return;
+      }
+      /* Só depois do 200: se a gravação falhar, a fase não avança e a rota do
+         gabarito continuaria devolvendo 409 — a tela mostraria um erro em vez
+         do gabarito, sem nada explicando. */
+      setFase("resultado");
+      setOcupado(false);
+      router.refresh();
+    } catch {
+      setErro("Falha de rede. Verifique a conexão e tente de novo.");
+      setOcupado(false);
+    }
+  }
+
   function avancar() {
     const aplicar = () => {
       if (gabarito?.fim) {
-        setFase("resultado");
+        // A última resposta leva ao encerramento, não ao gabarito.
+        setFase("pronta");
         return;
       }
       setI((n) => n + 1);
@@ -313,6 +364,73 @@ export function Sessao({ sessao, questoes, respondidas, recorte }: Props) {
     );
   }
 
+  /* ---------- respondeu tudo, ainda não finalizou ---------- */
+  if (fase === "pronta") {
+    return (
+      <>
+        <div className="quiz">
+          <div className="quiz-top">
+            <div className="quiz-meta">
+              <span className="chip accent">Tudo respondido</span>
+              <span className="quiz-count">
+                {dois(total)} / {dois(total)}
+              </span>
+            </div>
+            {/* Acertos e erros já apareciam durante a sessão, a cada resposta.
+                Não são gabarito: não dizem QUAL questão nem por quê. */}
+            <div className="score">
+              <span>
+                Acertos <b>{acertos}</b>
+              </span>
+              <span>
+                Erros <b>{erros}</b>
+              </span>
+            </div>
+          </div>
+
+          <div className="quiz-progress">
+            <i style={{ width: "100%" }} />
+          </div>
+
+          <div className="quiz-body">
+            <div className="q-source">Fim das questões</div>
+            <p className="q-text">Você respondeu todas as questões.</p>
+            <p className="dim fine" style={{ maxWidth: "62ch" }}>
+              As {total} respostas já estão salvas. Finalizar encerra a sessão e
+              abre o gabarito completo, com a alternativa correta e o comentário
+              de cada questão. Se preferir parar agora, pode sair: a sessão
+              continua aberta e você retoma daqui.
+            </p>
+          </div>
+
+          <div className="quiz-foot">
+            <span className="dim fine">
+              O gabarito só abre depois de finalizar.
+            </span>
+            <div className="quiz-foot-acoes">
+              <Link href="/app" className="btn btn-ghost">
+                Sair sem finalizar
+              </Link>
+              <button
+                className="btn btn-primary"
+                onClick={finalizar}
+                disabled={ocupado}
+              >
+                {ocupado ? "Finalizando…" : "Finalizar sessão"}{" "}
+                {!ocupado && <span className="arrow">→</span>}
+              </button>
+            </div>
+          </div>
+        </div>
+        {erro && (
+          <p className="dim" style={{ color: "var(--err)", marginTop: 14 }}>
+            {erro}
+          </p>
+        )}
+      </>
+    );
+  }
+
   /* ---------- resultado ---------- */
   if (fase === "resultado") {
     const aproveitamento = total > 0 ? Math.round((acertos / total) * 100) : 0;
@@ -345,9 +463,12 @@ export function Sessao({ sessao, questoes, respondidas, recorte }: Props) {
           </div>
         </div>
 
-        {/* Só existe nesta fase. Enquanto há questão em aberto, nem o
-            componente é montado nem a rota que ele chama responde: o
-            /api/simulado/gabarito devolve 409 se faltar resposta. */}
+        {/* Só existe nesta fase, e a fase só é alcançada por dois caminhos:
+            o clique em "Finalizar sessão" ou o carregamento de uma sessão
+            que já está "concluido" no banco. Nos dois casos o status foi
+            movido de propósito. A tela não é a única guarda: mesmo montado
+            à força, /api/simulado/gabarito devolve 409 enquanto o status
+            não for "concluido". */}
         <GabaritoCompleto simuladoId={sessao.id} recorte={recorte} />
       </>
     );
@@ -442,7 +563,7 @@ export function Sessao({ sessao, questoes, respondidas, recorte }: Props) {
             onClick={avancar}
             disabled={!gabarito || ocupado}
           >
-            {gabarito?.fim ? "Ver resultado" : "Próxima"}{" "}
+            {gabarito?.fim ? "Ir para o encerramento" : "Próxima"}{" "}
             <span className="arrow">→</span>
           </button>
         </div>

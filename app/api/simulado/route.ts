@@ -51,6 +51,50 @@ export async function POST(request: Request) {
   }
   const { supabase, user } = sessao;
 
+  /* Uma sessão de estudo aberta BARRA a criação de outra, em vez de ser
+     fechada em silêncio.
+
+     Antes, esta rota fazia `update({ status: "concluido" })` na sessão
+     anterior. Isso era um vazamento: quem respondia tudo, não clicava em
+     "Finalizar sessão" e ia começar outro estudo via a sessão antiga
+     concluída sem nunca ter pedido — e o gabarito dela destravava, porque
+     /api/simulado/gabarito só exige `status = 'concluido'`.
+
+     Agora `concluido` é escrito num lugar só, /api/simulado/encerrar, que é
+     alcançado por dois botões explícitos: "Finalizar sessão" na tela de
+     encerramento e "Encerrar e escolher outro" na tela de retomada. Começar
+     outro estudo deixou de ser um terceiro caminho.
+
+     O 409 leva `sessaoId` para a tela conseguir mandar a pessoa exatamente
+     ao lugar onde ela decide — que é diferente conforme a sessão esteja
+     pela metade (retomada) ou respondida inteira (encerramento). */
+  const { data: aberta } = await supabase
+    .from("simulados")
+    .select("id, questao_ids")
+    .eq("usuario_id", user.id)
+    .eq("status", "em_andamento")
+    .is("prova_id", null)
+    .maybeSingle();
+
+  if (aberta) {
+    const { count } = await supabase
+      .from("respostas")
+      .select("*", { count: "exact", head: true })
+      .eq("simulado_id", aberta.id);
+
+    const completa = (count ?? 0) >= (aberta.questao_ids?.length ?? 0);
+    return NextResponse.json(
+      {
+        erro: completa
+          ? "Você respondeu todas as questões do estudo anterior. Finalize-o para ver o gabarito antes de começar outro."
+          : "Você tem um estudo em andamento. Continue ou encerre-o antes de começar outro.",
+        sessaoId: aberta.id,
+        completa,
+      },
+      { status: 409 }
+    );
+  }
+
   const corpo = await request.json().catch(() => ({}));
   const materia: string = corpo?.materia ?? "todas";
   const temas: string[] = Array.isArray(corpo?.temas)
@@ -124,19 +168,9 @@ export async function POST(request: Request) {
 
   const ids = embaralha(questoes.map((q) => q.id)).slice(0, quantidade);
 
-  // Só encerra o estudo anterior depois de encontrar questões para a nova
-  // escolha. Um tema vazio ou uma falha de consulta preserva a retomada.
-  // Provas do ENEM continuam abertas, e as respostas anteriores ficam salvas.
-  const { error: erroEncerrar } = await supabase
-    .from("simulados")
-    .update({ status: "concluido" })
-    .eq("usuario_id", user.id)
-    .eq("status", "em_andamento")
-    .is("prova_id", null);
-
-  if (erroEncerrar) {
-    return NextResponse.json({ erro: erroEncerrar.message }, { status: 500 });
-  }
+  /* O `update({ status: "concluido" })` que ficava aqui saiu — ver a guarda
+     no topo da rota. A esta altura não há estudo avulso aberto: se houvesse,
+     a requisição já teria voltado com 409. */
 
   const { data: simulado, error } = await supabase
     .from("simulados")

@@ -143,6 +143,17 @@ export function EscolherConteudo({
         }),
       });
       const dados = await r.json();
+      /* 409 com `sessaoId`: já existe um estudo aberto. Em vez de deixar a
+         mensagem parada na tela, leva a pessoa até ele — é lá que estão os
+         botões que decidem o destino da sessão ("Continuar" e "Encerrar e
+         escolher outro" quando está pela metade, "Finalizar sessão" quando
+         foi respondida inteira). Começar outro estudo deixou de encerrar o
+         anterior por conta própria. */
+      if (r.status === 409 && typeof dados?.sessaoId === "string") {
+        router.push(`/app/questoes?sessao=${encodeURIComponent(dados.sessaoId)}`);
+        router.refresh();
+        return;
+      }
       if (!r.ok) throw new Error(dados.erro ?? "Não consegui montar o estudo.");
       router.push(`/app/questoes?sessao=${encodeURIComponent(dados.simulado.id)}`);
       router.refresh();

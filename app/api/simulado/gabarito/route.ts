@@ -36,13 +36,26 @@ export async function GET(request: Request) {
      policy for afrouxada um dia, o gabarito de outra pessoa continua fora. */
   const { data: simulado } = await supabase
     .from("simulados")
-    .select("id, questao_ids")
+    .select("id, questao_ids, status")
     .eq("id", simuladoId)
     .eq("usuario_id", user.id)
     .maybeSingle();
 
   if (!simulado) {
     return NextResponse.json({ erro: "Sessão não encontrada." }, { status: 404 });
+  }
+
+  /* Primeiro portão: a sessão tem de estar EXPLICITAMENTE concluída.
+     Responder a última questão já não basta — /responder deixa o status em
+     "em_andamento" de propósito, e só o clique em "Finalizar sessão" (que
+     chama /api/simulado/encerrar) o move para "concluido". Sem esta
+     checagem, bastaria responder tudo para o gabarito abrir sozinho, que é
+     exatamente o que esta mudança impede. */
+  if (simulado.status !== "concluido") {
+    return NextResponse.json(
+      { erro: "A sessão ainda não foi finalizada.", status: simulado.status },
+      { status: 409 }
+    );
   }
 
   const ids: string[] = simulado.questao_ids ?? [];
@@ -66,7 +79,7 @@ export async function GET(request: Request) {
   if (marcadas.size < ids.length) {
     return NextResponse.json(
       {
-        erro: "A sessão ainda não terminou.",
+        erro: "A sessão foi encerrada sem responder tudo.",
         respondidas: marcadas.size,
         total: ids.length,
       },

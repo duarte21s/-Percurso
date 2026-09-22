@@ -98,13 +98,22 @@ export async function POST(request: Request) {
   const acertos = simulado.acertos + (acertou ? 1 : 0);
   const erros = simulado.erros + (acertou ? 0 : 1);
 
+  /* `status` continua "em_andamento" mesmo na última questão.
+     Responder é gravar uma resposta — não é encerrar. Quem conclui a sessão
+     é a pessoa, clicando em "Finalizar sessão" na tela de encerramento, e
+     isso passa por /api/simulado/encerrar. Antes daquele clique a sessão
+     segue aberta e retomável, e /api/simulado/gabarito recusa: é essa
+     separação que impede o gabarito de abrir sozinho.
+
+     `fim` continua na resposta — o cliente precisa saber que não há próxima
+     questão para levar a pessoa à tela de encerramento. */
   await supabase
     .from("simulados")
     .update({
       indice_atual: fim ? simulado.questao_ids.length - 1 : proximo,
       acertos,
       erros,
-      status: fim ? "concluido" : "em_andamento",
+      status: "em_andamento",
     })
     .eq("id", simuladoId);
 

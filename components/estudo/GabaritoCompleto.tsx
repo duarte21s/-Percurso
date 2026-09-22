@@ -18,10 +18,10 @@ type Estado =
   | { fase: "pronto"; dados: GabaritoDaSessao };
 
 /**
- * O gabarito da sessão inteira, aberto só depois da última questão.
+ * O gabarito da sessão inteira, aberto só depois de a pessoa finalizar.
  *
  * Os dados NÃO vêm por prop da página: eles são buscados aqui, depois que a
- * sessão terminou. É de propósito. Se a página os carregasse junto das
+ * sessão é finalizada. É de propósito. Se a página os carregasse junto das
  * questões, `correta` e `explicacao` estariam no HTML desde a primeira
  * pergunta, e bastaria abrir o DevTools para ver as respostas — exatamente o
  * que /api/simulado/responder evita ao só devolver o gabarito de uma questão
@@ -43,8 +43,11 @@ export function GabaritoCompleto({ simuladoId, recorte }: Props) {
         const d = await r.json().catch(() => ({}));
         if (!vivo) return;
         /* `fetch` não lança em 4xx/5xx. Sem este `r.ok`, um 409 ("a sessão
-           ainda não terminou") viraria uma lista vazia e a tela diria que não
-           há questões — mentira silenciosa. */
+           ainda não foi finalizada") viraria uma lista vazia e a tela diria
+           que não há questões — mentira silenciosa. Este componente só é
+           montado na fase "resultado", depois do clique em "Finalizar
+           sessão", então um 409 aqui significa que a gravação do status não
+           pegou: mostrar o erro é o certo. */
         if (!r.ok) {
           setEstado({
             fase: "erro",

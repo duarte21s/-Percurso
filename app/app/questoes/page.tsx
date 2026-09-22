@@ -76,8 +76,27 @@ export default async function PaginaQuestoes({
 
   const anterior = (emAndamento as Simulado | null) ?? null;
   // Entrar em Questões sempre abre a escolha. Só um link explícito retoma
-  // a sessão, e apenas se ela pertencer ao usuário e continuar em andamento.
-  const sessao = anterior?.id === sessaoDaUrl ? anterior : null;
+  // a sessão, e apenas se ela pertencer ao usuário.
+  let sessao = anterior?.id === sessaoDaUrl ? anterior : null;
+
+  /* Uma sessão JÁ FINALIZADA continua acessível pelo link explícito.
+     Sem isto, recarregar a página logo depois de clicar em "Finalizar
+     sessão" faria o gabarito sumir: o status virou "concluido" e a consulta
+     acima só procura "em_andamento". O recorte é o mesmo de sempre —
+     `usuario_id` e `prova_id is null` —, então nada de outra pessoa nem
+     prova do ENEM entra por aqui. */
+  if (!sessao && sessaoDaUrl && /^[0-9a-f-]{36}$/i.test(sessaoDaUrl)) {
+    const { data: finalizada } = await supabase
+      .from("simulados")
+      .select("*")
+      .eq("id", sessaoDaUrl)
+      .eq("usuario_id", user.id)
+      .eq("status", "concluido")
+      .is("prova_id", null)
+      .maybeSingle();
+    sessao = (finalizada as Simulado | null) ?? null;
+  }
+
   const contagens = sessao ? {} : await contagensPorTema(supabase);
 
   let questoes: QuestaoPublica[] = [];
@@ -110,11 +129,15 @@ export default async function PaginaQuestoes({
 
   /* O rótulo do recorte prefere os temas, que é o que a pessoa escolheu de
      fato; a matéria só entra quando a sessão não tem tema. */
+  /* `sessao ?? anterior`: quando a sessão exibida é uma finalizada trazida
+     pelo link, `anterior` é null — e o rótulo cairia em "Todas as matérias"
+     mesmo numa sessão de Biologia. */
+  const doRecorte = sessao ?? anterior;
   const recorte =
-    anterior?.tema_filtro ||
-    (anterior && anterior.materia_filtro !== "todas"
-      ? (MATERIAS_POR_ID.get(anterior.materia_filtro)?.nome ??
-        anterior.materia_filtro)
+    doRecorte?.tema_filtro ||
+    (doRecorte && doRecorte.materia_filtro !== "todas"
+      ? (MATERIAS_POR_ID.get(doRecorte.materia_filtro)?.nome ??
+        doRecorte.materia_filtro)
       : "Todas as matérias");
 
   return (
@@ -138,9 +161,14 @@ export default async function PaginaQuestoes({
               <div className="quiz" style={{ marginBottom: 24 }}>
                 <div className="quiz-foot">
                   <p className="dim fine">
-                    Estudo em andamento: <strong>{recorte}</strong>. Você pode
-                    continuar ou escolher outro conteúdo abaixo. Ao iniciar um
-                    novo estudo, o anterior é encerrado e suas respostas ficam no histórico.
+                    {/* Este parágrafo dizia "ao iniciar um novo estudo, o
+                        anterior é encerrado". Deixou de ser verdade: começar
+                        outro não encerra mais nada — era por ali que uma
+                        sessão virava concluída sem ninguém pedir, e com ela o
+                        gabarito destravava. */}
+                    Estudo em andamento: <strong>{recorte}</strong>. Continue de
+                    onde parou, ou encerre para escolher outro conteúdo — as
+                    respostas ficam no histórico de qualquer jeito.
                   </p>
                   <Link
                     href={`/app/questoes?sessao=${encodeURIComponent(anterior.id)}`}
