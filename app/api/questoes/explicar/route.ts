@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { exigeSessaoApi } from "@/lib/sessao";
 import { ErroGeracao } from "@/lib/anthropic";
 import { explicaQuestao, mensagemParaAluno } from "@/lib/ia";
+import { criaClienteAdmin } from "@/lib/supabase/admin";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -35,7 +36,39 @@ export async function POST(request: Request) {
     return NextResponse.json({ erro: "Questão não informada." }, { status: 400 });
   }
 
-  const { data: questao } = await supabase
+  /* A pessoa precisa ter respondido esta questão numa prova já entregue. Sem
+     esta checagem, qualquer pessoa logada leria o gabarito de qualquer questão
+     do banco a qualquer momento, bastando pedir a explicação dela.
+
+     Ela vem ANTES de ler a questão. Vinha depois da devolução da explicação
+     já salva, e então bastava pedir, no meio da prova, a explicação que outra
+     pessoa já tinha gerado. Roda com o cliente de sessão: é a RLS de
+     `respostas` que garante que as linhas são desta pessoa. */
+  const { data: respondeu } = await supabase
+    .from("respostas")
+    .select("simulado_id, simulados!inner(status)")
+    .eq("questao_id", questaoId)
+    .eq("simulados.status", "concluido")
+    .limit(1);
+
+  if (!respondeu || respondeu.length === 0) {
+    return NextResponse.json(
+      { erro: "A explicação abre depois que você entrega a prova." },
+      { status: 403 }
+    );
+  }
+
+  /* Só agora a questão, e com a service role: `correta` e `explicacao`
+     deixam de ser legíveis pela chave anon. */
+  const admin = criaClienteAdmin();
+  if (!admin) {
+    return NextResponse.json(
+      { erro: "As explicações estão indisponíveis agora. Tente de novo em instantes." },
+      { status: 503 }
+    );
+  }
+
+  const { data: questao } = await admin
     .from("questoes")
     .select("id, enunciado, opcoes, correta, fonte, explicacao, origem, imagens")
     .eq("id", questaoId)
@@ -54,23 +87,6 @@ export async function POST(request: Request) {
     return NextResponse.json(
       { erro: "Essa questão já vem com explicação própria." },
       { status: 409 }
-    );
-  }
-
-  /* A pessoa precisa ter respondido esta questão numa prova já entregue. Sem
-     esta checagem, qualquer pessoa logada leria o gabarito de qualquer questão
-     do banco a qualquer momento, bastando pedir a explicação dela. */
-  const { data: respondeu } = await supabase
-    .from("respostas")
-    .select("simulado_id, simulados!inner(status)")
-    .eq("questao_id", questaoId)
-    .eq("simulados.status", "concluido")
-    .limit(1);
-
-  if (!respondeu || respondeu.length === 0) {
-    return NextResponse.json(
-      { erro: "A explicação abre depois que você entrega a prova." },
-      { status: 403 }
     );
   }
 

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { exigeSessaoApi } from "@/lib/sessao";
+import { criaClienteAdmin } from "@/lib/supabase/admin";
 import type { AreaEnem, CorrecaoQuestao, ResultadoProva } from "@/lib/tipos";
 
 export const dynamic = "force-dynamic";
@@ -43,8 +44,24 @@ export async function POST(request: Request) {
 
   const ids = simulado.questao_ids as string[];
 
-  const [{ data: questoes }, { data: respostas }] = await Promise.all([
-    supabase
+  /* O gabarito só se lê com a service role. A tentativa veio do cliente de
+     sessão (a RLS só mostra a da própria pessoa), os ids são os dela, e as
+     marcações também vêm pela sessão. Sem a chave, a prova não é entregue. */
+  const admin = criaClienteAdmin();
+  if (!admin) {
+    return NextResponse.json(
+      {
+        erro: "A correção está indisponível agora. A prova não foi entregue; tente de novo em instantes.",
+      },
+      { status: 503 }
+    );
+  }
+
+  const [
+    { data: questoes, error: erroQuestoes },
+    { data: respostas, error: erroRespostas },
+  ] = await Promise.all([
+    admin
       .from("questoes")
       .select("id, numero, area, correta")
       .in("id", ids),
@@ -54,12 +71,22 @@ export async function POST(request: Request) {
       .eq("simulado_id", simuladoId),
   ]);
 
+  /* Uma leitura falhou: não corrige nem fecha. Antes, a correção saía vazia
+     e a prova fechava com 0 acertos — sem volta, porque tentativa concluída é
+     imutável (gatilho prova_guarda_tentativa). */
+  if (erroQuestoes || erroRespostas || !questoes) {
+    return NextResponse.json(
+      { erro: "Não consegui corrigir a prova agora. Ela continua aberta; tente de novo." },
+      { status: 500 }
+    );
+  }
+
   const marcadas = new Map<string, number>();
   for (const r of respostas ?? []) {
     marcadas.set(r.questao_id as string, r.alternativa as number);
   }
 
-  const correcao: CorrecaoQuestao[] = (questoes ?? [])
+  const correcao: CorrecaoQuestao[] = questoes
     .map((q) => {
       const marcada = marcadas.get(q.id as string) ?? null;
       return {
@@ -88,10 +115,19 @@ export async function POST(request: Request) {
 
   // Fecha antes de responder — ver o comentário no topo.
   if (simulado.status === "em_andamento") {
-    await supabase
+    const { error: erroFechar } = await supabase
       .from("simulados")
       .update({ status: "concluido", acertos, erros })
       .eq("id", simuladoId);
+
+    /* Não fechou, não entrega o gabarito. Antes o erro era ignorado e a
+       correção saía com a prova ainda aberta para responder. */
+    if (erroFechar) {
+      return NextResponse.json(
+        { erro: "Não consegui entregar a prova agora. Tente de novo." },
+        { status: 500 }
+      );
+    }
   }
 
   const resultado: ResultadoProva = {

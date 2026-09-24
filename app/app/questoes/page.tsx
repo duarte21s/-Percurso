@@ -4,6 +4,7 @@ import { Sessao } from "@/components/estudo/Sessao";
 import { EscolherConteudo } from "@/components/estudo/EscolherConteudo";
 import { exigeSessao } from "@/lib/sessao";
 import { contagensPorTema } from "@/lib/temas";
+import { leitorDoAcervo } from "@/lib/supabase/admin";
 import {
   MATERIAS_POR_ID,
   TODAS_AS_MATERIAS,
@@ -78,7 +79,7 @@ export default async function PaginaQuestoes({
   // Entrar em Questões sempre abre a escolha. Só um link explícito retoma
   // a sessão, e apenas se ela pertencer ao usuário e continuar em andamento.
   const sessao = anterior?.id === sessaoDaUrl ? anterior : null;
-  const contagens = sessao ? {} : await contagensPorTema(supabase);
+  const contagens = sessao ? {} : await contagensPorTema(leitorDoAcervo(supabase));
 
   let questoes: QuestaoPublica[] = [];
   let respondidas = 0;

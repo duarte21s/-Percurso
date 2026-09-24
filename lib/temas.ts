@@ -23,6 +23,11 @@ export function chaveTema(materiaId: string, tema: string): string {
  * no cliente em vez de devolver vazio. Sem contagem a tela desabilita todos os
  * temas e parece quebrada, o que é bem pior que uma leitura a mais: são duas
  * colunas curtas de ~1.300 linhas, não o banco inteiro.
+ *
+ * Quem chama passa `leitorDoAcervo(...)` (lib/supabase/admin.ts), e não o
+ * cliente de sessão: a view e o caminho de contingência dependem de
+ * `explicacao`, que deixa de ser legível pela chave anon. Este arquivo não
+ * importa o cliente admin porque `chaveTema` também roda no navegador.
  */
 export async function contagensPorTema(
   supabase: SupabaseClient
@@ -62,6 +67,10 @@ export async function contagensPorTema(
  *
  * São consultas HEAD paralelas, uma por matéria, sem transferir linha nenhuma:
  * só o cabeçalho com a contagem.
+ *
+ * Mesmo leitor de `contagensPorTema`, pelo mesmo motivo: o filtro
+ * `explicacao <> ''` exige poder ler a coluna. E `select("id")`, não `"*"` —
+ * com privilégio por coluna, `*` exige SELECT em todas, gabarito incluído.
  */
 export async function contagensPorMateria(
   supabase: SupabaseClient,
@@ -71,7 +80,7 @@ export async function contagensPorMateria(
     materiaIds.map(async (id) => {
       const { count } = await supabase
         .from("questoes")
-        .select("*", { count: "exact", head: true })
+        .select("id", { count: "exact", head: true })
         .eq("materia_id", id)
         .is("prova_id", null)
         .neq("explicacao", "")

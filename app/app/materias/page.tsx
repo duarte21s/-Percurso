@@ -3,6 +3,7 @@ import Link from "next/link";
 import { exigeSessao } from "@/lib/sessao";
 import { TODAS_AS_MATERIAS } from "@/lib/conteudo/materias";
 import { contagensPorMateria } from "@/lib/temas";
+import { leitorDoAcervo } from "@/lib/supabase/admin";
 import { Revelar } from "@/components/ui/Revelar";
 import type { Simulado } from "@/lib/tipos";
 
@@ -26,7 +27,7 @@ export default async function PaginaMaterias() {
       .eq("usuario_id", user.id)
       .eq("status", "concluido")
       .is("prova_id", null),
-    contagensPorMateria(supabase, ids),
+    contagensPorMateria(leitorDoAcervo(supabase), ids),
   ]);
 
   /* Agrega as sessões concluídas por matéria. Sessões de "todas as matérias"

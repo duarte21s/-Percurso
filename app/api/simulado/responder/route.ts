@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { exigeSessaoApi } from "@/lib/sessao";
 import { registrarAtividade } from "@/lib/gamificacao";
+import { criaClienteAdmin } from "@/lib/supabase/admin";
 import type { Gabarito } from "@/lib/tipos";
 
 export const dynamic = "force-dynamic";
@@ -54,7 +55,21 @@ export async function POST(request: Request) {
     );
   }
 
-  const { data: questao, error: erroQuestao } = await supabase
+  /* `correta` e `explicacao` só se leem com a service role. As checagens
+     acima — sessão, simulado desta pessoa (RLS), aberto, questão dentro dele —
+     rodaram com o cliente de sessão; daqui só se lê a questão que elas
+     validaram. Sem a chave não há correção, e nada é gravado. */
+  const admin = criaClienteAdmin();
+  if (!admin) {
+    return NextResponse.json(
+      {
+        erro: "A correção está indisponível agora. Sua resposta não foi gravada; tente de novo em instantes.",
+      },
+      { status: 503 }
+    );
+  }
+
+  const { data: questao, error: erroQuestao } = await admin
     .from("questoes")
     .select("correta, explicacao, opcoes")
     .eq("id", questaoId)

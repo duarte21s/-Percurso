@@ -88,6 +88,7 @@ for (const parametros of [{}, { materia: "fisica" }, { sessao: "anterior" }, { s
     "@/components/estudo/EscolherConteudo": { EscolherConteudo: "escolher" },
     "@/lib/sessao": { exigeSessao: async () => ({ supabase, user }) },
     "@/lib/temas": { contagensPorTema: async () => ({}) },
+    "@/lib/supabase/admin": { leitorDoAcervo: (s) => s },
     "@/lib/conteudo/materias": { MATERIAS_POR_ID: new Map(), TODAS_AS_MATERIAS: [] },
   });
   const arvore = elementos(await pagina({ searchParams: Promise.resolve(parametros) }));
@@ -116,6 +117,7 @@ for (const cenario of ["sucesso", "vazio", "falha"]) {
   const { POST } = carregar("app/api/simulado/route.ts", {
     "next/server": { NextResponse: { json: (data, opcoes) => ({ data, status: opcoes?.status ?? 200 }) } },
     "@/lib/sessao": { exigeSessaoApi: async () => ({ ok: true, supabase, user }) },
+    "@/lib/supabase/admin": { leitorDoAcervo: (s) => s },
   });
   const resposta = await POST({ json: async () => ({ materia: "matematica", temas: ["Frações"], quantidade: 3 }) });
   assert.equal(prova.status, "em_andamento", "Trocar conteúdo preserva a prova do ENEM");
@@ -173,6 +175,7 @@ console.log("ok: a contagem por matéria usa o mesmo recorte do sorteio");
   const { POST } = carregar("app/api/simulado/route.ts", {
     "next/server": { NextResponse: { json: (data, opcoes) => ({ data, status: opcoes?.status ?? 200 }) } },
     "@/lib/sessao": { exigeSessaoApi: async () => ({ ok: true, supabase, user }) },
+    "@/lib/supabase/admin": { leitorDoAcervo: (s) => s },
   });
   const resposta = await POST({
     json: async () => ({ materia: "todas", temas: [], quantidade: 45 }),

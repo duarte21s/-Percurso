@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { exigeSessaoApi } from "@/lib/sessao";
 import { registrarAtividade } from "@/lib/gamificacao";
+import { criaClienteAdmin } from "@/lib/supabase/admin";
 
 export const dynamic = "force-dynamic";
 
@@ -104,7 +105,20 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true, desmarcada: true });
   }
 
-  const { data: questao } = await supabase
+  /* `correta` só se lê com a service role. A tentativa, o dono (RLS), a
+     questão atual e o relógio já foram conferidos acima com o cliente de
+     sessão, e `questaoId` passou por eles. Sem a chave, nada é gravado. */
+  const admin = criaClienteAdmin();
+  if (!admin) {
+    return NextResponse.json(
+      {
+        erro: "A correção está indisponível agora. Sua marcação não foi gravada; tente de novo em instantes.",
+      },
+      { status: 503 }
+    );
+  }
+
+  const { data: questao } = await admin
     .from("questoes")
     .select("correta, opcoes")
     .eq("id", questaoId)

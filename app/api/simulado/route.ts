@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { exigeSessaoApi } from "@/lib/sessao";
+import { leitorDoAcervo } from "@/lib/supabase/admin";
 
 export const dynamic = "force-dynamic";
 
@@ -69,10 +70,16 @@ export async function POST(request: Request) {
   /* O PostgREST limita cada resposta a mil linhas. Buscar só uma página
      deixava milhares de questões válidas fora do sorteio: quem estudava uma
      matéria grande recebia sempre uma das primeiras mil. A sessão continua
-     pequena, mas o sorteio agora considera o recorte inteiro. */
+     pequena, mas o sorteio agora considera o recorte inteiro.
+
+     O sorteio lê pelo leitor do acervo, não pela sessão: o recorte filtra
+     `explicacao <> ''`, e a chave anon deixa de enxergar essa coluna. Só ids
+     saem daqui. A sessão já foi exigida acima, e as escritas em `simulados`
+     continuam pelo cliente de sessão, onde a RLS vale. */
+  const acervo = leitorDoAcervo(supabase);
   const questoes: { id: string }[] = [];
   for (let inicio = 0; ; inicio += PAGINA_IDS) {
-    let consulta = supabase
+    let consulta = acervo
       .from("questoes")
       .select("id")
       .order("id", { ascending: true })

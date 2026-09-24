@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { exigeSessaoApi } from "@/lib/sessao";
+import { criaClienteAdmin } from "@/lib/supabase/admin";
 
 export const dynamic = "force-dynamic";
 
@@ -73,11 +74,34 @@ export async function POST(request: Request) {
   /* 1. A resposta primeiro. O gabarito não volta: numa prova a nota só aparece
      na entrega, então `acertou` é gravado mas não sai daqui. */
   if (alternativa !== null) {
-    const { data: questao } = await supabase
+    /* `correta` só se lê com a service role. A tentativa já foi conferida
+       acima com o cliente de sessão (desta pessoa pela RLS, aberta, dentro do
+       tempo), e `questaoId` sai dela, não do corpo da requisição. */
+    const admin = criaClienteAdmin();
+    if (!admin) {
+      return NextResponse.json(
+        {
+          erro: "A correção está indisponível agora. A questão não foi travada; tente de novo em instantes.",
+        },
+        { status: 503 }
+      );
+    }
+
+    const { data: questao, error: erroQuestao } = await admin
       .from("questoes")
       .select("correta")
       .eq("id", questaoId)
       .maybeSingle();
+
+    /* Sem o gabarito, `acertou` sairia false por falta de leitura, não por
+       erro da pessoa. Melhor não gravar: o índice não sobe e ela tenta de
+       novo na mesma questão. */
+    if (erroQuestao) {
+      return NextResponse.json(
+        { erro: "Não consegui gravar a resposta. Tente de novo." },
+        { status: 500 }
+      );
+    }
 
     const { error: erroResposta } = await supabase.from("respostas").upsert(
       {

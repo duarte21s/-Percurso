@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { MATERIAS_POR_ID } from "@/lib/conteudo/materias";
 import { chaveTema, contagensPorTema } from "@/lib/temas";
 import { criaClienteServidor } from "@/lib/supabase/server";
+import { leitorDoAcervo } from "@/lib/supabase/admin";
 import { exigeSessao } from "@/lib/sessao";
 
 export const dynamic = "force-dynamic";
@@ -48,7 +49,9 @@ export default async function PaginaMateria({
   if (!m) notFound();
 
   const supabase = await criaClienteServidor();
-  const contagens = supabase ? await contagensPorTema(supabase) : {};
+  const contagens = supabase
+    ? await contagensPorTema(leitorDoAcervo(supabase))
+    : {};
 
   const linhas = m.topicos.map(([titulo, incidencia]) => {
     const c = contagens[chaveTema(m.id, titulo)] ?? { total: 0, comentadas: 0 };
