@@ -12,9 +12,11 @@ import {
  *
  * Devolve null se o projeto não estiver configurado.
  *
- * Ainda sem uso: a Comunidade fala com o banco pelas rotas (`fetch`). Entra
- * em cena na Fase G (tempo real), quando chat de sala e presença trocam o
- * polling por canais Supabase Realtime — `criaClienteBrowser().channel(...)`.
+ * Hoje só a /nova-senha usa, para abrir a sessão de um link de recuperação
+ * que o servidor não consegue ler (token no fragmento da URL, `token_hash`).
+ * A Comunidade fala com o banco pelas rotas (`fetch`); o cliente volta à cena
+ * na Fase G (tempo real), quando chat de sala e presença trocam o polling por
+ * canais Supabase Realtime — `criaClienteBrowser().channel(...)`.
  */
 export function criaClienteBrowser() {
   if (!SUPABASE_CONFIGURADO) return null;

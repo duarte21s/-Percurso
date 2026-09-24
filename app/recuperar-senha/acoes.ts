@@ -13,6 +13,14 @@ import type { EstadoRecuperacao } from "./estado";
  * só então manda para a tela da senha nova. É por isso que a recuperação não
  * precisou de rota própria de retorno: o callback nunca foi específico do
  * OAuth, ele só troca código por sessão.
+ *
+ * O endereço de volta precisa estar nos Redirect URLs do projeto no Supabase
+ * (Authentication → URL Configuration). Fora da lista, o Supabase ignora o
+ * `redirectTo` e manda para o Site URL, a home de produção. O proxy
+ * encaminha esse `?code=` ao callback, mas o verificador PKCE mora no cookie
+ * do endereço em que o pedido começou: pedido num Preview ou no localhost, a
+ * troca não fecha em produção. Por isso os Previews e o localhost precisam
+ * estar na lista, não só o domínio de produção.
  */
 export async function pedirRecuperacao(
   _anterior: EstadoRecuperacao,

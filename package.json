@@ -23,7 +23,8 @@
     "checar-prova": "node scripts/checar-prova.mjs",
     "checar-treino": "node scripts/checar-treino.mjs",
     "checar-temas": "node scripts/checar-contagem-temas.mjs",
-    "checar-folha": "node scripts/checar-folha.mjs"
+    "checar-folha": "node scripts/checar-folha.mjs",
+    "checar-recuperacao": "node scripts/checar-recuperacao.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.116.0",
