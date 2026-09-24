@@ -39,6 +39,11 @@ function recadoDoRetorno(bruto?: string): string | undefined {
     return "Você cancelou o acesso. Pode tentar de novo quando quiser.";
   if (m.includes("sem_supabase"))
     return "O Supabase ainda não foi configurado neste projeto.";
+  /* O verificador PKCE fica em cookie no navegador e no endereço em que o
+     acesso começou. Aberto de outro lugar — o navegador do app de e-mail, ou
+     um link que o Supabase devolveu para outro domínio —, o código não troca. */
+  if (m.includes("verifier not found"))
+    return "O acesso terminou num navegador ou endereço diferente de onde começou. Comece de novo e conclua no mesmo lugar.";
   if (m.includes("provider is not enabled") || m.includes("unsupported provider"))
     return "Esse acesso ainda não foi ligado no painel do Supabase, em Authentication → Sign In / Providers.";
 

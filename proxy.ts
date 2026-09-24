@@ -1,4 +1,4 @@
-import { type NextRequest } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 import { atualizaSessao } from "@/lib/supabase/middleware";
 
 function politicaDeSeguranca(nonce: string): string {
@@ -44,6 +44,17 @@ function politicaDeSeguranca(nonce: string): string {
  * o pequeno script de tema continua permitido, mas scripts injetados não.
  */
 export async function proxy(request: NextRequest) {
+  /* Quando o endereço de volta pedido ao Supabase não está nos Redirect URLs
+     do projeto, ele manda para o Site URL — a home — com o `?code=` que só o
+     /auth/callback sabe trocar. Era assim que o link de recuperação abria a
+     home e o formulário da senha nova nunca aparecia. O callback descobre
+     pelo próprio código se era recuperação; aqui só se encaminha. */
+  if (request.nextUrl.pathname === "/" && request.nextUrl.searchParams.has("code")) {
+    const callback = request.nextUrl.clone();
+    callback.pathname = "/auth/callback";
+    return NextResponse.redirect(callback);
+  }
+
   const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
   const politica = politicaDeSeguranca(nonce);
   const cabecalhos = new Headers(request.headers);
