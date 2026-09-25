@@ -2,6 +2,7 @@ import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import { BarraLeitura } from "@/components/layout/BarraLeitura";
 import { AvisoVisitante } from "@/components/auth/AvisoVisitante";
+import { TransicaoDePagina } from "@/components/layout/TransicaoDePagina";
 import { criaClienteServidor } from "@/lib/supabase/server";
 import {
   LIMITE_VISITANTE_MINUTOS,
@@ -51,7 +52,12 @@ export default async function LayoutSite({
           limiteMinutos={LIMITE_VISITANTE_MINUTOS}
         />
       )}
-      <div className="site-content">{children}</div>
+      {/* A transição de página mora aqui, e não num template.tsx: o Next
+          emite o script de template sem nonce e, com sessão, o CSP o
+          bloqueia. Ver components/layout/TransicaoDePagina.tsx. */}
+      <div className="site-content">
+        <TransicaoDePagina>{children}</TransicaoDePagina>
+      </div>
       <Footer />
     </>
   );

@@ -24,7 +24,8 @@
     "checar-treino": "node scripts/checar-treino.mjs",
     "checar-temas": "node scripts/checar-contagem-temas.mjs",
     "checar-folha": "node scripts/checar-folha.mjs",
-    "checar-recuperacao": "node scripts/checar-recuperacao.mjs"
+    "checar-recuperacao": "node scripts/checar-recuperacao.mjs",
+    "checar-sem-template": "node scripts/checar-sem-template.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.116.0",

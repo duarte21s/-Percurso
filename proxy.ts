@@ -6,20 +6,34 @@ function politicaDeSeguranca(nonce: string): string {
 
   return [
     "default-src 'self'",
-    /* `strict-dynamic` fica FORA em desenvolvimento, e isso é conserto de um
-       defeito real, não frouxidão por conveniência.
+    /* `strict-dynamic` fica FORA em desenvolvimento, e isso foi conserto de
+       um defeito real, não frouxidão por conveniência.
 
-       O Turbopack em modo dev emite um dos chunks — o de `app/(site)/
-       template.tsx` — como <script src> sem o nonce. Medido: 22 de 23 tags
-       vinham com nonce, uma não. Com `strict-dynamic` a lista por origem é
-       desligada, então `'self'` deixa de valer e essa única tag é bloqueada.
-       O template nunca carrega, o GSAP vai junto, e o livro do topo para de
-       responder à rolagem. A mesma falha derruba a hidratação, que é o que
+       Em modo dev, o chunk do antigo `app/(site)/template.tsx` saía como
+       <script src> sem o nonce. Medido: 22 de 23 tags vinham com nonce, uma
+       não. Com `strict-dynamic` a lista por origem é desligada, então
+       `'self'` deixa de valer e essa única tag era bloqueada. O template
+       nunca carregava, o GSAP ia junto, e o livro do topo parava de
+       responder à rolagem. A mesma falha derrubava a hidratação, que é o que
        deixava a página em branco ao navegar no celular.
 
-       Em produção o problema não existe: conferido no build, 16 de 16 tags
-       recebem nonce. Por isso lá `strict-dynamic` continua, com a proteção
-       inteira — é justamente onde ela importa.
+       O mecanismo é do Next 16.3, não do Turbopack nem só do dev. Ele monta o
+       <script> de todo `template.tsx` sem nonce (`templateScripts`); o mesmo
+       chunk também sai com nonce por outro caminho, e o React escreve uma só
+       tag por src — vence a que chegar primeiro. Em produção, sem sessão,
+       chega a com nonce; foi assim que uma conferência feita sem login
+       encontrou todas as tags com nonce e concluiu que ali o problema não
+       existia. Com sessão, o layout espera o Supabase antes de devolver
+       `{children}`, a sem nonce vence e o `strict-dynamic` a bloqueia: nada
+       sob o template hidratava.
+
+       A correção foi tirar os `template.tsx`. A transição mora em
+       components/layout/TransicaoDePagina.tsx, que sai nos scripts do
+       layout, com nonce, e `scripts/checar-sem-template.mjs` acusa a volta
+       quando é rodado. Em produção `strict-dynamic` continua, com a proteção
+       inteira — é justamente onde ela importa. Sem template.tsx, a exceção
+       de desenvolvimento talvez não seja mais necessária; não foi
+       reavaliada.
 
        Sem `strict-dynamic`, `'self'` autoriza script de mesma origem, que em
        desenvolvimento é só o próprio Next. */

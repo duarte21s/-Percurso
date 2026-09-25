@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { SidebarApp } from "@/components/layout/SidebarApp";
 import { AvisoVisitante } from "@/components/auth/AvisoVisitante";
+import { TransicaoDePagina } from "@/components/layout/TransicaoDePagina";
 import { criaClienteServidor } from "@/lib/supabase/server";
 import {
   LIMITE_VISITANTE_MINUTOS,
@@ -59,7 +60,9 @@ export default async function LayoutApp({
             limiteMinutos={LIMITE_VISITANTE_MINUTOS}
           />
         )}
-        {children}
+        {/* Transição de página aqui, não num template.tsx — ver
+            components/layout/TransicaoDePagina.tsx. */}
+        <TransicaoDePagina>{children}</TransicaoDePagina>
       </div>
     </div>
   );
