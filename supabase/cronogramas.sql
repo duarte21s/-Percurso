@@ -179,11 +179,16 @@ select
 
 
 -- =============================================================================
--- 3. TESTE DAS REGRAS — dentro de uma transação desfeita no fim
+-- 3. TESTE DAS REGRAS — nada do que ele grava fica no banco
 --
 -- Simula duas contas (A e B) usando dois perfis que já existem e confere cada
 -- regra do jeito que a API faria: role authenticated e o id da pessoa no JWT.
--- Tudo acontece entre BEGIN e ROLLBACK, então nenhuma linha fica gravada.
+--
+-- O que o teste grava é desfeito duas vezes. O bloco interno é uma
+-- subtransação que termina se desfazendo de propósito ("teste concluído"), e
+-- o ROLLBACK do fim desfaz o resto. Assim nada fica gravado nem se o DO for
+-- rodado sozinho, sem o BEGIN e o ROLLBACK em volta.
+--
 -- Se uma regra falhar, o bloco para com "falhou: ..." dizendo qual.
 -- Se tudo passar, aparece a mensagem "Todas as regras passaram".
 -- =============================================================================
@@ -210,134 +215,145 @@ begin
     raise exception 'falhou: a coluna usuario_id está liberada para escrita';
   end if;
 
-  -- Começa limpo para A e B. O ROLLBACK do fim devolve o que havia.
-  delete from public.cronogramas where usuario_id in (a, b);
-
-  -- ---------------------------------------------------------------- conta A
-  perform set_config('request.jwt.claims',
-    json_build_object('sub', a, 'role', 'authenticated')::text, true);
-  set local role authenticated;
-
-  -- 1. A cria o próprio sem dizer quem é o dono: o default põe auth.uid().
-  insert into public.cronogramas (horas_dia, dias_semana, selecao, plano)
-  values (4, 6, '{}', '{"dias": []}');
-  select count(*) into n from public.cronogramas where usuario_id = a;
-  if n <> 1 then
-    raise exception 'falhou: A deveria ter 1 cronograma e tem %', n;
-  end if;
-
-  -- 2. A tenta criar em nome de B: recusado, a coluna do dono não é concedida.
+  -- Daqui até "teste concluído" tudo roda numa subtransação, desfeita no fim
+  -- junto com a troca de role e o JWT simulado.
   begin
-    insert into public.cronogramas (usuario_id, horas_dia, dias_semana, selecao, plano)
-    values (b, 4, 6, '{}', '{}');
-    raise exception 'falhou: A criou um cronograma em nome de B';
-  exception when insufficient_privilege then
-    null;
-  end;
+    -- Começa limpo para A e B. O desfazer do fim devolve o que havia.
+    delete from public.cronogramas where usuario_id in (a, b);
 
-  -- 3. Um segundo cronograma de A é recusado pelo unique...
-  begin
+    -- -------------------------------------------------------------- conta A
+    perform set_config('request.jwt.claims',
+      json_build_object('sub', a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+
+    -- 1. A cria o próprio sem dizer quem é o dono: o default põe auth.uid().
     insert into public.cronogramas (horas_dia, dias_semana, selecao, plano)
-    values (5, 5, '{}', '{}');
-    raise exception 'falhou: A criou um segundo cronograma';
-  exception when unique_violation then
-    null;
+    values (4, 6, '{}', '{"dias": []}');
+    select count(*) into n from public.cronogramas where usuario_id = a;
+    if n <> 1 then
+      raise exception 'falhou: A deveria ter 1 cronograma e tem %', n;
+    end if;
+
+    -- 2. A tenta criar em nome de B: recusado, a coluna do dono não é concedida.
+    begin
+      insert into public.cronogramas (usuario_id, horas_dia, dias_semana, selecao, plano)
+      values (b, 4, 6, '{}', '{}');
+      raise exception 'falhou: A criou um cronograma em nome de B';
+    exception when insufficient_privilege then
+      null;
+    end;
+
+    -- 3. Um segundo cronograma de A é recusado pelo unique...
+    begin
+      insert into public.cronogramas (horas_dia, dias_semana, selecao, plano)
+      values (5, 5, '{}', '{}');
+      raise exception 'falhou: A criou um segundo cronograma';
+    exception when unique_violation then
+      null;
+    end;
+
+    -- ...e o upsert, que é o que o site usa, atualiza a mesma linha.
+    insert into public.cronogramas (horas_dia, dias_semana, selecao, plano)
+    values (2, 3, '{}', '{"dias": []}')
+    on conflict (usuario_id) do update
+      set horas_dia   = excluded.horas_dia,
+          dias_semana = excluded.dias_semana,
+          selecao     = excluded.selecao,
+          plano       = excluded.plano;
+    select count(*), max(horas_dia) into n, h from public.cronogramas where usuario_id = a;
+    if n <> 1 or h <> 2 then
+      raise exception 'falhou: o upsert deveria atualizar a linha de A (linhas %, horas %)', n, h;
+    end if;
+
+    -- 4. A tenta trocar o dono: recusado.
+    begin
+      update public.cronogramas set usuario_id = b where usuario_id = a;
+      raise exception 'falhou: A trocou o dono do cronograma';
+    exception when insufficient_privilege then
+      null;
+    end;
+
+    -- -------------------------------------------------------------- conta B
+    reset role;
+    perform set_config('request.jwt.claims',
+      json_build_object('sub', b, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+
+    -- 5. B não vê, não altera e não exclui o cronograma de A: nem mirando nele,
+    --    nem mandando UPDATE e DELETE sem filtro na tabela inteira, que é o
+    --    que uma política frouxa deixaria passar. A conferência é no passo 8.
+    select count(*) into n from public.cronogramas where usuario_id = a;
+    if n <> 0 then
+      raise exception 'falhou: B enxerga o cronograma de A';
+    end if;
+
+    update public.cronogramas set horas_dia = 9 where usuario_id = a;
+    get diagnostics n = row_count;
+    if n <> 0 then
+      raise exception 'falhou: B alterou o cronograma de A';
+    end if;
+
+    delete from public.cronogramas where usuario_id = a;
+    get diagnostics n = row_count;
+    if n <> 0 then
+      raise exception 'falhou: B excluiu o cronograma de A';
+    end if;
+
+    update public.cronogramas set horas_dia = 9;
+    delete from public.cronogramas;
+
+    -- 6. O upsert de B cria o dele e não toca no de A.
+    insert into public.cronogramas (horas_dia, dias_semana, selecao, plano)
+    values (7, 7, '{}', '{"dias": []}')
+    on conflict (usuario_id) do update
+      set horas_dia = excluded.horas_dia;
+    select count(*) into n from public.cronogramas;
+    if n <> 1 then
+      raise exception 'falhou: B deveria enxergar só o próprio, enxerga %', n;
+    end if;
+
+    -- --------------------------------------------------------- sem login
+    reset role;
+    perform set_config('request.jwt.claims', '', true);
+    set local role anon;
+
+    -- 7. Sem login, nem leitura.
+    begin
+      perform 1 from public.cronogramas limit 1;
+      raise exception 'falhou: sem login deu para ler a tabela';
+    exception when insufficient_privilege then
+      null;
+    end;
+
+    -- -------------------------------------------------------------- conta A
+    reset role;
+    perform set_config('request.jwt.claims',
+      json_build_object('sub', a, 'role', 'authenticated')::text, true);
+    set local role authenticated;
+
+    -- 8. O cronograma de A continua lá, intacto depois das tentativas de B.
+    select count(*) into n from public.cronogramas where usuario_id = a and horas_dia = 2;
+    if n <> 1 then
+      raise exception 'falhou: B alterou ou excluiu o cronograma de A';
+    end if;
+
+    -- 9. A exclui o próprio.
+    delete from public.cronogramas where usuario_id = a;
+    get diagnostics n = row_count;
+    if n <> 1 then
+      raise exception 'falhou: A não conseguiu excluir o próprio';
+    end if;
+
+    raise exception 'teste concluído';
+  exception
+    when raise_exception then
+      -- "teste concluído" é o desfazer de propósito; qualquer outro é falha.
+      if sqlerrm <> 'teste concluído' then
+        raise;
+      end if;
   end;
 
-  -- ...e o upsert, que é o que o site usa, atualiza a mesma linha.
-  insert into public.cronogramas (horas_dia, dias_semana, selecao, plano)
-  values (2, 3, '{}', '{"dias": []}')
-  on conflict (usuario_id) do update
-    set horas_dia   = excluded.horas_dia,
-        dias_semana = excluded.dias_semana,
-        selecao     = excluded.selecao,
-        plano       = excluded.plano;
-  select count(*), max(horas_dia) into n, h from public.cronogramas where usuario_id = a;
-  if n <> 1 or h <> 2 then
-    raise exception 'falhou: o upsert deveria atualizar a linha de A (linhas %, horas %)', n, h;
-  end if;
-
-  -- 4. A tenta trocar o dono: recusado.
-  begin
-    update public.cronogramas set usuario_id = b where usuario_id = a;
-    raise exception 'falhou: A trocou o dono do cronograma';
-  exception when insufficient_privilege then
-    null;
-  end;
-
-  -- ---------------------------------------------------------------- conta B
-  reset role;
-  perform set_config('request.jwt.claims',
-    json_build_object('sub', b, 'role', 'authenticated')::text, true);
-  set local role authenticated;
-
-  -- 5. B não vê, não altera e não exclui o cronograma de A: nem mirando nele,
-  --    nem mandando UPDATE e DELETE sem filtro na tabela inteira, que é o
-  --    que uma política frouxa deixaria passar. A conferência é no passo 8.
-  select count(*) into n from public.cronogramas where usuario_id = a;
-  if n <> 0 then
-    raise exception 'falhou: B enxerga o cronograma de A';
-  end if;
-
-  update public.cronogramas set horas_dia = 9 where usuario_id = a;
-  get diagnostics n = row_count;
-  if n <> 0 then
-    raise exception 'falhou: B alterou o cronograma de A';
-  end if;
-
-  delete from public.cronogramas where usuario_id = a;
-  get diagnostics n = row_count;
-  if n <> 0 then
-    raise exception 'falhou: B excluiu o cronograma de A';
-  end if;
-
-  update public.cronogramas set horas_dia = 9;
-  delete from public.cronogramas;
-
-  -- 6. O upsert de B cria o dele e não toca no de A.
-  insert into public.cronogramas (horas_dia, dias_semana, selecao, plano)
-  values (7, 7, '{}', '{"dias": []}')
-  on conflict (usuario_id) do update
-    set horas_dia = excluded.horas_dia;
-  select count(*) into n from public.cronogramas;
-  if n <> 1 then
-    raise exception 'falhou: B deveria enxergar só o próprio, enxerga %', n;
-  end if;
-
-  -- ----------------------------------------------------------- sem login
-  reset role;
-  perform set_config('request.jwt.claims', '', true);
-  set local role anon;
-
-  -- 7. Sem login, nem leitura.
-  begin
-    perform 1 from public.cronogramas limit 1;
-    raise exception 'falhou: sem login deu para ler a tabela';
-  exception when insufficient_privilege then
-    null;
-  end;
-
-  -- ---------------------------------------------------------------- conta A
-  reset role;
-  perform set_config('request.jwt.claims',
-    json_build_object('sub', a, 'role', 'authenticated')::text, true);
-  set local role authenticated;
-
-  -- 8. O cronograma de A continua lá, intacto depois das tentativas de B.
-  select count(*) into n from public.cronogramas where usuario_id = a and horas_dia = 2;
-  if n <> 1 then
-    raise exception 'falhou: B alterou ou excluiu o cronograma de A';
-  end if;
-
-  -- 9. A exclui o próprio.
-  delete from public.cronogramas where usuario_id = a;
-  get diagnostics n = row_count;
-  if n <> 1 then
-    raise exception 'falhou: A não conseguiu excluir o próprio';
-  end if;
-
-  reset role;
-  raise notice 'Todas as regras passaram.';
+  raise notice 'Todas as regras passaram. Nada do teste ficou gravado.';
 end $$;
 
 rollback;
