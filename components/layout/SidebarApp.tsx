@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link, { useLinkStatus } from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Icone, type NomeIcone } from "@/components/ui/Icone";
@@ -97,6 +97,23 @@ const CONTA = [
 
 interface Props {
   nome: string;
+}
+
+/* "Ouvi o clique", para quando a troca ainda não pode ser imediata: o
+ * primeiro clique antes de o pré-carregamento da aba terminar, ou uma rede
+ * lenta. Com a rota já pré-carregada o `loading.tsx` troca a tela na hora e
+ * `useLinkStatus` nem chega a ficar pendente — o traço só existe no caso ruim.
+ * Tamanho fixo e só opacidade, para não empurrar a trilha; o atraso no CSS
+ * evita piscar numa troca rápida. */
+function SinalDeCarga() {
+  const { pending } = useLinkStatus();
+  return (
+    <span
+      className={css.carga}
+      data-pendente={pending ? "sim" : undefined}
+      aria-hidden="true"
+    />
+  );
 }
 
 export function SidebarApp({ nome }: Props) {
@@ -204,6 +221,7 @@ export function SidebarApp({ nome }: Props) {
               >
                 <Icone nome={ICONE_DA_FERRAMENTA[l.href]} tracoLargura={1.7} />
                 {l.rotulo}
+                <SinalDeCarga />
               </Link>
             ))}
           </div>

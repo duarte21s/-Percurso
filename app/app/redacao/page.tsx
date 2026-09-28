@@ -23,21 +23,24 @@ export default async function PaginaRedacao() {
      presa ao id dela. Não existe versão anônima disso. */
   const { supabase } = await exigeSessao("/app/redacao");
 
-  const { data } = await supabase
-    .from("temas_redacao")
-    .select("id, ano, tema, aplicacao")
-    .order("ano", { ascending: false })
-    .order("aplicacao", { ascending: true });
+  /* Os temas e as notas da pessoa, juntos: uma consulta não depende da outra,
+     e em sequência cada uma pagava a própria ida ao banco. */
+  const [{ data }, { data: minhas }] = await Promise.all([
+    supabase
+      .from("temas_redacao")
+      .select("id, ano, tema, aplicacao")
+      .order("ano", { ascending: false })
+      .order("aplicacao", { ascending: true }),
+    /* Quanto a pessoa já tirou em cada tema. Uma consulta só; o RLS garante
+       que só vêm as redações dela. */
+    supabase
+      .from("redacoes")
+      .select("tema_id, total")
+      .eq("status", "avaliada"),
+  ]);
 
   const temas = (data ?? []) as Tema[];
-
-  /* Quanto a pessoa já tirou em cada tema. Uma consulta só; o RLS garante que
-     só vêm as redações dela. */
   const melhores = new Map<string, number>();
-  const { data: minhas } = await supabase
-    .from("redacoes")
-    .select("tema_id, total")
-    .eq("status", "avaliada");
 
   for (const r of minhas ?? []) {
     const id = r.tema_id as string;

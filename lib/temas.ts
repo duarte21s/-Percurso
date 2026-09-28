@@ -16,22 +16,36 @@ export function chaveTema(materiaId: string, tema: string): string {
   return `${materiaId}|${tema}`;
 }
 
+/** A contagem e se ela saiu inteira. */
+export interface LeituraDeContagens {
+  contagens: ContagensPorTema;
+  /**
+   * `false` quando a view falhou e a contingência também parou no meio: o
+   * número é parcial. Serve para a tela desta vez, mas não pode ser guardado
+   * em cache — ficaria errado para todo mundo até vencer.
+   */
+  completa: boolean;
+}
+
 /**
  * Lê `vw_temas`, a contagem por conteúdo.
  *
- * Se a view não existir — quem ainda não rodou `supabase/temas.sql` —, conta
- * no cliente em vez de devolver vazio. Sem contagem a tela desabilita todos os
- * temas e parece quebrada, o que é bem pior que uma leitura a mais: são duas
- * colunas curtas de ~1.300 linhas, não o banco inteiro.
+ * Se a view falhar — não existir, ou o papel que lê não ter GRANT nela —,
+ * conta pela tabela em vez de devolver vazio. Sem contagem a tela desabilita
+ * todos os temas e parece quebrada. Mas a contingência lê o acervo inteiro em
+ * páginas de mil (~10 idas ao banco em sequência) e custa segundos, não
+ * milissegundos: por isso a falha da view vai para o log em vez de passar
+ * calada, e quem chama das páginas usa `contagensDoAcervo`
+ * (lib/temas-servidor.ts), que guarda o resultado.
  *
  * Quem chama passa `leitorDoAcervo(...)` (lib/supabase/admin.ts), e não o
  * cliente de sessão: a view e o caminho de contingência dependem de
  * `explicacao`, que deixa de ser legível pela chave anon. Este arquivo não
  * importa o cliente admin porque `chaveTema` também roda no navegador.
  */
-export async function contagensPorTema(
+export async function leContagensPorTema(
   supabase: SupabaseClient
-): Promise<ContagensPorTema> {
+): Promise<LeituraDeContagens> {
   const { data, error } = await supabase
     .from("vw_temas")
     .select("materia_id, tema, total, comentadas");
@@ -44,10 +58,21 @@ export async function contagensPorTema(
         comentadas: (linha.comentadas as number) ?? 0,
       };
     }
-    return mapa;
+    return { contagens: mapa, completa: true };
   }
 
+  console.warn(
+    `[temas] vw_temas falhou (${error?.code ?? "sem código"}: ${
+      error?.message ?? "sem dados"
+    }); contando pela tabela, página a página — bem mais lento.`
+  );
   return contagensSemView(supabase);
+}
+
+export async function contagensPorTema(
+  supabase: SupabaseClient
+): Promise<ContagensPorTema> {
+  return (await leContagensPorTema(supabase)).contagens;
 }
 
 /**
@@ -95,8 +120,9 @@ export async function contagensPorMateria(
 /** Caminho de contingência: agrupa no cliente o que a view agruparia no banco. */
 async function contagensSemView(
   supabase: SupabaseClient
-): Promise<ContagensPorTema> {
+): Promise<LeituraDeContagens> {
   const mapa: ContagensPorTema = {};
+  let completa = true;
 
   /* PAGINADO, e não `.limit(5000)`.
    *
@@ -125,12 +151,21 @@ async function contagensSemView(
         .order("id", { ascending: true })
         .range(de, de + PAGINA - 1);
 
-      if (error || !data || data.length === 0) break;
+      /* Uma página que falha no meio deixa a contagem parcial: ela ainda
+         vai para a tela, mas marcada, para não ser guardada em cache. */
+      if (error) {
+        completa = false;
+        break;
+      }
+      if (!data || data.length === 0) break;
       linhas.push(...(data as { materia_id: string; tema: string }[]));
       if (data.length < PAGINA) break;
       /* Trava de segurança: se algo der errado na paginação, é melhor uma
          contagem incompleta do que um laço infinito na renderização. */
-      if (linhas.length > 50_000) break;
+      if (linhas.length > 50_000) {
+        completa = false;
+        break;
+      }
     }
     return linhas;
   }
@@ -148,5 +183,5 @@ async function contagensSemView(
     mapa[k].comentadas++;
   }
 
-  return mapa;
+  return { contagens: mapa, completa };
 }

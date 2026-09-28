@@ -248,6 +248,37 @@
 .aba:hover { color: var(--text); }
 .aba[aria-current="page"] { color: var(--sobre-accent); }
 .aba:focus-visible { outline: 2px solid var(--text); outline-offset: -2px; }
+
+/* Traço de "ouvi o clique" sob a aba, só enquanto a troca espera o servidor
+   (ver SinalDeCarga). Posição absoluta e só opacidade: não empurra nada. Os
+   120 ms de atraso escondem o traço numa troca rápida. */
+.carga {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 3px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent);
+  opacity: 0;
+  transform-origin: left center;
+  pointer-events: none;
+  transition: opacity .12s var(--ease);
+}
+.carga[data-pendente="sim"] {
+  opacity: .9;
+  transition-delay: 120ms;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .carga[data-pendente="sim"] {
+    animation: carga-corre 1s cubic-bezier(.4, 0, .2, 1) 120ms infinite;
+  }
+}
+@keyframes carga-corre {
+  0%   { transform: scaleX(.08); }
+  50%  { transform: scaleX(.7); }
+  100% { transform: translateX(100%) scaleX(.08); }
+}
 .indicador {
   position: absolute;
   top: 4px;
