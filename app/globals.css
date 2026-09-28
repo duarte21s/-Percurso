@@ -2689,12 +2689,12 @@ body { background: var(--bg); }
 .uni thead { background: var(--accent-superficie); }
 .uni th { color: var(--accent-2); }
 .uni tbody tr:hover { background: var(--surface-2); }
-/* Regra dividida: `.meter` é o medidor público de /faculdades e migra para o
-   token; `.plan-dist-barra` é do cronograma, que não dá para medir sem login,
-   e fica no valor atual até haver como conferir na tela. */
+/* `.meter` é o medidor público de /faculdades; `.plan-dist-barra` é a barra
+   de horas do cronograma e do Desempenho. Os dois usam o mesmo trilho do tema:
+   o #dcece1 que ficava aqui continuava claro no escuro. */
 .meter { background: var(--surface-3); }
 .meter i { background: linear-gradient(90deg, var(--accent-2), var(--accent)); }
-.plan-dist-barra { background: #dcece1; }
+.plan-dist-barra { background: var(--surface-3); }
 .plan-dist-barra i { background: linear-gradient(90deg, var(--verde-profundo), var(--verde-principal)); }
 
 .planner { gap: 22px; }
@@ -2744,35 +2744,43 @@ input:focus, select:focus, textarea:focus { border-color: var(--accent); }
 
 /* O cronograma precisa de três níveis visuais distintos: fundo da página,
    painéis de trabalho e blocos editáveis. Usar a mesma superfície nos três
-   fazia a ferramenta parecer uma área branca única. */
-.planner-form {
-  border-color: rgba(18, 60, 42, .16);
-  background: linear-gradient(145deg, #e7eee8, #edf2ed);
-  box-shadow: 0 16px 40px rgba(18, 60, 42, .065);
-}
+   fazia a ferramenta parecer uma área branca única.
+
+   Os três níveis saem dos tokens do tema. A versão anterior cravava os tons
+   do claro (#e7eee8, #f3f6f2, #e8efe9…) e, no escuro, deixava os painéis
+   claros com o texto claro do tema por cima: o valor das horas chegava a
+   1,01:1 de contraste. Agora:
+     painel  acento-superfície misturado ao fundo; no escuro é o verde
+             fechado do painel de Matérias
+     dia     o próprio fundo da página, como um recorte no painel
+     bloco   acento-superfície, um degrau acima do dia
+   O formulário do Perfil usa .planner-form, e a aba Desempenho, .plan-dist:
+   os dois acompanham. */
+.planner-form,
 .plan-out {
-  border-color: rgba(18, 60, 42, .16);
-  background: #e7eee8;
-  box-shadow: 0 16px 40px rgba(18, 60, 42, .055);
+  border-color: var(--borda);
+  background: color-mix(in srgb, var(--accent-superficie) 60%, var(--bg));
 }
+.plan-out { box-shadow: 0 14px 38px color-mix(in srgb, var(--accent-2) 4.5%, transparent); }
 .plan-head {
-  background: #dce8df;
-  border-bottom-color: rgba(18, 60, 42, .14);
+  background: var(--accent-superficie);
+  border-bottom-color: var(--borda);
 }
-.plan-days { background: #e7eee8; padding: 12px; }
+.plan-days { padding: 12px; }
 .day {
   margin-block: 5px;
-  border: 1px solid rgba(18, 60, 42, .1);
-  background: #f3f6f2;
+  border: 1px solid var(--line-soft);
+  background: var(--bg);
 }
-.day + .day { border-top: 1px solid rgba(18, 60, 42, .1); }
-.day:hover { background: #f8faf7; border-color: rgba(18, 60, 42, .2); }
-.block { background: #e8efe9; border-color: rgba(18, 60, 42, .14); }
-.block.rev { background: rgba(47, 125, 87, .12); }
-.cron-materia { background: rgba(248, 250, 247, .68); }
-.cron-materia.is-on { background: rgba(47, 125, 87, .12); }
-.cron-tema { background: #f3f6f2; }
-.plan-dist { background: #edf2ed; border-color: rgba(18, 60, 42, .12); }
+.day + .day { border-top: 1px solid var(--line-soft); }
+.day:hover { background: var(--surface); border-color: var(--line-strong); }
+.block { background: var(--accent-superficie); border-color: var(--line); }
+.cron-materia { background: var(--bg); }
+/* Na matéria marcada o fundo ganha o verde do acento, e o cinza do "N assuntos"
+   caía para 4,2:1 no claro e 4,0:1 no escuro. O tom de acento é o mesmo do
+   assunto marcado e passa de 7:1 nos dois temas. */
+.cron-materia.is-on .cron-abrir { color: var(--accent-2); }
+.plan-dist { background: var(--surface-2); border-color: var(--borda); }
 .plan-empty { color: var(--texto-secundario); }
 
 @media (max-width: 760px) {
