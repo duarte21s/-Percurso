@@ -34,7 +34,7 @@ Documento de apoio para preparar os slides. Reúne tudo o que foi extraído do c
 
 O **Percurso** é uma plataforma web de estudos para ENEM, vestibulares, concursos públicos, carreiras militares e reforço escolar (6º ao 9º ano). Ele reúne num só lugar um banco de questões com gabarito comentado, as 15 provas reais do ENEM (de 2009 a 2023) em modo prova cronometrado, correção de redação nas cinco competências do INEP (por texto digitado ou por foto da folha manuscrita), um gerador de cronograma com revisão espaçada, uma tabela comparativa de concorrência das faculdades brasileiras e uma camada de comunidade em que a dúvida fica presa a cada questão.
 
-O método declarado do produto é "erre agora, não na prova": cada questão traz um comentário que explica também por que as alternativas erradas enganam, e o gabarito abre logo abaixo da alternativa que a pessoa marcou. O princípio central é a **honestidade de dados** — o site não anuncia no marketing nenhum conteúdo que o banco não tenha de fato, e os números da página inicial são contados do banco em tempo real, não escritos como peça de propaganda.
+O método declarado do produto é "erre agora, não na prova": cada questão traz um comentário que explica também por que as alternativas erradas enganam, e o gabarito comentado aparece no resultado, quando a pessoa termina a sessão — durante a resolução não há pista de certo ou errado. O princípio central é a **honestidade de dados** — o site não anuncia no marketing nenhum conteúdo que o banco não tenha de fato, e os números da página inicial são contados do banco em tempo real, não escritos como peça de propaganda.
 
 Hoje o projeto é um MVP completo e funcional, mas roda apenas no computador de quem desenvolve (endereço local), sem estar publicado na internet e sem base de usuários reais. É, portanto, um produto pré-lançamento. Funciona como site no navegador (computador ou celular); **ainda não há aplicativo instalável** — o app para celular e o modo offline estão no roadmap.
 
@@ -48,7 +48,7 @@ Um "cursinho digital honesto" que cobre da escola ao concurso. Não é um site d
 
 Frase pronta do material interno (README), boa para o primeiro slide:
 
-> "Site para ENEM, vestibulares, concursos, carreiras militares e reforço escolar. Banco de questões, contas de usuário, simulado que salva onde você parou e gabarito comentado que abre logo abaixo da alternativa marcada."
+> "Site para ENEM, vestibulares, concursos, carreiras militares e reforço escolar. Banco de questões, contas de usuário, simulado que salva onde você parou e gabarito comentado que aparece no resultado, quando você termina a sessão."
 
 Descrição oficial curta:
 
@@ -147,7 +147,7 @@ Toda a interface usa a biblioteca de animação **GSAP**. As seções de marketi
 ## 4. Funcionalidades, área por área
 
 > **Dois nomes que se confundem, fixados aqui:**
-> - **Estudar** — a sessão curta por assunto (3 a 45 questões), com o gabarito comentado abrindo a cada resposta. **Sem cronômetro.**
+> - **Estudar** — a sessão curta por assunto (3 a 45 questões), sem gabarito durante a resolução e com o gabarito comentado de todas no resultado. **Sem cronômetro.**
 > - **Provas do ENEM** — a prova inteira (180 questões), cronometrada, sem dizer se você acertou até entregar. A nota sai só no fim.
 >
 > Quando este documento disser "sessão de estudo" ou "simulado de treino", é a primeira. "Modo prova" é sempre a segunda.
@@ -163,9 +163,9 @@ Toda a interface usa a biblioteca de animação **GSAP**. As seções de marketi
 5. Escolhe o tamanho da sessão num controle deslizante: de **3 a 45 questões** (padrão 10).
 6. Clica em "Estudar agora". O site sorteia as questões **uma vez** e congela a lista.
 7. Responde uma questão por vez, marcando de A a E.
-8. Assim que marca, o **gabarito e o comentário abrem logo abaixo da alternativa**: por que a certa está certa e por que cada alternativa errada engana.
-9. Abaixo do comentário há um espaço de discussão da comunidade sobre aquela questão (abre só depois de responder, para não entregar pista).
-10. No fim, aparece o aproveitamento ("X% em tal assunto") e o resultado entra no histórico do Painel.
+8. Ao marcar, a resposta é só **registrada** ("Resposta registrada"): nada de certo, errado, gabarito ou comentário durante a sessão. Dá para sair e voltar depois do ponto onde parou.
+9. Depois da última, clica em "Finalizar e ver resultado": aparecem o placar (acertos e percentual) e, questão por questão, a alternativa marcada, a correta, o selo de acertou/errou e o comentário — por que a certa está certa e por que cada alternativa errada engana. Um filtro mostra só as erradas, e cada questão tem a discussão da comunidade.
+10. O resultado entra no histórico do Painel e pode ser reaberto. Encerrar a sessão no meio é abandoná-la: ela fica sem resultado e sem gabarito.
 
 **Por que é útil:** cada resposta é salva na hora — dá para fechar a aba na questão 7 e voltar depois exatamente onde parou. O valor não está em saber que errou, e sim em entender por quê. Responder qualquer questão no dia acende a Chama de Estudos.
 
@@ -187,7 +187,7 @@ Toda a interface usa a biblioteca de animação **GSAP**. As seções de marketi
 8. Pode fechar a aba: o relógio e as marcações continuam de onde pararam, mesmo dias depois.
 9. Clica em "Entregar prova" (ou o tempo acaba e ela é entregue sozinha).
 10. **Só então** aparece o resultado: acertos, erros, em branco, aproveitamento em % e uma barra de acerto por área do ENEM.
-11. Na revisão, a alternativa certa fica verde e a marcada errada fica vermelha. Dá para pedir "Explicar esta questão" — a IA escreve o comentário na hora, e ele fica salvo para a próxima pessoa que errar.
+11. Na revisão, a alternativa certa fica verde e a marcada errada fica vermelha, e o botão "Revisar as erradas" pula de uma errada para a próxima. Dá para pedir "Explicar esta questão" — a IA escreve o comentário na hora, e ele fica salvo para a próxima pessoa que errar.
 
 **Por que é útil:** reproduz a pressão do exame real — você responde tudo primeiro e vê a nota só no fim, com o desempenho separado por área. É retomável ao longo de vários dias. As provas **não são digitadas à mão**: vêm de uma base pública e aberta (api.enem.dev) que converte os PDFs oficiais do INEP em dados, e o site credita e linka o INEP em cada prova.
 
@@ -221,7 +221,7 @@ Quem escolheu "Com redação" ao abrir uma prova do ENEM encontra a folha no top
 4. Para publicar, escolhe o tipo — **Pergunta, Discussão, Compartilhamento ou Dica** — escreve o texto (até 5.000 caracteres), pode anexar um bloco de código ou um link, e adiciona até 5 tags.
 5. Nos comentários há **um nível de resposta** (resposta de resposta é bloqueada de propósito, para a conversa não virar um fio ilegível). Dá para curtir comentário.
 6. Quem fez uma pergunta pode marcar um comentário como **"Resposta aceita"** — a pergunta passa a aparecer como **"Resolvida"**.
-7. A mesma discussão aparece **ancorada em cada questão**: quem erra pode perguntar ali mesmo, sem sair da tela de estudo (aparece só depois de responder).
+7. A mesma discussão aparece **ancorada em cada questão**: quem erra pode perguntar ali mesmo, sem sair da tela de estudo (aparece só no resultado, para não entregar pista).
 
 **Por que é útil:** transforma dúvida de questão em base de conhecimento — perguntas resolvidas ficam marcadas e organizadas. A comunidade começa com conteúdo real e assinado por uma conta identificável ("Equipe Percurso", verificada), **sem perfis fingidos nem engajamento inflado**: as perguntas começam vazias.
 
@@ -373,7 +373,7 @@ Tabela de apoio (nomes, sem jargão):
 ### 8.1 O que já funciona (rodando localmente, verificado)
 
 - Cadastro e login: e-mail/senha, Google, e "entrar como visitante" (60 minutos, com o progresso preservado se a pessoa criar conta depois no mesmo navegador).
-- Estudar por assunto, com gabarito comentado que abre embaixo da alternativa e sessão retomável.
+- Estudar por assunto, com sessão retomável e gabarito comentado de todas as questões no resultado, depois de finalizar.
 - Modo prova do ENEM completo: 15 provas, cronômetro, retomada, correção por área ao entregar, explicação de questão sob demanda depois da prova.
 - Redação nas 5 competências, por texto digitado ou por foto da folha manuscrita.
 - Comunidade completa: feed com abas e filtro por tag, comentários com um nível de resposta, curtir, salvar, denunciar, marcar como resolvida, aceitar resposta, perfis públicos.
@@ -468,7 +468,7 @@ Todos os caminhos são relativos à pasta do projeto.
 - **ProUni** — programa de bolsas em faculdades privadas com base na nota do ENEM.
 - **Vestibular** — prova de seleção própria de uma universidade (Fuvest, Unicamp, etc.), separada do ENEM.
 - **Banca** — a instituição que elabora uma prova (Cebraspe, FGV, Cesgranrio, em concursos; Fuvest, em vestibular). O Percurso hoje **não** tem questões dessas bancas.
-- **Simulado / modo prova** — no Percurso, "modo prova" é a prova do ENEM inteira, cronometrada, sem feedback até entregar. O "simulado de treino" é a sessão curta de estudo por assunto, com o gabarito abrindo a cada questão.
+- **Simulado / modo prova** — no Percurso, "modo prova" é a prova do ENEM inteira, cronometrada, sem feedback até entregar. O "simulado de treino" é a sessão curta de estudo por assunto, também sem feedback até finalizar — o gabarito comentado vem no resultado.
 - **Gabarito** — a resposta certa de uma questão.
 - **Distrator** — uma alternativa errada de uma questão de múltipla escolha, escrita para parecer plausível. Os comentários do Percurso explicam por que cada distrator engana.
 - **Competências (da redação)** — os cinco critérios do INEP para dar nota a uma redação: norma culta, compreensão do tema, organização dos argumentos, coesão e proposta de intervenção. Cada uma vale de 0 a 200; o total vai até 1000.

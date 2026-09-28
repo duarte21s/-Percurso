@@ -5,7 +5,7 @@ Next.js 16 (App Router) + TypeScript + Supabase. Tema dark, paleta neutra com um
 único acento âmbar.
 
 Banco de questões, contas de usuário, simulado que salva onde você parou e
-gabarito comentado que abre logo abaixo da alternativa marcada.
+gabarito comentado que aparece no resultado, quando você termina a sessão.
 
 ---
 
@@ -233,11 +233,13 @@ Sem `--imagens`, as figuras apontam para o servidor de origem — rápido, mas
 dependente de terceiro. Com a flag, cada figura é copiada para o Storage do seu
 projeto. Vale rodar uma vez, depois de o resto estar funcionando.
 
-**O modo prova é diferente do simulado.** No simulado o gabarito abre logo
-abaixo da alternativa marcada, porque a ideia é aprender questão a questão. Na
-prova você responde as 180 sem retorno nenhum e só então vê a nota — como no dia.
-Por isso `correta` e `explicacao` nunca são selecionadas em `lib/provas.ts`, e o
-gabarito só sai em `/api/prova/finalizar`, depois de a prova estar fechada.
+**O gabarito só aparece no fim — no estudo e na prova.** Na sessão de estudo
+cada resposta é só registrada; ao finalizar, com todas respondidas, você vê a sua
+resposta, a certa e o comentário de cada uma. Na prova você responde as 180 sem
+retorno nenhum e só então vê a nota — como no dia. Por isso `correta` e
+`explicacao` nunca são selecionadas nas telas de resolução (`lib/provas.ts`,
+`/app/questoes`), e o gabarito só sai em `/api/simulado/finalizar` e
+`/api/prova/finalizar`. Sessão ou tentativa largada no meio fica sem gabarito.
 
 O cronômetro conta no cliente mas é gravado no servidor a cada resposta: fechar a
 aba não zera o relógio. Tempo esgotado entrega sozinho.

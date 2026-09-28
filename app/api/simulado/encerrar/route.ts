@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { exigeSessaoApi } from "@/lib/sessao";
+import { encerraSessaoDeTreino } from "@/lib/resultado-sessao";
 
 export const dynamic = "force-dynamic";
 
@@ -11,9 +12,10 @@ export const dynamic = "force-dynamic";
  * pessoa ficaria presa numa sessão que não quer terminar, sem conseguir
  * escolher outro conteúdo.
  *
- * `prova_id is null` é obrigatório: prova do ENEM também é uma linha em
- * `simulados` com status 'em_andamento', e fechá-la aqui apagaria o progresso
- * de quem está no meio das 180 questões.
+ * Encerrar no meio é abandonar: a sessão fecha sem correção e sem gabarito.
+ * Se todas as questões já tinham resposta, ela é corrigida antes de fechar e
+ * o resultado continua disponível. As regras moram em `encerraSessaoDeTreino`,
+ * que /api/simulado também usa ao abrir uma sessão nova.
  */
 export async function POST() {
   const sessao = await exigeSessaoApi();
@@ -23,17 +25,10 @@ export async function POST() {
       { status: sessao.status }
     );
   }
-  const { supabase, user } = sessao;
 
-  const { error } = await supabase
-    .from("simulados")
-    .update({ status: "concluido" })
-    .eq("usuario_id", user.id)
-    .eq("status", "em_andamento")
-    .is("prova_id", null);
-
-  if (error) {
-    return NextResponse.json({ erro: error.message }, { status: 500 });
+  const fechou = await encerraSessaoDeTreino(sessao.supabase, sessao.user.id);
+  if (!fechou.ok) {
+    return NextResponse.json({ erro: fechou.erro }, { status: 500 });
   }
 
   return NextResponse.json({ ok: true });

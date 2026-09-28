@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Sessao } from "@/components/estudo/Sessao";
+import { ResultadoSessao } from "@/components/estudo/ResultadoSessao";
 import { EscolherConteudo } from "@/components/estudo/EscolherConteudo";
 import { exigeSessao } from "@/lib/sessao";
 import { contagensPorTema } from "@/lib/temas";
 import { leitorDoAcervo } from "@/lib/supabase/admin";
+import { corrigeSessaoDeTreino, type Correcao } from "@/lib/resultado-sessao";
 import {
   MATERIAS_POR_ID,
   TODAS_AS_MATERIAS,
@@ -14,7 +16,7 @@ import type { QuestaoPublica, Simulado } from "@/lib/tipos";
 export const metadata: Metadata = {
   title: "Questões · Percurso",
   description:
-    "Escolha uma matéria e um assunto e responda questões comentadas, com o porquê logo abaixo da alternativa marcada.",
+    "Escolha uma matéria e um assunto e responda questões comentadas. Ao finalizar a sessão, você vê a sua resposta, a certa e o comentário de cada uma.",
 };
 
 export const dynamic = "force-dynamic";
@@ -30,13 +32,22 @@ function Cabecalho() {
           Descubra <em>por que</em> errou.
         </h1>
         <p className="lede">
-          Questões comentadas, organizadas por conteúdo. O porquê abre logo
-          abaixo da alternativa que você marcou, e cada resposta fica salva —
-          pode fechar a aba e voltar depois.
+          Questões comentadas, organizadas por conteúdo. Você responde a sessão
+          inteira e, ao finalizar, vê a sua resposta, a certa e o porquê de cada
+          uma. Cada resposta fica salva — pode fechar a aba e voltar depois.
         </p>
       </div>
     </div>
   );
+}
+
+/* O rótulo do recorte prefere os temas, que é o que a pessoa escolheu de
+   fato; a matéria só entra quando a sessão não tem tema. */
+function recorteDe(s: Simulado | null): string {
+  if (!s) return "Todas as matérias";
+  if (s.tema_filtro) return s.tema_filtro;
+  if (s.materia_filtro === "todas") return "Todas as matérias";
+  return MATERIAS_POR_ID.get(s.materia_filtro)?.nome ?? s.materia_filtro;
 }
 
 export default async function PaginaQuestoes({
@@ -79,14 +90,41 @@ export default async function PaginaQuestoes({
   // Entrar em Questões sempre abre a escolha. Só um link explícito retoma
   // a sessão, e apenas se ela pertencer ao usuário e continuar em andamento.
   const sessao = anterior?.id === sessaoDaUrl ? anterior : null;
-  const contagens = sessao ? {} : await contagensPorTema(leitorDoAcervo(supabase));
+
+  /* Sessão já encerrada, pelo link explícito (do histórico, ou recarregando
+     a página logo depois de finalizar). Finalizada, mostra o resultado;
+     encerrada no meio, só o aviso — abandonar não abre o gabarito. Quem
+     decide é `corrigeSessaoDeTreino`, a mesma regra de /api/simulado/finalizar.
+     Aqui ela só lê: abrir uma página não corrige nada. */
+  let encerrada: Simulado | null = null;
+  let correcao: Correcao | null = null;
+  if (!sessao && sessaoDaUrl) {
+    const { data } = await supabase
+      .from("simulados")
+      .select("*")
+      .eq("id", sessaoDaUrl)
+      .eq("usuario_id", user.id)
+      .eq("status", "concluido")
+      .is("prova_id", null)
+      .maybeSingle();
+    encerrada = (data as Simulado | null) ?? null;
+    if (encerrada) {
+      correcao = await corrigeSessaoDeTreino(supabase, encerrada.id, { gravar: false });
+    }
+  }
+
+  const resultadoEncerrada = correcao?.ok ? correcao.resultado : null;
+  const falhaEncerrada = correcao && !correcao.ok ? correcao : null;
+
+  const contagens =
+    sessao || encerrada ? {} : await contagensPorTema(leitorDoAcervo(supabase));
 
   let questoes: QuestaoPublica[] = [];
   let respondidas = 0;
 
   if (sessao) {
-    // Nunca selecionamos `correta`/`explicacao` aqui: o gabarito só existe na
-    // resposta da API, depois de a alternativa ser gravada.
+    // Nunca selecionamos `correta`/`explicacao` aqui: o gabarito só existe no
+    // resultado, depois de a sessão ser finalizada.
     const [{ data: linhas }, { count }] = await Promise.all([
       supabase
         .from("questoes")
@@ -109,15 +147,6 @@ export default async function PaginaQuestoes({
     respondidas = count ?? 0;
   }
 
-  /* O rótulo do recorte prefere os temas, que é o que a pessoa escolheu de
-     fato; a matéria só entra quando a sessão não tem tema. */
-  const recorte =
-    anterior?.tema_filtro ||
-    (anterior && anterior.materia_filtro !== "todas"
-      ? (MATERIAS_POR_ID.get(anterior.materia_filtro)?.nome ??
-        anterior.materia_filtro)
-      : "Todas as matérias");
-
   return (
     <main className="section" style={{ paddingTop: 40 }}>
       <div className="wrap">
@@ -131,17 +160,37 @@ export default async function PaginaQuestoes({
             sessao={sessao}
             questoes={questoes}
             respondidas={respondidas}
-            recorte={recorte}
+            recorte={recorteDe(sessao)}
           />
+        ) : encerrada && resultadoEncerrada ? (
+          <ResultadoSessao resultado={resultadoEncerrada} recorte={recorteDe(encerrada)} />
+        ) : encerrada && falhaEncerrada ? (
+          <div className="quiz">
+            <div className="quiz-body">
+              <div className="q-source">
+                {falhaEncerrada.status === 409 ? "Sessão encerrada antes do fim" : "Resultado indisponível"}
+              </div>
+              <p className="q-text">{falhaEncerrada.erro}</p>
+            </div>
+            <div className="quiz-foot">
+              <span className="dim fine">{recorteDe(encerrada)}</span>
+              <div className="quiz-foot-acoes">
+                <Link href="/app/questoes" className="btn btn-primary">
+                  Escolher um conteúdo <span className="arrow">→</span>
+                </Link>
+              </div>
+            </div>
+          </div>
         ) : (
           <>
             {anterior && (
               <div className="quiz" style={{ marginBottom: 24 }}>
                 <div className="quiz-foot">
                   <p className="dim fine">
-                    Estudo em andamento: <strong>{recorte}</strong>. Você pode
-                    continuar ou escolher outro conteúdo abaixo. Ao iniciar um
-                    novo estudo, o anterior é encerrado e suas respostas ficam no histórico.
+                    Estudo em andamento: <strong>{recorteDe(anterior)}</strong>.
+                    Você pode continuar ou escolher outro conteúdo abaixo. Ao
+                    iniciar um novo estudo, o anterior é encerrado: se ainda
+                    faltarem questões, ele fica sem resultado.
                   </p>
                   <Link
                     href={`/app/questoes?sessao=${encodeURIComponent(anterior.id)}`}

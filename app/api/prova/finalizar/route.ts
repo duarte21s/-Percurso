@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { exigeSessaoApi } from "@/lib/sessao";
 import { criaClienteAdmin } from "@/lib/supabase/admin";
-import type { AreaEnem, CorrecaoQuestao, ResultadoProva } from "@/lib/tipos";
+import { provaAbreGabarito } from "@/lib/situacao-sessao";
+import type { AreaEnem, CorrecaoQuestao, ResultadoProva, Simulado } from "@/lib/tipos";
 
 export const dynamic = "force-dynamic";
 
@@ -34,12 +35,29 @@ export async function POST(request: Request) {
 
   const { data: simulado } = await supabase
     .from("simulados")
-    .select("id, questao_ids, status, prova_id")
+    .select("id, questao_ids, status, prova_id, acertos, erros, expira_em, finalizado_em")
     .eq("id", simuladoId)
     .maybeSingle();
 
   if (!simulado || !simulado.prova_id) {
     return NextResponse.json({ erro: "Prova não encontrada." }, { status: 404 });
+  }
+
+  /* Tentativa já encerrada só devolve a correção se tem resultado: entregue,
+     ou com o tempo esgotado. Encerrada antes do tempo e sem entrega fica sem
+     gabarito, como a sessão de estudo abandonada. Decide antes de ler o
+     gabarito, e sem escrever nada. */
+  if (
+    simulado.status !== "em_andamento" &&
+    !provaAbreGabarito(simulado as Pick<Simulado, "status" | "acertos" | "erros" | "expira_em" | "finalizado_em">)
+  ) {
+    return NextResponse.json(
+      {
+        erro: "Esta tentativa foi encerrada sem entrega. O gabarito só aparece para prova entregue ou com o tempo esgotado.",
+        semResultado: true,
+      },
+      { status: 409 }
+    );
   }
 
   const ids = simulado.questao_ids as string[];

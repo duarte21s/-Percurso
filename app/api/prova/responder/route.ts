@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { exigeSessaoApi } from "@/lib/sessao";
 import { registrarAtividade } from "@/lib/gamificacao";
-import { criaClienteAdmin } from "@/lib/supabase/admin";
 
 export const dynamic = "force-dynamic";
 
@@ -10,14 +9,14 @@ export const dynamic = "force-dynamic";
  *
  * Body: { simuladoId, questaoId, alternativa, segundos? }
  *
- * Esta é a diferença central em relação a /api/simulado/responder. No simulado
- * de treino o gabarito abre logo abaixo da alternativa marcada, porque a ideia
- * é aprender questão a questão. Numa prova é o contrário: você responde as 180
- * sem saber de nada e só depois descobre a nota — como no exame de verdade.
- * Por isso a resposta desta rota é só a contagem do que já foi marcado.
+ * Numa prova você responde as 180 sem saber de nada e só depois descobre a
+ * nota — como no exame de verdade. Por isso a resposta desta rota é só a
+ * contagem do que já foi marcado, e o servidor nem lê o gabarito aqui: quem
+ * corrige é /api/prova/finalizar, na entrega. O estudo por matéria segue a
+ * mesma regra desde que passou a corrigir só no fim.
  *
- * A pessoa pode trocar de ideia enquanto a prova está aberta, então aqui há
- * upsert em vez do insert-que-falha-na-segunda-vez do simulado de treino.
+ * A pessoa pode trocar de ideia enquanto a questão está aberta, então aqui há
+ * upsert em vez do insert-que-falha-na-segunda-vez da sessão de estudo.
  */
 export async function POST(request: Request) {
   const sessao = await exigeSessaoApi();
@@ -105,22 +104,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true, desmarcada: true });
   }
 
-  /* `correta` só se lê com a service role. A tentativa, o dono (RLS), a
-     questão atual e o relógio já foram conferidos acima com o cliente de
-     sessão, e `questaoId` passou por eles. Sem a chave, nada é gravado. */
-  const admin = criaClienteAdmin();
-  if (!admin) {
-    return NextResponse.json(
-      {
-        erro: "A correção está indisponível agora. Sua marcação não foi gravada; tente de novo em instantes.",
-      },
-      { status: 503 }
-    );
-  }
-
-  const { data: questao } = await admin
+  /* Só `opcoes`, para saber quantas alternativas existem. É coluna pública —
+     a própria página da prova lê as questões pelo cliente de sessão — e não
+     diz nada sobre qual está certa. */
+  const { data: questao } = await supabase
     .from("questoes")
-    .select("correta, opcoes")
+    .select("opcoes")
     .eq("id", questaoId)
     .maybeSingle();
 
@@ -129,22 +118,20 @@ export async function POST(request: Request) {
   }
 
   const opcoes = questao.opcoes as string[];
-  if (alternativa < 0 || alternativa >= opcoes.length) {
+  if (!Number.isInteger(alternativa) || alternativa < 0 || alternativa >= opcoes.length) {
     return NextResponse.json({ erro: "Alternativa inválida." }, { status: 400 });
   }
 
-  /* `acertou` é gravado agora porque a correção precisa dele, mas não volta na
-     resposta desta rota. Vale saber: uma pessoa determinada consegue ler as
-     próprias linhas de `respostas` pela API do Supabase e deduzir o acerto
-     antes do fim. Numa ferramenta de autoestudo isso é trapacear contra si
-     mesma, e o preço de impedir seria não conseguir montar a grade de
-     navegação ao recarregar a página. */
+  /* `acertou: false` quer dizer "ainda não corrigida": a coluna é `not null`,
+     e o acerto de verdade gravado agora ficaria legível pela API do Supabase
+     no meio da prova. A correção da prova não depende desta coluna —
+     /api/prova/finalizar compara cada marcação com o gabarito na entrega. */
   const { error } = await supabase.from("respostas").upsert(
     {
       simulado_id: simuladoId,
       questao_id: questaoId,
       alternativa,
-      acertou: alternativa === questao.correta,
+      acertou: false,
     },
     { onConflict: "simulado_id,questao_id" }
   );

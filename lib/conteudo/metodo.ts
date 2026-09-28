@@ -56,7 +56,7 @@ export const RECURSOS: readonly Recurso[] = [
     ico: "book",
     titulo: "Banco de questões com o porquê do gabarito",
     texto:
-      "Questões no formato das principais bancas. As autorais trazem comentário que explica o gabarito e por que os distratores derrubam, e ele aparece assim que você responde, logo abaixo da alternativa que marcou. As do ENEM vêm com o gabarito do INEP.",
+      "Questões no formato das principais bancas. As autorais trazem comentário que explica o gabarito e por que os distratores derrubam, e ele aparece no resultado, quando você finaliza a sessão. As do ENEM vêm com o gabarito do INEP.",
     href: "/como-funciona",
     ctaRotulo: "Ver a jornada",
   },
@@ -114,10 +114,10 @@ export const COMO_FUNCIONA: readonly EtapaFluxo[] = [
   },
   {
     numero: "02",
-    titulo: "Veja o erro explicado na hora",
+    titulo: "Veja cada erro explicado no fim",
     texto:
-      "O gabarito abre logo abaixo da alternativa que você marcou, com o comentário do porquê.",
-    naTela: "Selo de certo ou errado, alternativa correta destacada e explicação.",
+      "Você responde tudo sem ver o gabarito. Ao finalizar, cada questão mostra a sua resposta, a certa e o comentário do porquê.",
+    naTela: "No resultado: selo de certo ou errado, alternativa correta destacada e explicação.",
   },
   {
     numero: "03",

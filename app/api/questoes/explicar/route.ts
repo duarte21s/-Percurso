@@ -3,6 +3,8 @@ import { exigeSessaoApi } from "@/lib/sessao";
 import { ErroGeracao } from "@/lib/anthropic";
 import { explicaQuestao, mensagemParaAluno } from "@/lib/ia";
 import { criaClienteAdmin } from "@/lib/supabase/admin";
+import { provaAbreGabarito } from "@/lib/situacao-sessao";
+import type { Simulado } from "@/lib/tipos";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -17,8 +19,9 @@ export const maxDuration = 60;
  * questão lê o mesmo texto, de graça. É o que torna viável cobrir as ~2.750
  * questões do ENEM sem comentar 2.750 de antemão.
  *
- * Só explica prova já entregue. Durante o exame isso seria uma porta lateral
- * para o gabarito — a explicação diz qual é a resposta.
+ * Só explica depois do resultado: prova já entregue, ou sessão de estudo
+ * finalizada com todas as questões respondidas. Antes disso seria uma porta
+ * lateral para o gabarito — a explicação diz qual é a resposta.
  */
 export async function POST(request: Request) {
   const sessao = await exigeSessaoApi();
@@ -36,24 +39,61 @@ export async function POST(request: Request) {
     return NextResponse.json({ erro: "Questão não informada." }, { status: 400 });
   }
 
-  /* A pessoa precisa ter respondido esta questão numa prova já entregue. Sem
-     esta checagem, qualquer pessoa logada leria o gabarito de qualquer questão
-     do banco a qualquer momento, bastando pedir a explicação dela.
+  /* A pessoa precisa ter respondido esta questão numa prova já entregue ou
+     numa sessão de estudo finalizada. Sem esta checagem, qualquer pessoa
+     logada leria o gabarito de qualquer questão do banco a qualquer momento,
+     bastando pedir a explicação dela.
 
      Ela vem ANTES de ler a questão. Vinha depois da devolução da explicação
      já salva, e então bastava pedir, no meio da prova, a explicação que outra
      pessoa já tinha gerado. Roda com o cliente de sessão: é a RLS de
      `respostas` que garante que as linhas são desta pessoa. */
-  const { data: respondeu } = await supabase
+  const { data: candidatas } = await supabase
     .from("respostas")
-    .select("simulado_id, simulados!inner(status)")
+    .select(
+      "simulado_id, simulados!inner(status, prova_id, questao_ids, acertos, erros, expira_em, finalizado_em)"
+    )
     .eq("questao_id", questaoId)
     .eq("simulados.status", "concluido")
-    .limit(1);
+    .limit(10);
 
-  if (!respondeu || respondeu.length === 0) {
+  /* "Encerrada" não basta. Prova só conta com resultado — entregue, ou com o
+     tempo esgotado (`provaAbreGabarito`). Sessão de estudo encerrada pode ter
+     sido abandonada no meio, e abandonar não abre o gabarito: ela só conta se
+     todas as questões tiverem resposta — a mesma regra de
+     /api/simulado/finalizar. */
+  type Tentativa = Pick<
+    Simulado,
+    "status" | "prova_id" | "questao_ids" | "acertos" | "erros" | "expira_em" | "finalizado_em"
+  >;
+  let liberada = false;
+  for (const linha of (candidatas ?? []) as unknown as Array<{
+    simulado_id: string;
+    simulados: Tentativa | Tentativa[] | null;
+  }>) {
+    const s = Array.isArray(linha.simulados) ? linha.simulados[0] : linha.simulados;
+    if (!s) continue;
+    if (s.prova_id) {
+      if (provaAbreGabarito(s)) {
+        liberada = true;
+        break;
+      }
+      continue;
+    }
+    const { count } = await supabase
+      .from("respostas")
+      .select("*", { count: "exact", head: true })
+      .eq("simulado_id", linha.simulado_id);
+    const total = s.questao_ids?.length ?? 0;
+    if (total > 0 && (count ?? 0) >= total) {
+      liberada = true;
+      break;
+    }
+  }
+
+  if (!liberada) {
     return NextResponse.json(
-      { erro: "A explicação abre depois que você entrega a prova." },
+      { erro: "A explicação abre depois que você entrega a prova ou finaliza a sessão." },
       { status: 403 }
     );
   }

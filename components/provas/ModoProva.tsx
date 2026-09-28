@@ -170,6 +170,28 @@ export function ModoProva({
     return mapa;
   }, [resultado]);
 
+  /* As erradas, na ordem da prova — o caminho de revisão do resultado. Em
+     branco fica de fora: não há resposta para rever, e a grade já as mostra. */
+  const erradas = useMemo(() => {
+    const errou = new Set(
+      (resultado?.correcao ?? [])
+        .filter((c) => c.marcada !== null && !c.acertou)
+        .map((c) => c.questao_id)
+    );
+    return questoes.flatMap((q, i) => (errou.has(q.id) ? [i] : []));
+  }, [resultado, questoes]);
+
+  /** Abre a próxima errada depois da atual; da última, volta à primeira. */
+  function revisaErradas() {
+    if (erradas.length === 0) return;
+    setAtual(erradas.find((i) => i > atual) ?? erradas[0]);
+    const reduzido = window.matchMedia(REDUZIDO_QUERY).matches;
+    refQuestao.current?.scrollIntoView({
+      behavior: reduzido ? "auto" : "smooth",
+      block: "start",
+    });
+  }
+
   const entrega = useCallback(async () => {
     if (!simuladoId || entregando) return;
     setEntregando(true);
@@ -205,6 +227,19 @@ export function ModoProva({
     autoEntregou.current = true;
     void entrega();
   }, [restante, terminou, simuladoId, entrega]);
+
+  /* Reaberta depois de encerrada, a tentativa pede a correção de novo — sem
+     isto, recarregar a página depois de entregar mostrava a grade sem nota
+     nem gabarito. Tentativa encerrada não é reescrita: /api/prova/finalizar
+     só corrige, e só devolve o gabarito se ela tem resultado (entregue ou com
+     o tempo esgotado). Sem resultado, o aviso do servidor aparece no lugar.
+     Uma vez só, pelo mesmo motivo da entrega automática. */
+  const buscouCorrecao = useRef(false);
+  useEffect(() => {
+    if (!jaEntregue || resultado || buscouCorrecao.current) return;
+    buscouCorrecao.current = true;
+    void entrega();
+  }, [jaEntregue, resultado, entrega]);
 
   /* `alternativa: null` desmarca. Marcar e desmarcar passam pelo MESMO
      caminho de propósito: o Desmarcar antes só mexia no estado local, e a
@@ -468,6 +503,17 @@ export function ModoProva({
             ))}
           </div>
 
+          {erradas.length > 0 && (
+            <button
+              type="button"
+              className="btn btn-ghost"
+              onClick={revisaErradas}
+              style={{ marginBottom: 18 }}
+            >
+              Revisar as erradas ({erradas.length}) <span className="arrow">→</span>
+            </button>
+          )}
+
           <p className="dim nota" style={{ marginBottom: 26 }}>
             Navegue pelas questões abaixo para rever cada uma. A explicação é
             escrita na hora em que você pede, e fica guardada para a próxima
@@ -565,14 +611,24 @@ export function ModoProva({
               </button>
             )}
 
-            <button
-              className="btn btn-primary"
-              onClick={() => void avanca()}
-              disabled={avancando || terminou || atual >= questoes.length - 1}
-              type="button"
-            >
-              {avancando ? "Salvando…" : "Salvar e avançar →"}
-            </button>
+            {/* Entregue, o avanço trava e a revisão assume o lugar: a próxima
+                errada, na ordem da prova. */}
+            {terminou ? (
+              erradas.length > 0 && (
+                <button className="btn btn-primary" onClick={revisaErradas} type="button">
+                  Próxima errada →
+                </button>
+              )
+            ) : (
+              <button
+                className="btn btn-primary"
+                onClick={() => void avanca()}
+                disabled={avancando || atual >= questoes.length - 1}
+                type="button"
+              >
+                {avancando ? "Salvando…" : "Salvar e avançar →"}
+              </button>
+            )}
           </div>
 
           {terminou && (

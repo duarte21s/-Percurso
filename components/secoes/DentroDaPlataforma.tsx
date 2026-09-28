@@ -24,7 +24,7 @@ export function DentroDaPlataforma() {
             <p className="lede">
               Duas telas, com a marcação e o CSS reais do site em vez de uma
               imagem de mockup: a que devolve em qual questão você parou, e a
-              que abre o gabarito logo abaixo da alternativa que você marcou.
+              do resultado, com o gabarito comentado de cada questão.
             </p>
           </Revelar>
         </div>
@@ -42,14 +42,14 @@ export function DentroDaPlataforma() {
                   Você parou na questão 07 de 12
                 </div>
                 <div className={css.retomadaTexto}>
-                  5 acertos e 1 erro até aqui, em Matemática. Quer continuar de
-                  onde parou ou começar um simulado novo?
+                  6 de 12 respondidas, em Matemática. Quer continuar de onde
+                  parou? O resultado aparece quando você responder todas.
                 </div>
                 <div className={css.retomadaBotoes}>
                   <span className={`${css.botaoFalso} ${css.botaoFalsoForte}`}>
                     Continuar da questão 07
                   </span>
-                  <span className={css.botaoFalso}>Começar de novo</span>
+                  <span className={css.botaoFalso}>Encerrar e escolher outro</span>
                 </div>
               </div>
               <p className={css.telaLegenda}>
@@ -59,11 +59,11 @@ export function DentroDaPlataforma() {
             </div>
           </Revelar>
 
-          {/* ---- gabarito inline ---- */}
+          {/* ---- resultado da sessão ---- */}
           <Revelar className={css.tela} atraso={2}>
             <div className={css.telaBarra}>
               <i />
-              Assim que você responde
+              No resultado da sessão
             </div>
             <div className={css.telaCorpo}>
               <div className={`${css.alternativa} ${css.alternativaErrada}`}>
@@ -84,8 +84,9 @@ export function DentroDaPlataforma() {
               </div>
 
               <p className={css.telaLegenda}>
-                O comentário aparece logo abaixo da alternativa que você marcou,
-                com a correta destacada — e explica por que o distrator engana.
+                Ao finalizar a sessão, cada questão mostra a alternativa que
+                você marcou, a correta destacada e o comentário que explica por
+                que o distrator engana.
               </p>
             </div>
           </Revelar>

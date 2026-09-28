@@ -1,0 +1,91 @@
+/* O resultado da sessão de estudo: o filtro "Revisar as erradas" e a lista de
+   questões corrigidas. O resto vem das classes globais do quiz (.quiz,
+   .quiz-result, .q-options, .q-explain…). */
+
+/* "Resposta registrada", durante a resolução. Neutra de propósito: nem o
+   verde de acerto nem o vermelho de erro, porque não há correção ainda. */
+.registrada {
+  margin: 16px 0 0;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface-2);
+  font-size: 14px;
+  color: var(--text-2);
+}
+.registrada strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.filtro {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  display: grid;
+  gap: 14px;
+  padding: clamp(20px, 3vw, 30px);
+  border-top: 1px solid var(--line-soft);
+}
+
+.cabeca {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 16px;
+}
+.cabeca :global(.q-source) {
+  margin: 0;
+}
+
+.acertou,
+.errou {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.acertou {
+  color: var(--ok);
+}
+.errou {
+  color: var(--err);
+}
+
+.discutir {
+  justify-self: start;
+  appearance: none;
+  background: none;
+  border: 0;
+  min-height: 32px;
+  padding: 4px 0;
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--accent-2);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.discutir:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Em tela de dedo, o alvo de toque cresce como no resto do site. */
+@media (pointer: coarse) {
+  .discutir {
+    min-height: 44px;
+  }
+}

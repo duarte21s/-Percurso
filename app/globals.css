@@ -1661,6 +1661,11 @@ h1.hero-h1 em { font-style: normal; color: var(--accent); }
 .q-opt.is-right .q-letter { background: var(--ok); border-color: var(--ok); color: var(--sobre-accent); }
 .q-opt.is-wrong { border-color: color-mix(in srgb, var(--err) 55%, transparent); background: color-mix(in srgb, var(--err) 12%, transparent); color: var(--text); }
 .q-opt.is-wrong .q-letter { background: var(--err); border-color: var(--err); color: var(--sobre-accent); }
+/* Marcada, mas ainda sem correção: a sessão de estudo só revela o gabarito
+   no fim, então a marcação não pode usar o verde de acerto nem o vermelho de
+   erro. Fica o tom do acento, que só diz "esta foi a sua". */
+.q-opt.is-marked { border-color: var(--accent-line); background: var(--accent-dim); color: var(--text); }
+.q-opt.is-marked .q-letter { background: var(--accent-2); border-color: var(--accent-2); color: var(--sobre-accent); }
 
 .q-explain {
   margin-top: 22px; padding: 18px 20px;
@@ -2397,6 +2402,9 @@ input[type="range"]::-moz-range-thumb {
   }
   .q-opt.is-right { outline: 3px solid CanvasText; }
   .q-opt.is-wrong { outline: 3px dashed CanvasText; }
+  /* A marcação ainda sem correção precisa de um terceiro traço, que não se
+     confunda com certo nem com errado. */
+  .q-opt.is-marked { outline: 3px double CanvasText; outline-offset: -3px; background: Canvas; }
 
   /* Barra de progresso: o preenchimento é a informação, então mantém a cor
      própria — é forma, não texto. */

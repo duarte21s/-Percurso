@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { exigeSessaoApi } from "@/lib/sessao";
+import { encerraSessaoDeTreino } from "@/lib/resultado-sessao";
 import { leitorDoAcervo } from "@/lib/supabase/admin";
 
 export const dynamic = "force-dynamic";
@@ -134,15 +135,10 @@ export async function POST(request: Request) {
   // Só encerra o estudo anterior depois de encontrar questões para a nova
   // escolha. Um tema vazio ou uma falha de consulta preserva a retomada.
   // Provas do ENEM continuam abertas, e as respostas anteriores ficam salvas.
-  const { error: erroEncerrar } = await supabase
-    .from("simulados")
-    .update({ status: "concluido" })
-    .eq("usuario_id", user.id)
-    .eq("status", "em_andamento")
-    .is("prova_id", null);
-
-  if (erroEncerrar) {
-    return NextResponse.json({ erro: erroEncerrar.message }, { status: 500 });
+  // O anterior incompleto fecha sem gabarito; completo, fecha corrigido.
+  const encerrou = await encerraSessaoDeTreino(supabase, user.id);
+  if (!encerrou.ok) {
+    return NextResponse.json({ erro: encerrou.erro }, { status: 500 });
   }
 
   const { data: simulado, error } = await supabase

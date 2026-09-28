@@ -1,19 +1,22 @@
 import { NextResponse } from "next/server";
 import { exigeSessaoApi } from "@/lib/sessao";
 import { registrarAtividade } from "@/lib/gamificacao";
-import { criaClienteAdmin } from "@/lib/supabase/admin";
-import type { Gabarito } from "@/lib/tipos";
+import type { RespostaRegistrada } from "@/lib/tipos";
 
 export const dynamic = "force-dynamic";
 
 /**
- * POST /api/simulado/responder — grava a resposta e devolve o gabarito.
+ * POST /api/simulado/responder — grava a resposta e confirma. Só isso.
  *
  * Body: { simuladoId: string, questaoId: string, alternativa: number }
  *
- * O gabarito só sai daqui, depois da resposta gravada. É por isso que a
- * página do simulado não recebe `correta` nem `explicacao` junto das
- * questões: se recebesse, bastaria abrir o DevTools para ver a resposta.
+ * Não volta gabarito, acerto, explicação nem placar, e o servidor nem lê
+ * `correta`: a sessão só é corrigida em /api/simulado/finalizar, quando todas
+ * as questões têm resposta. Até lá, a resposta entra com `acertou: false`,
+ * que quer dizer "ainda não corrigida" (a coluna é `not null`), e os
+ * contadores de acertos e erros de `simulados` ficam parados. Gravar o acerto
+ * de verdade agora deixaria o resultado ao alcance de quem lê as próprias
+ * linhas pela API do Supabase.
  */
 export async function POST(request: Request) {
   const sessao = await exigeSessaoApi();
@@ -23,55 +26,52 @@ export async function POST(request: Request) {
       { status: sessao.status }
     );
   }
-  const { supabase, user } = sessao;
+  const { supabase } = sessao;
 
   const corpo = await request.json().catch(() => null);
   const simuladoId: string | undefined = corpo?.simuladoId;
   const questaoId: string | undefined = corpo?.questaoId;
   const alternativa: number | undefined = corpo?.alternativa;
 
-  if (!simuladoId || !questaoId || typeof alternativa !== "number") {
+  if (!simuladoId || !questaoId || !Number.isInteger(alternativa)) {
     return NextResponse.json({ erro: "Requisição incompleta." }, { status: 400 });
   }
 
   // O RLS já garante que o simulado é desta pessoa; o select confirma que ele
-  // existe e ainda está aberto antes de gastar uma escrita.
+  // existe, é de estudo e ainda está aberto antes de gastar uma escrita.
   const { data: simulado, error: erroSimulado } = await supabase
     .from("simulados")
-    .select("id, questao_ids, indice_atual, acertos, erros, status")
+    .select("id, questao_ids, status, prova_id")
     .eq("id", simuladoId)
     .single();
 
   if (erroSimulado || !simulado) {
-    return NextResponse.json({ erro: "Simulado não encontrado." }, { status: 404 });
+    return NextResponse.json({ erro: "Sessão não encontrada." }, { status: 404 });
+  }
+  if (simulado.prova_id) {
+    return NextResponse.json(
+      { erro: "Questão de prova do ENEM se responde pela prova." },
+      { status: 400 }
+    );
   }
   if (simulado.status !== "em_andamento") {
-    return NextResponse.json({ erro: "Este simulado já foi concluído." }, { status: 409 });
+    return NextResponse.json({ erro: "Esta sessão já foi encerrada." }, { status: 409 });
   }
-  if (!simulado.questao_ids.includes(questaoId)) {
+
+  const ids = (simulado.questao_ids ?? []) as string[];
+  if (!ids.includes(questaoId)) {
     return NextResponse.json(
-      { erro: "Essa questão não faz parte deste simulado." },
+      { erro: "Essa questão não faz parte desta sessão." },
       { status: 400 }
     );
   }
 
-  /* `correta` e `explicacao` só se leem com a service role. As checagens
-     acima — sessão, simulado desta pessoa (RLS), aberto, questão dentro dele —
-     rodaram com o cliente de sessão; daqui só se lê a questão que elas
-     validaram. Sem a chave não há correção, e nada é gravado. */
-  const admin = criaClienteAdmin();
-  if (!admin) {
-    return NextResponse.json(
-      {
-        erro: "A correção está indisponível agora. Sua resposta não foi gravada; tente de novo em instantes.",
-      },
-      { status: 503 }
-    );
-  }
-
-  const { data: questao, error: erroQuestao } = await admin
+  /* Só `opcoes`, para saber quantas alternativas existem. É coluna pública —
+     a própria página lê as questões pelo cliente de sessão — e não diz nada
+     sobre qual está certa. */
+  const { data: questao, error: erroQuestao } = await supabase
     .from("questoes")
-    .select("correta, explicacao, opcoes")
+    .select("opcoes")
     .eq("id", questaoId)
     .single();
 
@@ -80,20 +80,18 @@ export async function POST(request: Request) {
   }
 
   const opcoes = questao.opcoes as string[];
-  if (alternativa < 0 || alternativa >= opcoes.length) {
+  if ((alternativa as number) < 0 || (alternativa as number) >= opcoes.length) {
     return NextResponse.json({ erro: "Alternativa inválida." }, { status: 400 });
   }
 
-  const acertou = alternativa === questao.correta;
-
   // unique(simulado_id, questao_id): a segunda resposta para a mesma questão
-  // bate no índice e volta 23505. Isso é o que impede refazer depois de ver
-  // o gabarito — a trava do front é conveniência, esta é a garantia.
+  // bate no índice e volta 23505. A trava da tela é conveniência; esta é a
+  // garantia de que a resposta registrada não muda.
   const { error: erroResposta } = await supabase.from("respostas").insert({
     simulado_id: simuladoId,
     questao_id: questaoId,
     alternativa,
-    acertou,
+    acertou: false,
   });
 
   if (erroResposta) {
@@ -106,35 +104,32 @@ export async function POST(request: Request) {
     return NextResponse.json({ erro: erroResposta.message }, { status: 500 });
   }
 
-  const indice = simulado.questao_ids.indexOf(questaoId);
-  const proximo = indice + 1;
-  const fim = proximo >= simulado.questao_ids.length;
+  const { count } = await supabase
+    .from("respostas")
+    .select("*", { count: "exact", head: true })
+    .eq("simulado_id", simuladoId);
 
-  const acertos = simulado.acertos + (acertou ? 1 : 0);
-  const erros = simulado.erros + (acertou ? 0 : 1);
+  const total = ids.length;
+  const respondidas = Math.min(count ?? 0, total);
+  const fim = respondidas >= total;
 
+  /* Só a posição anda — é ela que a retomada usa. O status continua
+     `em_andamento` até a finalização, inclusive depois da última questão. */
   await supabase
     .from("simulados")
-    .update({
-      indice_atual: fim ? simulado.questao_ids.length - 1 : proximo,
-      acertos,
-      erros,
-      status: fim ? "concluido" : "em_andamento",
-    })
+    .update({ indice_atual: Math.min(ids.indexOf(questaoId) + 1, total - 1) })
     .eq("id", simuladoId);
 
-  // Alimenta a Chama de Estudos (1ª questão do dia acende). Silenciosa.
+  // Alimenta a Chama de Estudos (1ª questão do dia acende). Não depende de acerto.
   const recompensa = await registrarAtividade(supabase, "questao");
 
-  const gabarito: Gabarito = {
-    correta: questao.correta,
-    acertou,
-    explicacao: questao.explicacao,
-    acertos,
-    erros,
+  const registrada: RespostaRegistrada = {
+    registrada: true,
+    respondidas,
+    total,
     fim,
-    recompensa,
+    ...(recompensa ? { recompensa } : {}),
   };
 
-  return NextResponse.json(gabarito);
+  return NextResponse.json(registrada);
 }

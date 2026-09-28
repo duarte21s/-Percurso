@@ -10,21 +10,28 @@ interface Props {
   acertou: boolean;
   correta: number;
   explicacao: string;
+  /** A alternativa que a pessoa marcou. Com ela, o erro diz as duas letras. */
+  marcada?: number;
+  /**
+   * Entrada com movimento. No resultado da sessão o comentário é o conteúdo
+   * principal e aparece em lista, então entra parado: um `from` de opacidade
+   * que não rodasse deixaria o gabarito invisível.
+   */
+  animar?: boolean;
 }
 
 /**
- * O comentário que abre logo abaixo das alternativas assim que a pessoa
- * responde. É a peça central do produto: o valor não está em saber que
- * errou, está em saber por quê. Entra com um `gsap.from` — desfoca, sobe e
- * assenta com `power3.out`, sem quicar.
+ * O comentário de uma questão: por que a certa está certa e por que as outras
+ * enganam. O valor não está em saber que errou, está em saber por quê. Aparece
+ * no resultado da sessão, depois de finalizada — nunca durante a resolução.
  */
-export function Gabarito({ acertou, correta, explicacao }: Props) {
+export function Gabarito({ acertou, correta, explicacao, marcada, animar = true }: Props) {
   const ref = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
       const el = ref.current;
-      if (!el) return;
+      if (!el || !animar) return;
       const mm = gsap.matchMedia();
 
       mm.add(MOVIMENTO_QUERY, () => {
@@ -40,14 +47,21 @@ export function Gabarito({ acertou, correta, explicacao }: Props) {
         gsap.set(el, { autoAlpha: 1 });
       });
     },
-    { scope: ref }
+    { scope: ref, dependencies: [animar] }
   );
 
+  const titulo = acertou
+    ? "Correto."
+    : marcada !== undefined
+      ? `Você marcou ${LETRAS[marcada]}; a correta é ${LETRAS[correta]}.`
+      : `Alternativa ${LETRAS[correta]}.`;
+
   return (
-    <div className="q-explain" role="status" ref={ref}>
-      <strong>
-        {acertou ? "Correto." : `Alternativa ${LETRAS[correta]}.`}
-      </strong>{" "}
+    /* `status` anuncia o comentário quando ele surge sozinho. Na lista do
+       resultado ele já está na página, e dezenas de regiões vivas lidas de
+       uma vez atropelariam o leitor de tela. */
+    <div className="q-explain" role={animar ? "status" : undefined} ref={ref}>
+      <strong>{titulo}</strong>{" "}
       {/* Questão vinda das provas do ENEM entra sem comentário: o INEP publica
           o gabarito, não a explicação. Dizer isso é melhor que deixar um
           espaço em branco onde a pessoa espera o porquê. */}

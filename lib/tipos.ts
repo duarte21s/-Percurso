@@ -169,6 +169,9 @@ export interface Simulado {
   prova_id?: string | null;
   tema_filtro?: string | null;
   segundos?: number;
+  /** Só prova: quando o tempo vence, e quando a tentativa foi encerrada. */
+  expira_em?: string | null;
+  finalizado_em?: string | null;
 }
 
 /* ---------- provas reais ---------- */
@@ -245,16 +248,46 @@ export interface RecompensaEstudo {
   conquistas: string[];
 }
 
-/** O que a API devolve quando a pessoa marca uma alternativa. */
-export interface Gabarito {
-  correta: number;
-  acertou: boolean;
-  explicacao: string;
-  acertos: number;
-  erros: number;
+/**
+ * O que /api/simulado/responder devolve: só a confirmação.
+ *
+ * Durante a sessão o servidor nem confere se a alternativa está certa. Isso
+ * acontece uma vez, na finalização, e o resultado sai inteiro de uma vez —
+ * ver `ResultadoSessao`.
+ */
+export interface RespostaRegistrada {
+  registrada: true;
+  /** Quantas questões da sessão já têm resposta, contando esta. */
+  respondidas: number;
+  total: number;
+  /** Todas respondidas: a tela passa a oferecer a finalização. */
   fim: boolean;
   /** Presente quando esta resposta acendeu a chama ou desbloqueou conquista. */
   recompensa?: RecompensaEstudo;
+}
+
+/** Uma questão no resultado da sessão, que só existe depois de finalizada. */
+export interface ItemResultado {
+  /** Posição na sessão, a partir de 1. */
+  numero: number;
+  questaoId: string;
+  fonte: string;
+  enunciado: string;
+  opcoes: string[];
+  marcada: number;
+  correta: number;
+  acertou: boolean;
+  explicacao: string;
+}
+
+/** O resultado completo de uma sessão de estudo, entregue só na finalização. */
+export interface ResultadoSessao {
+  itens: ItemResultado[];
+  acertos: number;
+  erros: number;
+  total: number;
+  /** Arredondado, de 0 a 100. */
+  percentual: number;
 }
 
 export interface Estatisticas {

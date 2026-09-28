@@ -21,12 +21,14 @@ function carregar(arquivo, dependencias) {
 
 function banco(tabelas, falhas = {}) {
   const gravacoes = [];
+  const leituras = [];
   return {
     gravacoes,
+    leituras,
     from(tabela) {
       let filtros = [], alteracao, insercao, inicio = 0, fim = Infinity;
       const consulta = {
-        select() { return this; },
+        select(colunas = "*") { leituras.push(`${tabela}:${colunas}`); return this; },
         eq(campo, valor) { filtros.push((r) => r[campo] === valor); return this; },
         is(campo, valor) { return this.eq(campo, valor); },
         not(campo, operador, valor) {
@@ -79,28 +81,95 @@ function elementos(no) {
   if (Array.isArray(no)) return no.flatMap(elementos);
   return [no, ...elementos(no.props?.children)];
 }
+function textos(no) {
+  if (typeof no === "string" || typeof no === "number") return [String(no)];
+  if (!no || typeof no !== "object") return [];
+  if (Array.isArray(no)) return no.flatMap(textos);
+  return textos(no.props?.children);
+}
+
+/* A correção de verdade, com o cliente admin trocado por um banco falso.
+   `null` é o ambiente sem service role: quem chegar a pedir o gabarito
+   recebe 503 em vez de ler. */
+const resultadoReal = (admin = null) =>
+  carregar("lib/resultado-sessao.ts", {
+    "server-only": {},
+    "@/lib/supabase/admin": { criaClienteAdmin: () => admin },
+  });
+const dependenciasDaPagina = (supabase, admin = null) => ({
+  "next/link": { default: "link" },
+  "@/components/estudo/Sessao": { Sessao: "sessao" },
+  "@/components/estudo/ResultadoSessao": { ResultadoSessao: "resultado" },
+  "@/components/estudo/EscolherConteudo": { EscolherConteudo: "escolher" },
+  "@/lib/sessao": { exigeSessao: async () => ({ supabase, user }) },
+  "@/lib/temas": { contagensPorTema: async () => ({}) },
+  "@/lib/supabase/admin": { leitorDoAcervo: (s) => s },
+  "@/lib/resultado-sessao": resultadoReal(admin),
+  "@/lib/conteudo/materias": { MATERIAS_POR_ID: new Map(), TODAS_AS_MATERIAS: [] },
+});
 
 for (const parametros of [{}, { materia: "fisica" }, { sessao: "anterior" }, { sessao: "outra" }]) {
   const supabase = banco({ simulados: [estudo()], questoes: [{ id: "q1" }] });
-  const { default: pagina } = carregar("app/app/questoes/page.tsx", {
-    "next/link": { default: "link" },
-    "@/components/estudo/Sessao": { Sessao: "sessao" },
-    "@/components/estudo/EscolherConteudo": { EscolherConteudo: "escolher" },
-    "@/lib/sessao": { exigeSessao: async () => ({ supabase, user }) },
-    "@/lib/temas": { contagensPorTema: async () => ({}) },
-    "@/lib/supabase/admin": { leitorDoAcervo: (s) => s },
-    "@/lib/conteudo/materias": { MATERIAS_POR_ID: new Map(), TODAS_AS_MATERIAS: [] },
-  });
+  const { default: pagina } = carregar("app/app/questoes/page.tsx", dependenciasDaPagina(supabase));
   const arvore = elementos(await pagina({ searchParams: Promise.resolve(parametros) }));
   const retomar = parametros.sessao === "anterior";
   assert.equal(arvore.some((n) => n.type === "sessao"), retomar);
   assert.equal(arvore.some((n) => n.type === "escolher"), !retomar);
+  assert.equal(arvore.some((n) => n.type === "resultado"), false);
   if (parametros.materia) {
     assert.equal(arvore.find((n) => n.type === "escolher").props.materiaInicial, "fisica");
   }
   assert.equal(supabase.gravacoes.length, 0, "Navegar não encerra o estudo");
+  assert.ok(
+    supabase.leituras.every((l) => !l.startsWith("questoes:") || !/correta|explicacao/.test(l)),
+    `a tela de resolução não lê o gabarito: ${supabase.leituras.join(" | ")}`
+  );
 }
 console.log("ok: entrada abre conteúdos, matéria é preservada e retomada exige o link da sessão");
+
+/* Sessão já encerrada, aberta pelo link do histórico. Finalizada mostra o
+   resultado completo; largada no meio mostra só o aviso, sem nem ler o
+   gabarito. Em nenhum dos dois casos abrir a página corrige ou grava nada. */
+for (const cenario of ["finalizada", "abandonada"]) {
+  const completa = cenario === "finalizada";
+  const encerrada = {
+    ...estudo(), id: "encerrada", status: "concluido", questao_ids: ["q1", "q2"],
+    acertos: completa ? 1 : 0, erros: completa ? 1 : 0,
+  };
+  const supabase = banco({
+    simulados: [encerrada],
+    respostas: [
+      { simulado_id: "encerrada", questao_id: "q1", alternativa: 0 },
+      ...(completa ? [{ simulado_id: "encerrada", questao_id: "q2", alternativa: 3 }] : []),
+    ],
+  });
+  const admin = banco({
+    questoes: [
+      { id: "q1", fonte: "Autoral", enunciado: "Um", opcoes: ["a", "b", "c", "d"], correta: 0, explicacao: "Porque sim." },
+      { id: "q2", fonte: "Autoral", enunciado: "Dois", opcoes: ["a", "b", "c", "d"], correta: 1, explicacao: "Porque não." },
+    ],
+  });
+  const { default: pagina } = carregar("app/app/questoes/page.tsx", dependenciasDaPagina(supabase, admin));
+  const arvore = elementos(await pagina({ searchParams: Promise.resolve({ sessao: "encerrada" }) }));
+  const resultado = arvore.find((n) => n.type === "resultado");
+  assert.equal(arvore.some((n) => n.type === "sessao"), false, "sessão encerrada não reabre");
+  if (completa) {
+    assert.ok(resultado, "finalizada mostra o resultado");
+    const r = resultado.props.resultado;
+    assert.deepEqual([r.acertos, r.erros, r.total, r.percentual], [1, 1, 2, 50]);
+    assert.deepEqual(
+      Array.from(r.itens, (i) => [i.numero, i.marcada, i.correta, i.acertou]),
+      [[1, 0, 0, true], [2, 3, 1, false]]
+    );
+    assert.equal(r.itens[1].explicacao, "Porque não.");
+  } else {
+    assert.equal(resultado, undefined, "abandonada não mostra resultado");
+    assert.equal(admin.leituras.length, 0, "abandonada não chega a ler o gabarito");
+    assert.match(textos(arvore).join(" "), /encerrada antes do fim/i);
+  }
+  assert.equal(supabase.gravacoes.length + admin.gravacoes.length, 0, "abrir o resultado não grava nada");
+}
+console.log("ok: sessão finalizada abre o resultado pelo link; largada no meio não mostra gabarito");
 
 for (const cenario of ["sucesso", "vazio", "falha"]) {
   const anterior = estudo();
@@ -118,6 +187,7 @@ for (const cenario of ["sucesso", "vazio", "falha"]) {
     "next/server": { NextResponse: { json: (data, opcoes) => ({ data, status: opcoes?.status ?? 200 }) } },
     "@/lib/sessao": { exigeSessaoApi: async () => ({ ok: true, supabase, user }) },
     "@/lib/supabase/admin": { leitorDoAcervo: (s) => s },
+    "@/lib/resultado-sessao": resultadoReal(),
   });
   const resposta = await POST({ json: async () => ({ materia: "matematica", temas: ["Frações"], quantidade: 3 }) });
   assert.equal(prova.status, "em_andamento", "Trocar conteúdo preserva a prova do ENEM");
@@ -176,6 +246,7 @@ console.log("ok: a contagem por matéria usa o mesmo recorte do sorteio");
     "next/server": { NextResponse: { json: (data, opcoes) => ({ data, status: opcoes?.status ?? 200 }) } },
     "@/lib/sessao": { exigeSessaoApi: async () => ({ ok: true, supabase, user }) },
     "@/lib/supabase/admin": { leitorDoAcervo: (s) => s },
+    "@/lib/resultado-sessao": resultadoReal(),
   });
   const resposta = await POST({
     json: async () => ({ materia: "todas", temas: [], quantidade: 45 }),

@@ -37,9 +37,9 @@ const JORNADA: { n: string; titulo: string; texto: string }[] = [
   },
   {
     n: "05",
-    titulo: "Veja o erro explicado na hora",
+    titulo: "Veja cada erro explicado no fim",
     texto:
-      "Ao marcar a alternativa, o gabarito e o comentário abrem logo abaixo — por que a certa está certa e por que cada distrator engana.",
+      "Você responde a sessão inteira sem ver o gabarito. Ao finalizar, cada questão mostra a sua resposta, a certa e o comentário — por que a certa está certa e por que cada distrator engana.",
   },
   {
     n: "06",

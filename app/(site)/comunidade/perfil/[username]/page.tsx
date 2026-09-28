@@ -14,6 +14,7 @@ import { BarraNivel } from "@/components/comunidade/BarraNivel";
 import { RevelarGrade } from "@/components/ui/RevelarGrade";
 import css from "@/components/comunidade/estudos.module.css";
 import type { Autor } from "@/lib/tipos";
+import { acertosCorrigidos } from "@/lib/estatistica-publica";
 
 export const dynamic = "force-dynamic";
 
@@ -76,7 +77,7 @@ export default async function PaginaPerfil({ params, searchParams }: Props) {
   const ehVoce = user?.id === perfil.id;
   const editando = ehVoce && editar === "1";
 
-  const [{ data: estat }, { data: conqRows }, chama] = await Promise.all([
+  const [{ data: estat }, { data: conqRows }, chama, corrigido] = await Promise.all([
     supabase
       .from("vw_estat_usuario")
       .select("questoes_respondidas, acertos")
@@ -87,6 +88,7 @@ export default async function PaginaPerfil({ params, searchParams }: Props) {
       .select("conquista_slug")
       .eq("usuario_id", perfil.id),
     estadoChama(supabase, perfil.id),
+    acertosCorrigidos(perfil.id),
   ]);
 
   /* Só faz sentido no próprio perfil — em perfil de terceiro o cartão nem é
@@ -97,8 +99,17 @@ export default async function PaginaPerfil({ params, searchParams }: Props) {
 
   const conquistas = (conqRows ?? []).map((c) => c.conquista_slug as string);
   const questoes = estat?.questoes_respondidas ?? 0;
-  const acertos = estat?.acertos ?? 0;
-  const aproveitamento = questoes > 0 ? Math.round((acertos / questoes) * 100) : 0;
+  /* O aproveitamento só conta o que já foi corrigido — sessão finalizada ou
+     prova entregue. Por `respostas.acertou` (a view), ele cairia a cada prova
+     e mudaria no meio de uma sessão; ver lib/estatistica-publica.ts. Sem a
+     chave de serviço, fica a conta antiga da view. */
+  const aproveitamento = corrigido
+    ? corrigido.corrigidas > 0
+      ? Math.round((corrigido.acertos / corrigido.corrigidas) * 100)
+      : 0
+    : questoes > 0
+      ? Math.round(((estat?.acertos ?? 0) / questoes) * 100)
+      : 0;
   const { nivel, noNivel, doNivel, pct } = progressoNivel(perfil.xp ?? 0);
   const melhorSeq = Math.max(chama.melhor, perfil.chama_melhor ?? 0, chama.perdida);
 

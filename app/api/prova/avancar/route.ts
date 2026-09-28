@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { exigeSessaoApi } from "@/lib/sessao";
-import { criaClienteAdmin } from "@/lib/supabase/admin";
 
 export const dynamic = "force-dynamic";
 
@@ -71,44 +70,40 @@ export async function POST(request: Request) {
     return NextResponse.json({ erro: "Prova já no fim." }, { status: 409 });
   }
 
-  /* 1. A resposta primeiro. O gabarito não volta: numa prova a nota só aparece
-     na entrega, então `acertou` é gravado mas não sai daqui. */
+  /* 1. A resposta primeiro. Sem gabarito nenhum: numa prova a nota só aparece
+     na entrega, e o servidor nem lê `correta` aqui. `questaoId` sai da
+     tentativa, não do corpo da requisição. */
   if (alternativa !== null) {
-    /* `correta` só se lê com a service role. A tentativa já foi conferida
-       acima com o cliente de sessão (desta pessoa pela RLS, aberta, dentro do
-       tempo), e `questaoId` sai dela, não do corpo da requisição. */
-    const admin = criaClienteAdmin();
-    if (!admin) {
-      return NextResponse.json(
-        {
-          erro: "A correção está indisponível agora. A questão não foi travada; tente de novo em instantes.",
-        },
-        { status: 503 }
-      );
-    }
-
-    const { data: questao, error: erroQuestao } = await admin
+    /* Só `opcoes`, para saber quantas alternativas existem. É coluna pública,
+       e não diz nada sobre qual está certa. */
+    const { data: questao, error: erroQuestao } = await supabase
       .from("questoes")
-      .select("correta")
+      .select("opcoes")
       .eq("id", questaoId)
       .maybeSingle();
 
-    /* Sem o gabarito, `acertou` sairia false por falta de leitura, não por
-       erro da pessoa. Melhor não gravar: o índice não sobe e ela tenta de
-       novo na mesma questão. */
-    if (erroQuestao) {
+    if (erroQuestao || !questao) {
       return NextResponse.json(
         { erro: "Não consegui gravar a resposta. Tente de novo." },
         { status: 500 }
       );
     }
 
+    const opcoes = questao.opcoes as string[];
+    if (!Number.isInteger(alternativa) || alternativa < 0 || alternativa >= opcoes.length) {
+      return NextResponse.json({ erro: "Alternativa inválida." }, { status: 400 });
+    }
+
+    /* `acertou: false` quer dizer "ainda não corrigida" (a coluna é `not
+       null`). O acerto de verdade gravado agora ficaria legível pela API do
+       Supabase no meio da prova; /api/prova/finalizar compara cada marcação
+       com o gabarito na entrega e não depende desta coluna. */
     const { error: erroResposta } = await supabase.from("respostas").upsert(
       {
         simulado_id: simuladoId,
         questao_id: questaoId,
         alternativa,
-        acertou: questao ? alternativa === questao.correta : false,
+        acertou: false,
       },
       { onConflict: "simulado_id,questao_id" }
     );

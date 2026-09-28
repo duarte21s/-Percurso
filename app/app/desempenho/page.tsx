@@ -4,6 +4,7 @@ import { exigeSessao } from "@/lib/sessao";
 import { MATERIAS_POR_ID } from "@/lib/conteudo/materias";
 import { RevelarGrade } from "@/components/ui/RevelarGrade";
 import type { Simulado } from "@/lib/tipos";
+import { situacaoDaSessao } from "@/lib/situacao-sessao";
 
 export const metadata: Metadata = {
   title: "Desempenho · Percurso",
@@ -22,7 +23,9 @@ export default async function PaginaDesempenho() {
     .order("atualizado_em", { ascending: false });
 
   const lista = (simulados ?? []) as Simulado[];
-  const concluidos = lista.filter((s) => s.status === "concluido");
+  /* Só entra na conta o que tem resultado: sessão em andamento ainda não foi
+     corrigida, e sessão de estudo encerrada antes do fim não tem correção. */
+  const concluidos = lista.filter((s) => situacaoDaSessao(s).temPlacar);
 
   const totalAcertos = concluidos.reduce((n, s) => n + s.acertos, 0);
   const totalErros = concluidos.reduce((n, s) => n + s.erros, 0);
@@ -144,7 +147,9 @@ export default async function PaginaDesempenho() {
                     </td>
                   </tr>
                 ) : (
-                  lista.map((s) => (
+                  lista.map((s) => {
+                    const situacao = situacaoDaSessao(s);
+                    return (
                     <tr key={s.id}>
                       <td>
                         {new Date(s.atualizado_em).toLocaleDateString("pt-BR", {
@@ -161,25 +166,34 @@ export default async function PaginaDesempenho() {
                             : (MATERIAS_POR_ID.get(s.materia_filtro)?.nome ??
                               s.materia_filtro)}
                       </td>
+                      {/* Sem resultado, sem placar: em andamento ainda não foi
+                          corrigida, e encerrada antes do fim nunca é. */}
                       <td>
-                        <span className="cut">{s.acertos}</span>
+                        <span className="cut">{situacao.temPlacar ? s.acertos : "—"}</span>
                       </td>
                       <td>
-                        <span className="cut">{s.erros}</span>
+                        <span className="cut">{situacao.temPlacar ? s.erros : "—"}</span>
                       </td>
                       <td>
-                        <span
-                          className={
-                            s.status === "em_andamento" ? "chip accent" : "chip"
-                          }
-                        >
-                          {s.status === "em_andamento"
-                            ? "Em andamento"
-                            : "Concluído"}
+                        <span className={situacao.emAndamento ? "chip accent" : "chip"}>
+                          {situacao.rotulo}
                         </span>
+                        {situacao.resultadoEmQuestoes && (
+                          <>
+                            {" "}
+                            <Link
+                              href={`/app/questoes?sessao=${encodeURIComponent(s.id)}`}
+                              className="fine"
+                              style={{ color: "var(--accent-2)" }}
+                            >
+                              Ver resultado
+                            </Link>
+                          </>
+                        )}
                       </td>
                     </tr>
-                  ))
+                    );
+                  })
                 )}
               </tbody>
             </table>

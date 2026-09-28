@@ -13,7 +13,10 @@ import { SUPABASE_URL } from "./config";
  *      decide ANTES, com o cliente de sessão, onde a RLS vale.
  *   2. Este cliente só lê o acervo compartilhado (`questoes`, `vw_temas`),
  *      pelos ids que o passo 1 validou. Não escreve, e não toca dado de
- *      usuário.
+ *      usuário. A exceção, única e estreita, é lib/estatistica-publica.ts:
+ *      soma acertos e erros das sessões corrigidas de uma pessoa para o
+ *      perfil público, e só as somas saem — o mesmo que a view
+ *      `vw_estat_usuario` já expunha.
  *
  * `server-only` faz o build falhar se um Client Component importar este
  * arquivo. A chave não tem `NEXT_PUBLIC_` e por isso também não entraria no
