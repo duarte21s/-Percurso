@@ -25,9 +25,9 @@
     {
       "materia": "exatas-militar",
       "temas": 15,
-      "prontos": 7,
-      "questoes": 350,
-      "faltam": 400
+      "prontos": 11,
+      "questoes": 550,
+      "faltam": 200
     },
     {
       "materia": "calculo",
@@ -118,10 +118,10 @@
       "Geometria espacial: sólidos e seções": 50,
       "Trigonometria: identidades e equações": 50,
       "Análise combinatória avançada": 50,
-      "Logaritmos, inequações e funções compostas": 0,
-      "Dinâmica com corpos vinculados": 0,
-      "Trabalho, energia e potência": 0,
-      "Eletrodinâmica: circuitos complexos": 0,
+      "Logaritmos, inequações e funções compostas": 50,
+      "Dinâmica com corpos vinculados": 50,
+      "Trabalho, energia e potência": 50,
+      "Eletrodinâmica: circuitos complexos": 50,
       "Eletromagnetismo e indução": 0,
       "Termodinâmica: ciclos e máquinas térmicas": 0,
       "Estequiometria com reagente limitante": 0,

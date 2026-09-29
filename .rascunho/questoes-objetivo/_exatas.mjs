@@ -95,7 +95,7 @@ export function lerEquacao(t) {
 /* Expressão numérica escrita como nas alternativas: "(√6 − √2)/4",
    "2 + √3", "3π/2", "−24/25", "0,6", "150°" (graus viram número). */
 export function lerExpr(t) {
-  const s = String(t).replace(/°/g, "").replace(/−/g, "-").replace(/(\d),(\d)/g, "$1.$2")
+  const s = String(t).replace(/°/g, "").replace(/·/g, "*").replace(/−/g, "-").replace(/(\d),(\d)/g, "$1.$2")
     .replace(/√\(/g, "Math.sqrt(").replace(/√(\d+(?:\.\d+)?)/g, "Math.sqrt($1)").replace(/π/g, "Math.PI")
     .replace(/(\d|\))\s*(?=Math|\()/g, "$1*");
   return Function(`return (${s});`)();
@@ -114,6 +114,21 @@ export function lerTrig(t) {
   s = s.replace(/π/g, "Math.PI").replace(/√(\d+(?:\.\d+)?)/g, "Math.sqrt($1)").replace(/(\d),(\d)/g, "$1.$2")
     .replace(/(\d|\))\s*(?=\(|x|Math)/g, "$1*").replace(/x\s*(?=\(|Math)/g, "x*");
   return new Function("x", `return (${s});`);
+}
+
+/* Função de x escrita como nas alternativas: "2x² + 1", "(3x + 1)/(x − 2)",
+   "√(x − 1)", "log₂(x + 3)", "log(x)" (base 10), "ln(x)", "2ˣ", "3^(x + 1)",
+   "|x − 1|", "eˣ". */
+const SUB = { "₀": "0", "₁": "1", "₂": "2", "₃": "3", "₄": "4", "₅": "5", "₆": "6", "₇": "7", "₈": "8", "₉": "9" };
+export function lerFuncao(t) {
+  let s = String(t).replace(/−/g, "-").replace(/·/g, "*").replace(/(\d),(\d)/g, "$1.$2");
+  s = s.replace(/log([₀-₉]+)\(/g, (m, b) => `LG(${[...b].map((c) => SUB[c]).join("")},`)
+    .replace(/log_\(([^()]*)\)\(/g, "LG(($1),").replace(/log\(/g, "LG(10,").replace(/ln\(/g, "Math.log(");
+  s = s.replace(/\|([^|]+)\|/g, "Math.abs($1)").replace(/√\(/g, "Math.sqrt(").replace(/√x/g, "Math.sqrt(x)").replace(/√(\d+)/g, "Math.sqrt($1)")
+    .replace(/eˣ/g, "Math.E**x").replace(/(\d+|\))ˣ/g, "$1**x").replace(/\^/g, "**").replace(/²/g, "**2").replace(/³/g, "**3")
+    .replace(/π/g, "Math.PI")
+    .replace(/(\d|\))\s*(?=[x(]|Math|LG)/g, "$1*").replace(/x\s*(?=[x(]|Math|LG)/g, "x*");
+  return new Function("x", `const LG = (b, u) => Math.log(u) / Math.log(b); return (${s});`);
 }
 
 /* Complexo em qualquer das duas formas. */
@@ -287,7 +302,14 @@ export function zeros(f, a, b, n = 200000, tol = 1e-7) {
     const g = grupos[grupos.length - 1];
     if (g && z - g[g.length - 1] < sep) g.push(z); else grupos.push([z]);
   }
-  return grupos.map((g) => g.reduce((m, z) => (Math.abs(f(z)) < Math.abs(f(m)) ? z : m)));
+  /* Refina cada representante: se a função troca de sinal na vizinhança,
+     bisseção até a precisão da máquina (um ponto da malha abaixo da
+     tolerância pode estar longe da raiz quando a função é quase plana). */
+  return grupos.map((g) => {
+    const z = g.reduce((m, w) => (Math.abs(f(w)) < Math.abs(f(m)) ? w : m));
+    const a0 = Math.max(a, z - 3 * h), b0 = Math.min(b, z + 3 * h), fa0 = f(a0), fb0 = f(b0);
+    return Number.isFinite(fa0) && Number.isFinite(fb0) && fa0 * fb0 < 0 ? bissecao(f, a0, b0) : z;
+  });
 }
 /* Integral por Simpson composto. */
 export function integra(f, a, b, n = 20000) {
