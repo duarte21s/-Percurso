@@ -4,9 +4,9 @@
     {
       "materia": "raciocinio-logico",
       "temas": 15,
-      "prontos": 6,
-      "questoes": 301,
-      "faltam": 450
+      "prontos": 8,
+      "questoes": 401,
+      "faltam": 350
     },
     {
       "materia": "informatica",
@@ -66,8 +66,8 @@
       "Argumentos válidos e falácias": 50,
       "Quantificadores: todo, algum, nenhum": 50,
       "Sequências lógicas numéricas": 50,
-      "Sequências de letras e de figuras": 0,
-      "Diagramas lógicos e conjuntos": 0,
+      "Sequências de letras e de figuras": 50,
+      "Diagramas lógicos e conjuntos": 50,
       "Problemas de associação lógica": 0,
       "Verdades e mentiras": 0,
       "Análise combinatória aplicada": 0,
