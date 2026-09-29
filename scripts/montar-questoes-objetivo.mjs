@@ -78,7 +78,7 @@ const normaliza = (s) =>
   s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[.,;:!?“”"'()]+/g, " ").replace(/\s+/g, " ").trim();
 /* Para repetição de alternativa, só maiúsculas e espaços contam: parêntese
    muda o sentido em lógica — p → (q → r) não é (p → q) → r. */
-const normalizaOpcao = (s) => s.toLowerCase().replace(/s+/g, " ").trim();
+const normalizaOpcao = (s) => s.toLowerCase().replace(/\s+/g, " ").trim();
 const trigramas = (s) => {
   const t = normaliza(s);
   const set = new Set();

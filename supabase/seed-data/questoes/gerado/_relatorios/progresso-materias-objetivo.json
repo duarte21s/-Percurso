@@ -1,0 +1,200 @@
+{
+  "meta_por_tema": 50,
+  "resumo": [
+    {
+      "materia": "raciocinio-logico",
+      "temas": 15,
+      "prontos": 6,
+      "questoes": 301,
+      "faltam": 450
+    },
+    {
+      "materia": "informatica",
+      "temas": 15,
+      "prontos": 0,
+      "questoes": 15,
+      "faltam": 735
+    },
+    {
+      "materia": "portugues-banca",
+      "temas": 15,
+      "prontos": 1,
+      "questoes": 75,
+      "faltam": 675
+    },
+    {
+      "materia": "exatas-militar",
+      "temas": 15,
+      "prontos": 0,
+      "questoes": 0,
+      "faltam": 750
+    },
+    {
+      "materia": "calculo",
+      "temas": 15,
+      "prontos": 0,
+      "questoes": 0,
+      "faltam": 750
+    },
+    {
+      "materia": "estatistica",
+      "temas": 15,
+      "prontos": 0,
+      "questoes": 0,
+      "faltam": 750
+    },
+    {
+      "materia": "matematica-fund",
+      "temas": 15,
+      "prontos": 0,
+      "questoes": 0,
+      "faltam": 750
+    },
+    {
+      "materia": "portugues-fund",
+      "temas": 15,
+      "prontos": 2,
+      "questoes": 100,
+      "faltam": 650
+    }
+  ],
+  "por_tema": {
+    "raciocinio-logico": {
+      "Proposições e conectivos lógicos": 51,
+      "Tabelas-verdade e equivalências": 50,
+      "Negação de proposições e leis de De Morgan": 50,
+      "Argumentos válidos e falácias": 50,
+      "Quantificadores: todo, algum, nenhum": 50,
+      "Sequências lógicas numéricas": 50,
+      "Sequências de letras e de figuras": 0,
+      "Diagramas lógicos e conjuntos": 0,
+      "Problemas de associação lógica": 0,
+      "Verdades e mentiras": 0,
+      "Análise combinatória aplicada": 0,
+      "Probabilidade em provas de concurso": 0,
+      "Porcentagem e regra de três": 0,
+      "Razão, proporção e divisão proporcional": 0,
+      "Problemas de calendário e de relógio": 0
+    },
+    "informatica": {
+      "Hardware: componentes e periféricos": 1,
+      "Sistemas operacionais: Windows": 1,
+      "Sistemas operacionais: Linux": 1,
+      "Armazenamento e sistemas de arquivos": 1,
+      "Editor de texto: Word e Writer": 1,
+      "Planilhas: fórmulas e funções": 1,
+      "Planilhas: referências, filtros e gráficos": 1,
+      "Apresentações: PowerPoint e Impress": 1,
+      "Redes de computadores e protocolos": 1,
+      "Internet: navegadores e mecanismos de busca": 1,
+      "Correio eletrônico": 1,
+      "Segurança da informação": 1,
+      "Malware, backup e criptografia": 1,
+      "Computação em nuvem": 1,
+      "Banco de dados: noções": 1
+    },
+    "portugues-banca": {
+      "Crase: casos obrigatórios e proibidos": 0,
+      "Concordância verbal": 0,
+      "Concordância nominal": 0,
+      "Regência verbal e nominal": 0,
+      "Colocação pronominal": 0,
+      "Pontuação: vírgula e ponto e vírgula": 0,
+      "Ortografia e acentuação": 0,
+      "Classes de palavras": 0,
+      "Análise sintática: termos da oração": 0,
+      "Período composto por coordenação": 0,
+      "Período composto por subordinação": 0,
+      "Interpretação de texto técnico": 25,
+      "Coesão e coerência textual": 50,
+      "Semântica: sinonímia e ambiguidade": 0,
+      "Redação oficial e correspondência": 0
+    },
+    "exatas-militar": {
+      "Números complexos e forma polar": 0,
+      "Polinômios e relações de Girard": 0,
+      "Sistemas lineares, matrizes e determinantes": 0,
+      "Geometria analítica: cônicas": 0,
+      "Geometria espacial: sólidos e seções": 0,
+      "Trigonometria: identidades e equações": 0,
+      "Análise combinatória avançada": 0,
+      "Logaritmos, inequações e funções compostas": 0,
+      "Dinâmica com corpos vinculados": 0,
+      "Trabalho, energia e potência": 0,
+      "Eletrodinâmica: circuitos complexos": 0,
+      "Eletromagnetismo e indução": 0,
+      "Termodinâmica: ciclos e máquinas térmicas": 0,
+      "Estequiometria com reagente limitante": 0,
+      "Equilíbrio químico, pH e solubilidade": 0
+    },
+    "calculo": {
+      "Funções e revisão de pré-cálculo": 0,
+      "Limites: noção intuitiva e cálculo": 0,
+      "Limites laterais, infinitos e no infinito": 0,
+      "Continuidade e teorema do valor intermediário": 0,
+      "Derivada: definição e interpretação geométrica": 0,
+      "Regras de derivação": 0,
+      "Regra da cadeia": 0,
+      "Derivação implícita e taxas relacionadas": 0,
+      "Máximos, mínimos e otimização": 0,
+      "Esboço de gráficos e concavidade": 0,
+      "Teorema do valor médio": 0,
+      "Integral indefinida e primitivas": 0,
+      "Integral definida e cálculo de áreas": 0,
+      "Integração por substituição": 0,
+      "Integração por partes": 0
+    },
+    "estatistica": {
+      "População, amostra e tipos de variável": 0,
+      "Tabelas de frequência": 0,
+      "Gráficos estatísticos e sua leitura": 0,
+      "Média, mediana e moda": 0,
+      "Variância e desvio padrão": 0,
+      "Medidas de posição: quartis e percentis": 0,
+      "Probabilidade: conceitos e axiomas": 0,
+      "Probabilidade condicional e independência": 0,
+      "Distribuição binomial": 0,
+      "Distribuição normal": 0,
+      "Técnicas de amostragem": 0,
+      "Estimação e intervalo de confiança": 0,
+      "Testes de hipótese": 0,
+      "Correlação e regressão linear": 0,
+      "Erros do tipo I e do tipo II": 0
+    },
+    "matematica-fund": {
+      "Operações com números naturais": 0,
+      "Números inteiros e a reta numérica": 0,
+      "Frações: operações e comparação": 0,
+      "Números decimais e dízimas": 0,
+      "Potenciação e radiciação": 0,
+      "Múltiplos, divisores, MMC e MDC": 0,
+      "Razão, proporção e escala": 0,
+      "Regra de três simples e composta": 0,
+      "Porcentagem e juros simples": 0,
+      "Expressões algébricas e monômios": 0,
+      "Equação do 1º grau": 0,
+      "Sistemas de duas equações": 0,
+      "Ângulos e retas paralelas": 0,
+      "Triângulos e teorema de Pitágoras": 0,
+      "Área e perímetro de figuras planas": 0
+    },
+    "portugues-fund": {
+      "Substantivo e adjetivo": 50,
+      "Verbo: tempos e modos": 50,
+      "Pronomes": 0,
+      "Advérbio, preposição e conjunção": 0,
+      "Sujeito e predicado": 0,
+      "Ortografia: uso das letras": 0,
+      "Acentuação gráfica": 0,
+      "Pontuação": 0,
+      "Concordância verbal e nominal": 0,
+      "Gêneros textuais: narrativa": 0,
+      "Gêneros textuais: texto informativo": 0,
+      "Interpretação de texto": 0,
+      "Sinônimos, antônimos e vocabulário": 0,
+      "Figuras de linguagem": 0,
+      "Produção de texto: o parágrafo": 0
+    }
+  },
+  "fora_do_catalogo": 0
+}

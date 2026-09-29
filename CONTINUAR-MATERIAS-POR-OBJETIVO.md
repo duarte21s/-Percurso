@@ -45,16 +45,41 @@ essa falta e aponta o acervo público do Cebraspe.
 
 ## 2. Estado atual
 
-```
-120 temas no total  ·  1 pronto  ·  119 a fazer
+Meta: **50 questões por conteúdo** — 750 por matéria, 6.000 nos 120
+conteúdos. O registro é gerado a partir dos arquivos de `gerado/`, nunca
+escrito à mão:
+
+```bash
+node scripts/contar-materias-objetivo.mjs --temas   # tabela por conteúdo
+node scripts/contar-materias-objetivo.mjs --json    # grava gerado/_relatorios/progresso-materias-objetivo.json
 ```
 
-| matéria | temas prontos |
-|---|---|
-| raciocinio-logico | 1 de 15 — só "Proposições e conectivos lógicos" (51 questões) |
-| todas as outras | 0 de 15 |
+Estado em 29/09/2026, na branch `claude/questoes-objetivo` (lote 1):
 
-Para conferir a qualquer momento:
+```
+120 conteúdos  ·  9 com 50 ou mais  ·  491 questões  ·  faltam 5.510
+```
+
+| matéria | conteúdos ≥ 50 | questões | faltam |
+|---|---|---|---|
+| raciocinio-logico | 6 de 15 | 301 | 450 |
+| informatica | 0 de 15 | 15 (1 por conteúdo) | 735 |
+| portugues-banca | 1 de 15 | 75 | 675 |
+| exatas-militar | 0 de 15 | 0 | 750 |
+| calculo | 0 de 15 | 0 | 750 |
+| estatistica | 0 de 15 | 0 | 750 |
+| matematica-fund | 0 de 15 | 0 | 750 |
+| portugues-fund | 2 de 15 | 100 | 650 |
+
+Próximos na fila: os 9 conteúdos restantes de raciocínio lógico (a partir de
+"Sequências de letras e de figuras"), depois exatas-militar, calculo,
+estatistica e matematica-fund — as matérias em que o gabarito se confere em
+código —, e por fim informatica, portugues-banca e portugues-fund.
+
+**Nada desta branch foi inserido no Supabase.** O seed só depois da revisão
+e com autorização.
+
+Para conferir a qualidade a qualquer momento:
 
 ```bash
 node scripts/checar-qualidade.mjs --resumo
@@ -105,6 +130,42 @@ npm run seed-questoes               # grava
 **A ordem de 2 e 3 importa.** O rebalanceador move só a posição da correta e
 não toca em texto. Se a explicação citar posição ("o terceiro distrator"), ele
 transforma a explicação em mentira — por isso a regra 3 vem antes.
+
+### Fluxo com conferência em código (lote 1 em diante)
+
+Cada conteúdo nasce como rascunho em `.rascunho/questoes-objetivo/`, com a
+correta em primeiro lugar e, quando o assunto permite, uma conferência que
+recalcula o gabarito (`v.i` devolve o índice da única alternativa certa;
+`v.n` devolve o valor numérico). Um só comando valida, grava, roda o
+`checar-qualidade` e o `rebalancear-gabarito`, e escreve o relatório:
+
+```bash
+node scripts/montar-questoes-objetivo.mjs .rascunho/questoes-objetivo/<arquivo>.mjs --seco   # só valida
+node scripts/montar-questoes-objetivo.mjs .rascunho/questoes-objetivo/<arquivo>.mjs          # grava
+```
+
+O montador recusa: tema fora do catálogo, enunciado sem pergunta, alternativa
+repetida, correta muito mais longa que as outras, explicação curta ou que cita
+posição, conferência vazia (`() => 0`) e conferência que aponta outra
+alternativa. Avisa, sem recusar, quando duas questões ficam parecidas
+(trigramas ≥ 0,60) — nesse caso, releia as duas.
+
+O que a conferência já pegou, e vale lembrar ao escrever:
+
+- **Recíproca que decorre por vacuidade.** Quando as premissas fixam o valor
+  de todos os átomos (modus ponens com o fato dado), “se q, então p” passa a
+  decorrer. Não serve de distrator nesses casos.
+- **Quantificadores e conjuntos vazios.** “Todo A é B, logo algum A é B” só
+  vale supondo que existe A. A conferência testa com e sem essa suposição e
+  recusa a questão cujo gabarito depende dela; quando a suposição importa,
+  ela vai escrita no enunciado.
+- **Sequência com duas regras.** Uma bateria de regras comuns roda sobre os
+  termos dados; se outra regra se encaixa e prevê outro número, a sequência é
+  refeita ou ganha mais termos.
+- **Barra invertida some quando o arquivo é gerado por outro script.** Dentro
+  de uma string JavaScript, `\s` vira `s`; num heredoc do shell, `\\n` vira
+  `\n`. Foi assim que o `normalizaOpcao` do montador passou a trocar a letra
+  “s” por espaço (corrigido). Rascunhos e scripts se editam com o editor.
 
 ### Atalho: rascunho pelo Gemini (não pula a revisão)
 
