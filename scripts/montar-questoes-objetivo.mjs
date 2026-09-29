@@ -66,7 +66,9 @@ if (!Array.isArray(lista) || lista.length === 0) erros.push("`questoes` vazio");
 
 /* ------------------------------------------------------------ regras --- */
 const POSICAO =
-  /\b(primeir[ao]|segund[ao]|terceir[ao]|quart[ao]|quint[ao]|últim[ao]|penúltim[ao])\s+(alternativa|opção|opcao|distrator|resposta|item)\b|\b(letra|alternativa|opção|item)\s+\(?[A-E]\)?(?![a-zà-ú])|\([A-E]\)/i;
+  /\b(primeir[ao]|segund[ao]|terceir[ao]|quart[ao]|quint[ao]|últim[ao]|penúltim[ao])\s+(alternativa|opção|opcao|distrator|resposta|item)\b|\b(letra|alternativa|opção|item)\s+\(?[A-E]\)?(?![a-zà-ú])|(?<![A-Za-zÀ-ÿ])\([A-E]\)/i;
+/* O último ramo pega “(A)” como rótulo de alternativa, mas deixa passar a
+   notação de função — P(A), n(B) —, em que o parêntese vem colado a uma letra. */
 const IMAGEM = /\b(figura|imagem|gr[áa]fico|tabela|esquema|ilustra[çc][ãa]o)\s+(acima|abaixo|a seguir|ao lado)\b|\b(observe|analise)\s+(a|o)\s+(figura|imagem|gr[áa]fico|tabela)\b/i;
 const ABSURDOS = /não tem qualquer|não guarda qualquer|exatamente idêntic|sem qualquer (diferença|relação|vínculo)|em nada se relaciona|é totalmente irrelevante/i;
 const VAZAMENTO = /outra questão|questão anterior|já discutid|como visto acima|conforme a questão/i;
@@ -97,11 +99,11 @@ const jaccard = (a, b) => {
 function numerosDoTexto(texto) {
   if (/[√π∞^]|\bi\b|\bln\b|\blog\b|[a-z]\s*[²³]/i.test(texto)) return null;
   const achados = [];
-  const re = /([−-]?)\s*(\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d+(?:,\d+)?)(?:\s*\/\s*(\d+))?/g;
+  const re = /([−-]?)\s*(\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d+(?:,\d+)?)(?:\s*\/\s*(\d{1,3}(?:\.\d{3})+|\d+))?/g;
   for (const m of texto.matchAll(re)) {
     const sinal = m[1] ? -1 : 1;
     const inteiro = Number(m[2].replace(/\./g, "").replace(",", "."));
-    achados.push(sinal * (m[3] ? inteiro / Number(m[3]) : inteiro));
+    achados.push(sinal * (m[3] ? inteiro / Number(m[3].replace(/\./g, "")) : inteiro));
   }
   return achados;
 }
