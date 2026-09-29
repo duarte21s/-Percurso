@@ -54,15 +54,15 @@ node scripts/contar-materias-objetivo.mjs --temas   # tabela por conteúdo
 node scripts/contar-materias-objetivo.mjs --json    # grava gerado/_relatorios/progresso-materias-objetivo.json
 ```
 
-Estado em 29/09/2026, na branch `claude/questoes-objetivo` (lote 1):
+Estado em 29/09/2026, na branch `claude/questoes-objetivo` (lotes 1 e 2):
 
 ```
-120 conteúdos  ·  9 com 50 ou mais  ·  491 questões  ·  faltam 5.510
+120 conteúdos  ·  14 com 50 ou mais  ·  741 questões  ·  faltam 5.260
 ```
 
 | matéria | conteúdos ≥ 50 | questões | faltam |
 |---|---|---|---|
-| raciocinio-logico | 6 de 15 | 301 | 450 |
+| raciocinio-logico | 11 de 15 | 551 | 200 |
 | informatica | 0 de 15 | 15 (1 por conteúdo) | 735 |
 | portugues-banca | 1 de 15 | 75 | 675 |
 | exatas-militar | 0 de 15 | 0 | 750 |
@@ -71,8 +71,9 @@ Estado em 29/09/2026, na branch `claude/questoes-objetivo` (lote 1):
 | matematica-fund | 0 de 15 | 0 | 750 |
 | portugues-fund | 2 de 15 | 100 | 650 |
 
-Próximos na fila: os 9 conteúdos restantes de raciocínio lógico (a partir de
-"Sequências de letras e de figuras"), depois exatas-militar, calculo,
+Próximos na fila: os 4 conteúdos restantes de raciocínio lógico
+(probabilidade, porcentagem e regra de três, razão e proporção, calendário e
+relógio), depois exatas-militar, calculo,
 estatistica e matematica-fund — as matérias em que o gabarito se confere em
 código —, e por fim informatica, portugues-banca e portugues-fund.
 

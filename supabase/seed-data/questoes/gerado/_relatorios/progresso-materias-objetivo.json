@@ -4,9 +4,9 @@
     {
       "materia": "raciocinio-logico",
       "temas": 15,
-      "prontos": 10,
-      "questoes": 501,
-      "faltam": 250
+      "prontos": 11,
+      "questoes": 551,
+      "faltam": 200
     },
     {
       "materia": "informatica",
@@ -70,7 +70,7 @@
       "Diagramas lógicos e conjuntos": 50,
       "Problemas de associação lógica": 50,
       "Verdades e mentiras": 50,
-      "Análise combinatória aplicada": 0,
+      "Análise combinatória aplicada": 50,
       "Probabilidade em provas de concurso": 0,
       "Porcentagem e regra de três": 0,
       "Razão, proporção e divisão proporcional": 0,
