@@ -76,6 +76,9 @@ const BANCA = /\b(cebraspe|cespe|fgv|vunesp|cesgranrio|fcc|esaf|quadrix|idecan|i
    "p ∧ q" e "p ∨ q" viram a mesma coisa. Sai só a pontuação de frase. */
 const normaliza = (s) =>
   s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[.,;:!?“”"'()]+/g, " ").replace(/\s+/g, " ").trim();
+/* Para repetição de alternativa, só maiúsculas e espaços contam: parêntese
+   muda o sentido em lógica — p → (q → r) não é (p → q) → r. */
+const normalizaOpcao = (s) => s.toLowerCase().replace(/s+/g, " ").trim();
 const trigramas = (s) => {
   const t = normaliza(s);
   const set = new Set();
@@ -110,10 +113,13 @@ const existentes = [];
 for (const nome of readdirSync(GERADO).filter((f) => f.endsWith(".mjs"))) {
   if (nome === `${arquivo}.mjs`) continue;
   const { questoes: qs } = await import(`${pathToFileURL(join(GERADO, nome)).href}?t=${Date.now()}`);
-  for (const q of qs ?? []) existentes.push({ arquivo: nome, materia: q.materia, enunciado: q.enunciado });
+  for (const q of qs ?? []) existentes.push({ arquivo: nome, materia: q.materia, enunciado: q.enunciado, texto: `${q.enunciado} ${(q.opcoes ?? []).join(" ")}` });
 }
 const exatos = new Set(existentes.map((q) => q.enunciado.trim()));
-const daMateria = existentes.filter((q) => q.materia === materia).map((q) => ({ ...q, tg: trigramas(q.enunciado) }));
+/* A semelhança é medida na questão inteira — enunciado e alternativas. Só o
+   enunciado dispara com frases-molde curtas ("Qual das proposições abaixo…")
+   em questões de conteúdo diferente. */
+const daMateria = existentes.filter((q) => q.materia === materia).map((q) => ({ ...q, tg: trigramas(q.texto) }));
 
 /* ------------------------------------------------------ por questão --- */
 const conferidas = [];
@@ -134,7 +140,7 @@ const vistos = [];
   }
   if (!Array.isArray(q.o) || q.o.length !== 5) erros.push(`${onde}: são necessárias 5 alternativas`);
   else {
-    if (new Set(q.o.map((o) => normaliza(String(o)))).size !== 5) erros.push(`${onde}: alternativas repetidas`);
+    if (new Set(q.o.map((o) => normalizaOpcao(String(o)))).size !== 5) erros.push(`${onde}: alternativas repetidas`);
     if (q.o.some((o) => typeof o !== "string" || !o.trim())) erros.push(`${onde}: alternativa vazia`);
     if (q.o.slice(1).some((o) => ABSURDOS.test(o))) erros.push(`${onde}: distrator que se elimina sozinho`);
     const tam = q.o.map((o) => o.length);
@@ -146,7 +152,7 @@ const vistos = [];
 
   // duplicatas parecidas
   if (typeof q.e === "string") {
-    const tg = trigramas(q.e);
+    const tg = trigramas(`${q.e} ${(q.o ?? []).join(" ")}`);
     for (const outro of vistos) {
       const s = jaccard(tg, outro.tg);
       if (s >= 0.6) parecidas.push(`${onde} × q${outro.i + 1} (${s.toFixed(2)})`);

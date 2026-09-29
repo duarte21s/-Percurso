@@ -1,0 +1,58 @@
+{
+  "materia": "raciocinio-logico",
+  "tema": "Tabelas-verdade e equivalências",
+  "arquivo": "raciocinio-logico__tabelas-verdade-e-equivalencias__parte-2.mjs",
+  "autoria": "autoral — Claude (Anthropic), sem banca atribuída",
+  "data": "2026-09-29",
+  "questoes": 20,
+  "dificuldade": {
+    "facil": 4,
+    "media": 11,
+    "dificil": 5
+  },
+  "conferencia_em_codigo": {
+    "total": 20,
+    "questoes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ]
+  },
+  "revisao_independente_pendente": [],
+  "parecidas_trigramas_060": [
+    "q7 × raciocinio-logico__proposicoes-e-conectivos-logicos.mjs (0.68)",
+    "q8 × raciocinio-logico__negacao-de-proposicoes-e-leis-de-de-morgan.mjs (0.63)",
+    "q11 × q7 (0.71)",
+    "q11 × raciocinio-logico__proposicoes-e-conectivos-logicos.mjs (0.83)",
+    "q13 × q8 (0.63)",
+    "q13 × raciocinio-logico__negacao-de-proposicoes-e-leis-de-de-morgan.mjs (0.65)",
+    "q15 × q7 (0.67)",
+    "q15 × q11 (0.72)",
+    "q15 × raciocinio-logico__proposicoes-e-conectivos-logicos.mjs (0.82)",
+    "q16 × q7 (0.79)",
+    "q16 × q11 (0.75)",
+    "q16 × q15 (0.76)",
+    "q16 × raciocinio-logico__proposicoes-e-conectivos-logicos.mjs (0.77)",
+    "q17 × raciocinio-logico__proposicoes-e-conectivos-logicos.mjs (0.66)",
+    "q18 × q8 (0.67)"
+  ],
+  "checar_qualidade": "sem problemas",
+  "gabarito_por_letra": "4 / 4 / 4 / 4 / 4"
+}
