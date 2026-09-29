@@ -92,6 +92,30 @@ export function lerEquacao(t) {
   return new Function("x", "y", `return (${js(partes[0])}) - (${js(partes[1])});`);
 }
 
+/* Expressão numérica escrita como nas alternativas: "(√6 − √2)/4",
+   "2 + √3", "3π/2", "−24/25", "0,6", "150°" (graus viram número). */
+export function lerExpr(t) {
+  const s = String(t).replace(/°/g, "").replace(/−/g, "-").replace(/(\d),(\d)/g, "$1.$2")
+    .replace(/√\(/g, "Math.sqrt(").replace(/√(\d+(?:\.\d+)?)/g, "Math.sqrt($1)").replace(/π/g, "Math.PI")
+    .replace(/(\d|\))\s*(?=Math|\()/g, "$1*");
+  return Function(`return (${s});`)();
+}
+/* Expressão trigonométrica em x ("2cos 4x cos x", "3 sen x − 4 sen³x",
+   "tg(x/2)", "−cos 2x", "sen²x + 1") vira uma função de x. */
+export function lerTrig(t) {
+  const F = { sen: "Math.sin", cos: "Math.cos", tg: "Math.tan", sec: "1/Math.cos", cossec: "1/Math.sin", cotg: "1/Math.tan" };
+  let s = String(t).replace(/−/g, "-").replace(/θ/g, "x");
+  s = s.replace(/(cossec|cotg|sen|cos|tg|sec)([²³⁴]?)\s*(?:\(([^()]*)\)|(\d*x(?:\/\d+)?))/g, (m, f, p, dentro, simples) => {
+    const arg = (dentro ?? simples).replace(/(\d)\s*x/g, "$1*x");
+    const chamada = F[f].startsWith("1/") ? `(1/${F[f].slice(2)}(${arg}))` : `(${F[f]}(${arg}))`;
+    const pot = { "²": 2, "³": 3, "⁴": 4 }[p];
+    return pot ? `(${chamada}**${pot})` : chamada;
+  });
+  s = s.replace(/π/g, "Math.PI").replace(/√(\d+(?:\.\d+)?)/g, "Math.sqrt($1)").replace(/(\d),(\d)/g, "$1.$2")
+    .replace(/(\d|\))\s*(?=\(|x|Math)/g, "$1*").replace(/x\s*(?=\(|Math)/g, "x*");
+  return new Function("x", `return (${s});`);
+}
+
 /* Complexo em qualquer das duas formas. */
 export const lerZ = (t) => (/cos|cis/.test(t) ? lerPolar(t) : lerC(t));
 

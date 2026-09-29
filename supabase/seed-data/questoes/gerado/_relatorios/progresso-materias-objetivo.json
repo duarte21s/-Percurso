@@ -25,9 +25,9 @@
     {
       "materia": "exatas-militar",
       "temas": 15,
-      "prontos": 4,
-      "questoes": 200,
-      "faltam": 550
+      "prontos": 7,
+      "questoes": 350,
+      "faltam": 400
     },
     {
       "materia": "calculo",
@@ -115,9 +115,9 @@
       "Polinômios e relações de Girard": 50,
       "Sistemas lineares, matrizes e determinantes": 50,
       "Geometria analítica: cônicas": 50,
-      "Geometria espacial: sólidos e seções": 0,
-      "Trigonometria: identidades e equações": 0,
-      "Análise combinatória avançada": 0,
+      "Geometria espacial: sólidos e seções": 50,
+      "Trigonometria: identidades e equações": 50,
+      "Análise combinatória avançada": 50,
       "Logaritmos, inequações e funções compostas": 0,
       "Dinâmica com corpos vinculados": 0,
       "Trabalho, energia e potência": 0,
