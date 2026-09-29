@@ -2787,3 +2787,88 @@ input:focus, select:focus, textarea:focus { border-color: var(--accent); }
   .planner-form, .plan-out { border-radius: 18px; }
   .day { grid-template-columns: 1fr; }
 }
+
+/* =========================================================
+   ESQUELETO DE CARREGAMENTO — app/app/loading.tsx
+   =========================================================
+   Aparece no clique entre as abas da área de estudos, enquanto a página nova
+   chega do servidor. Tem a casca das páginas de lá — rótulo, título em duas
+   linhas, texto de apoio e blocos —, para a troca não pular de lugar quando
+   o conteúdo entra.
+
+   Mora aqui, e não num módulo CSS do loading.tsx, porque o globals.css já
+   está na página: o esqueleto pinta no primeiro quadro, sem esperar arquivo.
+   E é só CSS, visível mesmo que o JavaScript atrase. O brilho que corre é uma
+   mistura com --text, que escurece no claro e clareia no escuro: o mesmo
+   contraste sutil nos dois temas. */
+.section.esqueleto { padding-top: 40px; }
+.esqueleto-aviso {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.esqueleto-cabeca {
+  display: grid;
+  gap: 14px;
+  max-width: 620px;
+  margin-bottom: clamp(30px, 4vw, 52px);
+}
+.esqueleto-rotulo,
+.esqueleto-titulo,
+.esqueleto-texto,
+.esqueleto-bloco {
+  display: block;
+  border-radius: 10px;
+  background: linear-gradient(100deg, transparent 25%, color-mix(in srgb, var(--text) 5%, transparent) 50%, transparent 75%) var(--surface-2);
+  background-size: 240% 100%;
+  background-repeat: no-repeat;
+  background-position: 120% 0;
+}
+.esqueleto-rotulo {
+  width: 104px;
+  height: 11px;
+  border-radius: 6px;
+  background-color: color-mix(in srgb, var(--accent) 32%, var(--surface-2));
+}
+.esqueleto-titulo { width: 86%; height: clamp(36px, 4.6vw, 54px); border-radius: 14px; }
+.esqueleto-curto { width: 58%; }
+.esqueleto-texto { width: 100%; height: 14px; margin-top: 6px; }
+.esqueleto-medio { width: 74%; margin-top: 0; }
+.esqueleto-grade {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+}
+.esqueleto-bloco {
+  height: 176px;
+  border: 1px solid var(--line-soft);
+  border-radius: 20px;
+  background-color: var(--surface);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .esqueleto-rotulo,
+  .esqueleto-titulo,
+  .esqueleto-texto,
+  .esqueleto-bloco {
+    animation: esqueleto-brilho 1.6s cubic-bezier(.4, 0, .2, 1) infinite;
+  }
+}
+/* Empilhados em tela estreita, três blocos da altura do desktop deixavam o
+   esqueleto mais alto que a página que ele antecipa. */
+@media (max-width: 560px) {
+  .esqueleto-bloco { height: 128px; }
+}
+@keyframes esqueleto-brilho {
+  from { background-position: 120% 0; }
+  to   { background-position: -120% 0; }
+}
+/* Cores forçadas apagam os fundos: o contorno mantém a forma à vista. */
+@media (forced-colors: active) {
+  .esqueleto-rotulo,
+  .esqueleto-titulo,
+  .esqueleto-texto,
+  .esqueleto-bloco { border: 1px solid CanvasText; }
+}

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MATERIAS_POR_ID } from "@/lib/conteudo/materias";
-import { chaveTema, contagensPorTema } from "@/lib/temas";
+import { chaveTema } from "@/lib/temas";
+import { contagensDoAcervo } from "@/lib/temas-servidor";
 import { criaClienteServidor } from "@/lib/supabase/server";
-import { leitorDoAcervo } from "@/lib/supabase/admin";
 import { exigeSessao } from "@/lib/sessao";
 
 export const dynamic = "force-dynamic";
@@ -50,7 +50,7 @@ export default async function PaginaMateria({
 
   const supabase = await criaClienteServidor();
   const contagens = supabase
-    ? await contagensPorTema(leitorDoAcervo(supabase))
+    ? await contagensDoAcervo(supabase)
     : {};
 
   const linhas = m.topicos.map(([titulo, incidencia]) => {

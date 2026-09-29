@@ -394,5 +394,9 @@ a área clicável é o cartão inteiro, sem aninhar `<a>` dentro de `<a>`.
 ## Notas
 
 - Roda em **Next 16**. `npm audit` limpo, zero vulnerabilidades.
+- As funções da Vercel rodam em São Paulo (`vercel.json`, região `gru1`), perto
+  do Supabase. No padrão da Vercel, Washington (`iad1`), cada ida ao banco
+  cruzava o continente — uns 120 ms —, e uma troca de aba faz de duas a quatro
+  em sequência (a sessão no proxy, a sessão na página e os dados).
 - Não há recuperação de senha nem verificação de e-mail por SMTP. O Supabase
   entrega os dois prontos, mas exigem configurar um servidor de e-mail.

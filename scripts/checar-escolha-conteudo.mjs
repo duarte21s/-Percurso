@@ -87,8 +87,7 @@ for (const parametros of [{}, { materia: "fisica" }, { sessao: "anterior" }, { s
     "@/components/estudo/Sessao": { Sessao: "sessao" },
     "@/components/estudo/EscolherConteudo": { EscolherConteudo: "escolher" },
     "@/lib/sessao": { exigeSessao: async () => ({ supabase, user }) },
-    "@/lib/temas": { contagensPorTema: async () => ({}) },
-    "@/lib/supabase/admin": { leitorDoAcervo: (s) => s },
+    "@/lib/temas-servidor": { contagensDoAcervo: async () => ({}) },
     "@/lib/conteudo/materias": { MATERIAS_POR_ID: new Map(), TODAS_AS_MATERIAS: [] },
   });
   const arvore = elementos(await pagina({ searchParams: Promise.resolve(parametros) }));

@@ -17,17 +17,20 @@ export default async function PaginaProvas() {
      conta. Deslogado não haveria onde gravar nada disso. */
   const { supabase } = await exigeSessao("/app/simulados");
 
-  const provas = await listaProvas();
+  /* As provas e as tentativas da pessoa, juntas: uma não depende da outra, e
+     em sequência cada uma pagava a própria ida ao banco. */
+  const [provas, { data }] = await Promise.all([
+    listaProvas(),
+    /* Quantas questões de cada prova a pessoa já respondeu alguma vez. Uma
+       consulta só para todas as provas, em vez de uma por cartão. */
+    supabase
+      .from("simulados")
+      .select("prova_id, status, acertos, atualizado_em")
+      .not("prova_id", "is", null)
+      .order("atualizado_em", { ascending: false }),
+  ]);
 
-  /* Quantas questões de cada prova a pessoa já respondeu alguma vez. Uma
-     consulta só para todas as provas, em vez de uma por cartão. */
   const feitas = new Map<string, { status: string; acertos: number }>();
-
-  const { data } = await supabase
-    .from("simulados")
-    .select("prova_id, status, acertos, atualizado_em")
-    .not("prova_id", "is", null)
-    .order("atualizado_em", { ascending: false });
 
   for (const s of data ?? []) {
     const id = s.prova_id as string;
