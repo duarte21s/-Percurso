@@ -25,9 +25,9 @@
     {
       "materia": "exatas-militar",
       "temas": 15,
-      "prontos": 0,
-      "questoes": 0,
-      "faltam": 750
+      "prontos": 4,
+      "questoes": 200,
+      "faltam": 550
     },
     {
       "materia": "calculo",
@@ -111,10 +111,10 @@
       "Redação oficial e correspondência": 0
     },
     "exatas-militar": {
-      "Números complexos e forma polar": 0,
-      "Polinômios e relações de Girard": 0,
-      "Sistemas lineares, matrizes e determinantes": 0,
-      "Geometria analítica: cônicas": 0,
+      "Números complexos e forma polar": 50,
+      "Polinômios e relações de Girard": 50,
+      "Sistemas lineares, matrizes e determinantes": 50,
+      "Geometria analítica: cônicas": 50,
       "Geometria espacial: sólidos e seções": 0,
       "Trigonometria: identidades e equações": 0,
       "Análise combinatória avançada": 0,
