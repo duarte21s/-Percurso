@@ -24,6 +24,8 @@ export function lerF(texto) {
   s = s.replace(/−/g, "-").replace(/·/g, "*").replace(/(\d),(\d)/g, "$1.$2").replace(/π/g, "#P");
   /* eˣ, e^(...), e^x */
   s = s.replace(/eˣ/g, "#E(x)").replace(/e\^\(/g, "#E(").replace(/e\^x/g, "#E(x)");
+  /* outras bases: 3ˣ, 2ˣ, (1/2)ˣ */
+  s = s.replace(/(\d+(?:\.\d+)?|\))ˣ/g, "$1^(x)");
   /* potências em sobrescrito: x², (…)³, x⁻¹ */
   s = s.replace(/([⁻]?[⁰¹²³⁴⁵⁶⁷⁸⁹]+)/g, (m) => `^(${[...m].map((c) => SUP[c]).join("")})`);
   /* módulo e raiz */
