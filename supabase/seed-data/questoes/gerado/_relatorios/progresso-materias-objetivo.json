@@ -39,9 +39,9 @@
     {
       "materia": "estatistica",
       "temas": 15,
-      "prontos": 0,
-      "questoes": 0,
-      "faltam": 750
+      "prontos": 15,
+      "questoes": 750,
+      "faltam": 0
     },
     {
       "materia": "matematica-fund",
@@ -145,21 +145,21 @@
       "Integração por partes": 50
     },
     "estatistica": {
-      "População, amostra e tipos de variável": 0,
-      "Tabelas de frequência": 0,
-      "Gráficos estatísticos e sua leitura": 0,
-      "Média, mediana e moda": 0,
-      "Variância e desvio padrão": 0,
-      "Medidas de posição: quartis e percentis": 0,
-      "Probabilidade: conceitos e axiomas": 0,
-      "Probabilidade condicional e independência": 0,
-      "Distribuição binomial": 0,
-      "Distribuição normal": 0,
-      "Técnicas de amostragem": 0,
-      "Estimação e intervalo de confiança": 0,
-      "Testes de hipótese": 0,
-      "Correlação e regressão linear": 0,
-      "Erros do tipo I e do tipo II": 0
+      "População, amostra e tipos de variável": 50,
+      "Tabelas de frequência": 50,
+      "Gráficos estatísticos e sua leitura": 50,
+      "Média, mediana e moda": 50,
+      "Variância e desvio padrão": 50,
+      "Medidas de posição: quartis e percentis": 50,
+      "Probabilidade: conceitos e axiomas": 50,
+      "Probabilidade condicional e independência": 50,
+      "Distribuição binomial": 50,
+      "Distribuição normal": 50,
+      "Técnicas de amostragem": 50,
+      "Estimação e intervalo de confiança": 50,
+      "Testes de hipótese": 50,
+      "Correlação e regressão linear": 50,
+      "Erros do tipo I e do tipo II": 50
     },
     "matematica-fund": {
       "Operações com números naturais": 0,

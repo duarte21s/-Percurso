@@ -54,10 +54,10 @@ node scripts/contar-materias-objetivo.mjs --temas   # tabela por conteúdo
 node scripts/contar-materias-objetivo.mjs --json    # grava gerado/_relatorios/progresso-materias-objetivo.json
 ```
 
-Estado em 30/09/2026, na branch `claude/questoes-objetivo` (lotes 1 a 5):
+Estado em 30/09/2026, na branch `claude/questoes-objetivo` (lotes 1 a 6):
 
 ```
-120 conteúdos  ·  48 com 50 ou mais  ·  2.441 questões  ·  faltam 3.560
+120 conteúdos  ·  63 com 50 ou mais  ·  3.191 questões  ·  faltam 2.810
 ```
 
 | matéria | conteúdos ≥ 50 | questões | faltam |
@@ -67,7 +67,7 @@ Estado em 30/09/2026, na branch `claude/questoes-objetivo` (lotes 1 a 5):
 | portugues-banca | 1 de 15 | 75 | 675 |
 | exatas-militar | **15 de 15** | 750 | 0 |
 | calculo | **15 de 15** | 750 | 0 |
-| estatistica | 0 de 15 | 0 | 750 |
+| estatistica | **15 de 15** | 750 | 0 |
 | matematica-fund | 0 de 15 | 0 | 750 |
 | portugues-fund | 2 de 15 | 100 | 650 |
 
@@ -99,9 +99,24 @@ alternativa; integrais definidas, por Simpson; curvas implícitas, resolvendo
 y por bisseção no ramo certo; otimização, varrendo a função objetivo montada
 a partir da geometria do problema.
 
-Próximos na fila: estatistica e matematica-fund, em que o gabarito também se
-confere em código, e por fim informatica, portugues-banca e portugues-fund,
-que pedem outra forma de revisão independente (ainda a decidir).
+Estatística está completa: 750 questões, 712 delas com o gabarito recalculado
+em código por um caminho diferente do da explicação. As funções comuns estão
+em `.rascunho/questoes-objetivo/_estatistica.mjs`: integração da normal e das
+densidades t, χ² e F por Simpson (nunca por tabela), bisseção para quantis,
+enumeração de espaços amostrais e de tabelas de frequência expandidas,
+convolução para a binomial, log-gama de Lanczos, simulação com semente fixa
+(Box–Muller) e conjuntos de dados construídos com média, desvio e correlação
+exatos. As 38 questões sem conferência em código são as puramente
+conceituais — classificação de variável, nome de técnica de amostragem,
+leitura de tipo de gráfico, formulação de H0/H1 — e estão listadas em
+`revisao_independente_pendente` nos relatórios de
+`populacao-amostra-e-tipos-de-variavel` (21), `tecnicas-de-amostragem` (12),
+`graficos-estatisticos-e-sua-leitura` (3), `distribuicao-binomial` (1) e
+`testes-de-hipotese` (1).
+
+Próximos na fila: matematica-fund, em que o gabarito também se confere em
+código, e por fim informatica, portugues-banca e portugues-fund, que pedem
+outra forma de revisão independente (ainda a decidir).
 
 **Nada desta branch foi inserido no Supabase.** O seed só depois da revisão
 e com autorização.
