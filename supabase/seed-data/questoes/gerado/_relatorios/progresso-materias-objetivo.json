@@ -25,9 +25,9 @@
     {
       "materia": "exatas-militar",
       "temas": 15,
-      "prontos": 11,
-      "questoes": 550,
-      "faltam": 200
+      "prontos": 13,
+      "questoes": 650,
+      "faltam": 100
     },
     {
       "materia": "calculo",
@@ -122,8 +122,8 @@
       "Dinâmica com corpos vinculados": 50,
       "Trabalho, energia e potência": 50,
       "Eletrodinâmica: circuitos complexos": 50,
-      "Eletromagnetismo e indução": 0,
-      "Termodinâmica: ciclos e máquinas térmicas": 0,
+      "Eletromagnetismo e indução": 50,
+      "Termodinâmica: ciclos e máquinas térmicas": 50,
       "Estequiometria com reagente limitante": 0,
       "Equilíbrio químico, pH e solubilidade": 0
     },
