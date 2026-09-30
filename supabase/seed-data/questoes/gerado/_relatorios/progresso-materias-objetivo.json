@@ -25,9 +25,9 @@
     {
       "materia": "exatas-militar",
       "temas": 15,
-      "prontos": 13,
-      "questoes": 650,
-      "faltam": 100
+      "prontos": 15,
+      "questoes": 750,
+      "faltam": 0
     },
     {
       "materia": "calculo",
@@ -124,8 +124,8 @@
       "Eletrodinâmica: circuitos complexos": 50,
       "Eletromagnetismo e indução": 50,
       "Termodinâmica: ciclos e máquinas térmicas": 50,
-      "Estequiometria com reagente limitante": 0,
-      "Equilíbrio químico, pH e solubilidade": 0
+      "Estequiometria com reagente limitante": 50,
+      "Equilíbrio químico, pH e solubilidade": 50
     },
     "calculo": {
       "Funções e revisão de pré-cálculo": 0,

@@ -54,10 +54,10 @@ node scripts/contar-materias-objetivo.mjs --temas   # tabela por conteúdo
 node scripts/contar-materias-objetivo.mjs --json    # grava gerado/_relatorios/progresso-materias-objetivo.json
 ```
 
-Estado em 29/09/2026, na branch `claude/questoes-objetivo` (lotes 1 a 3):
+Estado em 29/09/2026, na branch `claude/questoes-objetivo` (lotes 1 a 4):
 
 ```
-120 conteúdos  ·  18 com 50 ou mais  ·  941 questões  ·  faltam 5.060
+120 conteúdos  ·  33 com 50 ou mais  ·  1.691 questões  ·  faltam 4.310
 ```
 
 | matéria | conteúdos ≥ 50 | questões | faltam |
@@ -65,7 +65,7 @@ Estado em 29/09/2026, na branch `claude/questoes-objetivo` (lotes 1 a 3):
 | raciocinio-logico | **15 de 15** | 751 | 0 |
 | informatica | 0 de 15 | 15 (1 por conteúdo) | 735 |
 | portugues-banca | 1 de 15 | 75 | 675 |
-| exatas-militar | 0 de 15 | 0 | 750 |
+| exatas-militar | **15 de 15** | 750 | 0 |
 | calculo | 0 de 15 | 0 | 750 |
 | estatistica | 0 de 15 | 0 | 750 |
 | matematica-fund | 0 de 15 | 0 | 750 |
@@ -77,10 +77,19 @@ têm o gabarito recalculado em código; as 11 de falácias informais
 (`argumentos-validos-e-falacias`) não se prestam a isso e estão listadas em
 `revisao_independente_pendente` no relatório do arquivo.
 
-Próximos na fila: exatas-militar, calculo, estatistica e matematica-fund — as
-matérias em que o gabarito se confere em código —, e por fim informatica,
-portugues-banca e portugues-fund, que pedem outra forma de revisão
-independente (ainda a decidir).
+Exatas nível militar está completa: 750 questões novas, todas com o gabarito
+recalculado em código por um caminho diferente do da explicação. As funções
+comuns estão em `.rascunho/questoes-objetivo/_exatas.mjs` (leitura de números,
+complexos, polinômios e funções escritos como nas alternativas; eliminação,
+bisseção, zeros, Simpson, Runge–Kutta; massas molares e balanceamento). Cada
+rascunho de física e química monta o seu próprio modelo: circuitos por
+análise nodal, campos por Biot–Savart, ciclos térmicos trecho a trecho,
+reações pelo avanço até o primeiro reagente acabar, pH pelo balanço de cargas.
+
+Próximos na fila: calculo, estatistica e matematica-fund — as matérias em que
+o gabarito se confere em código —, e por fim informatica, portugues-banca e
+portugues-fund, que pedem outra forma de revisão independente (ainda a
+decidir).
 
 **Nada desta branch foi inserido no Supabase.** O seed só depois da revisão
 e com autorização.
