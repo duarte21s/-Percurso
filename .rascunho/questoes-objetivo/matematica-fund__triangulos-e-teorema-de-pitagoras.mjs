@@ -346,7 +346,7 @@ export const questoes = [
       d: "media",
       e: "Um triângulo equilátero tem lado de 6 cm. Qual é a altura desse triângulo, em centímetros?",
       o,
-      x: "A altura divide o triângulo equilátero em dois triângulos retângulos, de hipotenusa 6 e base 3. Então h² = 6² − 3² = 36 − 9 = 27, e h = √27 = 3√3 cm, cerca de 5,2 cm. Em geral, a altura do triângulo equilátero de lado L é L√3/2.\n\n6√3 é o dobro da altura. 3 é a metade do lado. 9 é o valor de 3 × 3, sem o fator √3, e 6 é o próprio lado.",
+      x: "A altura divide o triângulo equilátero em dois triângulos retângulos, de hipotenusa 6 e base 3. Então h² = 6² − 3² = 36 − 9 = 27, e h = √27 = 3√3 cm, cerca de 5,2 cm. Em geral, a altura do triângulo equilátero de lado L é L√3/2. A altura de um triângulo equilátero também é mediana e bissetriz.\n\n6√3 é o dobro da altura. 3 é a metade do lado. 9 é o valor de 3 × 3, sem o fator √3, e 6 é o próprio lado.",
       v: { i: () => { for (let h = 0.001; h <= 10; h += 0.001) if (Math.abs(dist([3, 0], [0, h]) - 6) < 0.0008) return qual(h, o, 1e-3); return -1; } },
     };
   })(),
@@ -468,7 +468,7 @@ export const questoes = [
       d: "dificil",
       e: "Um losango tem diagonais de 16 cm e 12 cm. Quanto mede cada lado do losango, em centímetros?",
       o,
-      x: "As diagonais do losango se cortam ao meio, em ângulo reto, formando quatro triângulos retângulos de catetos 8 e 6. O lado é a hipotenusa: √(8² + 6²) = √100 = 10 cm. Conferindo, o perímetro é 40 cm.\n\n14 soma os catetos. 20 é o dobro do lado, e 28 é a soma das diagonais, que não é o lado. E 7 é a média dos catetos.",
+      x: "As diagonais do losango se cortam ao meio, em ângulo reto, formando quatro triângulos retângulos de catetos 8 e 6. O lado é a hipotenusa: √(8² + 6²) = √100 = 10 cm. Conferindo, o perímetro é 40 cm. Como o lado é a hipotenusa dos triângulos formados pelas metades das diagonais, ele é maior que cada metade.\n\n14 soma os catetos. 20 é o dobro do lado, e 28 é a soma das diagonais, que não é o lado. E 7 é a média dos catetos.",
       v: { i: () => qual(dist([8, 0], [0, 6]), o) },
     };
   })(),
