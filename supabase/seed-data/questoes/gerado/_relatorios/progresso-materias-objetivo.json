@@ -32,9 +32,9 @@
     {
       "materia": "calculo",
       "temas": 15,
-      "prontos": 0,
-      "questoes": 0,
-      "faltam": 750
+      "prontos": 1,
+      "questoes": 50,
+      "faltam": 700
     },
     {
       "materia": "estatistica",
@@ -128,7 +128,7 @@
       "Equilíbrio químico, pH e solubilidade": 50
     },
     "calculo": {
-      "Funções e revisão de pré-cálculo": 0,
+      "Funções e revisão de pré-cálculo": 50,
       "Limites: noção intuitiva e cálculo": 0,
       "Limites laterais, infinitos e no infinito": 0,
       "Continuidade e teorema do valor intermediário": 0,
