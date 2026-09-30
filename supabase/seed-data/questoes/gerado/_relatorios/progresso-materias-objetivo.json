@@ -32,9 +32,9 @@
     {
       "materia": "calculo",
       "temas": 15,
-      "prontos": 5,
-      "questoes": 250,
-      "faltam": 500
+      "prontos": 15,
+      "questoes": 750,
+      "faltam": 0
     },
     {
       "materia": "estatistica",
@@ -133,16 +133,16 @@
       "Limites laterais, infinitos e no infinito": 50,
       "Continuidade e teorema do valor intermediário": 50,
       "Derivada: definição e interpretação geométrica": 50,
-      "Regras de derivação": 0,
-      "Regra da cadeia": 0,
-      "Derivação implícita e taxas relacionadas": 0,
-      "Máximos, mínimos e otimização": 0,
-      "Esboço de gráficos e concavidade": 0,
-      "Teorema do valor médio": 0,
-      "Integral indefinida e primitivas": 0,
-      "Integral definida e cálculo de áreas": 0,
-      "Integração por substituição": 0,
-      "Integração por partes": 0
+      "Regras de derivação": 50,
+      "Regra da cadeia": 50,
+      "Derivação implícita e taxas relacionadas": 50,
+      "Máximos, mínimos e otimização": 50,
+      "Esboço de gráficos e concavidade": 50,
+      "Teorema do valor médio": 50,
+      "Integral indefinida e primitivas": 50,
+      "Integral definida e cálculo de áreas": 50,
+      "Integração por substituição": 50,
+      "Integração por partes": 50
     },
     "estatistica": {
       "População, amostra e tipos de variável": 0,

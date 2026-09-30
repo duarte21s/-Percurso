@@ -54,10 +54,10 @@ node scripts/contar-materias-objetivo.mjs --temas   # tabela por conteúdo
 node scripts/contar-materias-objetivo.mjs --json    # grava gerado/_relatorios/progresso-materias-objetivo.json
 ```
 
-Estado em 29/09/2026, na branch `claude/questoes-objetivo` (lotes 1 a 4):
+Estado em 30/09/2026, na branch `claude/questoes-objetivo` (lotes 1 a 5):
 
 ```
-120 conteúdos  ·  33 com 50 ou mais  ·  1.691 questões  ·  faltam 4.310
+120 conteúdos  ·  48 com 50 ou mais  ·  2.441 questões  ·  faltam 3.560
 ```
 
 | matéria | conteúdos ≥ 50 | questões | faltam |
@@ -66,7 +66,7 @@ Estado em 29/09/2026, na branch `claude/questoes-objetivo` (lotes 1 a 4):
 | informatica | 0 de 15 | 15 (1 por conteúdo) | 735 |
 | portugues-banca | 1 de 15 | 75 | 675 |
 | exatas-militar | **15 de 15** | 750 | 0 |
-| calculo | 0 de 15 | 0 | 750 |
+| calculo | **15 de 15** | 750 | 0 |
 | estatistica | 0 de 15 | 0 | 750 |
 | matematica-fund | 0 de 15 | 0 | 750 |
 | portugues-fund | 2 de 15 | 100 | 650 |
@@ -86,10 +86,22 @@ rascunho de física e química monta o seu próprio modelo: circuitos por
 análise nodal, campos por Biot–Savart, ciclos térmicos trecho a trecho,
 reações pelo avanço até o primeiro reagente acabar, pH pelo balanço de cargas.
 
-Próximos na fila: calculo, estatistica e matematica-fund — as matérias em que
-o gabarito se confere em código —, e por fim informatica, portugues-banca e
-portugues-fund, que pedem outra forma de revisão independente (ainda a
-decidir).
+Cálculo I está completo: 750 questões novas, todas conferidas em código. As
+funções comuns estão em `.rascunho/questoes-objetivo/_calculo.mjs`, com o
+leitor de expressões `lerF` (funções escritas como nas alternativas, com
+sen, cos, tg, ln, raízes, módulos e potências em sobrescrito), derivadas
+numéricas com extrapolação de Richardson, limites por extrapolação, extremos
+por varredura fina e comparação de funções ponto a ponto. A conferência
+nunca usa a regra que a explicação usa: derivadas saem de diferenças
+centrais (e as de ordem alta, da fórmula integral de Cauchy, com a função
+avaliada no plano complexo); primitivas são conferidas derivando a
+alternativa; integrais definidas, por Simpson; curvas implícitas, resolvendo
+y por bisseção no ramo certo; otimização, varrendo a função objetivo montada
+a partir da geometria do problema.
+
+Próximos na fila: estatistica e matematica-fund, em que o gabarito também se
+confere em código, e por fim informatica, portugues-banca e portugues-fund,
+que pedem outra forma de revisão independente (ainda a decidir).
 
 **Nada desta branch foi inserido no Supabase.** O seed só depois da revisão
 e com autorização.
