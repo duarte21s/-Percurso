@@ -46,9 +46,9 @@
     {
       "materia": "matematica-fund",
       "temas": 15,
-      "prontos": 0,
-      "questoes": 0,
-      "faltam": 750
+      "prontos": 15,
+      "questoes": 750,
+      "faltam": 0
     },
     {
       "materia": "portugues-fund",
@@ -162,21 +162,21 @@
       "Erros do tipo I e do tipo II": 50
     },
     "matematica-fund": {
-      "Operações com números naturais": 0,
-      "Números inteiros e a reta numérica": 0,
-      "Frações: operações e comparação": 0,
-      "Números decimais e dízimas": 0,
-      "Potenciação e radiciação": 0,
-      "Múltiplos, divisores, MMC e MDC": 0,
-      "Razão, proporção e escala": 0,
-      "Regra de três simples e composta": 0,
-      "Porcentagem e juros simples": 0,
-      "Expressões algébricas e monômios": 0,
-      "Equação do 1º grau": 0,
-      "Sistemas de duas equações": 0,
-      "Ângulos e retas paralelas": 0,
-      "Triângulos e teorema de Pitágoras": 0,
-      "Área e perímetro de figuras planas": 0
+      "Operações com números naturais": 50,
+      "Números inteiros e a reta numérica": 50,
+      "Frações: operações e comparação": 50,
+      "Números decimais e dízimas": 50,
+      "Potenciação e radiciação": 50,
+      "Múltiplos, divisores, MMC e MDC": 50,
+      "Razão, proporção e escala": 50,
+      "Regra de três simples e composta": 50,
+      "Porcentagem e juros simples": 50,
+      "Expressões algébricas e monômios": 50,
+      "Equação do 1º grau": 50,
+      "Sistemas de duas equações": 50,
+      "Ângulos e retas paralelas": 50,
+      "Triângulos e teorema de Pitágoras": 50,
+      "Área e perímetro de figuras planas": 50
     },
     "portugues-fund": {
       "Substantivo e adjetivo": 50,

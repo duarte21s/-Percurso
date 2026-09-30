@@ -54,10 +54,10 @@ node scripts/contar-materias-objetivo.mjs --temas   # tabela por conteúdo
 node scripts/contar-materias-objetivo.mjs --json    # grava gerado/_relatorios/progresso-materias-objetivo.json
 ```
 
-Estado em 30/09/2026, na branch `claude/questoes-objetivo` (lotes 1 a 6):
+Estado em 30/09/2026, na branch `claude/questoes-objetivo` (lotes 1 a 7):
 
 ```
-120 conteúdos  ·  63 com 50 ou mais  ·  3.191 questões  ·  faltam 2.810
+120 conteúdos  ·  78 com 50 ou mais  ·  3.941 questões  ·  faltam 2.060
 ```
 
 | matéria | conteúdos ≥ 50 | questões | faltam |
@@ -68,7 +68,7 @@ Estado em 30/09/2026, na branch `claude/questoes-objetivo` (lotes 1 a 6):
 | exatas-militar | **15 de 15** | 750 | 0 |
 | calculo | **15 de 15** | 750 | 0 |
 | estatistica | **15 de 15** | 750 | 0 |
-| matematica-fund | 0 de 15 | 0 | 750 |
+| matematica-fund | **15 de 15** | 750 | 0 |
 | portugues-fund | 2 de 15 | 100 | 650 |
 
 Raciocínio lógico está completo: 81 questões anteriores preservadas (51 de
@@ -114,9 +114,26 @@ leitura de tipo de gráfico, formulação de H0/H1 — e estão listadas em
 `graficos-estatisticos-e-sua-leitura` (3), `distribuicao-binomial` (1) e
 `testes-de-hipotese` (1).
 
-Próximos na fila: matematica-fund, em que o gabarito também se confere em
-código, e por fim informatica, portugues-banca e portugues-fund, que pedem
-outra forma de revisão independente (ainda a decidir).
+Matemática · 6º ao 9º está completa: 750 questões, todas com o gabarito
+recalculado em código por caminho diferente do da explicação, e nenhuma
+pendente de revisão independente. O módulo comum é
+`.rascunho/questoes-objetivo/_matematica-fund.mjs` (mdc, mmc, fatoração,
+frações exatas em pares [num, den], equação do 1º grau e sistema 2×2 por
+Cramer), e cada conteúdo monta a sua própria conferência: aritmética
+direta e permutações nos naturais; testes de propriedade nos inteiros;
+frações exatas com leitura de número misto; divisão longa com detecção do
+ciclo nas dízimas; BigInt nas potências; enumeração de múltiplos e
+divisores; taxa unitária e trabalho total (pessoas × horas × dias) nas
+proporções; fatores multiplicativos e simulação mês a mês nos juros;
+equivalência de expressões testada em cinco pontos; substituição nas
+equações e nos sistemas; figuras montadas em coordenadas (ângulos por
+produto escalar, áreas pela fórmula de Gauss, distâncias por hypot).
+
+Próximos na fila: informatica (735 faltando), portugues-banca (675) e
+portugues-fund (650). São conceituais e não se confere em código; a
+revisão independente deles ainda está por decidir (há uma pergunta aberta
+ao responsável). Enquanto isso, o registro de cada arquivo deve listar em
+`revisao_independente_pendente` todas as questões sem conferência.
 
 **Nada desta branch foi inserido no Supabase.** O seed só depois da revisão
 e com autorização.
