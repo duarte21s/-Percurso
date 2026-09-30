@@ -32,9 +32,9 @@
     {
       "materia": "calculo",
       "temas": 15,
-      "prontos": 1,
-      "questoes": 50,
-      "faltam": 700
+      "prontos": 3,
+      "questoes": 150,
+      "faltam": 600
     },
     {
       "materia": "estatistica",
@@ -129,8 +129,8 @@
     },
     "calculo": {
       "Funções e revisão de pré-cálculo": 50,
-      "Limites: noção intuitiva e cálculo": 0,
-      "Limites laterais, infinitos e no infinito": 0,
+      "Limites: noção intuitiva e cálculo": 50,
+      "Limites laterais, infinitos e no infinito": 50,
       "Continuidade e teorema do valor intermediário": 0,
       "Derivada: definição e interpretação geométrica": 0,
       "Regras de derivação": 0,

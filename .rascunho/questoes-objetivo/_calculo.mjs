@@ -123,7 +123,8 @@ export function derivada(f, x, h = 1e-3) {
 export const derivada2 = (f, x, h = 1e-3) => (f(x + h) - 2 * f(x) + f(x - h)) / (h * h);
 /* limite numérico em a (lado: +1 direita, −1 esquerda, 0 os dois), por extrapolação em h → 0 */
 export function limite(f, a, lado = 0) {
-  const pelo = (s) => { const h = [1e-3, 5e-4, 2.5e-4].map((k) => f(a + s * k)); return 2 * h[2] - h[1] + 0 * h[0]; };
+  /* extrapolação de Richardson em três níveis (h, h/2, h/4): erro da ordem de h³ */
+  const pelo = (s) => { const v = [1e-3, 5e-4, 2.5e-4].map((k) => f(a + s * k)); const A1 = 2 * v[1] - v[0], A2 = 2 * v[2] - v[1]; return (4 * A2 - A1) / 3; };
   if (lado) return pelo(lado);
   const d = pelo(1), e = pelo(-1);
   if (Math.abs(d - e) > 1e-4 * Math.max(1, Math.abs(d))) return NaN;
