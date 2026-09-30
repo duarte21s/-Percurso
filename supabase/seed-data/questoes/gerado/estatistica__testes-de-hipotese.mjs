@@ -4,9 +4,9 @@
    regras de CONTINUAR-MATERIAS-POR-OBJETIVO.md. Nenhuma é atribuída a banca
    ou a prova real.
 
-   Conferência do gabarito: 50 de 50 recalculadas por código que chega à
+   Conferência do gabarito: 49 de 50 recalculadas por código que chega à
    resposta por outro caminho (ver .rascunho/questoes-objetivo/estatistica__testes-de-hipotese.mjs);
-   nenhuma ficou sem conferência em código.
+   1 conceituais aguardam a revisão independente listada no relatório.
 
    Montado por scripts/montar-questoes-objetivo.mjs; gabarito redistribuído
    por scripts/rebalancear-gabarito.mjs. Relatório em

@@ -31,13 +31,7 @@ export const questoes = [
       e: "Qual destas situações pode ser modelada por uma distribuição binomial?",
       o,
       x: "A binomial conta sucessos em um número fixo de ensaios independentes, cada um com dois resultados e a mesma probabilidade de sucesso. O número de caras em 10 lançamentos cumpre tudo: n = 10, cada lançamento dá cara ou coroa, e p = 1/2 em todos.\n\nO número de lançamentos até a primeira cara não tem n fixo: é a distribuição geométrica. Altura e tempo de espera são medidas contínuas, e não contagens de sucessos. E a soma de dois dados vai de 2 a 12, sem a estrutura de sucessos e fracassos.",
-      v: {
-        i: () => {
-          /* requisitos da binomial para cada situação: conta sucessos, n fixo, dois resultados, ensaios independentes com p constante */
-          const req = [[true, true, true, true], [true, false, true, true], [false, true, false, false], [false, false, false, false], [false, true, false, true]];
-          return unicoV(req.map((r) => r.every(Boolean)));
-        },
-      },
+      /* classificação conceitual, sem conta a refazer: fica para a revisão independente */
     };
   })(),
   (() => {

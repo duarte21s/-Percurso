@@ -421,13 +421,7 @@ export const questoes = [
       e: "Um novo remédio só deve substituir o atual se houver evidência de que é melhor. Como se formulam as hipóteses do teste?",
       o,
       x: "O teste exige evidência forte para concluir H1, e por isso H1 deve conter o que se quer demonstrar: que o novo é melhor. H0 fica com o status quo, o novo não é melhor, e só é rejeitada se os dados forem pouco compatíveis com ela. Assim, a troca só acontece com evidência.\n\nPôr a superioridade em H0 inverte o ônus da prova: o novo seria adotado sem evidência. Diferença em H0 e igualdade em H1 também inverte os papéis. Pior contra igual deixa de fora o caso de interesse. E sem hipóteses não há teste.",
-      v: {
-        i: () => {
-          /* requisitos: H1 contém a afirmação a demonstrar (novo melhor) e H0 é seu complemento, com a igualdade */
-          const req = [[true, true], [false, false], [false, false], [false, false], [false, false]];
-          return unicoV(req.map(([h1Afirma, h0Complementa]) => h1Afirma && h0Complementa));
-        },
-      },
+      /* formulação conceitual, sem conta a refazer: fica para a revisão independente */
     };
   })(),
   (() => {

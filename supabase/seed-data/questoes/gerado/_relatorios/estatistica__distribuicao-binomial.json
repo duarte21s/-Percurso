@@ -11,9 +11,8 @@
     "dificil": 10
   },
   "conferencia_em_codigo": {
-    "total": 50,
+    "total": 49,
     "questoes": [
-      1,
       2,
       3,
       4,
@@ -65,7 +64,9 @@
       50
     ]
   },
-  "revisao_independente_pendente": [],
+  "revisao_independente_pendente": [
+    1
+  ],
   "parecidas_trigramas_060": [],
   "checar_qualidade": "sem problemas",
   "gabarito_por_letra": "10 / 10 / 10 / 10 / 10"
