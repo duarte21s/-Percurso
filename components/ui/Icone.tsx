@@ -34,23 +34,6 @@ const CAMINHOS = {
       <path d="M6.5 10.7V16c0 1.5 2.5 2.8 5.5 2.8s5.5-1.3 5.5-2.8v-5.3" />
     </>
   ),
-  /* A marca é a única do conjunto que vem cheia, e de propósito. Aos 14px do
-     cabeçalho um desenho em traço vira rabisco — a silhueta é o que sobra
-     nesse tamanho. O vazado no meio é o marco do percurso, e some antes do
-     resto se a tela for pequena demais, o que é o comportamento certo: a
-     forma continua reconhecível sem ele.
-
-     Um marcador de página, não um livro: livro é o que todo site de estudo
-     usa, e o `book` deste mesmo arquivo já o desenha. O marcador diz onde
-     você parou — que é o que o produto faz. */
-  marca: (
-    <path
-      fill="currentColor"
-      stroke="none"
-      fillRule="evenodd"
-      d="M5.8 3.4h12.4v17.9L12 16.7l-6.2 4.6zM12 8.6a2.05 2.05 0 1 0 0 4.1 2.05 2.05 0 0 0 0-4.1z"
-    />
-  ),
   busca: (
     <>
       <circle cx="11" cy="11" r="7" />

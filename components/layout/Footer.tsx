@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Icone } from "@/components/ui/Icone";
+import { LogoPercurso } from "@/components/ui/LogoPercurso";
 
 /* Cada href foi conferido contra as rotas públicas de app/(site)/ e os `id=`
    das seções da home. As ferramentas de estudo agora vivem sob /app e não
@@ -38,7 +38,7 @@ export function Footer() {
         <div className="footer-brand">
           <Link href="/" className="brand">
             <span className="brand-mark">
-              <Icone nome="marca" tracoLargura={1.7} />
+              <LogoPercurso />
             </span>
             Percurso <small>Estudos</small>
           </Link>

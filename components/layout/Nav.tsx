@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { usarPressao } from "@/lib/gsap/usarPressao";
 import { usarFolha } from "@/lib/movimento/usarFolha";
 import { AbasNav } from "@/components/layout/AbasNav";
-import { Icone } from "@/components/ui/Icone";
+import { LogoPercurso } from "@/components/ui/LogoPercurso";
 
 /* Navegação do site público. Só páginas institucionais — as ferramentas de
    estudo vivem sob /app, com a sua própria navegação (a SidebarApp). */
@@ -83,7 +83,7 @@ export function Nav({ nome }: Props) {
       <div className="wrap nav-inner">
         <Link href="/" className="brand" ref={refMarca}>
           <span className="brand-mark">
-            <Icone nome="marca" tracoLargura={1.7} />
+            <LogoPercurso />
           </span>
           Percurso
         </Link>

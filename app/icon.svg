@@ -1,19 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
-  <!-- Favicon do Percurso: o marcador de página vazado num quadrado de acento,
-       a mesma marca do cabeçalho. As cores são as do tema claro e as do escuro
-       do site. O quadrado cheio fica porque a aba do navegador não tem fundo
-       previsível: com a cor do tema errada, a marca ainda se lê. Cuidado ao
-       editar este comentário: dois hífens seguidos invalidam o XML inteiro, e
-       o navegador troca o ícone pelo globo. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1.2 4 46 46" width="32" height="32">
+  <!-- Favicon do Percurso: o P de traço contínuo com a trilha de dois pontos,
+       o mesmo desenho do cabeçalho (components/ui/LogoPercurso.tsx). Fundo
+       transparente. As cores são as do acento do tema claro (#2d7753) e do
+       escuro (#4fc2a0), trocadas pelo esquema do navegador. Cuidado ao editar
+       este comentário: dois hífens seguidos invalidam o XML inteiro, e o
+       navegador troca o ícone pelo globo. -->
   <style>
-    .fundo { fill: #2d7753; }
-    .marca { fill: #f8faf7; }
+    .p { stroke: #2d7753; }
+    .t { fill: #2d7753; }
     @media (prefers-color-scheme: dark) {
-      .fundo { fill: #4fc2a0; }
-      .marca { fill: #05201a; }
+      .p { stroke: #4fc2a0; }
+      .t { fill: #4fc2a0; }
     }
   </style>
-  <rect class="fundo" width="32" height="32" rx="7.4" fill="#2d7753"/>
-  <path class="marca" fill="#f8faf7" fill-rule="evenodd"
-        d="M9.7 6.5h12.6v19.3L16 21.1l-6.3 4.7zM16 12a2.4 2.4 0 1 0 0 4.8 2.4 2.4 0 0 0 0-4.8z"/>
+  <path class="p" d="M16 35V10.5h11a9.25 9.25 0 0 1 0 18.5H16" fill="none" stroke="#2d7753" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <g class="t" fill="#2d7753" opacity=".55">
+    <circle cx="11" cy="40.5" r="2.5"/>
+    <circle cx="6.6" cy="44.4" r="1.7"/>
+  </g>
 </svg>

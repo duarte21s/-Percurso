@@ -4,6 +4,7 @@ import Link, { useLinkStatus } from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Icone, type NomeIcone } from "@/components/ui/Icone";
+import { LogoPercurso } from "@/components/ui/LogoPercurso";
 import { BotaoTema } from "@/components/ui/BotaoTema";
 import { BarraTopo } from "@/components/layout/BarraTopo";
 import { Pomodoro } from "@/components/layout/Pomodoro";
@@ -152,7 +153,7 @@ export function SidebarApp({ nome }: Props) {
       marca={
         <Link href="/app" className={css.brand}>
           <span className={css.brandMark}>
-            <Icone nome="marca" tracoLargura={1.7} />
+            <LogoPercurso />
           </span>
           Percurso <small>Estudos</small>
         </Link>

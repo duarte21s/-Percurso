@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BarraTopo } from "@/components/layout/BarraTopo";
-import { Icone } from "@/components/ui/Icone";
+import { LogoPercurso } from "@/components/ui/LogoPercurso";
 import { VeuFilme } from "./VeuFilme";
 import css from "./nav-cinema.module.css";
 
@@ -59,7 +59,7 @@ export function NavCinema({ abrigoDesfoque }: Props) {
           aria-label="Percurso — início"
           prefetch={false}
         >
-          <Icone nome="marca" aria-hidden="true" />
+          <LogoPercurso />
           <span>Percurso</span>
         </Link>
       }
