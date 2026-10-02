@@ -10,8 +10,9 @@ import type { SVGProps } from "react";
 
    O tamanho vem do CSS de cada lugar, não daqui. O viewBox sobe um pouco o
    desenho para que o corpo do P, e não a trilha, caia no centro da caixa e
-   fique alinhado ao nome. O mesmo desenho, com as cores fixas dos dois temas,
-   é o favicon em app/icon.svg, centrado pelo conjunto: mexeu aqui, mexa lá. */
+   fique alinhado ao nome. O mesmo desenho, dentro de um quadrado arredondado de
+   acento (para ter contraste em qualquer aba do navegador), é o favicon em
+   app/icon.svg: mexeu aqui, mexa lá. */
 export function LogoPercurso(props: SVGProps<SVGSVGElement>) {
   return (
     <svg

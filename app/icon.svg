@@ -1,21 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1.2 4 46 46" width="32" height="32">
-  <!-- Favicon do Percurso: o P de traço contínuo com a trilha de dois pontos,
-       o mesmo desenho do cabeçalho (components/ui/LogoPercurso.tsx). Fundo
-       transparente. As cores são as do acento do tema claro (#2d7753) e do
-       escuro (#4fc2a0), trocadas pelo esquema do navegador. Cuidado ao editar
-       este comentário: dois hífens seguidos invalidam o XML inteiro, e o
-       navegador troca o ícone pelo globo. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Favicon do Percurso: o P de traço contínuo com a trilha de dois pontos, o
+       mesmo desenho do cabeçalho (components/ui/LogoPercurso.tsx), num quadrado
+       arredondado de acento. O quadrado garante o contraste da letra em
+       qualquer aba, clara ou escura. As cores são as do acento (#2d7753 no
+       claro, #4fc2a0 no escuro) e as da tinta sobre ele (#f8faf7 e #05201a),
+       trocadas pelo esquema do navegador. Cuidado ao editar este comentário:
+       dois hífens seguidos invalidam o XML inteiro, e o navegador troca o
+       ícone pelo globo. -->
   <style>
-    .p { stroke: #2d7753; }
-    .t { fill: #2d7753; }
+    .q { fill: #2d7753; }
+    .p { stroke: #f8faf7; }
+    .t { fill: #f8faf7; }
     @media (prefers-color-scheme: dark) {
-      .p { stroke: #4fc2a0; }
-      .t { fill: #4fc2a0; }
+      .q { fill: #4fc2a0; }
+      .p { stroke: #05201a; }
+      .t { fill: #05201a; }
     }
   </style>
-  <path class="p" d="M16 35V10.5h11a9.25 9.25 0 0 1 0 18.5H16" fill="none" stroke="#2d7753" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-  <g class="t" fill="#2d7753" opacity=".55">
-    <circle cx="11" cy="40.5" r="2.5"/>
-    <circle cx="6.6" cy="44.4" r="1.7"/>
+  <rect class="q" width="32" height="32" rx="7.4" fill="#2d7753"/>
+  <g transform="translate(2.48 -.74) scale(.62)">
+    <path class="p" d="M16 35V10.5h11a9.25 9.25 0 0 1 0 18.5H16" fill="none" stroke="#f8faf7" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <g class="t" fill="#f8faf7" opacity=".7">
+      <circle cx="11" cy="40.5" r="2.5"/>
+      <circle cx="6.6" cy="44.4" r="1.7"/>
+    </g>
   </g>
 </svg>
