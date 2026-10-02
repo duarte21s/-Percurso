@@ -18,7 +18,7 @@
     }
   </style>
   <rect class="q" width="32" height="32" rx="7.4" fill="#2d7753"/>
-  <g transform="translate(2.48 -.74) scale(.62)">
+  <g transform="translate(4.882 2.23) scale(.51)">
     <path class="p" d="M16 35V10.5h11a9.25 9.25 0 0 1 0 18.5H16" fill="none" stroke="#f8faf7" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
     <g class="t" fill="#f8faf7" opacity=".7">
       <circle cx="11" cy="40.5" r="2.5"/>
