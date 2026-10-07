@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function PaginaRecursos() {
   return (
-    <main id="top" style={{ paddingTop: 96 }}>
+    <main id="top">
       <Recursos abertura />
       <Materias />
       <DentroDaPlataforma />

@@ -12,7 +12,13 @@ interface Props {
 
 export function Recursos({ abertura = false }: Props) {
   return (
-    <section className="section" id="recursos">
+    <section
+      className="section"
+      id="recursos"
+      /* Mesmo respiro de topo das outras aberturas (150px); o `main` da página
+         não soma mais o dele. */
+      style={abertura ? { paddingTop: 150 } : undefined}
+    >
       <div className="wrap">
         <div className="section-head">
           <Revelar
