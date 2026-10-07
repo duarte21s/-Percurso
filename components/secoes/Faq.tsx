@@ -16,7 +16,13 @@ export function Faq({ abertura = false }: Props) {
   const [aberta, setAberta] = useState<string | null>(null);
 
   return (
-    <section className="section" id="duvidas">
+    <section
+      className="section"
+      id="duvidas"
+      /* Mesmo respiro de topo das outras aberturas (150px); o `main` da página
+         não soma mais o dele. */
+      style={abertura ? { paddingTop: 150 } : undefined}
+    >
       <div className="wrap">
         <div className="section-head">
           <Revelar

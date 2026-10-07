@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function PaginaDuvidas() {
   return (
-    <main style={{ paddingTop: 120 }}>
+    <main>
       <Faq abertura />
     </main>
   );

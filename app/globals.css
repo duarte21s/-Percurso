@@ -605,12 +605,16 @@ ul, ol { padding: 0; list-style: none; }
 .head-centro .title {
   font-size: clamp(32px, 5.4vw, 66px);
   text-wrap: balance;
+  /* `.title` tem `max-width: 18ch`. Sem o `auto`, a caixa do título fica colada
+     na esquerda do bloco e o texto centra nela, e não no bloco: em tela larga
+     o título ficava cerca de 160px à esquerda do eyebrow, do texto e do botão. */
+  margin-inline: auto;
 }
 .head-centro .eyebrow { justify-content: center; }
 
 /* O texto de leitura não acompanha a largura total: a linha longa demais faz
    o olho perder o começo da seguinte. Fica num teto de medida, centrado. */
-.head-centro .lede { max-width: 70ch; margin-inline: auto; }
+.head-centro .lede { max-width: 70ch; margin-inline: auto; text-wrap: pretty; }
 
 /* ---------- Pontos ---------- */
 /* Título à esquerda, texto à direita, um fio entre cada assunto. A versão
