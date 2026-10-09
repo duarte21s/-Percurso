@@ -11,16 +11,16 @@
     {
       "materia": "informatica",
       "temas": 15,
-      "prontos": 0,
-      "questoes": 15,
-      "faltam": 735
+      "prontos": 15,
+      "questoes": 750,
+      "faltam": 0
     },
     {
       "materia": "portugues-banca",
       "temas": 15,
-      "prontos": 1,
-      "questoes": 75,
-      "faltam": 675
+      "prontos": 15,
+      "questoes": 750,
+      "faltam": 0
     },
     {
       "materia": "exatas-militar",
@@ -53,9 +53,9 @@
     {
       "materia": "portugues-fund",
       "temas": 15,
-      "prontos": 2,
-      "questoes": 100,
-      "faltam": 650
+      "prontos": 15,
+      "questoes": 750,
+      "faltam": 0
     }
   ],
   "por_tema": {
@@ -77,38 +77,38 @@
       "Problemas de calendário e de relógio": 50
     },
     "informatica": {
-      "Hardware: componentes e periféricos": 1,
-      "Sistemas operacionais: Windows": 1,
-      "Sistemas operacionais: Linux": 1,
-      "Armazenamento e sistemas de arquivos": 1,
-      "Editor de texto: Word e Writer": 1,
-      "Planilhas: fórmulas e funções": 1,
-      "Planilhas: referências, filtros e gráficos": 1,
-      "Apresentações: PowerPoint e Impress": 1,
-      "Redes de computadores e protocolos": 1,
-      "Internet: navegadores e mecanismos de busca": 1,
-      "Correio eletrônico": 1,
-      "Segurança da informação": 1,
-      "Malware, backup e criptografia": 1,
-      "Computação em nuvem": 1,
-      "Banco de dados: noções": 1
+      "Hardware: componentes e periféricos": 50,
+      "Sistemas operacionais: Windows": 50,
+      "Sistemas operacionais: Linux": 50,
+      "Armazenamento e sistemas de arquivos": 50,
+      "Editor de texto: Word e Writer": 50,
+      "Planilhas: fórmulas e funções": 50,
+      "Planilhas: referências, filtros e gráficos": 50,
+      "Apresentações: PowerPoint e Impress": 50,
+      "Redes de computadores e protocolos": 50,
+      "Internet: navegadores e mecanismos de busca": 50,
+      "Correio eletrônico": 50,
+      "Segurança da informação": 50,
+      "Malware, backup e criptografia": 50,
+      "Computação em nuvem": 50,
+      "Banco de dados: noções": 50
     },
     "portugues-banca": {
-      "Crase: casos obrigatórios e proibidos": 0,
-      "Concordância verbal": 0,
-      "Concordância nominal": 0,
-      "Regência verbal e nominal": 0,
-      "Colocação pronominal": 0,
-      "Pontuação: vírgula e ponto e vírgula": 0,
-      "Ortografia e acentuação": 0,
-      "Classes de palavras": 0,
-      "Análise sintática: termos da oração": 0,
-      "Período composto por coordenação": 0,
-      "Período composto por subordinação": 0,
-      "Interpretação de texto técnico": 25,
+      "Crase: casos obrigatórios e proibidos": 50,
+      "Concordância verbal": 50,
+      "Concordância nominal": 50,
+      "Regência verbal e nominal": 50,
+      "Colocação pronominal": 50,
+      "Pontuação: vírgula e ponto e vírgula": 50,
+      "Ortografia e acentuação": 50,
+      "Classes de palavras": 50,
+      "Análise sintática: termos da oração": 50,
+      "Período composto por coordenação": 50,
+      "Período composto por subordinação": 50,
+      "Interpretação de texto técnico": 50,
       "Coesão e coerência textual": 50,
-      "Semântica: sinonímia e ambiguidade": 0,
-      "Redação oficial e correspondência": 0
+      "Semântica: sinonímia e ambiguidade": 50,
+      "Redação oficial e correspondência": 50
     },
     "exatas-militar": {
       "Números complexos e forma polar": 50,
@@ -181,19 +181,19 @@
     "portugues-fund": {
       "Substantivo e adjetivo": 50,
       "Verbo: tempos e modos": 50,
-      "Pronomes": 0,
-      "Advérbio, preposição e conjunção": 0,
-      "Sujeito e predicado": 0,
-      "Ortografia: uso das letras": 0,
-      "Acentuação gráfica": 0,
-      "Pontuação": 0,
-      "Concordância verbal e nominal": 0,
-      "Gêneros textuais: narrativa": 0,
-      "Gêneros textuais: texto informativo": 0,
-      "Interpretação de texto": 0,
-      "Sinônimos, antônimos e vocabulário": 0,
-      "Figuras de linguagem": 0,
-      "Produção de texto: o parágrafo": 0
+      "Pronomes": 50,
+      "Advérbio, preposição e conjunção": 50,
+      "Sujeito e predicado": 50,
+      "Ortografia: uso das letras": 50,
+      "Acentuação gráfica": 50,
+      "Pontuação": 50,
+      "Concordância verbal e nominal": 50,
+      "Gêneros textuais: narrativa": 50,
+      "Gêneros textuais: texto informativo": 50,
+      "Interpretação de texto": 50,
+      "Sinônimos, antônimos e vocabulário": 50,
+      "Figuras de linguagem": 50,
+      "Produção de texto: o parágrafo": 50
     }
   },
   "fora_do_catalogo": 0

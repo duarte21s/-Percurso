@@ -54,10 +54,10 @@ node scripts/contar-materias-objetivo.mjs --temas   # tabela por conteúdo
 node scripts/contar-materias-objetivo.mjs --json    # grava gerado/_relatorios/progresso-materias-objetivo.json
 ```
 
-Estado em 09/10/2026, na branch `claude/questoes-objetivo` (lotes 1 a 9):
+Estado em 09/10/2026, na branch `claude/questoes-objetivo` (lotes 1 a 10):
 
 ```
-120 conteúdos  ·  107 com 50 ou mais  ·  5.351 questões  ·  faltam 650
+120 conteúdos  ·  120 com 50 ou mais  ·  6.001 questões  ·  faltam 0
 ```
 
 | matéria | conteúdos ≥ 50 | questões | faltam |
@@ -69,7 +69,7 @@ Estado em 09/10/2026, na branch `claude/questoes-objetivo` (lotes 1 a 9):
 | calculo | **15 de 15** | 750 | 0 |
 | estatistica | **15 de 15** | 750 | 0 |
 | matematica-fund | **15 de 15** | 750 | 0 |
-| portugues-fund | 2 de 15 | 100 | 650 |
+| portugues-fund | **15 de 15** | 750 | 0 |
 
 Raciocínio lógico está completo: 81 questões anteriores preservadas (51 de
 proposições e conectivos, 30 de tabelas-verdade) e 670 novas. Das novas, 659
@@ -166,11 +166,28 @@ maioria de, nem... nem, um dos que, adjetivo anteposto a vários substantivos,
 visar e informar, entre outros). As 75 antigas continuam com a marca "NÃO
 revisado" no cabeçalho e merecem revisão.
 
-Próximo na fila: portugues-fund (650 faltando, 13 conteúdos). Também é
-conceitual e não se confere em código; a revisão independente dele ainda está
-por decidir (há uma pergunta aberta ao responsável). Enquanto isso, o
-registro de cada arquivo deve listar em `revisao_independente_pendente` todas
-as questões sem conferência.
+Português · 6º ao 9º está completo: 750 questões (100 antigas, geradas pelo
+Gemini, em Substantivo e adjetivo e em Verbo: tempos e modos, mais 650 novas
+em 13 conteúdos). As 650 novas são conceituais (classes de palavras, sujeito
+e predicado, ortografia, acentuação, pontuação, concordância, gêneros
+textuais, interpretação, vocabulário, figuras de linguagem e parágrafo) e não
+se conferem em código: todas estão em `revisao_independente_pendente`. Cada
+conteúdo passou pela resolução às cegas (enunciados e alternativas
+embaralhados com semente própria, sem a chave, e respostas comparadas com o
+gabarito) e as 650 bateram, mas, como nas outras matérias conceituais,
+**isso não é revisão independente**: quem resolveu foi quem escreveu. As
+contas das questões com tabela e porcentagem (texto informativo) foram
+refeitas à mão. Entraram só regras e noções assentadas; ficaram de fora os
+casos em que as gramáticas divergem. As 100 antigas continuam com a marca
+"NÃO revisado" no cabeçalho, e `portugues-fund__verbo-tempos-e-modos.mjs` tem
+uma opção com erro de grafia ("Pretériro") que precisa de correção.
+
+As oito matérias estão cobertas: 120 conteúdos com 50 ou mais questões, 6.001
+no total. O que resta não é gerar, e sim revisar: a revisão independente das
+questões conceituais (informática 481, português de banca 652, português · 6º
+ao 9º 650, estatística 38 e raciocínio lógico 11, fora as antigas marcadas
+"NÃO revisado") e a decisão sobre o seed, que continua pendente de
+autorização.
 
 **Nada desta branch foi inserido no Supabase.** O seed só depois da revisão
 e com autorização.
