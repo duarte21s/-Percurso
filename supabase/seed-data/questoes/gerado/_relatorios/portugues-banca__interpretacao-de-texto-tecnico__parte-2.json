@@ -1,0 +1,48 @@
+{
+  "materia": "portugues-banca",
+  "tema": "Interpretação de texto técnico",
+  "arquivo": "portugues-banca__interpretacao-de-texto-tecnico__parte-2.mjs",
+  "autoria": "autoral — Claude (Anthropic), sem banca atribuída",
+  "data": "2026-10-09",
+  "questoes": 25,
+  "dificuldade": {
+    "facil": 7,
+    "media": 13,
+    "dificil": 5
+  },
+  "conferencia_em_codigo": {
+    "total": 23,
+    "questoes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25
+    ]
+  },
+  "revisao_independente_pendente": [
+    7,
+    19
+  ],
+  "parecidas_trigramas_060": [],
+  "checar_qualidade": "sem problemas",
+  "gabarito_por_letra": "5 / 5 / 5 / 5 / 5"
+}
