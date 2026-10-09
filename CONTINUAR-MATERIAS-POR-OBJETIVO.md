@@ -54,17 +54,17 @@ node scripts/contar-materias-objetivo.mjs --temas   # tabela por conteúdo
 node scripts/contar-materias-objetivo.mjs --json    # grava gerado/_relatorios/progresso-materias-objetivo.json
 ```
 
-Estado em 09/10/2026, na branch `claude/questoes-objetivo` (lotes 1 a 8):
+Estado em 09/10/2026, na branch `claude/questoes-objetivo` (lotes 1 a 9):
 
 ```
-120 conteúdos  ·  93 com 50 ou mais  ·  4.676 questões  ·  faltam 1.325
+120 conteúdos  ·  107 com 50 ou mais  ·  5.351 questões  ·  faltam 650
 ```
 
 | matéria | conteúdos ≥ 50 | questões | faltam |
 |---|---|---|---|
 | raciocinio-logico | **15 de 15** | 751 | 0 |
 | informatica | **15 de 15** | 750 | 0 |
-| portugues-banca | 1 de 15 | 75 | 675 |
+| portugues-banca | **15 de 15** | 750 | 0 |
 | exatas-militar | **15 de 15** | 750 | 0 |
 | calculo | **15 de 15** | 750 | 0 |
 | estatistica | **15 de 15** | 750 | 0 |
@@ -148,9 +148,28 @@ tabelas do enunciado gerado dos mesmos dados do banco de teste. O que não se
 presta a isso (siglas, atalhos, definições, tipos de ataque, camadas e
 protocolos) ficou como pendente de revisão independente.
 
-Próximos na fila: portugues-banca (675 faltando) e portugues-fund (650). São
-conceituais e não se confere em código; a revisão independente deles ainda
-está por decidir (há uma pergunta aberta ao responsável). Enquanto isso, o
+Português de banca está completa: 750 questões (75 antigas, geradas pelo
+Gemini, mais 675 novas). Das 675 novas, 23 têm o gabarito recalculado em
+código e 652 estão em `revisao_independente_pendente`. As 23 são as de
+leitura de regra aplicada a um caso, em `interpretacao-de-texto-tecnico__parte-2`
+(a regra do texto vira função, o cenário vira dado, e o resultado tem de cair
+na opção marcada). As demais são gramática, ortografia, pontuação, sintaxe,
+semântica e redação oficial, que não se conferem em código. Para elas, cada
+conteúdo passou por uma resolução às cegas: os enunciados foram embaralhados
+com semente própria, sem a chave, e as respostas dadas foram comparadas com o
+gabarito. Isso pegou um gabarito errado (obedecer à lei e respeitar as
+autoridades, em `crase-casos-obrigatorios-e-proibidos`) e alguns enunciados
+com defeito, mas **não é revisão independente**: quem resolveu foi quem
+escreveu. Entraram só regras assentadas na gramática normativa; os casos em
+que a gramática admite as duas formas ficaram de fora de propósito (a
+maioria de, nem... nem, um dos que, adjetivo anteposto a vários substantivos,
+visar e informar, entre outros). As 75 antigas continuam com a marca "NÃO
+revisado" no cabeçalho e merecem revisão: pelo menos uma tem erro de grafia
+nas opções.
+
+Próximo na fila: portugues-fund (650 faltando, 13 conteúdos). Também é
+conceitual e não se confere em código; a revisão independente dele ainda está
+por decidir (há uma pergunta aberta ao responsável). Enquanto isso, o
 registro de cada arquivo deve listar em `revisao_independente_pendente` todas
 as questões sem conferência.
 
