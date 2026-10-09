@@ -54,16 +54,16 @@ node scripts/contar-materias-objetivo.mjs --temas   # tabela por conteúdo
 node scripts/contar-materias-objetivo.mjs --json    # grava gerado/_relatorios/progresso-materias-objetivo.json
 ```
 
-Estado em 30/09/2026, na branch `claude/questoes-objetivo` (lotes 1 a 7):
+Estado em 09/10/2026, na branch `claude/questoes-objetivo` (lotes 1 a 8):
 
 ```
-120 conteúdos  ·  78 com 50 ou mais  ·  3.941 questões  ·  faltam 2.060
+120 conteúdos  ·  93 com 50 ou mais  ·  4.676 questões  ·  faltam 1.325
 ```
 
 | matéria | conteúdos ≥ 50 | questões | faltam |
 |---|---|---|---|
 | raciocinio-logico | **15 de 15** | 751 | 0 |
-| informatica | 0 de 15 | 15 (1 por conteúdo) | 735 |
+| informatica | **15 de 15** | 750 | 0 |
 | portugues-banca | 1 de 15 | 75 | 675 |
 | exatas-militar | **15 de 15** | 750 | 0 |
 | calculo | **15 de 15** | 750 | 0 |
@@ -129,11 +129,30 @@ equivalência de expressões testada em cinco pontos; substituição nas
 equações e nos sistemas; figuras montadas em coordenadas (ângulos por
 produto escalar, áreas pela fórmula de Gauss, distâncias por hypot).
 
-Próximos na fila: informatica (735 faltando), portugues-banca (675) e
-portugues-fund (650). São conceituais e não se confere em código; a
-revisão independente deles ainda está por decidir (há uma pergunta aberta
-ao responsável). Enquanto isso, o registro de cada arquivo deve listar em
-`revisao_independente_pendente` todas as questões sem conferência.
+Informática básica está completa: 750 questões (15 antigas, uma por conteúdo,
+mais 735 novas). Das 735 novas, 254 têm o gabarito conferido em código e 481
+estão em `revisao_independente_pendente` (o detalhe por conteúdo está nos
+relatórios de `gerado/_relatorios/`). As conferências foram montadas por
+conteúdo, sempre por um caminho diferente do da explicação: bytes, clusters e
+RAID por contas diretas; chmod, umask, curingas e caminhos por simuladores;
+fórmulas de planilha por um avaliador próprio (`_planilha.mjs`, no dialeto do
+Excel em português, com cópia de fórmula que desloca referências relativas e
+mistas); proporção de tela, folhetos e animação por simulação; endereçamento IP
+por operações bit a bit (`_redes.mjs`); URLs pela API `URL` do Node e buscas
+por um simulador de índice; destinatários de e-mail (Para, Cc, Cco) por
+simulação e anexos pela codificação Base64 real; hashes e senhas por
+`crypto` e BigInt; cifra de César, XOR e esquemas de backup por simulação;
+disponibilidade em série e em paralelo e custos de nuvem por conta direta; SQL
+executando a consulta em um SQLite real (`node:sqlite`), com o texto das
+tabelas do enunciado gerado dos mesmos dados do banco de teste. O que não se
+presta a isso (siglas, atalhos, definições, tipos de ataque, camadas e
+protocolos) ficou como pendente de revisão independente.
+
+Próximos na fila: portugues-banca (675 faltando) e portugues-fund (650). São
+conceituais e não se confere em código; a revisão independente deles ainda
+está por decidir (há uma pergunta aberta ao responsável). Enquanto isso, o
+registro de cada arquivo deve listar em `revisao_independente_pendente` todas
+as questões sem conferência.
 
 **Nada desta branch foi inserido no Supabase.** O seed só depois da revisão
 e com autorização.
