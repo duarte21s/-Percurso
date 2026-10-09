@@ -164,8 +164,7 @@ escreveu. Entraram só regras assentadas na gramática normativa; os casos em
 que a gramática admite as duas formas ficaram de fora de propósito (a
 maioria de, nem... nem, um dos que, adjetivo anteposto a vários substantivos,
 visar e informar, entre outros). As 75 antigas continuam com a marca "NÃO
-revisado" no cabeçalho e merecem revisão: pelo menos uma tem erro de grafia
-nas opções.
+revisado" no cabeçalho e merecem revisão.
 
 Próximo na fila: portugues-fund (650 faltando, 13 conteúdos). Também é
 conceitual e não se confere em código; a revisão independente dele ainda está
