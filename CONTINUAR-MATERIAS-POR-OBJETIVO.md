@@ -192,6 +192,36 @@ autorização.
 **Nada desta branch foi inserido no Supabase.** O seed só depois da revisão
 e com autorização.
 
+## Proteções de importação e do verificador
+
+- **Verificador.** `scripts/checar-qualidade.mjs` lê arquivos com LF e com
+  CRLF (o Git do Windows entrega CRLF com `core.autocrlf=true`, e antes disso o
+  script aprovava "0 questões, sem problemas"). Agora ele confere o número de
+  blocos lidos contra o número de campos `enunciado:` e, se não reconhecer as
+  questões, sai com código 2 e diz "FALHA DE LEITURA".
+- **Trava de revisão no seed.** `scripts/seed-questoes.mjs` só grava questão
+  *liberada*. Fica *retida* a questão que o relatório do arquivo lista em
+  `revisao_independente_pendente`, a de arquivo cujo cabeçalho diz "NÃO
+  revisado" e a que o registro de revisão (`gerado/_revisao/<arquivo>.json`)
+  marca como `pendente`. Só `aprovada` ou `corrigida` no registro libera. A
+  regra está em `scripts/revisao-questoes.mjs`. Gravar mesmo com retidas exige
+  as duas flags `--incluir-pendentes --confirmo-sem-revisao`.
+- **Tudo local primeiro.** A validação e a trava rodam antes de qualquer
+  conexão; a chave só é lida na hora de gravar. `npm run checar-seed`
+  (`--offline`) faz só a parte local: não lê `.env.local`, não importa o
+  cliente do Supabase, não precisa de `node_modules` e imprime, por matéria,
+  quantas questões estão liberadas e quantas retidas. `--seco` agora é o mesmo
+  que `--offline`.
+- **Mesma trava no outro caminho.** `scripts/resemear-materia.mjs` (apaga e
+  reinsere uma matéria) também recusa matéria com questão retida, antes de
+  abrir conexão, e ganhou `--offline`.
+- **Teste.** `npm run testar-trava-seed` monta pastas temporárias com
+  relatórios e registros fabricados e confere o que a trava retém (offline).
+- **Registro das 271 antigas.** Os sete arquivos de questões anteriores (sem
+  relatório de geração) entram em `gerado/_revisao/` com todas as questões
+  `pendente`, de modo que a trava as segura mesmo onde o cabeçalho não diz
+  "NÃO revisado".
+
 Para conferir a qualidade a qualquer momento:
 
 ```bash

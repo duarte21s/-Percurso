@@ -21,8 +21,9 @@
    ========================================================================= */
 
 import { readFileSync, readdirSync } from "node:fs";
-import { createClient } from "@supabase/supabase-js";
+import { fileURLToPath } from "node:url";
 import { materiaExiste, temaExiste } from "./catalogo-temas.mjs";
+import { estadoDoArquivo, veredito } from "./revisao-questoes.mjs";
 
 function carregaEnv() {
   let bruto;
@@ -39,10 +40,11 @@ function carregaEnv() {
     if (chave && !(chave in process.env)) process.env[chave] = valor;
   }
 }
-carregaEnv();
+/* A chave só é lida depois da validação local e da trava de revisão. */
 
 const materia = process.argv[2];
 const seco = process.argv.includes("--seco");
+const offline = process.argv.includes("--offline");
 
 if (!materia) {
   console.error("Informe a matéria. Ex.: node scripts/resemear-materia.mjs calculo");
@@ -52,14 +54,6 @@ if (!materiaExiste(materia)) {
   console.error(`Matéria desconhecida: ${materia}`);
   process.exit(1);
 }
-
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const chave = process.env.SUPABASE_SERVICE_ROLE_KEY;
-if (!url || !chave) {
-  console.error("Faltam NEXT_PUBLIC_SUPABASE_URL ou SUPABASE_SERVICE_ROLE_KEY em .env.local.");
-  process.exit(1);
-}
-const sb = createClient(url, chave, { auth: { persistSession: false } });
 
 /* ---------- lê os arquivos da matéria ---------- */
 const PASTA = new URL("../supabase/seed-data/questoes/gerado/", import.meta.url);
@@ -73,9 +67,13 @@ if (arquivos.length === 0) {
 }
 
 const doArquivo = [];
+const retidas = [];
 for (const nome of arquivos) {
   const mod = await import(new URL(nome, PASTA).href);
-  for (const q of mod.questoes ?? []) {
+  const estado = estadoDoArquivo(fileURLToPath(PASTA), nome);
+  for (const [i, q] of (mod.questoes ?? []).entries()) {
+    const v = veredito(estado, i + 1);
+    if (!v.liberada) retidas.push({ nome, n: i + 1, motivo: v.motivo });
     if (q.materia !== materia) {
       console.error(`${nome}: questão com materia "${q.materia}", esperado "${materia}".`);
       process.exit(1);
@@ -89,6 +87,33 @@ for (const nome of arquivos) {
 }
 
 console.log(`${arquivos.length} arquivo(s), ${doArquivo.length} questões nos fontes.`);
+
+/* TRAVA DE REVISÃO. Trocar o conteúdo de uma matéria no banco por questões
+   retidas (revisão pendente ou arquivo "NÃO revisado") é exatamente o que a
+   trava do seed existe para impedir. Recusa ANTES de abrir qualquer conexão. */
+if (retidas.length > 0) {
+  const porMotivo = {};
+  for (const r of retidas) porMotivo[r.motivo] = (porMotivo[r.motivo] ?? 0) + 1;
+  console.error(`\nRECUSADO: ${retidas.length} questão(ões) de "${materia}" estão retidas pela trava de revisão:`);
+  for (const [motivo, n] of Object.entries(porMotivo)) console.error(`  ${String(n).padStart(5)}  ${motivo}`);
+  console.error("Libere-as no registro de revisão (gerado/_revisao/) antes de ressemear. Nada foi feito.\n");
+  process.exit(1);
+}
+if (offline) {
+  console.log("\n--offline: validação local concluída, nenhuma conexão aberta, nada foi feito.");
+  process.exit(0);
+}
+
+/* Só agora, depois da validação local e da trava, a chave é lida. */
+carregaEnv();
+const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const chave = process.env.SUPABASE_SERVICE_ROLE_KEY;
+if (!url || !chave) {
+  console.error("Faltam NEXT_PUBLIC_SUPABASE_URL ou SUPABASE_SERVICE_ROLE_KEY em .env.local.");
+  process.exit(1);
+}
+const { createClient } = await import("@supabase/supabase-js");
+const sb = createClient(url, chave, { auth: { persistSession: false } });
 
 const dist = {};
 for (const q of doArquivo) dist[q.correta] = (dist[q.correta] || 0) + 1;

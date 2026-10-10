@@ -12,6 +12,8 @@
     "start": "next start",
     "seed": "node scripts/seed.mjs",
     "seed-questoes": "node scripts/seed-questoes.mjs",
+    "checar-seed": "node scripts/seed-questoes.mjs --offline",
+    "testar-trava-seed": "node scripts/testar-trava-seed.mjs",
     "classificar": "node scripts/classificar-temas.mjs",
     "importar-enem": "node scripts/importar-enem.mjs",
     "checar-contraste": "node scripts/checar-contraste.mjs",

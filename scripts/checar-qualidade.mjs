@@ -76,14 +76,25 @@ if (arquivos.length === 0) {
 
 const total = { questoes: 0, formula: 0, absurdo: 0, vazamento: 0, curta: 0 };
 const porArquivo = [];
+/* Arquivos em que o número de blocos reconhecidos não bate com o número de
+   campos `enunciado:` do texto. Um verificador que não reconhece as questões
+   não pode aprovar: "0 questões" é falha, não é "sem problemas". */
+const naoLidos = [];
 
 for (const nome of arquivos) {
-  const texto = readFileSync(join(PASTA, nome), "utf8");
+  /* Finais de linha: o Git do Windows (core.autocrlf=true) entrega estes
+     arquivos com CRLF, e o corte por "\n  {\n" abaixo não achava nenhum
+     bloco — o script aprovava "0 questões". Normaliza antes de cortar. */
+  const texto = readFileSync(join(PASTA, nome), "utf8").replace(/\r\n?/g, "\n");
 
   /* Importar o módulo seria mais robusto que regex, mas isto precisa rodar
      sobre arquivo recém-escrito que talvez nem seja válido ainda — o objetivo
      é achar problema, não explodir no primeiro erro de sintaxe. */
   const blocos = texto.split(/\n  \{\n/).slice(1);
+  const camposEnunciado = (texto.match(/^\s+enunciado:/gm) ?? []).length;
+  if (blocos.length !== camposEnunciado) {
+    naoLidos.push({ nome, blocos: blocos.length, campos: camposEnunciado });
+  }
   const achados = [];
 
   blocos.forEach((b, i) => {
@@ -151,6 +162,20 @@ console.log(
     `  enunciado citando outra questão      : ${total.vazamento}${pct(total.vazamento)}\n` +
     `  explicação curta demais              : ${total.curta}${pct(total.curta)}`
 );
+
+/* Falha de leitura vem antes de qualquer "sem problemas". */
+if (total.questoes === 0 || naoLidos.length > 0) {
+  console.error("\nFALHA DE LEITURA: o verificador não reconheceu as questões.");
+  if (total.questoes === 0) {
+    console.error(`  Foram lidos ${arquivos.length} arquivo(s) e nenhuma questão foi encontrada.`);
+  }
+  for (const { nome, blocos, campos } of naoLidos.slice(0, 20)) {
+    console.error(`  ${nome}: ${blocos} bloco(s) reconhecido(s) para ${campos} campo(s) "enunciado:"`);
+  }
+  if (naoLidos.length > 20) console.error(`  … e mais ${naoLidos.length - 20} arquivo(s).`);
+  console.error("  Nada foi aprovado. Confira o formato dos arquivos (a lista começa com `  {` em linha própria).\n");
+  process.exit(2);
+}
 
 const problemas =
   total.formula + total.absurdo + total.vazamento + total.curta;

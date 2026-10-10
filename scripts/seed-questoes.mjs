@@ -5,10 +5,24 @@
    origem='autoral' e o `tema` preenchido.
 
    Uso:
-     npm run seed-questoes -- --seco    valida e conta, não grava
-     npm run seed-questoes              grava
+     npm run seed-questoes -- --offline   valida, aplica a trava de revisão e
+                                          conta. NÃO lê .env.local, NÃO abre
+                                          conexão, não exige chave nenhuma.
+     npm run seed-questoes -- --seco      o mesmo que --offline
+     npm run seed-questoes                grava (só as questões liberadas)
      npm run seed-questoes -- --materias informatica,ingles
-                                        grava apenas as matérias indicadas
+                                          grava apenas as matérias indicadas
+
+   TRAVA DE REVISÃO. As questões de gerado/ só vão para o banco se estiverem
+   liberadas. Fica RETIDA a questão que o relatório do arquivo lista em
+   `revisao_independente_pendente`, a que está em arquivo cujo cabeçalho diz
+   "NÃO revisado" e a que o registro de revisão (gerado/_revisao/) marca como
+   pendente; só um registro "aprovada" ou "corrigida" a libera. Ver
+   scripts/revisao-questoes.mjs. A trava roda ANTES de qualquer conexão.
+
+   Para gravar mesmo com questões retidas é preciso passar as DUAS flags
+   `--incluir-pendentes --confirmo-sem-revisao`. Não faça isso sem decisão
+   registrada de quem responde pelo conteúdo.
 
    É idempotente: antes de inserir, lê os enunciados que já existem e pula os
    repetidos. Rodar de novo depois de acrescentar um arquivo insere só o que
@@ -21,49 +35,51 @@
    ========================================================================= */
 
 import { readFileSync, readdirSync, existsSync } from "node:fs";
-import { createClient } from "@supabase/supabase-js";
+import { fileURLToPath, pathToFileURL } from "node:url";
+import { join } from "node:path";
 import { materiaExiste, temaExiste } from "./catalogo-temas.mjs";
+import { estadoDoArquivo, veredito } from "./revisao-questoes.mjs";
 
-function carregaEnv() {
-  let bruto;
-  try {
-    bruto = readFileSync(new URL("../.env.local", import.meta.url), "utf8");
-  } catch {
-    return;
-  }
-  for (const linha of bruto.split("\n")) {
-    const corte = linha.indexOf("=");
-    if (corte < 1 || linha.trimStart().startsWith("#")) continue;
-    const chave = linha.slice(0, corte).trim();
-    const valor = linha.slice(corte + 1).trim().replace(/^["']|["']$/g, "");
-    if (chave && !(chave in process.env)) process.env[chave] = valor;
-  }
+const argv = process.argv.slice(2);
+const offline = argv.includes("--offline") || argv.includes("--seco");
+const incluirPendentes =
+  argv.includes("--incluir-pendentes") && argv.includes("--confirmo-sem-revisao");
+
+function valorDe(flag) {
+  const i = argv.indexOf(flag);
+  return i >= 0 ? (argv[i + 1] ?? "") : null;
 }
 
-carregaEnv();
+const materiasAlvo = new Set(
+  (valorDe("--materias") ?? "")
+    .split(",")
+    .map((id) => id.trim())
+    .filter(Boolean)
+);
 
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-if (!url || !serviceKey) {
-  console.error("\nFaltam NEXT_PUBLIC_SUPABASE_URL e/ou SUPABASE_SERVICE_ROLE_KEY.\n");
+const pastaFlag = valorDe("--pasta");
+if (pastaFlag !== null && !offline) {
+  console.error("\n--pasta só existe com --offline (é para testar a trava).\n");
+  process.exit(1);
+}
+if (argv.includes("--incluir-pendentes") !== argv.includes("--confirmo-sem-revisao")) {
+  console.error(
+    "\nPara gravar questões retidas é preciso passar as duas flags juntas: " +
+      "--incluir-pendentes --confirmo-sem-revisao.\n"
+  );
+  process.exit(1);
+}
+if (incluirPendentes && offline) {
+  console.error("\n--incluir-pendentes não faz sentido em modo offline.\n");
   process.exit(1);
 }
 
-const seco = process.argv.includes("--seco");
-const indiceMaterias = process.argv.indexOf("--materias");
-const materiasAlvo = new Set(
-  indiceMaterias >= 0
-    ? (process.argv[indiceMaterias + 1] ?? "")
-        .split(",")
-        .map((id) => id.trim())
-        .filter(Boolean)
-    : []
-);
-const pasta = new URL("../supabase/seed-data/questoes/", import.meta.url);
+const pasta = pastaFlag
+  ? pathToFileURL(join(pastaFlag, "/"))
+  : new URL("../supabase/seed-data/questoes/", import.meta.url);
 
 if (!existsSync(pasta)) {
-  console.error("\nPasta supabase/seed-data/questoes/ não existe.\n");
+  console.error("\nPasta de questões não existe.\n");
   process.exit(1);
 }
 
@@ -124,6 +140,23 @@ function listaArquivos(base, prefixo = "") {
   return achados.sort();
 }
 
+/** Carrega a chave do banco. Só é chamada depois da validação local. */
+function carregaEnv() {
+  let bruto;
+  try {
+    bruto = readFileSync(new URL("../.env.local", import.meta.url), "utf8");
+  } catch {
+    return;
+  }
+  for (const linha of bruto.split("\n")) {
+    const corte = linha.indexOf("=");
+    if (corte < 1 || linha.trimStart().startsWith("#")) continue;
+    const chave = linha.slice(0, corte).trim();
+    const valor = linha.slice(corte + 1).trim().replace(/^["']|["']$/g, "");
+    if (chave && !(chave in process.env)) process.env[chave] = valor;
+  }
+}
+
 async function principal() {
   const arquivos = listaArquivos(pasta).filter((arquivo) => {
     if (materiasAlvo.size === 0) return true;
@@ -139,28 +172,53 @@ async function principal() {
   console.log(`\n${arquivos.length} arquivo(s).\n`);
 
   const todas = [];
+  const retidas = [];
   const erros = [];
   const porArquivo = {};
+  const estados = new Map();
 
   for (const arquivo of arquivos) {
     const mod = await import(new URL(arquivo, pasta));
     const lista = mod.questoes ?? [];
+    if (!Array.isArray(lista) || lista.length === 0) {
+      erros.push(`  ${arquivo}: o arquivo não exporta nenhuma questão`);
+    }
+
+    /* A trava só vale para gerado/: é onde as questões nascem sem revisão. */
+    const naGerado = arquivo.startsWith("gerado/");
+    const nome = arquivo.split("/").pop();
+    const estado = naGerado
+      ? (estados.get(arquivo) ?? estadoDoArquivo(fileURLToPath(new URL("gerado/", pasta)), nome))
+      : null;
+    if (estado) estados.set(arquivo, estado);
+
     lista.forEach((q, i) => {
       erros.push(...valida(q, arquivo, i));
-      todas.push(q);
+      const v = estado ? veredito(estado, i + 1) : { liberada: true, motivo: null };
+      if (v.liberada || incluirPendentes) todas.push(q);
+      else retidas.push({ q, arquivo, n: i + 1, motivo: v.motivo });
     });
     porArquivo[arquivo] = lista.length;
   }
 
   // Com centenas de arquivos, listar todos vira ruído; o que importa é o
   // total por matéria e onde há problema.
-  const porMateriaArq = {};
+  const porMateria = {};
   for (const [arq, n] of Object.entries(porArquivo)) {
     const materia = arq.split("/").pop().split("__")[0].replace(".mjs", "");
-    porMateriaArq[materia] = (porMateriaArq[materia] ?? 0) + n;
+    porMateria[materia] ??= { total: 0, retidas: 0 };
+    porMateria[materia].total += n;
   }
-  for (const [m, n] of Object.entries(porMateriaArq).sort()) {
-    console.log(`  ${m.padEnd(14)} ${String(n).padStart(5)} questões`);
+  for (const r of retidas) {
+    const materia = r.arquivo.split("/").pop().split("__")[0];
+    porMateria[materia].retidas++;
+  }
+  console.log(`  ${"matéria".padEnd(18)} ${"questões".padStart(8)} ${"liberadas".padStart(10)} ${"retidas".padStart(8)}`);
+  for (const [m, s] of Object.entries(porMateria).sort()) {
+    const liberadas = s.total - s.retidas;
+    console.log(
+      `  ${m.padEnd(18)} ${String(s.total).padStart(8)} ${String(liberadas).padStart(10)} ${String(s.retidas).padStart(8)}`
+    );
   }
 
   if (erros.length > 0) {
@@ -169,6 +227,19 @@ async function principal() {
     if (erros.length > 40) console.error(`  … e mais ${erros.length - 40}.`);
     console.error("\nNada foi gravado.\n");
     process.exit(1);
+  }
+
+  if (retidas.length > 0) {
+    const porMotivo = {};
+    for (const r of retidas) porMotivo[r.motivo] = (porMotivo[r.motivo] ?? 0) + 1;
+    console.log(`\n${retidas.length} questão(ões) RETIDA(S) pela trava de revisão:`);
+    for (const [motivo, n] of Object.entries(porMotivo).sort((a, b) => b[1] - a[1])) {
+      console.log(`  ${String(n).padStart(5)}  ${motivo}`);
+    }
+    console.log("  Elas não vão para o banco enquanto não houver registro de revisão.");
+  }
+  if (incluirPendentes) {
+    console.log("\nATENÇÃO: --incluir-pendentes --confirmo-sem-revisao ligados; nada será retido.");
   }
 
   /* Deduplicação DENTRO do lote. O índice único do banco é sobre
@@ -187,7 +258,7 @@ async function principal() {
     unicas.push(q);
   }
 
-  console.log(`\n${todas.length} questões válidas.`);
+  console.log(`\n${todas.length} questões liberadas.`);
   if (repetidasNoLote > 0) {
     console.log(`${repetidasNoLote} repetidas entre arquivos, descartadas.`);
   }
@@ -199,19 +270,34 @@ async function principal() {
   }
   const cobertos = Object.keys(porTema).length;
   const magros = Object.entries(porTema).filter(([, n]) => n < 10);
-  console.log(`${cobertos} temas cobertos de 135.`);
+  console.log(`${cobertos} temas cobertos.`);
   if (magros.length > 0) {
-    console.log(`${magros.length} deles com menos de 10 questões.`);
+    console.log(`${magros.length} deles com menos de 10 questões liberadas.`);
   }
   console.log("");
 
   todas.length = 0;
   todas.push(...unicas);
 
-  if (seco) {
-    console.log("--seco: nada foi gravado.\n");
+  if (offline) {
+    console.log("Modo offline: nenhuma conexão foi aberta e nada foi gravado.\n");
     return;
   }
+
+  if (todas.length === 0) {
+    console.log("Nenhuma questão liberada; nada a gravar.\n");
+    return;
+  }
+
+  /* Só aqui, depois de toda a validação local, o script toca na chave. */
+  carregaEnv();
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !serviceKey) {
+    console.error("\nFaltam NEXT_PUBLIC_SUPABASE_URL e/ou SUPABASE_SERVICE_ROLE_KEY.\n");
+    process.exit(1);
+  }
+  const { createClient } = await import("@supabase/supabase-js");
 
   const db = createClient(url, serviceKey, {
     auth: { persistSession: false, autoRefreshToken: false },
