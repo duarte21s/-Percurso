@@ -37,13 +37,13 @@ export const questoes = [
     enunciado:
       "Qual é a soma das raízes da equação 2x³ − 6x² + 5x − 1 = 0?",
     opcoes: [
-      "3",
       "−3",
+      "3",
       "6",
       "5/2",
       "1/2",
     ],
-    correta: 0,
+    correta: 1,
     explicacao:
       "Pelas relações de Girard, numa equação ax³ + bx² + cx + d = 0 a soma das raízes é −b/a. Aqui, −(−6)/2 = 3. Não é preciso achar as raízes para somá-las.\n\n−3 esquece o sinal de menos da relação. 6 esquece de dividir pelo coeficiente líder, 2. 5/2 é c/a, que é a soma dos produtos das raízes tomadas duas a duas. E 1/2 é −d/a, o produto das três raízes.",
   },
@@ -54,13 +54,13 @@ export const questoes = [
     enunciado:
       "Qual é o produto das raízes da equação x³ − 4x² + x + 6 = 0?",
     opcoes: [
-      "−6",
       "6",
       "4",
       "1",
+      "−6",
       "−4",
     ],
-    correta: 0,
+    correta: 3,
     explicacao:
       "Numa equação do 3º grau ax³ + bx² + cx + d = 0, o produto das raízes é −d/a. Aqui, −6/1 = −6. Conferindo: 2 é raiz (8 − 16 + 2 + 6 = 0), as outras são 3 e −1, e 2 · 3 · (−1) = −6.\n\n6 esquece o sinal de menos da relação, que aparece em grau ímpar. 4 é a soma das raízes (−b/a). 1 é c/a, a soma dos produtos dois a dois. E −4 é a soma com o sinal trocado.",
   },
@@ -88,13 +88,13 @@ export const questoes = [
     enunciado:
       "Para que valor de k o número 1 é raiz do polinômio P(x) = x³ + kx² − 3x + 5?",
     opcoes: [
-      "−3",
       "3",
       "−9",
       "−7",
       "−5",
+      "−3",
     ],
-    correta: 0,
+    correta: 4,
     explicacao:
       "Se 1 é raiz, então P(1) = 0: 1³ + k · 1² − 3 · 1 + 5 = 0, isto é, 1 + k − 3 + 5 = 0, ou k + 3 = 0. Logo k = −3. Conferindo: x³ − 3x² − 3x + 5 vale 1 − 3 − 3 + 5 = 0 em x = 1.\n\n3 erra o sinal na última passagem. −9 troca o sinal de −3x. −7 impõe a condição em x = −1, e não em x = 1. E −5 faz k igual ao oposto do termo independente, esquecendo os outros termos.",
   },
@@ -105,13 +105,13 @@ export const questoes = [
     enunciado:
       "O polinômio x² − 5x + 6 é divisível por x − 2. Qual é o outro fator do 1º grau, isto é, o quociente dessa divisão?",
     opcoes: [
-      "x − 3",
       "x + 3",
       "x − 2",
+      "x − 3",
       "x + 2",
       "x − 5",
     ],
-    correta: 0,
+    correta: 2,
     explicacao:
       "Como 2 é raiz de x² − 5x + 6 (4 − 10 + 6 = 0), a divisão por x − 2 é exata. Pelo dispositivo de Briot-Ruffini, os coeficientes 1, −5, 6 com a raiz 2 dão 1, −3 e resto 0: o quociente é x − 3. De fato, (x − 2)(x − 3) = x² − 5x + 6.\n\nx + 3 erra o sinal do termo independente. x − 2 repete o divisor. x + 2 muda o sinal do divisor. E x − 5 copia os dois primeiros coeficientes do dividendo, sem fazer a divisão.",
   },
@@ -122,13 +122,13 @@ export const questoes = [
     enunciado:
       "O polinômio P(x) = x² + bx + c tem raízes 2 e 5. Qual é o valor de b + c?",
     opcoes: [
-      "3",
       "17",
       "−3",
+      "3",
       "10",
       "−17",
     ],
-    correta: 0,
+    correta: 2,
     explicacao:
       "Com raízes 2 e 5, o polinômio mônico é (x − 2)(x − 5) = x² − 7x + 10. Logo b = −7, c = 10 e b + c = 3. Pelas relações de Girard: a soma das raízes é −b = 7 e o produto é c = 10. Um atalho: b + c = P(1) − 1 = (1 − 2)(1 − 5) − 1 = 3.\n\n17 toma b = 7, esquecendo o sinal da relação −b/a. −3 troca o sinal do resultado. 10 é só o valor de c. E −17 combina os dois sinais trocados.",
   },
@@ -139,13 +139,13 @@ export const questoes = [
     enunciado:
       "Aplicando o dispositivo de Briot-Ruffini para dividir 2x³ − 3x² + x − 4 por x − 1, que polinômio se obtém como quociente?",
     opcoes: [
-      "2x² − x",
       "2x² − 5x + 6",
+      "2x² − x",
       "2x² − 3x + 1",
       "2x² − x − 4",
       "2x³ − x²",
     ],
-    correta: 0,
+    correta: 1,
     explicacao:
       "No dispositivo de Briot-Ruffini com a raiz 1: baixa-se o 2; 2 · 1 + (−3) = −1; −1 · 1 + 1 = 0; 0 · 1 + (−4) = −4. Os três primeiros números, 2, −1 e 0, são os coeficientes do quociente, e o último é o resto: quociente 2x² − x, resto −4. Conferindo: (x − 1)(2x² − x) − 4 = 2x³ − 3x² + x − 4.\n\n2x² − 5x + 6 usa −1 no dispositivo, o que seria a divisão por x + 1. 2x² − 3x + 1 só copia os coeficientes do dividendo, baixando o grau. 2x² − x − 4 põe o resto dentro do quociente. E 2x³ − x² esquece que o quociente tem um grau a menos que o dividendo.",
   },
@@ -156,13 +156,13 @@ export const questoes = [
     enunciado:
       "Uma das raízes da equação x² − 7x + k = 0 é 3. Qual é a outra raiz?",
     opcoes: [
-      "4",
       "−4",
       "10",
       "12",
       "7/3",
+      "4",
     ],
-    correta: 0,
+    correta: 4,
     explicacao:
       "A soma das raízes de x² − 7x + k = 0 é 7, o oposto do coeficiente de x. Se uma raiz é 3, a outra é 7 − 3 = 4. Conferindo pelo produto: k = 3 · 4 = 12, e x² − 7x + 12 = (x − 3)(x − 4).\n\n−4 erra o sinal da soma, tomando −7. 10 soma 3 e 7 em vez de subtrair. 12 é o valor de k, o produto das raízes, e não a outra raiz. E 7/3 divide a soma pela raiz conhecida, confundindo soma com produto.",
   },
@@ -173,13 +173,13 @@ export const questoes = [
     enunciado:
       "Para que o polinômio (a − 1)x² + (b + 2)x + c seja identicamente nulo, isto é, valha zero para todo x real, qual deve ser o valor de a + b + c?",
     opcoes: [
-      "−1",
       "1",
+      "−1",
       "3",
       "0",
       "−3",
     ],
-    correta: 0,
+    correta: 1,
     explicacao:
       "Um polinômio é identicamente nulo quando todos os seus coeficientes são zero: a − 1 = 0, b + 2 = 0 e c = 0. Então a = 1, b = −2, c = 0, e a + b + c = −1.\n\n3 erra o sinal de b, tomando b = 2. −3 erra o sinal de a, tomando a = −1. 1 usa só a condição sobre a e esquece as outras duas. E 0 confunde a soma pedida com o valor do próprio polinômio, que é zero.",
   },
@@ -190,13 +190,13 @@ export const questoes = [
     enunciado:
       "Na divisão de um polinômio de grau 5 por um polinômio de grau 2, qual é o grau do quociente?",
     opcoes: [
-      "2",
       "3",
+      "2",
       "7",
       "10",
       "1",
     ],
-    correta: 1,
+    correta: 0,
     explicacao:
       "Na divisão P(x) = D(x) · Q(x) + R(x), o resto tem grau menor que o do divisor e não interfere no termo de maior grau. Então o grau de D · Q, que é a soma dos graus, precisa ser 5: 2 + grau Q = 5, e o quociente tem grau 3.\n\n2 copia o grau do divisor. 7 soma os graus, como num produto. 10 multiplica os graus. E 1 é o grau máximo do resto, que precisa ser menor que o grau do divisor — não é o grau do quociente.",
   },
@@ -208,12 +208,12 @@ export const questoes = [
       "Qual é a soma dos coeficientes do polinômio P(x) = (2x − 1)⁵, depois de desenvolvido?",
     opcoes: [
       "32",
-      "1",
       "−1",
+      "1",
       "0",
       "243",
     ],
-    correta: 1,
+    correta: 2,
     explicacao:
       "A soma dos coeficientes de qualquer polinômio é o seu valor em x = 1, porque cada potência de x vira 1. Então basta calcular P(1) = (2 · 1 − 1)⁵ = 1⁵ = 1, sem desenvolver nada.\n\n32 é só o coeficiente líder, 2⁵. −1 é P(0), o termo independente, (−1)⁵. 0 supõe que os coeficientes, com sinais alternados, se cancelem. E 243 é 3⁵, a soma dos valores absolutos dos coeficientes, que é |P(−1)|.",
   },
@@ -225,12 +225,12 @@ export const questoes = [
       "Sendo a, b e c as raízes de x³ − 2x² − 5x + 6 = 0, qual é o valor de a² + b² + c²?",
     opcoes: [
       "4",
-      "14",
       "−6",
+      "14",
       "24",
       "36",
     ],
-    correta: 1,
+    correta: 2,
     explicacao:
       "Pela identidade (a + b + c)² = a² + b² + c² + 2(ab + ac + bc), a soma dos quadrados é S₁² − 2S₂. Pelas relações de Girard, S₁ = a + b + c = 2 e S₂ = ab + ac + bc = −5. Então a² + b² + c² = 4 − 2(−5) = 14. Conferindo: as raízes são 1, −2 e 3, e 1 + 4 + 9 = 14.\n\n4 é só S₁², sem o termo dos produtos. −6 soma 2S₂ em vez de subtrair. 24 subtrai 4S₂, dobrando o termo. E 36 é o quadrado do produto das raízes, abc = −6.",
   },
@@ -242,12 +242,12 @@ export const questoes = [
       "Sendo a, b e c as raízes de 2x³ − 3x² + 4x − 5 = 0, qual é o valor de 1/a + 1/b + 1/c?",
     opcoes: [
       "3/5",
-      "4/5",
       "5/4",
       "−4/5",
+      "4/5",
       "3/4",
     ],
-    correta: 1,
+    correta: 3,
     explicacao:
       "1/a + 1/b + 1/c = (bc + ac + ab)/(abc) = S₂/S₃. Pelas relações de Girard em 2x³ − 3x² + 4x − 5 = 0: S₂ = 4/2 = 2 e S₃ = −(−5)/2 = 5/2. Logo a soma dos inversos é 2 ÷ (5/2) = 4/5.\n\n3/5 usa S₁ = 3/2 no numerador, no lugar de S₂. 5/4 inverte a fração. −4/5 erra o sinal do produto. E 3/4 divide S₁ por S₂, trocando as duas relações. As raízes dessa equação não são inteiras, e calculá-las seria trabalhoso; as relações de Girard dão a resposta sem que seja preciso achá-las.",
   },
@@ -259,12 +259,12 @@ export const questoes = [
       "As raízes da equação x³ − 9x² + 23x − 15 = 0 estão em progressão aritmética. Qual é a raiz do meio?",
     opcoes: [
       "9",
-      "3",
       "1",
       "5",
       "23/3",
+      "3",
     ],
-    correta: 1,
+    correta: 4,
     explicacao:
       "Em progressão aritmética, as raízes podem ser escritas como m − r, m e m + r. A soma é 3m, e pelas relações de Girard vale 9. Então m = 3. Conferindo: 27 − 81 + 69 − 15 = 0, e as outras raízes são 1 e 5, cujo produto com 3 dá 15, como pede o termo independente.\n\n9 é a soma das raízes, e não a do meio. 1 e 5 são as raízes das pontas. E 23/3 divide por 3 o coeficiente de x, que corresponde à soma dos produtos dois a dois, e não à soma das raízes.",
   },
@@ -276,12 +276,12 @@ export const questoes = [
       "Sabe-se que as três raízes de x³ − 7x² + 14x − 8 = 0 formam uma progressão geométrica. Qual é o termo central dessa progressão?",
     opcoes: [
       "8",
-      "2",
       "7/3",
+      "2",
       "4",
       "14",
     ],
-    correta: 1,
+    correta: 2,
     explicacao:
       "Numa progressão geométrica, as raízes podem ser escritas como m/q, m e mq, e o produto delas é m³. Pelas relações de Girard, o produto vale −(−8)/1 = 8, então m³ = 8 e m = 2. Conferindo: 8 − 28 + 28 − 8 = 0, e as outras raízes são 1 e 4.\n\n8 é o produto das raízes. 7/3 divide a soma por 3, raciocínio que vale para progressão aritmética. 4 é a maior raiz. E 14 é a soma dos produtos dois a dois.",
   },
@@ -293,12 +293,12 @@ export const questoes = [
       "Um polinômio P(x) deixa resto 3 na divisão por x − 1 e resto 5 na divisão por x − 2. Qual é o resto da divisão de P(x) por (x − 1)(x − 2)?",
     opcoes: [
       "x + 2",
-      "2x + 1",
       "8",
       "2x − 1",
       "15",
+      "2x + 1",
     ],
-    correta: 1,
+    correta: 4,
     explicacao:
       "O divisor tem grau 2, então o resto tem grau no máximo 1: R(x) = ax + b. Como P(x) = (x − 1)(x − 2)Q(x) + ax + b, substituir x = 1 e x = 2 anula o primeiro termo: a + b = 3 e 2a + b = 5. Daí a = 2 e b = 1, e o resto é 2x + 1.\n\nx + 2 satisfaz a primeira condição (vale 3 em x = 1), mas vale 4 em x = 2. 8 soma os restos, e 15 os multiplica, como se o resto por um produto viesse de operar os restos. E 2x − 1 erra o sinal de b.",
   },
@@ -309,13 +309,13 @@ export const questoes = [
     enunciado:
       "Qual é a multiplicidade da raiz 1 no polinômio P(x) = x⁴ − 5x³ + 9x² − 7x + 2?",
     opcoes: [
-      "1",
       "3",
+      "1",
       "2",
       "4",
       "0",
     ],
-    correta: 1,
+    correta: 0,
     explicacao:
       "Divide-se P(x) por x − 1 enquanto a divisão for exata. Por Briot-Ruffini: 1, −5, 9, −7, 2 → 1, −4, 5, −2 e resto 0; depois → 1, −3, 2 e resto 0; depois → 1, −2 e resto 0; por fim, 1, −2 → resto −1, que não é zero. Foram três divisões exatas: P(x) = (x − 1)³(x − 2), e a multiplicidade é 3.\n\n1 para na primeira divisão exata. 2 para na segunda. 4 toma o grau do polinômio como multiplicidade, mas a raiz 2 também aparece. E 0 supõe que 1 nem seja raiz — e 1 − 5 + 9 − 7 + 2 = 0 mostra que é.",
   },
@@ -344,12 +344,12 @@ export const questoes = [
       "Sabendo que 2 é raiz de x³ − 4x² + x + 6 = 0, quais são as outras duas raízes?",
     opcoes: [
       "−3 e 1",
-      "3 e −1",
       "2 e 3",
       "1 e 6",
       "−2 e −3",
+      "3 e −1",
     ],
-    correta: 1,
+    correta: 4,
     explicacao:
       "Dividindo por x − 2 com Briot-Ruffini: 1, −4, 1, 6 → 1, −2, −3 e resto 0. O quociente é x² − 2x − 3, cujas raízes são 3 e −1 (soma 2, produto −3). Então x³ − 4x² + x + 6 = (x − 2)(x − 3)(x + 1).\n\n−3 e 1 erram os sinais das raízes do quociente. 2 e 3 repetem a raiz já conhecida. 1 e 6 são divisores do termo independente que não anulam o polinômio (em x = 1, ele vale 4). E −2 e −3 trocam o sinal de tudo.",
   },
@@ -360,13 +360,13 @@ export const questoes = [
     enunciado:
       "Um polinômio P(x) de grau 2 satisfaz P(0) = 1, P(1) = 2 e P(2) = 5. Qual é o valor de P(3)?",
     opcoes: [
+      "10",
       "8",
       "4",
-      "10",
       "9",
       "7",
     ],
-    correta: 2,
+    correta: 0,
     explicacao:
       "Com P(x) = ax² + bx + c: P(0) = c = 1; P(1) = a + b + 1 = 2; P(2) = 4a + 2b + 1 = 5. Das duas últimas, a + b = 1 e 2a + b = 2, logo a = 1 e b = 0: P(x) = x² + 1, e P(3) = 10. Pelas diferenças: 1, 2, 5 têm diferenças 1 e 3, que crescem de 2 em 2; a próxima é 5, e 5 + 5 = 10.\n\n8 usa a reta que passa por P(1) e P(2), como se o polinômio fosse do 1º grau. 4 usa a reta que passa por P(0) e P(1). 9 é 3², esquecendo o termo independente. E 7 soma 2 ao último valor, confundindo a variação das diferenças com a própria diferença.",
   },
@@ -379,11 +379,11 @@ export const questoes = [
     opcoes: [
       "1",
       "−x",
-      "x",
       "0",
+      "x",
       "x + 1",
     ],
-    correta: 2,
+    correta: 3,
     explicacao:
       "O resto tem grau no máximo 1: R(x) = ax + b, e x¹⁰¹ = (x² − 1)Q(x) + ax + b. Em x = 1: 1 = a + b. Em x = −1: (−1)¹⁰¹ = −1 = −a + b. Somando, b = 0; então a = 1, e o resto é x. Outro caminho: como x² = (x² − 1) + 1, toda potência x²ᵏ deixa resto 1, e x¹⁰¹ = x · x¹⁰⁰ deixa resto x.\n\n1 é o resto de x¹⁰⁰, de expoente par. −x erra o sinal de (−1)¹⁰¹. 0 supõe que x² − 1 divida x¹⁰¹, mas x¹⁰¹ não se anula em x = 1. E x + 1 soma os valores obtidos em x = 1 e x = −1 como se fossem os coeficientes.",
   },
@@ -396,11 +396,11 @@ export const questoes = [
     opcoes: [
       "1/3",
       "−2",
-      "1/2",
       "3/2",
       "−1/2",
+      "1/2",
     ],
-    correta: 2,
+    correta: 4,
     explicacao:
       "Pelo teorema das raízes racionais, uma raiz p/q, em fração irredutível, tem p dividindo o termo independente (2) e q dividindo o coeficiente líder (2): os candidatos são ±1, ±2 e ±1/2. Testando 1/2: 2 · (1/8) − 3 · (1/4) − 3 · (1/2) + 2 = 1/4 − 3/4 − 3/2 + 2 = 0. As raízes são 1/2, 2 e −1.\n\n1/3 nem é candidata, porque 3 não divide o coeficiente líder. −2 é candidata, mas dá −20. 3/2 também não é candidata, e dá −5/2. E −1/2 dá 5/2 — é a raiz com o sinal trocado.",
   },
@@ -411,13 +411,13 @@ export const questoes = [
     enunciado:
       "As raízes de x³ − 2x² + 3x − 1 = 0 são a, b e c. Qual equação, com coeficiente de x³ igual a 1, tem raízes 2a, 2b e 2c?",
     opcoes: [
+      "x³ − 4x² + 12x − 8 = 0",
       "2x³ − 4x² + 6x − 2 = 0",
       "x³ − 2x² + 3x − 8 = 0",
-      "x³ − 4x² + 12x − 8 = 0",
       "x³ − 4x² + 6x − 2 = 0",
       "8x³ − 8x² + 6x − 1 = 0",
     ],
-    correta: 2,
+    correta: 0,
     explicacao:
       "Se y = 2x, então x = y/2, e basta substituir: (y/2)³ − 2(y/2)² + 3(y/2) − 1 = 0, isto é, y³/8 − y²/2 + 3y/2 − 1 = 0. Multiplicando por 8: y³ − 4y² + 12y − 8 = 0. Regra prática: o coeficiente de cada termo fica multiplicado por 2 elevado ao número de graus que faltam para 3.\n\n2x³ − 4x² + 6x − 2 = 0 só multiplica a equação por 2, o que não muda as raízes. x³ − 2x² + 3x − 8 = 0 ajusta apenas o termo independente. x³ − 4x² + 6x − 2 = 0 dobra todos os coeficientes, exceto o líder. E 8x³ − 8x² + 6x − 1 = 0 troca x por 2x, o que produz as raízes a/2, b/2 e c/2.",
   },
@@ -428,13 +428,13 @@ export const questoes = [
     enunciado:
       "Sendo a, b e c as raízes de x³ − 3x² + 2x − 1 = 0, qual é o valor de (1 + a)(1 + b)(1 + c)?",
     opcoes: [
+      "7",
       "−7",
       "5",
-      "7",
       "6",
       "1",
     ],
-    correta: 2,
+    correta: 0,
     explicacao:
       "Como o polinômio é mônico, P(x) = (x − a)(x − b)(x − c). Em x = −1: P(−1) = (−1 − a)(−1 − b)(−1 − c) = −(1 + a)(1 + b)(1 + c). Como P(−1) = −1 − 3 − 2 − 1 = −7, o produto pedido é 7. Pelas relações de Girard dá o mesmo: 1 + S₁ + S₂ + S₃ = 1 + 3 + 2 + 1 = 7.\n\n−7 é P(−1), sem o sinal que vem dos três fatores negativos. 5 usa o produto das raízes com o sinal trocado (1 + 3 + 2 − 1). 6 esquece a parcela 1 do desenvolvimento. E 1 é P(1) com o sinal trocado: P(1) = 1 − 3 + 2 − 1 = −1.",
   },
@@ -462,13 +462,13 @@ export const questoes = [
     enunciado:
       "Sabendo que 1 + i é raiz de x³ − 3x² + 4x − 2 = 0, qual é a raiz real dessa equação?",
     opcoes: [
+      "1",
       "2",
       "−1",
-      "1",
       "−2",
       "3",
     ],
-    correta: 2,
+    correta: 0,
     explicacao:
       "Os coeficientes são reais, então 1 − i também é raiz. Pela soma das raízes (Girard): (1 + i) + (1 − i) + r = 3, logo r = 1. Conferindo pelo produto: (1 + i)(1 − i) · r = 2r, que deve valer 2, o que também dá r = 1.\n\n2 é o produto das raízes, e não a raiz real. −1 erra o sinal na soma. −2 é o termo independente. E 3 é a soma das três raízes, e não a terceira.",
   },
@@ -480,12 +480,12 @@ export const questoes = [
       "Resolvendo a equação biquadrada x⁴ + x² − 12 = 0 no conjunto dos números complexos, quantas das suas quatro raízes são números reais?",
     opcoes: [
       "4",
-      "0",
       "2",
+      "0",
       "1",
       "3",
     ],
-    correta: 2,
+    correta: 1,
     explicacao:
       "Com y = x², a equação vira y² + y − 12 = 0, de raízes y = 3 e y = −4. Voltando: x² = 3 dá x = ±√3, duas raízes reais; x² = −4 dá x = ±2i, duas raízes não reais. São 2 raízes reais.\n\n4 conta as quatro raízes, incluindo ±2i, que não são reais. 0 supõe que nenhuma solução em y seja positiva. 1 conta só √3 e esquece −√3. E 3 conta as duas de x² = 3 e mais uma de x² = −4, que não tem solução real.",
   },
@@ -497,12 +497,12 @@ export const questoes = [
       "As raízes de x⁴ − 10x³ + 35x² − 50x + 24 = 0 são a, b, c e d. Qual é o valor de ab + ac + ad + bc + bd + cd?",
     opcoes: [
       "−35",
-      "10",
       "35",
+      "10",
       "24",
       "50",
     ],
-    correta: 2,
+    correta: 1,
     explicacao:
       "Numa equação mônica de grau 4, x⁴ + a₃x³ + a₂x² + a₁x + a₀ = 0, a soma dos produtos das raízes tomadas duas a duas é a₂, com sinal positivo — os sinais das relações de Girard alternam: −, +, −, +. Aqui, o valor é 35. Conferindo: as raízes são 1, 2, 3 e 4, e 2 + 3 + 4 + 6 + 8 + 12 = 35.\n\n−35 aplica o sinal de menos, que vale para a soma e para os produtos três a três. 10 é a soma das raízes. 24 é o produto das quatro. E 50 é, em módulo, a soma dos produtos três a três.",
   },
@@ -515,11 +515,11 @@ export const questoes = [
     opcoes: [
       "24",
       "0",
-      "6",
       "10",
       "−6",
+      "6",
     ],
-    correta: 2,
+    correta: 4,
     explicacao:
       "Um polinômio mônico de grau 3 com raízes 1, 2 e 3 é P(x) = (x − 1)(x − 2)(x − 3). Então P(4) = 3 · 2 · 1 = 6, sem precisar achar a, b e c.\n\n24 é 4 · 3 · 2, que seria calcular x(x − 1)(x − 2) em x = 4, com as raízes erradas. 0 supõe que 4 também seja raiz. 10 é a soma 1 + 2 + 3 + 4. E −6 é P(0), o termo independente c. Quem preferir achar os coeficientes chega ao mesmo valor: o polinômio é x³ − 6x² + 11x − 6, e 64 − 96 + 44 − 6 = 6.",
   },
@@ -532,11 +532,11 @@ export const questoes = [
     opcoes: [
       "4x + 3",
       "−2x + 3",
-      "x + 3",
       "3",
+      "x + 3",
       "0",
     ],
-    correta: 3,
+    correta: 2,
     explicacao:
       "Na divisão por x² + 1, pode-se trocar x² por −1 em tudo, porque x² ≡ −1. Então x⁵ = x · (x²)² ≡ x, 2x³ = 2x · x² ≡ −2x, e o polinômio fica x − 2x + x + 3 = 3. O resto é 3. De fato, x⁵ + 2x³ + x = x(x² + 1)².\n\n4x + 3 troca x² por +1. −2x + 3 erra x⁴, que vale (x²)² ≡ (−1)² = +1, e não −1. x + 3 guarda só o termo x do dividendo. E 0 supõe divisão exata, esquecendo o termo 3.",
   },
@@ -565,12 +565,12 @@ export const questoes = [
       "Escrevendo x⁴ − 1 na forma (x − 1) · Q(x), qual é o polinômio Q(x)?",
     opcoes: [
       "x³ − x² + x − 1",
+      "x³ + x² + x + 1",
       "x³ + 1",
       "x³ − 1",
-      "x³ + x² + x + 1",
       "x² + 1",
     ],
-    correta: 3,
+    correta: 1,
     explicacao:
       "Por Briot-Ruffini com a raiz 1, os coeficientes de x⁴ − 1 são 1, 0, 0, 0, −1 — é preciso escrever os zeros dos termos que faltam. Resultado: 1, 1, 1, 1 e resto 0. O quociente é x³ + x² + x + 1. Conferindo: (x − 1)(x³ + x² + x + 1) = x⁴ − 1.\n\nx³ − x² + x − 1 é o quociente da divisão por x + 1. x³ + 1 e x³ − 1 aparecem quando se esquecem os zeros dos termos que faltam. E x² + 1 é um fator de x⁴ − 1 = (x² − 1)(x² + 1), mas não o quociente pedido.",
   },
@@ -582,12 +582,12 @@ export const questoes = [
       "Qual é o resto da divisão de (x² + x + 1)¹⁰ por x + 1?",
     opcoes: [
       "0",
+      "1",
       "−1",
       "59.049",
-      "1",
       "10",
     ],
-    correta: 3,
+    correta: 1,
     explicacao:
       "Pelo teorema do resto, o resto é o valor do dividendo em x = −1: ((−1)² + (−1) + 1)¹⁰ = (1 − 1 + 1)¹⁰ = 1¹⁰ = 1. Não é preciso desenvolver a potência.\n\n0 supõe que −1 seja raiz. −1 erra o sinal de (−1)². 59.049 é 3¹⁰, o valor em x = 1, e não em x = −1. E 10 confunde o expoente com o resto. O mesmo raciocínio vale para qualquer divisor da forma x − a: o resto é o valor do dividendo em x = a, por maior que seja o expoente.",
   },
@@ -634,11 +634,11 @@ export const questoes = [
     opcoes: [
       "−25/4",
       "25",
-      "−7",
       "−7/2",
+      "−7",
       "7/2",
     ],
-    correta: 3,
+    correta: 2,
     explicacao:
       "O resto da divisão por 2x − 1 é o valor de P na raiz do divisor, x = 1/2: P(1/2) = 2 · (1/16) − 1/8 + 3/2 − 5 = 1/8 − 1/8 + 3/2 − 5 = −7/2. O coeficiente 2 do divisor não altera o resto; ele só divide o quociente por 2.\n\n−25/4 é P(−1/2): troca o sinal da raiz. 25 é P(2), usando o coeficiente do divisor como raiz. −7 multiplica o resto por 2, como se o coeficiente líder do divisor entrasse no resto. E 7/2 erra o sinal do resultado.",
   },
@@ -669,10 +669,10 @@ export const questoes = [
       "1",
       "2",
       "0",
-      "3",
       "6",
+      "3",
     ],
-    correta: 3,
+    correta: 4,
     explicacao:
       "Pelo teorema das raízes racionais, os candidatos são ±1, ±2, ±3, ±6, ±1/2 e ±3/2. Testando: −1 é raiz (−2 + 1 + 7 − 6 = 0). Dividindo por x + 1, sobra 2x² − x − 6, cujas raízes são 2 e −3/2. As três raízes, −1, 2 e −3/2, são racionais.\n\n1 para na primeira raiz encontrada. 2 despreza −3/2 por não ser inteira, mas frações também são racionais. 0 supõe que nenhum candidato funcione. E 6 conta os divisores de 6, e não as raízes.",
   },
@@ -703,10 +703,10 @@ export const questoes = [
       "1",
       "0",
       "−3",
-      "2",
       "3",
+      "2",
     ],
-    correta: 4,
+    correta: 3,
     explicacao:
       "Cada raiz satisfaz a equação: a³ = a + 1, b³ = b + 1 e c³ = c + 1. Somando: a³ + b³ + c³ = (a + b + c) + 3. Pelas relações de Girard, a + b + c = 0, porque não há termo em x². Logo a soma dos cubos é 3.\n\n1 usa a equação uma vez só, esquecendo que são três raízes. 0 supõe que, com soma zero, a soma dos cubos também se anule — mas, quando a + b + c = 0, vale a³ + b³ + c³ = 3abc, e abc = 1. −3 erra o sinal do produto. E 2 é a soma dos quadrados, S₁² − 2S₂ = 0 + 2.",
   },
@@ -734,13 +734,13 @@ export const questoes = [
     enunciado:
       "Na equação x³ − 12x² + 39x + k = 0, as três raízes formam uma progressão aritmética. Qual é o valor de k?",
     opcoes: [
+      "−28",
       "28",
       "−4",
       "−64",
       "−39",
-      "−28",
     ],
-    correta: 4,
+    correta: 0,
     explicacao:
       "Com as raízes m − r, m e m + r, a soma é 3m = 12, então m = 4. Como 4 é raiz: 64 − 192 + 156 + k = 0, e k = −28. Conferindo: a soma dos produtos dois a dois é 3m² − r² = 48 − r² = 39, logo r = 3, e as raízes são 1, 4 e 7, cujo produto é 28 = −k.\n\n28 esquece o sinal: o produto das raízes é −k. −4 usa a raiz do meio como se fosse k. −64 é −m³, o valor de k se as três raízes fossem iguais a 4. E −39 copia o coeficiente de x com o sinal trocado.",
   },
@@ -754,10 +754,10 @@ export const questoes = [
       "−2",
       "0",
       "3",
-      "1",
       "2",
+      "1",
     ],
-    correta: 4,
+    correta: 3,
     explicacao:
       "Uma raiz dupla r anula o polinômio e a sua derivada. A derivada de x³ − 3x + m é 3x² − 3, que se anula em x = 1 e x = −1. Para a raiz dupla ser positiva, r = 1, e então 1 − 3 + m = 0, ou m = 2. De fato, x³ − 3x + 2 = (x − 1)²(x + 2).\n\n−2 dá x³ − 3x − 2 = (x + 1)²(x − 2), cuja raiz dupla é −1, negativa. 0 dá as raízes 0 e ±√3, todas simples. 3 dá uma raiz real e duas não reais, e 1 dá três raízes reais distintas — em nenhum dos dois casos há raiz dupla.",
   },
@@ -770,11 +770,11 @@ export const questoes = [
     opcoes: [
       "x + 1",
       "x",
+      "−x − 1",
       "1",
       "−x",
-      "−x − 1",
     ],
-    correta: 4,
+    correta: 2,
     explicacao:
       "Como x³ − 1 = (x − 1)(x² + x + 1), vale x³ ≡ 1 na divisão por x² + x + 1. Então só importa o resto de 2027 por 3: 2027 = 3 × 675 + 2, e x²⁰²⁷ = (x³)⁶⁷⁵ · x² ≡ x². Mas x² ainda tem grau 2; como x² + x + 1 ≡ 0, x² ≡ −x − 1. O resto é −x − 1.\n\nx + 1 erra o sinal ao reduzir x². x corresponderia a resto 1 na divisão de 2027 por 3, e 1, a resto 0. E −x vem de reduzir x² como se o divisor fosse x² + x.",
   },
@@ -786,12 +786,12 @@ export const questoes = [
       "Sendo a, b e c as raízes de x³ − 5x² + 6x − 1 = 0, qual é o valor de a/(bc) + b/(ac) + c/(ab)?",
     opcoes: [
       "25",
+      "13",
       "5",
       "6",
       "37",
-      "13",
     ],
-    correta: 4,
+    correta: 1,
     explicacao:
       "Reduzindo ao denominador comum abc: a/(bc) + b/(ac) + c/(ab) = (a² + b² + c²)/(abc). Pelas relações de Girard, S₁ = 5, S₂ = 6 e abc = 1. Então a² + b² + c² = S₁² − 2S₂ = 25 − 12 = 13, e o valor pedido é 13/1 = 13.\n\n25 é S₁², sem descontar 2S₂. 5 é a soma das raízes, que apareceria se o numerador fosse a + b + c. 6 é S₂. E 37 soma 2S₂ em vez de subtrair (25 + 12).",
   },
@@ -820,12 +820,12 @@ export const questoes = [
       "Uma equação do 3º grau, com coeficientes inteiros e coeficiente de x³ igual a 1, tem as raízes 2 e 1 + √3. Qual é o seu termo independente?",
     opcoes: [
       "−4",
+      "4",
       "2",
       "−2",
       "−8",
-      "4",
     ],
-    correta: 4,
+    correta: 1,
     explicacao:
       "Com coeficientes inteiros, a raiz irracional 1 + √3 vem acompanhada da conjugada 1 − √3. As três raízes são 2, 1 + √3 e 1 − √3, e o produto delas é 2(1 − 3) = −4. Numa equação mônica x³ + bx² + cx + d = 0, o produto das raízes é −d, então d = 4. O polinômio é (x − 2)(x² − 2x − 2) = x³ − 4x² + 2x + 4.\n\n−4 é o produto das raízes, sem trocar o sinal. 2 e −2 usam só o produto (1 + √3)(1 − √3) = −2, esquecendo a raiz 2. E −8 calcula (1 + √3)(1 − √3) como 1 + 3 = 4, errando o sinal de (√3)².",
   },
@@ -838,11 +838,11 @@ export const questoes = [
     opcoes: [
       "3",
       "−6",
+      "−3",
       "0",
       "−12",
-      "−3",
     ],
-    correta: 4,
+    correta: 2,
     explicacao:
       "Ser divisível por (x − 2)² significa ter 2 como raiz de multiplicidade pelo menos 2: P(2) = 0 e P′(2) = 0. P(2) = 8 + 4a + 2b + 4 = 0 dá 2a + b = −6. Como P′(x) = 3x² + 2ax + b, P′(2) = 12 + 4a + b = 0 dá 4a + b = −12. Subtraindo, 2a = −6, a = −3 e b = 0. Então a + b = −3, e P(x) = x³ − 3x² + 4 = (x − 2)²(x + 1).\n\n3 erra o sinal. −6 é o valor de 2a + b, e não de a + b. 0 é só o valor de b. E −12 é 4a + b, a outra equação do sistema.",
   },
@@ -853,13 +853,13 @@ export const questoes = [
     enunciado:
       "Se r é uma raiz de x² − x − 1 = 0, então r⁵ pode ser escrito como ar + b, com a e b inteiros. Qual é o valor de a + b?",
     opcoes: [
+      "8",
       "5",
       "3",
       "13",
       "21",
-      "8",
     ],
-    correta: 4,
+    correta: 0,
     explicacao:
       "De r² = r + 1, cada potência se reduz multiplicando por r e trocando r² por r + 1: r³ = r² + r = 2r + 1; r⁴ = 2r² + r = 3r + 2; r⁵ = 3r² + 2r = 5r + 3. Logo a = 5, b = 3 e a + b = 8. Os coeficientes são números de Fibonacci.\n\n5 é só o valor de a, e 3, só o de b. 13 avança uma potência a mais: r⁶ = 8r + 5, e 8 + 5 = 13. E 21 avança duas: r⁷ = 13r + 8.",
   },

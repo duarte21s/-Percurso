@@ -20,13 +20,13 @@ export const questoes = [
     enunciado:
       "Como se chama uma rede que interliga computadores em uma área pequena, como uma casa, uma escola ou um escritório?",
     opcoes: [
-      "LAN",
       "WAN",
       "MAN",
       "VPN",
       "DNS",
+      "LAN",
     ],
-    correta: 0,
+    correta: 4,
     explicacao:
       "A LAN, de Local Area Network, é a rede local: interliga equipamentos em uma área restrita, como uma casa ou um prédio, em geral com alta velocidade. É o tipo mais comum de rede doméstica e de escritório.\n\nA WAN abrange grandes distâncias, como cidades e países, e a Internet é o maior exemplo. A MAN cobre uma cidade ou uma região metropolitana. A VPN é uma rede privada virtual, construída sobre uma rede pública. E o DNS não é um tipo de rede, mas um serviço de nomes.",
   },
@@ -88,13 +88,13 @@ export const questoes = [
     enunciado:
       "Qual protocolo é usado para acessar páginas da web com criptografia, o que é indicado pelo cadeado no navegador?",
     opcoes: [
-      "HTTPS",
       "HTTP",
       "FTP",
+      "HTTPS",
       "DHCP",
       "SMTP",
     ],
-    correta: 0,
+    correta: 2,
     explicacao:
       "O HTTPS é o HTTP protegido por criptografia, o que impede que terceiros leiam ou alterem os dados no caminho, como senhas e números de cartão. O navegador mostra o cadeado e o endereço começa por https.\n\nO HTTP leva os dados sem proteção. O FTP transfere arquivos, em geral sem criptografia. O DHCP distribui endereços IP. E o SMTP envia mensagens de e-mail. Só o HTTPS combina a navegação em páginas com a criptografia.",
   },
@@ -105,13 +105,13 @@ export const questoes = [
     enunciado:
       "Qual protocolo é usado, em sua função principal, para enviar mensagens de correio eletrônico entre servidores?",
     opcoes: [
-      "SMTP",
       "DNS",
       "HTTP",
       "DHCP",
+      "SMTP",
       "FTP",
     ],
-    correta: 0,
+    correta: 3,
     explicacao:
       "O SMTP, de Simple Mail Transfer Protocol, envia as mensagens de e-mail do programa do usuário para o servidor e de um servidor para outro. Para ler as mensagens recebidas, usam-se outros protocolos, como o POP3 e o IMAP.\n\nO DNS traduz nomes em endereços IP. O HTTP leva páginas da web. O DHCP distribui endereços IP. E o FTP transfere arquivos. Só o SMTP tem como função o envio de e-mails.",
   },
@@ -122,13 +122,13 @@ export const questoes = [
     enunciado:
       "O que identifica, de forma única, um dispositivo conectado a uma rede que usa o protocolo TCP/IP?",
     opcoes: [
-      "O endereço IP",
       "O tamanho do monitor",
+      "O endereço IP",
       "O nome do sistema operacional",
       "A cor do cabo de rede",
       "O volume do alto-falante",
     ],
-    correta: 0,
+    correta: 1,
     explicacao:
       "O endereço IP é o número que identifica o dispositivo na rede, e permite que os pacotes cheguem até ele. Pode ser atribuído automaticamente, pelo DHCP, ou configurado à mão.\n\nO tamanho do monitor, a cor do cabo e o volume do alto-falante não têm relação com a identificação na rede. E o nome do sistema operacional informa qual programa roda no equipamento, mas não o localiza na rede: vários equipamentos podem usar o mesmo sistema.",
   },
@@ -139,13 +139,13 @@ export const questoes = [
     enunciado:
       "Qual é o nome do padrão de redes sem fio, mais conhecido como Wi-Fi, definido pelo IEEE?",
     opcoes: [
-      "802.11",
       "802.3",
       "RJ-45",
+      "802.11",
       "HTTP",
       "ICMP",
     ],
-    correta: 0,
+    correta: 2,
     explicacao:
       "O Wi-Fi corresponde à família de padrões IEEE 802.11, com versões como 802.11n, 802.11ac e 802.11ax. Define como os equipamentos se comunicam por ondas de rádio, nas faixas de 2,4 GHz e de 5 GHz.\n\nO 802.3 é o padrão da Ethernet, a rede com fio. O RJ-45 é o conector dos cabos de rede de par trançado. O HTTP é um protocolo de aplicação, para a web. E o ICMP é um protocolo de mensagens de controle e de erro, usado pelo ping.",
   },
@@ -156,13 +156,13 @@ export const questoes = [
     enunciado:
       "Qual é o nome do conector usado nas pontas dos cabos de rede de par trançado?",
     opcoes: [
-      "RJ-45",
       "USB",
       "HDMI",
       "VGA",
+      "RJ-45",
       "P2",
     ],
-    correta: 0,
+    correta: 3,
     explicacao:
       "O conector RJ-45 tem 8 pinos e fecha as pontas dos cabos de par trançado usados em redes Ethernet. Ele encaixa na placa de rede do computador e nas portas de roteadores e switches.\n\nO USB liga periféricos como pen drives e teclados. O HDMI leva imagem e som digitais a monitores e televisores. O VGA leva imagem analógica a monitores. E o P2 é o conector de áudio dos fones de ouvido. Nenhum deles é o de cabos de rede.",
   },
@@ -173,13 +173,13 @@ export const questoes = [
     enunciado:
       "Para que serve o comando ping, muito usado para diagnosticar problemas de rede?",
     opcoes: [
-      "Testar se outro equipamento responde na rede",
       "Apagar arquivos temporários",
       "Aumentar a velocidade da conexão",
       "Instalar programas de rede",
       "Mudar a senha do Wi-Fi",
+      "Testar se outro equipamento responde na rede",
     ],
-    correta: 0,
+    correta: 4,
     explicacao:
       "O ping envia pequenas mensagens a um endereço e espera a resposta, o que mostra se o equipamento está alcançável e quanto tempo a resposta leva, em milissegundos. É o primeiro teste de quem investiga uma falha de conexão.\n\nEle não apaga arquivos, não acelera a conexão, não instala programas e não muda senhas. Apenas diagnostica: mede a conectividade e o atraso entre o computador e o destino.",
   },
@@ -191,12 +191,12 @@ export const questoes = [
       "Como se define a Internet, no contexto das redes de computadores?",
     opcoes: [
       "Um programa de navegação instalado no computador",
-      "Uma rede mundial formada pela interligação de várias redes",
       "Um tipo de cabo de rede de alta velocidade",
+      "Uma rede mundial formada pela interligação de várias redes",
       "Uma rede restrita aos funcionários de uma empresa",
       "Um sinônimo de página da web",
     ],
-    correta: 1,
+    correta: 2,
     explicacao:
       "A Internet é a rede mundial de computadores: reúne milhões de redes de empresas, universidades, governos e residências, interligadas pelo conjunto de protocolos TCP/IP. A web é só um dos serviços que funcionam sobre ela.\n\nO navegador é um programa para acessar a web. O cabo de alta velocidade é um meio físico. Uma rede restrita aos funcionários de uma empresa é uma intranet. E a página da web é um documento acessado pela Internet, e não a própria rede.",
   },
@@ -208,12 +208,12 @@ export const questoes = [
       "Em qual camada do modelo OSI atua o roteador, que escolhe o caminho dos pacotes com base no endereço IP?",
     opcoes: [
       "Enlace de dados",
-      "Rede",
       "Física",
+      "Rede",
       "Transporte",
       "Aplicação",
     ],
-    correta: 1,
+    correta: 2,
     explicacao:
       "A camada de rede, a terceira do modelo OSI, é a responsável pelo endereçamento lógico, o endereço IP, e pelo roteamento dos pacotes entre redes. É nela que atua o roteador.\n\nA camada de enlace de dados usa o endereço físico, MAC, e é onde atua o switch. A camada física cuida do sinal elétrico, óptico ou de rádio. A de transporte cuida da comunicação entre processos, com TCP e UDP. E a de aplicação reúne serviços como web e e-mail.",
   },
@@ -225,12 +225,12 @@ export const questoes = [
       "Em qual camada do modelo OSI atua o switch, que encaminha os quadros com base no endereço MAC?",
     opcoes: [
       "Rede",
-      "Enlace de dados",
       "Física",
       "Sessão",
+      "Enlace de dados",
       "Apresentação",
     ],
-    correta: 1,
+    correta: 3,
     explicacao:
       "O switch atua na camada de enlace de dados, a segunda do modelo OSI. Ele aprende o endereço MAC de cada equipamento ligado às suas portas e encaminha cada quadro apenas à porta do destinatário, o que reduz o tráfego desnecessário.\n\nA camada de rede é a do roteador, que usa o IP. A camada física trata do sinal e dos cabos. A de sessão controla o diálogo entre aplicações. E a de apresentação cuida de formato e de codificação dos dados.",
   },
@@ -241,13 +241,13 @@ export const questoes = [
     enunciado:
       "O que faz um hub ao receber dados por uma de suas portas?",
     opcoes: [
-      "Entrega os dados só à porta do destinatário",
       "Repete os dados para todas as outras portas",
+      "Entrega os dados só à porta do destinatário",
       "Escolhe o melhor caminho até a Internet",
       "Traduz nomes em endereços IP",
       "Bloqueia os dados suspeitos",
     ],
-    correta: 1,
+    correta: 0,
     explicacao:
       "O hub é um repetidor simples, da camada física: não analisa os dados e os repete a todas as outras portas, o que gera tráfego desnecessário e colisões. Por isso foi substituído pelo switch.\n\nEntregar só ao destinatário é o que faz o switch, pelo endereço MAC. Escolher o caminho até a Internet é papel do roteador. Traduzir nomes em endereços é o serviço de DNS. E bloquear dados suspeitos é a função de um firewall.",
   },
@@ -310,12 +310,12 @@ export const questoes = [
       "O que é o gateway padrão, configurado em um computador de uma rede local?",
     opcoes: [
       "O endereço MAC da placa de rede",
-      "Equipamento de saída para outras redes",
       "O servidor que guarda os e-mails",
       "O nome do computador na rede",
+      "Equipamento de saída para outras redes",
       "O cabo que liga o computador ao switch",
     ],
-    correta: 1,
+    correta: 3,
     explicacao:
       "O gateway padrão é o equipamento, em geral o roteador, para o qual o computador envia tudo o que não pertence à sua própria rede, como o tráfego para a Internet. Sem ele configurado, o computador só conversa com a rede local.\n\nO endereço MAC identifica a placa de rede. O servidor de e-mails guarda mensagens, e é outro serviço. O nome do computador é um identificador de texto. E o cabo ligado ao switch é um meio físico, e não um endereço de configuração.",
   },
@@ -326,13 +326,13 @@ export const questoes = [
     enunciado:
       "Qual protocolo descobre o endereço MAC de um equipamento a partir do endereço IP dele, dentro da rede local?",
     opcoes: [
-      "DNS",
       "ARP",
+      "DNS",
       "DHCP",
       "ICMP",
       "SMTP",
     ],
-    correta: 1,
+    correta: 0,
     explicacao:
       "O ARP, de Address Resolution Protocol, pergunta a todos os equipamentos da rede local quem tem determinado endereço IP, e o dono responde com o seu endereço MAC. Assim, os quadros podem ser entregues dentro da rede local.\n\nO DNS traduz nomes em endereços IP. O DHCP distribui endereços IP. O ICMP leva mensagens de controle e de erro, como as do ping. E o SMTP envia e-mails. Só o ARP faz a ligação entre o endereço IP e o endereço MAC.",
   },
@@ -377,13 +377,13 @@ export const questoes = [
     enunciado:
       "Em uma topologia em estrela, o que acontece quando o equipamento central, como o switch, deixa de funcionar?",
     opcoes: [
+      "Os computadores perdem a comunicação entre si",
       "Só um computador é afetado",
       "A rede continua funcionando normalmente",
-      "Os computadores perdem a comunicação entre si",
       "Os cabos passam a ser desnecessários",
       "A rede vira uma rede em anel",
     ],
-    correta: 2,
+    correta: 0,
     explicacao:
       "Na topologia em estrela, todos os computadores se ligam a um ponto central, como um switch. A vantagem é que o problema de um cabo afeta só um equipamento. A desvantagem é que, se o equipamento central falha, a comunicação de toda a rede se perde.\n\nPor isso a falha do centro afeta todos, e não só um computador. A rede não segue funcionando como se nada tivesse ocorrido, os cabos continuam necessários, e a topologia não muda sozinha para anel.",
   },
@@ -396,11 +396,11 @@ export const questoes = [
     opcoes: [
       "Usar a menor quantidade possível de cabos",
       "Depender de um único equipamento central",
-      "Redundância, pois há vários caminhos entre os equipamentos",
       "Ser a mais barata de instalar",
       "Funcionar só com redes sem fio",
+      "Redundância, pois há vários caminhos entre os equipamentos",
     ],
-    correta: 2,
+    correta: 4,
     explicacao:
       "Na topologia em malha, os equipamentos têm mais de um caminho entre si. Se um enlace falha, o tráfego segue por outro, o que dá alta confiabilidade, como na Internet e em redes críticas. O preço é o custo e a complexidade de ter muitas ligações.\n\nPor isso ela não usa poucos cabos e não é a mais barata. Também não depende de um único equipamento central, que é a característica da estrela. E existe tanto com fio quanto sem fio.",
   },
@@ -429,12 +429,12 @@ export const questoes = [
       "Qual é a função de um firewall em uma rede?",
     opcoes: [
       "Distribuir endereços IP aos computadores",
-      "Traduzir nomes em endereços",
       "Filtrar o tráfego, permitindo ou bloqueando conexões",
+      "Traduzir nomes em endereços",
       "Guardar cópias de segurança",
       "Aumentar o alcance do sinal sem fio",
     ],
-    correta: 2,
+    correta: 1,
     explicacao:
       "O firewall controla o que entra e o que sai de uma rede ou de um computador, com regras que permitem ou bloqueiam conexões por endereço, porta ou protocolo. É uma das principais barreiras contra acessos indevidos.\n\nDistribuir endereços IP é o papel do DHCP. Traduzir nomes é o do DNS. Guardar cópias de segurança é o do backup. E aumentar o alcance do sinal sem fio é o de repetidores e de pontos de acesso. O firewall não faz nenhuma dessas tarefas.",
   },
@@ -447,11 +447,11 @@ export const questoes = [
     opcoes: [
       "Fabricar cabos de rede",
       "Gerar senhas fortes",
-      "Intermediar os acessos da rede",
       "Gravar vídeos",
+      "Intermediar os acessos da rede",
       "Substituir o sistema operacional",
     ],
-    correta: 2,
+    correta: 3,
     explicacao:
       "O proxy fica entre os usuários e a Internet: recebe os pedidos de acesso, pode aplicar regras de filtragem, registrar o uso e guardar respostas em cache, o que acelera acessos repetidos. É comum em empresas e escolas.\n\nNão fabrica cabos nem gera senhas. Não grava vídeos, e não tem relação com a câmera. E não substitui o sistema operacional, pois é um serviço que roda sobre ele, em um servidor da rede.",
   },
@@ -462,13 +462,13 @@ export const questoes = [
     enunciado:
       "Qual é uma vantagem da fibra óptica sobre os cabos de cobre?",
     opcoes: [
+      "Imunidade a interferências eletromagnéticas e alcance maior",
       "Custo sempre menor que o dos outros cabos",
       "Funcionar por sinais elétricos de baixa tensão",
-      "Imunidade a interferências eletromagnéticas e alcance maior",
       "Poder ser dobrada sem limite, sem perder o sinal",
       "Dispensar equipamentos nas pontas",
     ],
-    correta: 2,
+    correta: 0,
     explicacao:
       "A fibra óptica leva o sinal na forma de luz, e por isso não sofre interferência eletromagnética e alcança distâncias muito maiores, com velocidades altas. É o meio usado nos enlaces de longa distância e nas redes de provedores.\n\nO custo dos equipamentos costuma ser maior, e não menor. O sinal é luminoso, e não elétrico. A fibra tem raio mínimo de curvatura, e se dobrar demais perde o sinal. E ainda precisa de equipamentos nas pontas, para converter a luz em sinais elétricos.",
   },
@@ -481,11 +481,11 @@ export const questoes = [
     opcoes: [
       "10 metros",
       "1 quilômetro",
-      "100 metros",
       "5 quilômetros",
       "1 metro",
+      "100 metros",
     ],
-    correta: 2,
+    correta: 4,
     explicacao:
       "Em redes Ethernet com cabo de par trançado, como os UTP das categorias 5e e 6, o limite de um segmento é de 100 metros entre o equipamento e a tomada. Acima disso, o sinal se degrada, e é preciso um repetidor ou um switch.\n\n10 metros e 1 metro são limites pequenos demais para uma rede de escritório. 1 quilômetro e 5 quilômetros são distâncias que só a fibra óptica alcança sem apoio de equipamentos intermediários.",
   },
@@ -498,11 +498,11 @@ export const questoes = [
     opcoes: [
       "A de 5 GHz alcança sempre mais longe que a de 2,4 GHz",
       "As duas têm o mesmo alcance e a mesma velocidade",
-      "A de 2,4 GHz alcança mais longe, mas é mais congestionada",
       "A de 2,4 GHz só funciona com cabo",
+      "A de 2,4 GHz alcança mais longe, mas é mais congestionada",
       "A de 5 GHz não aceita celulares",
     ],
-    correta: 2,
+    correta: 3,
     explicacao:
       "A faixa de 2,4 GHz atravessa melhor paredes e alcança mais longe, mas é mais usada por vizinhos, micro-ondas e dispositivos Bluetooth, o que a deixa mais congestionada e, em geral, mais lenta. A de 5 GHz é mais rápida e menos disputada, porém com alcance menor.\n\nPor isso a de 5 GHz não alcança sempre mais longe, e as duas não são iguais. A de 2,4 GHz é sem fio, e a de 5 GHz é aceita por celulares recentes.",
   },
@@ -515,11 +515,11 @@ export const questoes = [
     opcoes: [
       "WAN, rede de longa distância",
       "MAN, rede metropolitana",
-      "PAN, rede de área pessoal",
       "VPN, rede privada virtual",
+      "PAN, rede de área pessoal",
       "Intranet corporativa",
     ],
-    correta: 2,
+    correta: 3,
     explicacao:
       "O Bluetooth liga dispositivos muito próximos, como fones, teclados e relógios inteligentes, em um alcance de poucos metros. Esse tipo de rede é a PAN, de Personal Area Network, a rede de área pessoal.\n\nA WAN cobre longas distâncias, e a MAN, uma cidade. A VPN é um túnel privado sobre uma rede pública, e não uma classificação por alcance. E a intranet é uma rede interna de uma organização, que pode usar vários meios.",
   },
@@ -533,10 +533,10 @@ export const questoes = [
       "32 bits",
       "64 bits",
       "128 bits",
-      "48 bits",
       "16 bits",
+      "48 bits",
     ],
-    correta: 3,
+    correta: 4,
     explicacao:
       "O endereço MAC tem 48 bits, ou 6 bytes, escritos em 12 dígitos hexadecimais, como 00:1A:2B:3C:4D:5E. Os 3 primeiros bytes identificam o fabricante, e os 3 últimos, a placa.\n\n32 bits é o tamanho de um endereço IPv4. 128 bits é o tamanho de um endereço IPv6. 64 bits é o tamanho de alguns identificadores, como o EUI-64, mas não do MAC comum. E 16 bits é o tamanho de um número de porta, e não de um endereço de placa.",
   },
@@ -565,12 +565,12 @@ export const questoes = [
       "Quantos endereços de hosts utilizáveis, isto é, que podem ser atribuídos a equipamentos, tem uma sub-rede /27?",
     opcoes: [
       "32",
+      "30",
       "62",
       "14",
-      "30",
       "254",
     ],
-    correta: 3,
+    correta: 1,
     explicacao:
       "Em uma sub-rede /27, restam 32 − 27 = 5 bits para os hosts, o que dá 2⁵ = 32 endereços. Dois deles têm função própria: o primeiro, o endereço da rede, e o último, o de broadcast. Sobram 32 − 2 = 30 endereços utilizáveis.\n\n32 é o total, contando os dois reservados. 62 é o número de hosts de uma /26. 14 é o de uma /28. E 254 é o de uma /24, que tem 8 bits de host. Cada bit a mais na máscara reduz os hosts, aproximadamente, à metade.",
   },
@@ -584,10 +584,10 @@ export const questoes = [
       "192.168.10.0",
       "192.168.10.77",
       "192.168.10.128",
-      "192.168.10.64",
       "192.168.10.127",
+      "192.168.10.64",
     ],
-    correta: 3,
+    correta: 4,
     explicacao:
       "Com /26, o último octeto é dividido em blocos de 64 endereços: 0, 64, 128 e 192. O número 77 está entre 64 e 127, e o endereço da rede é o início do bloco, 192.168.10.64. O broadcast desse bloco é 192.168.10.127.\n\n192.168.10.0 seria o início de outro bloco, o anterior. 192.168.10.77 é o próprio host. 192.168.10.128 é o início do bloco seguinte. E 192.168.10.127 é o endereço de broadcast, e não o da rede.",
   },
@@ -601,10 +601,10 @@ export const questoes = [
       "172.16.5.255",
       "172.16.5.192",
       "172.16.5.224",
-      "172.16.5.223",
       "172.16.5.200",
+      "172.16.5.223",
     ],
-    correta: 3,
+    correta: 4,
     explicacao:
       "Com /27, o último octeto é dividido em blocos de 32 endereços: 0, 32, 64, 96, 128, 160, 192, 224. O número 200 está no bloco que vai de 192 a 223. O primeiro endereço, 172.16.5.192, é o da rede, e o último, 172.16.5.223, é o de broadcast.\n\n172.16.5.255 seria o broadcast de uma rede /24. 172.16.5.192 é o endereço da rede. 172.16.5.224 é o início do bloco seguinte. E 172.16.5.200 é o próprio host.",
   },
@@ -615,13 +615,13 @@ export const questoes = [
     enunciado:
       "O endereço 172.20.5.9 pertence a qual classe de endereços IPv4, e é público ou privado?",
     opcoes: [
+      "Classe B, privado",
       "Classe B, público",
       "Classe A, privado",
       "Classe C, privado",
-      "Classe B, privado",
       "Classe C, público",
     ],
-    correta: 3,
+    correta: 0,
     explicacao:
       "O primeiro octeto, 172, está entre 128 e 191, o que o coloca na classe B. A faixa privada 172.16.0.0 a 172.31.255.255 reserva endereços para uso interno, e 172.20.5.9 está dentro dela. Portanto, é um endereço de classe B e privado.\n\nA classe A vai de 1 a 126 no primeiro octeto, e a classe C, de 192 a 223. E dizer que é público erra a faixa: os endereços 172.16 a 172.31 não são roteados na Internet, e só valem dentro das redes locais.",
   },
@@ -633,12 +633,12 @@ export const questoes = [
       "O endereço IPv4 escrito em binário como 11000000.10101000.00000001.00001010 corresponde, em decimal, a qual endereço?",
     opcoes: [
       "192.168.1.5",
+      "192.168.1.10",
       "192.168.0.10",
       "190.168.1.10",
-      "192.168.1.10",
       "192.169.1.10",
     ],
-    correta: 3,
+    correta: 1,
     explicacao:
       "Cada grupo de 8 bits vira um número de 0 a 255. O primeiro, 11000000, vale 128 + 64 = 192. O segundo, 10101000, vale 128 + 32 + 8 = 168. O terceiro, 00000001, vale 1. E o quarto, 00001010, vale 8 + 2 = 10. O endereço é 192.168.1.10.\n\nAs outras opções mudam um dos grupos: 192.168.1.5 corresponderia a 00000101 no último octeto, e 192.168.0.10, a 00000000 no terceiro. 190.168.1.10 e 192.169.1.10 trocam o primeiro e o segundo octeto, respectivamente.",
   },
@@ -649,13 +649,13 @@ export const questoes = [
     enunciado:
       "A máscara de sub-rede 255.255.240.0 corresponde a qual notação de prefixo?",
     opcoes: [
+      "/20",
       "/19",
       "/21",
       "/22",
-      "/20",
       "/24",
     ],
-    correta: 3,
+    correta: 0,
     explicacao:
       "Os dois primeiros octetos, 255.255, somam 16 bits iguais a 1. O terceiro octeto, 240, vale 11110000 em binário, e tem mais 4 bits iguais a 1. O total é 16 + 4 = 20, ou seja, /20.\n\n/19 corresponderia a 255.255.224.0, com 3 bits no terceiro octeto. /21 seria 255.255.248.0, e /22 seria 255.255.252.0. E /24 seria 255.255.255.0, que tem o terceiro octeto inteiro igual a 255.",
   },
@@ -667,12 +667,12 @@ export const questoes = [
       "Um vídeo de 450 MB é baixado por uma conexão estável de 90 Mbps. Quanto tempo leva o download?",
     opcoes: [
       "5 segundos",
+      "40 segundos",
       "320 segundos",
       "4 segundos",
-      "40 segundos",
       "56,25 segundos",
     ],
-    correta: 3,
+    correta: 1,
     explicacao:
       "O vídeo tem 450 MB × 8 = 3.600 megabits, pois cada byte tem 8 bits. Dividindo pela velocidade, 3.600 ÷ 90 = 40 segundos. Conferindo, 90 Mbps equivalem a 11,25 MB/s, e 450 ÷ 11,25 = 40.\n\n5 segundos divide 450 por 90, sem converter bytes em bits. 320 segundos converte duas vezes, como se a velocidade fosse 11,25 Mbps. 4 segundos erra a ordem de grandeza, ao dividir por 900. E 56,25 segundos divide só por 8, sem usar a velocidade.",
   },
@@ -702,11 +702,11 @@ export const questoes = [
     opcoes: [
       "192.168.0.64",
       "192.168.0.31",
+      "192.168.0.60",
       "192.168.0.100",
       "192.168.0.20",
-      "192.168.0.60",
     ],
-    correta: 4,
+    correta: 2,
     explicacao:
       "A máscara 255.255.255.224 é a /27, com blocos de 32 endereços no último octeto. O número 45 está no bloco de 32 a 63, e o endereço 192.168.0.60 também está nele, então os dois pertencem à mesma sub-rede.\n\n192.168.0.64 é o início do bloco seguinte. 192.168.0.31 e 192.168.0.20 estão no bloco de 0 a 31, que é o anterior. E 192.168.0.100 está no bloco de 96 a 127. Comparar o endereço de rede, obtido com a máscara, é o jeito seguro de decidir.",
   },
@@ -736,11 +736,11 @@ export const questoes = [
     opcoes: [
       "10.0.0.0 e 10.0.0.7",
       "10.0.0.1 e 10.0.0.7",
+      "10.0.0.1 e 10.0.0.6",
       "10.0.0.2 e 10.0.0.6",
       "10.0.0.1 e 10.0.0.8",
-      "10.0.0.1 e 10.0.0.6",
     ],
-    correta: 4,
+    correta: 2,
     explicacao:
       "Uma rede /29 tem 3 bits de host, o que dá 8 endereços, de 10.0.0.0 a 10.0.0.7. O primeiro é o endereço da rede, e o último, o de broadcast. Os hosts válidos vão de 10.0.0.1 a 10.0.0.6, ou seja, 6 endereços.\n\n10.0.0.0 e 10.0.0.7 são os endereços reservados da rede e do broadcast. 10.0.0.1 e 10.0.0.7 inclui o broadcast. 10.0.0.2 e 10.0.0.6 pula o primeiro host. E 10.0.0.8 já pertence à rede seguinte.",
   },
@@ -753,11 +753,11 @@ export const questoes = [
     opcoes: [
       "2001:db8::10",
       "2001::db8::1",
+      "2001:db8::1",
       "2001:db8:1",
       "2001:db8:::1",
-      "2001:db8::1",
     ],
-    correta: 4,
+    correta: 2,
     explicacao:
       "A abreviação do IPv6 tira os zeros à esquerda de cada grupo e troca uma sequência de grupos zerados por dois-pontos duplos, uma única vez. Aqui, 0db8 vira db8, e os cinco grupos zerados viram ::, o que resulta em 2001:db8::1.\n\n2001:db8::10 muda o último grupo para 0010, que é outro endereço. 2001::db8::1 usa os dois-pontos duplos duas vezes, o que é inválido, porque não dá para saber quantos grupos há em cada um. 2001:db8:1 tem poucos grupos. E 2001:db8:::1 tem dois-pontos demais.",
   },
@@ -768,13 +768,13 @@ export const questoes = [
     enunciado:
       "Quantos endereços IPv4 distintos existem no total, considerando os 32 bits do endereço?",
     opcoes: [
+      "4.294.967.296",
       "4.294.967.295",
       "2.147.483.648",
       "16.777.216",
       "65.536",
-      "4.294.967.296",
     ],
-    correta: 4,
+    correta: 0,
     explicacao:
       "Com 32 bits, há 2³² combinações, isto é, 4.294.967.296 endereços distintos, de 0.0.0.0 a 255.255.255.255. Esse total, de cerca de 4,3 bilhões, é a razão do esgotamento do IPv4 e da adoção do IPv6.\n\n4.294.967.295 é o maior valor do endereço, contado a partir do zero, e não o total. 2.147.483.648 é 2³¹, a metade do total. 16.777.216 é 2²⁴, o número de endereços de uma rede /8. E 65.536 é 2¹⁶, o de uma rede /16.",
   },
@@ -788,10 +788,10 @@ export const questoes = [
       "1.024",
       "510",
       "2.046",
-      "254",
       "1.022",
+      "254",
     ],
-    correta: 4,
+    correta: 3,
     explicacao:
       "Com /22, restam 32 − 22 = 10 bits de host, o que dá 2¹⁰ = 1.024 endereços. Descontando o de rede e o de broadcast, sobram 1.022 utilizáveis.\n\n1.024 é o total, sem descontar os dois endereços reservados. 510 é o número de hosts de uma /23, com 9 bits. 2.046 é o de uma /21, com 11 bits. E 254 é o de uma /24, com 8 bits. Cada bit a mais ou a menos de host dobra ou reduz à metade a quantidade de endereços.",
   },
@@ -803,12 +803,12 @@ export const questoes = [
       "Em termos das camadas, a camada de aplicação do modelo TCP/IP corresponde a quais camadas do modelo OSI?",
     opcoes: [
       "Rede e enlace de dados",
+      "Aplicação, apresentação e sessão",
       "Transporte e rede",
       "Física e enlace de dados",
       "Apresentação e transporte",
-      "Aplicação, apresentação e sessão",
     ],
-    correta: 4,
+    correta: 1,
     explicacao:
       "O modelo TCP/IP, de quatro camadas, é mais compacto que o OSI, de sete. Sua camada de aplicação reúne as funções de três camadas do OSI: aplicação, apresentação e sessão. Protocolos como HTTP, SMTP e DNS ficam nela.\n\nRede e enlace, ou transporte e rede, não formam a camada de aplicação: a camada de transporte do TCP/IP corresponde à de transporte do OSI, e a de Internet, à de rede. Física e enlace correspondem à camada de acesso à rede. E apresentação com transporte não são vizinhas.",
   },
@@ -838,11 +838,11 @@ export const questoes = [
     opcoes: [
       "Request, Reply, Close e Reset",
       "SYN, SYN-ACK e ACK",
+      "Discover, Offer, Request e Acknowledge",
       "Query, Answer e Update",
       "Hello, Link e Route",
-      "Discover, Offer, Request e Acknowledge",
     ],
-    correta: 4,
+    correta: 2,
     explicacao:
       "O DHCP troca quatro mensagens, lembradas como DORA: o cliente envia um Discover, procurando servidores, o servidor responde com um Offer, oferecendo um endereço, o cliente faz o Request, pedindo o endereço oferecido, e o servidor confirma com um Acknowledge.\n\nSYN, SYN-ACK e ACK formam o handshake do TCP. Query e Answer lembram as consultas do DNS. Hello, Link e Route lembram mensagens de protocolos de roteamento. E Request, Reply, Close e Reset não formam a sequência do DHCP.",
   },

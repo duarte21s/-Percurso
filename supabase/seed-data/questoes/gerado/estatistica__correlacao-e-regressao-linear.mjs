@@ -20,13 +20,13 @@ export const questoes = [
     enunciado:
       "Qual destes valores não pode ser um coeficiente de correlação de Pearson?",
     opcoes: [
-      "1,2",
       "−0,9",
       "0",
       "1",
+      "1,2",
       "−1",
     ],
-    correta: 0,
+    correta: 3,
     explicacao:
       "O coeficiente de correlação de Pearson fica sempre entre −1 e 1: é uma medida padronizada, sem unidade, que atinge ±1 só quando os pontos estão exatamente sobre uma reta. A limitação vem da desigualdade de Cauchy-Schwarz: a covariância nunca passa do produto dos desvios padrão. Um valor de 1,2 é impossível e indicaria erro de conta.\n\n−0,9 indica associação linear negativa forte. 0 indica ausência de associação linear. 1 corresponde a pontos alinhados numa reta crescente, e −1, numa reta decrescente.",
   },
@@ -54,13 +54,13 @@ export const questoes = [
     enunciado:
       "A reta de regressão ajustada a um conjunto de dados é ŷ = 2 + 3x. Qual é o valor previsto de y para x = 4?",
     opcoes: [
-      "14",
       "20",
+      "14",
       "9",
       "12",
       "5",
     ],
-    correta: 0,
+    correta: 1,
     explicacao:
       "Basta substituir x = 4 na equação: ŷ = 2 + 3 · 4 = 2 + 12 = 14. O intercepto 2 é o valor previsto para x = 0, e cada unidade a mais em x soma 3 à previsão. A previsão é uma média estimada: pontos reais com x = 4 costumam ficar acima ou abaixo de 14, a distâncias que são os resíduos.\n\n20 soma 2 e 3 antes de multiplicar por 4. 9 soma os três números. 12 esquece o intercepto. E 5 é o valor previsto para x = 1.",
   },
@@ -88,13 +88,13 @@ export const questoes = [
     enunciado:
       "O custo de produção de um lote é estimado por C = 200 + 15n, em reais, em que n é o número de peças. O que representa o número 200?",
     opcoes: [
-      "O custo previsto sem nenhuma peça",
       "O custo de cada peça",
       "O número de peças do lote",
       "O custo de 15 peças",
+      "O custo previsto sem nenhuma peça",
       "A correlação entre custo e peças",
     ],
-    correta: 0,
+    correta: 3,
     explicacao:
       "O intercepto é o valor previsto quando a variável explicativa vale zero: com n = 0, C = 200. Na prática, representa um custo fixo, que não depende da quantidade produzida, como o aluguel de uma máquina. Cada peça a mais acrescenta R$ 15.\n\nO custo de cada peça é a inclinação, 15. n é o número de peças, e não 200. O custo de 15 peças seria 200 + 15 · 15 = 425. E 200 não é uma correlação, que ficaria entre −1 e 1.",
   },
@@ -105,13 +105,13 @@ export const questoes = [
     enunciado:
       "Em várias cidades, o número de sorvetes vendidos e o de afogamentos em praias sobem e descem juntos, com correlação alta. Qual é a interpretação mais adequada?",
     opcoes: [
-      "Um fator comum, como o calor, pode explicar as duas",
       "Tomar sorvete causa afogamentos",
       "Afogamentos aumentam a venda de sorvetes",
       "A correlação alta prova uma relação de causa",
+      "Um fator comum, como o calor, pode explicar as duas",
       "A correlação deve ser um erro de cálculo",
     ],
-    correta: 0,
+    correta: 3,
     explicacao:
       "Uma terceira variável pode explicar a correlação: em dias quentes, vende-se mais sorvete e mais gente vai à praia, e por isso há mais afogamentos. Sorvete e afogamento variam juntos sem que um cause o outro. Correlação indica associação, e não causa.\n\nNem o sorvete causa afogamentos, nem os afogamentos aumentam a venda de sorvetes. Uma correlação alta, sozinha, não prova causa. E a correlação pode estar correta: ela só precisa ser bem interpretada.",
   },
@@ -122,13 +122,13 @@ export const questoes = [
     enunciado:
       "Numa regressão linear simples, o coeficiente de correlação foi r = 0,9. Que fração da variação de y é explicada pela reta?",
     opcoes: [
-      "81%",
       "90%",
       "19%",
       "10%",
       "95%",
+      "81%",
     ],
-    correta: 0,
+    correta: 4,
     explicacao:
       "A fração explicada é o coeficiente de determinação, r² = 0,9² = 0,81: a reta explica 81% da variação de y em torno de sua média, e os resíduos ficam com os 19% restantes. Mesmo uma correlação alta deixa parte da variação sem explicação.\n\n90% usa r, e não r². 19% é a parte não explicada, 1 − r². 10% é 1 − r. E 95% usa a raiz de r, em vez do quadrado.",
   },
@@ -139,13 +139,13 @@ export const questoes = [
     enunciado:
       "A reta de regressão de mínimos quadrados, com intercepto, passa sempre por qual ponto?",
     opcoes: [
-      "O ponto das médias, (x̄, ȳ)",
       "A origem, (0, 0)",
       "O primeiro ponto dos dados",
+      "O ponto das médias, (x̄, ȳ)",
       "O ponto de maior valor de y",
       "O ponto (0, ȳ)",
     ],
-    correta: 0,
+    correta: 2,
     explicacao:
       "O intercepto de mínimos quadrados é a = ȳ − b · x̄, e substituindo x = x̄ na reta: ŷ = a + b · x̄ = ȳ. A reta passa sempre pelo ponto das médias, qualquer que seja a inclinação. Por isso a soma dos resíduos é zero.\n\nA origem só está na reta por coincidência, quando a = 0. A reta não precisa passar por nenhum ponto dos dados. O ponto de maior y também não tem papel especial. E (0, ȳ) só está na reta se a inclinação for zero ou se x̄ = 0.",
   },
@@ -156,13 +156,13 @@ export const questoes = [
     enunciado:
       "Os pontos (1, 2), (2, 4), (3, 6) e (4, 8) estão num plano cartesiano. Qual é o coeficiente de correlação de Pearson entre x e y?",
     opcoes: [
-      "1",
       "2",
       "0",
       "−1",
       "0,5",
+      "1",
     ],
-    correta: 0,
+    correta: 4,
     explicacao:
       "Os quatro pontos estão exatamente sobre a reta crescente y = 2x. Quando todos os pontos ficam numa reta de inclinação positiva, a correlação atinge o máximo, r = 1, qualquer que seja a inclinação.\n\n2 é a inclinação da reta, e não a correlação, que nunca passa de 1. 0 indicaria ausência de associação linear. −1 exigiria uma reta decrescente. E 0,5 é o inverso da inclinação.",
   },
@@ -173,13 +173,13 @@ export const questoes = [
     enunciado:
       "Numa regressão, x é o peso, em kg, e y é a altura, em cm. Em que unidade se mede a inclinação da reta?",
     opcoes: [
-      "cm por kg",
       "kg por cm",
       "cm",
       "kg",
+      "cm por kg",
       "Não tem unidade",
     ],
-    correta: 0,
+    correta: 3,
     explicacao:
       "A inclinação é a variação de y por unidade de x: quantos centímetros a altura prevista muda para cada quilograma a mais. Sua unidade é, portanto, cm por kg. O intercepto, por sua vez, fica em cm, a unidade de y.\n\nkg por cm inverte a razão. cm é a unidade do intercepto e das previsões. kg é a unidade de x. E quem não tem unidade é o coeficiente de correlação, e não a inclinação.",
   },
@@ -208,12 +208,12 @@ export const questoes = [
       "A reta ajustada é ŷ = 3 + 3x. Qual é o resíduo do ponto observado (5, 20)?",
     opcoes: [
       "−2",
-      "2",
       "18",
       "20",
       "3",
+      "2",
     ],
-    correta: 1,
+    correta: 4,
     explicacao:
       "O resíduo é o valor observado menos o previsto: e = y − ŷ. Para x = 5, ŷ = 3 + 3 · 5 = 18, e o resíduo é 20 − 18 = 2. O ponto fica 2 unidades acima da reta. Resíduos positivos indicam pontos acima da reta; negativos, pontos abaixo; e, no ajuste por mínimos quadrados, eles somam zero.\n\n−2 inverte a subtração, ŷ − y. 18 é o valor previsto. 20 é o valor observado. E 3 é o intercepto, que também é a inclinação desta reta.",
   },
@@ -242,12 +242,12 @@ export const questoes = [
       "Num estudo, x tem média 10 e desvio padrão 2, y tem média 30 e desvio padrão 5, e a correlação é 0,6. Qual é a reta de regressão de y em x?",
     opcoes: [
       "ŷ = 24 + 0,6x",
-      "ŷ = 15 + 1,5x",
       "ŷ = 30 + 1,5x",
+      "ŷ = 15 + 1,5x",
       "ŷ = 27,6 + 0,24x",
       "ŷ = 10 + 1,5x",
     ],
-    correta: 1,
+    correta: 2,
     explicacao:
       "A inclinação é b = r · sy/sx = 0,6 · 5/2 = 1,5, e o intercepto é a = ȳ − b · x̄ = 30 − 1,5 · 10 = 15. A reta ŷ = 15 + 1,5x passa pelo ponto das médias, (10, 30), como deve.\n\n24 + 0,6x usa a própria correlação como inclinação. 30 + 1,5x usa ȳ como intercepto, e a reta não passaria por (10, 30). 27,6 + 0,24x inverte a razão dos desvios, r · sx/sy. E 10 + 1,5x usa x̄ como intercepto.",
   },
@@ -276,12 +276,12 @@ export const questoes = [
       "Numa regressão linear simples com intercepto, ajustada por mínimos quadrados, quanto vale a soma dos resíduos?",
     opcoes: [
       "1",
-      "0",
       "O número de pontos",
       "A soma dos quadrados dos resíduos",
       "Depende dos dados",
+      "0",
     ],
-    correta: 1,
+    correta: 4,
     explicacao:
       "Uma das equações que definem o ajuste é Σ(y − a − bx) = 0, obtida ao derivar a soma dos quadrados em relação ao intercepto. Por isso os resíduos positivos e negativos se compensam exatamente, e a soma é zero em qualquer conjunto de dados, o que equivale à reta passar pelo ponto das médias.\n\n1 e o número de pontos não têm justificativa. A soma dos quadrados é positiva, e não a soma simples. E o resultado não depende dos dados, desde que o modelo tenha intercepto.",
   },
@@ -310,12 +310,12 @@ export const questoes = [
       "Os pontos (1, 1), (2, 2), (3, 3) e (4, 4) têm correlação r = 1. Se for acrescentado o ponto (5, −10), o que acontece com r?",
     opcoes: [
       "Continua igual a 1",
-      "Passa a ser negativo, cerca de −0,55",
       "Cai só um pouco, para cerca de 0,9",
       "Vira exatamente 0",
+      "Passa a ser negativo, cerca de −0,55",
       "Não se altera, pois é um ponto só",
     ],
-    correta: 1,
+    correta: 3,
     explicacao:
       "Com o novo ponto, x̄ = 3 e ȳ = 0. A soma dos produtos passa a Sxy = −20, com Sxx = 10 e Syy = 130, e r = −20/√1.300 ≈ −0,55. Um único ponto muito afastado inverteu o sinal da correlação: r é muito sensível a valores atípicos.\n\nr deixa de ser 1, porque os pontos não estão mais alinhados. A queda é muito maior que para 0,9. O valor não é exatamente 0. E um único ponto discrepante pode dominar a conta, como aqui.",
   },
@@ -327,12 +327,12 @@ export const questoes = [
       "A regressão de y em x deu ŷ = 2 + 0,5x, com correlação 0,6. Para prever x a partir de y, basta isolar x nessa equação?",
     opcoes: [
       "Sim: x = 2y − 4",
-      "Não: a regressão de x em y é outra reta",
       "Sim, sempre que r for positivo",
       "Só se r for 0",
       "Só se as médias forem zero",
+      "Não: a regressão de x em y é outra reta",
     ],
-    correta: 1,
+    correta: 4,
     explicacao:
       "A regressão de y em x minimiza os erros verticais, na direção de y; a de x em y minimiza os erros horizontais. As duas inclinações satisfazem b(y em x) · b(x em y) = r², e só descrevem a mesma reta quando r = ±1. Aqui, isolar x daria inclinação 2, mas a regressão de x em y tem inclinação r²/0,5 = 0,72.\n\nx = 2y − 4 é a inversão algébrica, que só vale com correlação perfeita. O sinal positivo não resolve. Com r = 0, as duas retas ficam perpendiculares. E médias nulas não tornam as retas iguais.",
   },
@@ -344,12 +344,12 @@ export const questoes = [
       "Numa regressão linear simples, a correlação entre x e y é 0,6. Que fração da variação de y a reta deixa sem explicar?",
     opcoes: [
       "40%",
-      "64%",
       "36%",
       "60%",
       "16%",
+      "64%",
     ],
-    correta: 1,
+    correta: 4,
     explicacao:
       "A reta explica r² = 0,6² = 0,36, ou 36% da variação de y, e a parte não explicada é 1 − r² = 0,64, ou 64%, que fica nos resíduos. Uma correlação de 0,6 parece razoável, mas a reta deixa a maior parte da variação sem explicação.\n\n40% é 1 − r, sem elevar ao quadrado. 36% é a parte explicada. 60% é o próprio r. E 16% eleva 1 − r ao quadrado.",
   },
@@ -360,13 +360,13 @@ export const questoes = [
     enunciado:
       "A correlação entre as alturas de pais e de filhos adultos é 0,5, com médias e desvios padrão iguais nas duas gerações. Para pais 2 desvios padrão acima da média, qual é a altura prevista dos filhos?",
     opcoes: [
+      "1 desvio padrão acima da média",
       "2 desvios padrão acima da média",
       "0,5 desvio padrão acima da média",
-      "1 desvio padrão acima da média",
       "Exatamente na média",
       "4 desvios padrão acima da média",
     ],
-    correta: 2,
+    correta: 0,
     explicacao:
       "Em unidades padronizadas, a reta de regressão é ẑy = r · zx. Com zx = 2 e r = 0,5, a previsão é ẑy = 1: os filhos de pais muito altos tendem a ser altos, mas menos extremos. É a regressão à média, que aparece sempre que a correlação não é perfeita.\n\n2 desvios padrão exigiria r = 1. 0,5 desvio é o próprio r, sem multiplicar por 2. Na média exigiria r = 0. E 4 desvios padrão multiplicaria em vez de reduzir.",
   },
@@ -377,13 +377,13 @@ export const questoes = [
     enunciado:
       "Uma reta ajustada a crianças de 2 a 10 anos relaciona idade e altura. Aplicada a um adulto de 40 anos, ela prevê cerca de 250 cm. Qual é o problema?",
     opcoes: [
+      "Extrapolou muito além dos dados usados",
       "A correlação deveria ser negativa",
       "A inclinação deveria ser zero",
-      "Extrapolou muito além dos dados usados",
       "O intercepto foi calculado errado",
       "Nenhum: a reta vale para qualquer idade",
     ],
-    correta: 2,
+    correta: 0,
     explicacao:
       "A reta descreve a relação só na faixa observada, de 2 a 10 anos, em que o crescimento é aproximadamente linear. Aos 40 anos, fora dessa faixa, o crescimento já parou, e a relação linear não vale mais. Usar a reta tão longe dos dados é extrapolar.\n\nNa infância, altura e idade crescem juntas, e a correlação é positiva. Uma inclinação zero contrariaria os dados. O intercepto pode estar certo para a faixa estudada. E nenhuma reta ajustada vale automaticamente fora da faixa dos dados.",
   },
@@ -396,11 +396,11 @@ export const questoes = [
     opcoes: [
       "ŷ = 6 + 2,2x",
       "ŷ = 0,67 + 2,33x",
-      "ŷ = 0,5 + 2,2x",
       "ŷ = 4,94 + 0,42x",
+      "ŷ = 0,5 + 2,2x",
       "ŷ = −0,88 + 2,75x",
     ],
-    correta: 2,
+    correta: 3,
     explicacao:
       "Com x̄ = 2,5 e ȳ = 6: Sxy = (−1,5)(−3) + (−0,5)(−1) + (0,5)(0) + (1,5)(4) = 11 e Sxx = 5. A inclinação é b = 11/5 = 2,2, e o intercepto, a = 6 − 2,2 · 2,5 = 0,5. Conferindo: a reta passa por (2,5; 6).\n\n6 + 2,2x usa ȳ como intercepto. 0,67 + 2,33x passa pelos pontos extremos, (1, 3) e (4, 10), sem usar os do meio. 4,94 + 0,42x usa Sxy/Syy, a inclinação da regressão de x em y. E −0,88 + 2,75x divide Sxy por n, e não por Sxx.",
   },
@@ -428,13 +428,13 @@ export const questoes = [
     enunciado:
       "Se cada valor de y for substituído por 10 − 2y, o que acontece com a correlação entre x e y?",
     opcoes: [
+      "Muda de sinal e mantém o valor absoluto",
       "Não muda",
       "Fica duas vezes maior",
-      "Muda de sinal e mantém o valor absoluto",
       "Fica igual a −2 vezes o valor original",
       "Vira zero",
     ],
-    correta: 2,
+    correta: 0,
     explicacao:
       "Somar uma constante não altera a correlação, e multiplicar por um número positivo também não. Multiplicar por −2 inverte a ordem dos valores de y: pontos antes acima da média ficam abaixo. Os escores z de y trocam de sinal, e r também, mantendo o mesmo valor absoluto.\n\nA correlação muda, sim, de sinal. O fator 2 não aparece em r, que não depende da escala. −2 vezes r poderia passar de 1 em valor absoluto, o que é impossível. E a associação linear continua tão forte quanto antes.",
   },
@@ -447,11 +447,11 @@ export const questoes = [
     opcoes: [
       "Maior, pela faixa restrita de notas",
       "Igual",
-      "Menor, pela faixa restrita de notas",
       "Sempre negativa",
       "Exatamente zero",
+      "Menor, pela faixa restrita de notas",
     ],
-    correta: 2,
+    correta: 4,
     explicacao:
       "Os aprovados formam uma faixa estreita de notas de ingresso. Com pouca variação em x, a parte da variação de y ligada a x encolhe, enquanto a variação individual continua, e a correlação cai. Esse efeito de restrição de faixa faz a nota de ingresso parecer menos útil do que é.\n\nA restrição não aumenta r, e em geral não o deixa igual. O sinal não precisa mudar. E r não vai exatamente a zero, a não ser em casos extremos.",
   },
@@ -464,11 +464,11 @@ export const questoes = [
     opcoes: [
       "t = 2; a correlação não é significativa",
       "t = 0,5; a correlação não é significativa",
-      "t ≈ 2,31 > 2,120; a correlação é significativa",
       "t = 8; a correlação é significativa",
       "t ≈ 2,45; a correlação é significativa",
+      "t ≈ 2,31 > 2,120; a correlação é significativa",
     ],
-    correta: 2,
+    correta: 4,
     explicacao:
       "A estatística é t = r · √(n − 2)/√(1 − r²) = 0,5 · √16/√0,75 = 2/0,866 ≈ 2,31, com n − 2 = 16 graus de liberdade. Como 2,31 > 2,120, rejeita-se ρ = 0: há evidência de correlação na população.\n\nt = 2 esquece o denominador √(1 − r²). t = 0,5 usa o próprio r como estatística. t = 8 multiplica r por n − 2, sem a raiz. E 2,45 usa n = 18 no lugar de n − 2 = 16.",
   },
@@ -481,11 +481,11 @@ export const questoes = [
     opcoes: [
       "Que o ajuste é perfeito",
       "Que a correlação é 1",
-      "Que a relação entre x e y não é linear",
       "Que os dados não têm erro",
       "Que a inclinação é zero",
+      "Que a relação entre x e y não é linear",
     ],
-    correta: 2,
+    correta: 4,
     explicacao:
       "Num bom ajuste linear, os resíduos se espalham sem padrão em torno de zero. Um U indica curvatura: a reta passa acima dos pontos no meio e abaixo deles nas pontas, sinal de que a relação é curva, como uma parábola. Um modelo com termo quadrático ou uma transformação das variáveis pode ser mais adequado.\n\nUm ajuste perfeito teria todos os resíduos iguais a zero. Com resíduos sistemáticos, r não é 1. O padrão fala do modelo, e não de erros de medida. E a inclinação pode ser diferente de zero mesmo com curvatura.",
   },
@@ -515,11 +515,11 @@ export const questoes = [
     opcoes: [
       "0,7",
       "0,49",
-      "−0,7",
       "−0,49",
+      "−0,7",
       "0,24",
     ],
-    correta: 2,
+    correta: 3,
     explicacao:
       "Na regressão simples, R² = r², e então |r| = √0,49 = 0,7. O sinal de r é o mesmo da inclinação: como ela é negativa, r = −0,7. Conhecer só R² nunca basta para o sinal: é a inclinação, ou o gráfico, que diz se a associação é crescente ou decrescente.\n\n0,7 ignora o sinal da inclinação. 0,49 e −0,49 são o próprio R², sem tirar a raiz. E 0,24 eleva 0,49 ao quadrado de novo.",
   },
@@ -532,11 +532,11 @@ export const questoes = [
     opcoes: [
       "O valor exato de todo y com x = 5",
       "O maior valor possível de y com x = 5",
-      "A correlação entre x e y",
       "A média estimada de y quando x = 5",
+      "A correlação entre x e y",
       "O resíduo do ponto com x = 5",
     ],
-    correta: 3,
+    correta: 2,
     explicacao:
       "A reta estima a média de y para cada valor de x. Indivíduos com x = 5 têm valores de y espalhados em torno de 70, alguns acima e outros abaixo, e as distâncias até a reta são os resíduos. Quanto menor a dispersão dos pontos em torno da reta, mais próximos de 70 ficam os valores individuais.\n\nNem todo y com x = 5 vale 70: há variação individual. 70 não é um máximo. A correlação é um número entre −1 e 1, que não se confunde com uma previsão. E o resíduo é a diferença entre o observado e o previsto, e não o previsto.",
   },
@@ -549,11 +549,11 @@ export const questoes = [
     opcoes: [
       "0,009 kg por metro",
       "0,9 kg por metro",
-      "9 kg por metro",
       "90 kg por metro",
+      "9 kg por metro",
       "900 kg por metro",
     ],
-    correta: 3,
+    correta: 2,
     explicacao:
       "Um metro tem 100 centímetros, e subir um metro na altura equivale a subir 100 cm. A variação prevista no peso é, portanto, 100 vezes maior por unidade de x: 0,9 · 100 = 90 kg por metro. O ajuste é o mesmo; só a unidade da inclinação mudou.\n\n0,009 divide por 100 em vez de multiplicar. 0,9 ignora a mudança de unidade. 9 e 900 usam fatores 10 e 1.000, que não correspondem à conversão entre centímetros e metros.",
   },
@@ -581,13 +581,13 @@ export const questoes = [
     enunciado:
       "A covariância entre x e y é 12, o desvio padrão de x é 3 e o de y é 5. Qual é o coeficiente de correlação?",
     opcoes: [
+      "0,8",
       "12",
       "1,25",
       "0,48",
-      "0,8",
       "≈ 0,27",
     ],
-    correta: 3,
+    correta: 0,
     explicacao:
       "A correlação é a covariância padronizada: r = cov(x, y)/(sx · sy) = 12/(3 · 5) = 12/15 = 0,8. Dividir pelos desvios padrão elimina as unidades e coloca a medida entre −1 e 1.\n\n12 é a covariância, que depende das unidades. 1,25 inverte a divisão, 15/12, e passa de 1. 0,48 divide por 25, a variância de y. E 0,27 divide por 45, o produto da variância de x, 9, pelo desvio padrão de y, 5.",
   },
@@ -600,11 +600,11 @@ export const questoes = [
     opcoes: [
       "1",
       "r²",
-      "sy/sx",
       "O coeficiente de correlação r",
+      "sy/sx",
       "0",
     ],
-    correta: 3,
+    correta: 2,
     explicacao:
       "A inclinação é b = r · sy/sx, e depois da padronização os dois desvios padrão valem 1. Então b = r: em escores z, a reta é ẑy = r · zx, e o intercepto é zero, porque as duas médias são zero. Essa forma explica a regressão à média: como |r| < 1, a previsão padronizada fica mais perto de zero que o valor de x.\n\n1 só valeria com correlação perfeita. r² é a fração explicada. sy/sx vale 1 depois da padronização, mas falta o fator r. E 0 só se r = 0.",
   },
@@ -616,12 +616,12 @@ export const questoes = [
       "Numa regressão de y em x, soma-se 10 a todos os valores de x, e o ajuste é refeito. O que acontece com a reta?",
     opcoes: [
       "A inclinação aumenta 10, e o intercepto fica igual",
+      "A inclinação fica igual, e o intercepto cai 10b",
       "A inclinação e o intercepto ficam iguais",
       "A inclinação fica igual, e o intercepto sobe 10",
-      "A inclinação fica igual, e o intercepto cai 10b",
       "A inclinação cai à metade, e o intercepto dobra",
     ],
-    correta: 3,
+    correta: 1,
     explicacao:
       "Deslocar todos os x por uma constante não muda o formato da nuvem de pontos, e a inclinação b continua a mesma. Mas, para o mesmo ponto, o valor de x agora é 10 unidades maior, e o intercepto precisa compensar: a nova reta é ŷ = (a − 10b) + bx. Assim, as previsões para os mesmos pontos não mudam.\n\nA inclinação não depende de deslocamentos e não aumenta 10. O intercepto muda, e por isso os dois não ficam iguais. Ele diminui 10b, e não sobe 10. E nenhum dos dois é dividido ou dobrado.",
   },
@@ -633,12 +633,12 @@ export const questoes = [
       "Num conjunto de dados, todos os valores de y são iguais a 7, enquanto x varia. O que se pode dizer do coeficiente de correlação de Pearson?",
     opcoes: [
       "Vale 0",
+      "Não está definido, pois y não varia",
       "Vale 1",
       "Vale 7",
-      "Não está definido, pois y não varia",
       "Vale −1",
     ],
-    correta: 3,
+    correta: 1,
     explicacao:
       "A correlação divide a covariância pelo produto dos desvios padrão, e o desvio padrão de y é zero. A covariância também é zero, e a razão 0/0 não tem valor definido. A reta de regressão existe, horizontal em y = 7, mas a correlação não.\n\n0 é um valor tentador, mas a fórmula não produz número nenhum. 1 e −1 exigiriam variação em y. E 7 é o valor de y, e não uma correlação.",
   },
@@ -650,12 +650,12 @@ export const questoes = [
       "Qual destes coeficientes de correlação indica a associação linear mais forte?",
     opcoes: [
       "r = 0,85",
+      "r = −0,92",
       "r = 0,30",
       "r = −0,50",
-      "r = −0,92",
       "r = 0,01",
     ],
-    correta: 3,
+    correta: 1,
     explicacao:
       "A força da associação linear é dada pelo valor absoluto de r, e o sinal indica só o sentido. Entre os valores, |−0,92| = 0,92 é o maior: os pontos ficam mais próximos de uma reta, decrescente, do que em qualquer outro caso. Em termos de fração explicada, 0,92² ≈ 0,85, contra 0,85² ≈ 0,72.\n\n0,85 é forte, mas menos que 0,92. 0,30 e −0,50 indicam associações de moderadas a fracas. E 0,01 indica praticamente nenhuma associação linear.",
   },
@@ -666,13 +666,13 @@ export const questoes = [
     enunciado:
       "Para os pontos (0, 1), (1, 3) e (2, 2), qual destas retas tem a menor soma dos quadrados dos resíduos: ŷ = 1,5 + 0,5x, ŷ = 1 + x ou ŷ = 2?",
     opcoes: [
+      "ŷ = 1,5 + 0,5x, com soma 1,5",
       "ŷ = 1 + x, com soma 2",
       "ŷ = 2, com soma 2",
       "As três empatam",
-      "ŷ = 1,5 + 0,5x, com soma 1,5",
       "ŷ = 1 + x, com soma 0",
     ],
-    correta: 3,
+    correta: 0,
     explicacao:
       "Para ŷ = 1,5 + 0,5x, os resíduos são −0,5, 1 e −0,5, com soma dos quadrados 0,25 + 1 + 0,25 = 1,5. Para ŷ = 1 + x, são 0, 1 e −1, com soma 2; para ŷ = 2, são −1, 1 e 0, também 2. A primeira é a reta de mínimos quadrados: b = Sxy/Sxx = 1/2 e a = 2 − 0,5 · 1 = 1,5.\n\nAs retas ŷ = 1 + x e ŷ = 2 têm soma 2, maior. As três não empatam. E a soma zero de ŷ = 1 + x é a dos resíduos simples, 0 + 1 − 1, e não a dos quadrados.",
   },
@@ -685,11 +685,11 @@ export const questoes = [
     opcoes: [
       "Menor, porque há menos pontos",
       "Igual",
-      "Sempre zero",
       "Maior, sem a variação individual",
+      "Sempre zero",
       "Sempre negativa",
     ],
-    correta: 3,
+    correta: 2,
     explicacao:
       "Ao tirar médias por estado, a variação individual, que é grande e não segue a tendência, se cancela em boa parte, e as médias ficam mais alinhadas. A correlação entre médias costuma ser bem maior que entre indivíduos, e usá-la para concluir sobre pessoas é a falácia ecológica.\n\nMenos pontos não reduzem a correlação por si. Os dois valores costumam ser diferentes. E nada força a correlação entre médias a ser zero ou negativa.",
   },
@@ -703,10 +703,10 @@ export const questoes = [
       "0,36",
       "0,625",
       "≈ 0,56",
-      "≈ 1,78",
       "0,6",
+      "≈ 1,78",
     ],
-    correta: 4,
+    correta: 3,
     explicacao:
       "As duas inclinações são r · sy/sx e r · sx/sy, e seu produto é r² = 0,8 · 0,45 = 0,36. Então |r| = 0,6, e o sinal é o das inclinações, positivo: r = 0,6. As duas inclinações só são inversas uma da outra quando r = ±1, e aí as duas retas coincidem.\n\n0,36 é r², sem tirar a raiz. 0,625 é a média simples das inclinações. 0,56 é a razão 0,45/0,8. E 1,78 é a razão inversa, maior que 1, impossível para uma correlação.",
   },
@@ -720,10 +720,10 @@ export const questoes = [
       "130",
       "100",
       "107,5",
-      "145",
       "115",
+      "145",
     ],
-    correta: 4,
+    correta: 3,
     explicacao:
       "A nota 130 está 2 desvios padrão acima da média, z = (130 − 100)/15 = 2. A previsão padronizada é r · z = 0,5 · 2 = 1, isto é, 1 desvio padrão acima: 100 + 15 = 115. Parte do bom desempenho na primeira prova se deve a fatores que não se repetem, e a previsão regride em direção à média.\n\n130 supõe correlação perfeita. 100 supõe correlação nula. 107,5 aplica r duas vezes, 0,5 · 0,5 · 30. E 145 afasta a previsão da média, em vez de aproximá-la.",
   },
@@ -734,13 +734,13 @@ export const questoes = [
     enunciado:
       "Os pontos (0, 0), (1, 1), (0, 1) e (1, 0) têm correlação zero. Se for acrescentado o ponto (10, 10), qual é, aproximadamente, o novo coeficiente de correlação?",
     opcoes: [
+      "≈ 0,99",
       "0",
       "≈ 0,2",
       "−1",
       "0,5",
-      "≈ 0,99",
     ],
-    correta: 4,
+    correta: 0,
     explicacao:
       "Com o novo ponto, x̄ = ȳ = 2,4. O ponto (10, 10) fica muito longe dos outros e domina as somas: Sxy = 72,2 e Sxx = Syy = 73,2, e r = 72,2/73,2 ≈ 0,99. Um único ponto extremo criou uma correlação quase perfeita onde não havia associação.\n\nr deixa de ser zero por causa do ponto novo. 0,2 subestima muito a influência do ponto afastado. −1 teria o sinal errado. E 0,5 não sai da conta. O exemplo mostra por que é preciso olhar o gráfico antes de interpretar r.",
   },
@@ -770,11 +770,11 @@ export const questoes = [
     opcoes: [
       "Menor que 1, porque a relação é exponencial",
       "0",
+      "1, porque log y é função linear de x",
       "−1",
       "Igual a log 2",
-      "1, porque log y é função linear de x",
     ],
-    correta: 4,
+    correta: 2,
     explicacao:
       "Tomando logaritmos, log y = log 3 + x · log 2: log y é uma função linear crescente de x, com inclinação log 2 > 0. Os pontos (x, log y) ficam exatamente numa reta crescente, e a correlação é 1. É por isso que transformações logarítmicas linearizam relações exponenciais.\n\nA correlação entre x e o próprio y é menor que 1, mas a pergunta é sobre log y. 0 e −1 contrariam o crescimento. E log 2 é a inclinação da reta, e não a correlação.",
   },
@@ -786,12 +786,12 @@ export const questoes = [
       "Com amostras de 5 pares de uma população em que as variáveis são independentes, com correlação zero, com que frequência aproximada se obtém |r| ≥ 0,7?",
     opcoes: [
       "Menos de 1% das amostras",
+      "Cerca de 19% das amostras",
       "Nunca",
       "Cerca de 70% das amostras",
       "Exatamente 5% das amostras",
-      "Cerca de 19% das amostras",
     ],
-    correta: 4,
+    correta: 1,
     explicacao:
       "Com n = 5, o coeficiente amostral varia muito. A estatística t = r · √(n − 2)/√(1 − r²) segue a t com 3 graus de liberdade quando ρ = 0, e |r| ≥ 0,7 corresponde a |t| ≥ 1,70, o que acontece em cerca de 19% das amostras. Correlações altas em amostras pequenas podem surgir só por acaso.\n\nMenos de 1% subestima muito a variação de r com 5 pares. Nunca é falso: a chance é considerável. 70% confunde r com uma probabilidade. E 5% seria o caso de um valor crítico, que para n = 5 é bem maior, cerca de 0,88.",
   },
@@ -802,13 +802,13 @@ export const questoes = [
     enunciado:
       "Na regressão, por que o intervalo para um valor individual de y, num dado x, é mais largo que o intervalo para a média de y nesse mesmo x?",
     opcoes: [
+      "Soma a dispersão dos indivíduos em torno da reta",
       "Porque usa menos dados no cálculo",
       "Porque a reta muda de inclinação",
       "Porque o valor individual não depende de x",
       "Os dois intervalos têm a mesma largura",
-      "Soma a dispersão dos indivíduos em torno da reta",
     ],
-    correta: 4,
+    correta: 0,
     explicacao:
       "O intervalo para a média só leva em conta a incerteza na estimação da reta, que diminui com n. O valor individual tem essa incerteza e mais a variação dos indivíduos em torno da reta, a variância σ² do erro, que não diminui com n. Por isso o intervalo de previsão é sempre mais largo, e não encolhe a zero mesmo com amostras enormes.\n\nOs dois intervalos usam os mesmos dados. A reta é a mesma nos dois casos. O valor individual depende de x, pela reta, mas também varia em torno dela. E as larguras são diferentes.",
   },
@@ -819,13 +819,13 @@ export const questoes = [
     enunciado:
       "Se a variável x for medida com erro aleatório, independente de tudo o mais, o que tende a acontecer com a inclinação estimada da regressão de y em x?",
     opcoes: [
+      "Tende a diminuir em valor absoluto",
       "Tende a aumentar",
       "Não muda, em média",
       "Muda de sinal",
       "Fica igual a 1",
-      "Tende a diminuir em valor absoluto",
     ],
-    correta: 4,
+    correta: 0,
     explicacao:
       "O erro de medida aumenta a variância de x sem aumentar a covariância com y. Como a inclinação é cov(x, y)/var(x), ela fica menor em valor absoluto: é a atenuação. Se o erro tiver a mesma variância que o x verdadeiro, a inclinação cai, em média, à metade.\n\nA inclinação não aumenta, porque o denominador cresce. Ela muda, em média, e não por acaso. O sinal se mantém, porque a covariância não muda de sinal. E nada a força a valer 1.",
   },
@@ -838,11 +838,11 @@ export const questoes = [
     opcoes: [
       "0,5",
       "1",
+      "≈ 0,71",
       "0",
       "≈ 1,41",
-      "≈ 0,71",
     ],
-    correta: 4,
+    correta: 2,
     explicacao:
       "cov(X, X + Y) = var(X) + cov(X, Y) = var(X), porque X e Y são independentes. E var(X + Y) = 2 · var(X). Então r = var(X)/[√var(X) · √(2 · var(X))] = 1/√2 ≈ 0,71. A soma herda metade da sua variância de X, e r² = 0,5.\n\n0,5 é r², a fração da variância da soma explicada por X. 1 exigiria Y constante. 0 ignoraria que X faz parte da soma. E 1,41 = √2 passa de 1.",
   },
@@ -854,12 +854,12 @@ export const questoes = [
       "Dois conjuntos de dados têm a mesma correlação, cerca de 0,82, e a mesma reta de regressão, mas no gráfico um deles forma uma nuvem em torno de uma reta e o outro, uma curva quase perfeita. O que isso ensina?",
     opcoes: [
       "Que r descreve completamente os dados",
+      "Que é preciso olhar o gráfico, e não só r",
       "Que a reta é adequada nos dois casos",
       "Que r = 0,82 garante relação linear",
       "Que os dois conjuntos são iguais",
-      "Que é preciso olhar o gráfico, e não só r",
     ],
-    correta: 4,
+    correta: 1,
     explicacao:
       "O coeficiente de correlação e a reta resumem os dados em poucos números, e conjuntos muito diferentes podem ter os mesmos resumos. No conjunto em forma de curva, a reta deixa resíduos sistemáticos, e um modelo curvo descreveria os dados quase perfeitamente. Por isso o gráfico de dispersão deve ser examinado antes de interpretar r.\n\nr não descreve a forma da relação. A reta não é adequada para o conjunto curvo. Um r alto não garante linearidade. E os conjuntos são diferentes, apesar dos resumos iguais.",
   },

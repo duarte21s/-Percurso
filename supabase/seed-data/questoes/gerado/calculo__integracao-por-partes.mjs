@@ -37,13 +37,13 @@ export const questoes = [
     enunciado:
       "Qual é a fórmula da integração por partes para ∫ u dv?",
     opcoes: [
-      "uv − ∫ v du",
       "uv + ∫ v du",
       "uv − ∫ u dv",
+      "uv − ∫ v du",
       "(∫ u dx) · (∫ dv)",
       "u'v − ∫ v du",
     ],
-    correta: 0,
+    correta: 2,
     explicacao:
       "A fórmula vem da regra do produto: (uv)' = u'v + uv', e integrando, uv = ∫ v du + ∫ u dv. Isolando: ∫ u dv = uv − ∫ v du. A ideia é trocar uma integral difícil por outra mais simples, escolhendo u de modo que du simplifique.\n\nuv + ∫ v du erra o sinal da integral que sobra. uv − ∫ u dv repete a integral original do lado direito, o que não resolve nada e está errado. (∫ u dx) · (∫ dv) integra os fatores em separado, o que não vale para produtos. E u'v − ∫ v du troca u por u' na parcela de fora.",
   },
@@ -54,13 +54,13 @@ export const questoes = [
     enunciado:
       "Qual é a integral ∫ x · cos x dx, calculada por partes?",
     opcoes: [
-      "x · sen x + cos x + C",
       "x · sen x − cos x + C",
       "(x²/2) · sen x + C",
       "−x · cos x + sen x + C",
+      "x · sen x + cos x + C",
       "x · cos x + C",
     ],
-    correta: 0,
+    correta: 3,
     explicacao:
       "Com u = x e dv = cos x dx, vem du = dx e v = sen x. Então ∫ x cos x dx = x sen x − ∫ sen x dx = x sen x + cos x + C, pois −∫ sen x dx = cos x. Conferindo: (x sen x + cos x)' = sen x + x cos x − sen x = x cos x.\n\nx · sen x − cos x + C erra o sinal da integral do seno. (x²/2) · sen x + C integra os fatores em separado. −x · cos x + sen x + C é a primitiva de x · sen x, com as funções trocadas. E x · cos x + C repete o integrando, sem integrar.",
   },
@@ -71,13 +71,13 @@ export const questoes = [
     enunciado:
       "Para x > 0, qual é a integral ∫ x · ln x dx, com u = ln x e dv = x dx?",
     opcoes: [
-      "(x²/2) ln x − x²/4 + C",
       "(x²/2) ln x + C",
       "x ln x − x + C",
       "(x²/2) ln x − x²/2 + C",
       "(x²/4) ln x + C",
+      "(x²/2) ln x − x²/4 + C",
     ],
-    correta: 0,
+    correta: 4,
     explicacao:
       "Com u = ln x e dv = x dx, vem du = dx/x e v = x²/2. Então ∫ x ln x dx = (x²/2) ln x − ∫ (x²/2)(1/x) dx = (x²/2) ln x − ∫ x/2 dx = (x²/2) ln x − x²/4 + C. O logaritmo vai para u porque a sua derivada, 1/x, simplifica o produto.\n\n(x²/2) ln x + C esquece de subtrair a integral que sobra. x ln x − x + C é a primitiva de ln x sozinho, sem o fator x. (x²/2) ln x − x²/2 + C esquece o 1/2 na integral de x/2. E (x²/4) ln x + C divide duas vezes a parcela de fora.",
   },
@@ -88,13 +88,13 @@ export const questoes = [
     enunciado:
       "Qual é a integral ∫ x · e^(−x) dx, com u = x?",
     opcoes: [
-      "−(x + 1)e^(−x) + C",
       "(x − 1)e^(−x) + C",
+      "−(x + 1)e^(−x) + C",
       "−xe^(−x) + C",
       "(x + 1)e^(−x) + C",
       "−(x − 1)e^(−x) + C",
     ],
-    correta: 0,
+    correta: 1,
     explicacao:
       "Com u = x e dv = e^(−x) dx, vem du = dx e v = −e^(−x). Então ∫ xe^(−x) dx = −xe^(−x) − ∫ −e^(−x) dx = −xe^(−x) − e^(−x) = −(x + 1)e^(−x) + C. O sinal de v = −e^(−x) é o ponto delicado.\n\n(x − 1)e^(−x) + C usa v = e^(−x), sem o sinal. −xe^(−x) + C para em uv. (x + 1)e^(−x) + C perde o sinal de fora. E −(x − 1)e^(−x) + C erra o sinal da integral que sobra.",
   },
@@ -156,13 +156,13 @@ export const questoes = [
     enunciado:
       "Quanto vale a integral de x · ln x entre x = 1 e x = e?",
     opcoes: [
-      "(e² + 1)/4",
       "e²/4",
       "(e² − 1)/4",
       "e²/2",
+      "(e² + 1)/4",
       "1/4",
     ],
-    correta: 0,
+    correta: 3,
     explicacao:
       "Por partes, uma primitiva de x ln x é (x²/2) ln x − x²/4. Em x = e: e²/2 − e²/4 = e²/4. Em x = 1: 0 − 1/4 = −1/4. A integral vale e²/4 − (−1/4) = (e² + 1)/4 ≈ 2,1.\n\ne²/4 esquece de subtrair o valor em x = 1, que é negativo. (e² − 1)/4 subtrai 1/4 em vez de somar, errando o sinal. e²/2 fica só com a parcela (x²/2) ln x em x = e. E 1/4 fica só com o valor da primitiva em x = 1, com o sinal trocado.",
   },
@@ -173,13 +173,13 @@ export const questoes = [
     enunciado:
       "Qual é a integral ∫ x · e^(2x) dx, com u = x e dv = e^(2x) dx?",
     opcoes: [
-      "e^(2x) · (2x − 1)/4 + C",
       "e^(2x) · (x − 1)/2 + C",
       "x · e^(2x)/2 + C",
+      "e^(2x) · (2x − 1)/4 + C",
       "e^(2x) · (2x + 1)/4 + C",
       "x² · e^(2x)/4 + C",
     ],
-    correta: 0,
+    correta: 2,
     explicacao:
       "Com u = x, du = dx; com dv = e^(2x) dx, v = e^(2x)/2. Então ∫ xe^(2x) dx = xe^(2x)/2 − ∫ e^(2x)/2 dx = xe^(2x)/2 − e^(2x)/4 = e^(2x)(2x − 1)/4 + C.\n\ne^(2x) · (x − 1)/2 + C integra e^(2x)/2 como se fosse e^(2x)/2, esquecendo o segundo fator 1/2. x · e^(2x)/2 + C para em uv. e^(2x) · (2x + 1)/4 + C soma a integral em vez de subtrair. E x² · e^(2x)/4 + C integra os fatores em separado.",
   },
@@ -208,12 +208,12 @@ export const questoes = [
       "Por partes ou reconhecendo uma derivada, qual é ∫ (x + 1) · eˣ dx?",
     opcoes: [
       "(x + 1)eˣ + C",
-      "xeˣ + C",
       "(x + 2)eˣ + C",
+      "xeˣ + C",
       "(x²/2 + x)eˣ + C",
       "eˣ + C",
     ],
-    correta: 1,
+    correta: 2,
     explicacao:
       "Por partes, com u = x + 1 e dv = eˣ dx: (x + 1)eˣ − ∫ eˣ dx = (x + 1)eˣ − eˣ = xeˣ + C. Há um atalho: (xeˣ)' = eˣ + xeˣ = (x + 1)eˣ, a regra do produto lida de trás para a frente.\n\n(x + 1)eˣ + C para em uv. (x + 2)eˣ + C soma a integral em vez de subtrair. (x²/2 + x)eˣ + C integra só o fator polinomial. E eˣ + C fica só com a integral que se subtrai.",
   },
@@ -224,13 +224,13 @@ export const questoes = [
     enunciado:
       "Aplicando partes duas vezes, qual é a integral ∫ x² · eˣ dx?",
     opcoes: [
-      "eˣ(x² − 2x) + C",
       "eˣ(x² − 2x + 2) + C",
+      "eˣ(x² − 2x) + C",
       "eˣ(x² + 2x + 2) + C",
       "x²eˣ + C",
       "eˣ(x² − 2) + C",
     ],
-    correta: 1,
+    correta: 0,
     explicacao:
       "Primeira vez, u = x²: ∫ x²eˣ dx = x²eˣ − ∫ 2xeˣ dx. Segunda vez, u = 2x: ∫ 2xeˣ dx = 2xeˣ − 2eˣ. Juntando: x²eˣ − 2xeˣ + 2eˣ = eˣ(x² − 2x + 2) + C. Cada aplicação baixa em uma unidade o grau do polinômio.\n\neˣ(x² − 2x) + C para depois da primeira aplicação e esquece a última parcela. eˣ(x² + 2x + 2) + C erra o sinal da segunda parcela. x²eˣ + C para em uv. E eˣ(x² − 2) + C perde a parcela −2xeˣ.",
   },
@@ -242,12 +242,12 @@ export const questoes = [
       "Qual é a integral ∫ x² · cos x dx, que exige duas integrações por partes?",
     opcoes: [
       "x² · sen x − 2x · cos x + 2sen x + C",
-      "x² · sen x + 2x · cos x − 2sen x + C",
       "x² · sen x + 2x · cos x + C",
       "(x³/3) · sen x + C",
+      "x² · sen x + 2x · cos x − 2sen x + C",
       "x² · sen x − 2sen x + C",
     ],
-    correta: 1,
+    correta: 3,
     explicacao:
       "Primeira vez, u = x² e v = sen x: x² sen x − ∫ 2x sen x dx. Segunda, ∫ 2x sen x dx = −2x cos x + 2sen x. Juntando: x² sen x − (−2x cos x + 2sen x) = x² sen x + 2x cos x − 2sen x + C.\n\nx² · sen x − 2x · cos x + 2sen x + C erra o sinal ao subtrair a segunda integral. x² · sen x + 2x · cos x + C esquece a última parcela. (x³/3) · sen x + C integra os fatores em separado. E x² · sen x − 2sen x + C perde a parcela 2x cos x.",
   },
@@ -259,12 +259,12 @@ export const questoes = [
       "Integrando por partes duas vezes e voltando à integral original, qual é ∫ eˣ · sen x dx?",
     opcoes: [
       "eˣ(sen x + cos x)/2 + C",
-      "eˣ(sen x − cos x)/2 + C",
       "eˣ(sen x − cos x) + C",
       "−eˣ · cos x + C",
+      "eˣ(sen x − cos x)/2 + C",
       "eˣ(cos x − sen x)/2 + C",
     ],
-    correta: 1,
+    correta: 3,
     explicacao:
       "Chamando I = ∫ eˣ sen x dx, com u = sen x e dv = eˣ dx: I = eˣ sen x − ∫ eˣ cos x dx. De novo, com u = cos x: ∫ eˣ cos x dx = eˣ cos x + I. Então I = eˣ sen x − eˣ cos x − I, e 2I = eˣ(sen x − cos x): I = eˣ(sen x − cos x)/2 + C.\n\neˣ(sen x + cos x)/2 + C é a primitiva de eˣ cos x. eˣ(sen x − cos x) + C esquece de dividir por 2 ao isolar I. −eˣ · cos x + C trata eˣ como constante. E eˣ(cos x − sen x)/2 + C troca o sinal do resultado.",
   },
@@ -276,12 +276,12 @@ export const questoes = [
       "Com u = arctg x e dv = dx, qual é a integral ∫ arctg x dx?",
     opcoes: [
       "x · arctg x + C",
-      "x · arctg x − ln(1 + x²)/2 + C",
       "x · arctg x − ln(1 + x²) + C",
+      "x · arctg x − ln(1 + x²)/2 + C",
       "1/(1 + x²) + C",
       "x · arctg x + ln(1 + x²)/2 + C",
     ],
-    correta: 1,
+    correta: 2,
     explicacao:
       "Com u = arctg x, du = dx/(1 + x²); com dv = dx, v = x. Então ∫ arctg x dx = x arctg x − ∫ x/(1 + x²) dx = x arctg x − ln(1 + x²)/2 + C. A integral que sobra sai por substituição, com w = 1 + x².\n\nx · arctg x + C para em uv. x · arctg x − ln(1 + x²) + C esquece o fator 1/2 da substituição. 1/(1 + x²) + C é a derivada de arctg x. E x · arctg x + ln(1 + x²)/2 + C soma a integral em vez de subtrair.",
   },
@@ -293,12 +293,12 @@ export const questoes = [
       "Para x > 0, qual é a integral ∫ x² · ln x dx?",
     opcoes: [
       "(x³/3) ln x − x³/3 + C",
-      "(x³/3) ln x − x³/9 + C",
       "(x³/3) ln x + C",
+      "(x³/3) ln x − x³/9 + C",
       "x²(x ln x − x) + C",
       "(x³/3) ln x + x³/9 + C",
     ],
-    correta: 1,
+    correta: 2,
     explicacao:
       "Com u = ln x e dv = x² dx, vem du = dx/x e v = x³/3. Então ∫ x² ln x dx = (x³/3) ln x − ∫ (x³/3)(1/x) dx = (x³/3) ln x − ∫ x²/3 dx = (x³/3) ln x − x³/9 + C.\n\n(x³/3) ln x − x³/3 + C esquece de dividir x³ por 3 na última integral. (x³/3) ln x + C para em uv. x²(x ln x − x) + C multiplica x² pela primitiva de ln x, tratando x² como constante. E (x³/3) ln x + x³/9 + C soma a integral em vez de subtrair.",
   },
@@ -310,12 +310,12 @@ export const questoes = [
       "Quanto vale a integral de x · sen x entre x = 0 e x = π?",
     opcoes: [
       "0",
-      "π",
       "2",
       "−π",
+      "π",
       "π²/2",
     ],
-    correta: 1,
+    correta: 3,
     explicacao:
       "Por partes, uma primitiva de x sen x é −x cos x + sen x. Em x = π: −π · (−1) + 0 = π. Em x = 0: 0 + 0 = 0. A integral vale π ≈ 3,14.\n\n0 fica só com a parcela sen x da primitiva, que se anula nos dois extremos. 2 é a integral de sen x sozinho, sem o fator x. −π erra o sinal de v = −cos x. E π²/2 integra os fatores em separado: (π²/2) vezes algo que vale 1.",
   },
@@ -344,12 +344,12 @@ export const questoes = [
       "Para x > 0, qual é a primitiva mais geral de (ln x)²?",
     opcoes: [
       "x(ln x)² − 2x ln x + C",
-      "x(ln x)² − 2x ln x + 2x + C",
       "(ln x)³/3 + C",
       "x(ln x)² + C",
       "x(ln x)² − 2x ln x − 2x + C",
+      "x(ln x)² − 2x ln x + 2x + C",
     ],
-    correta: 1,
+    correta: 4,
     explicacao:
       "Com u = (ln x)² e dv = dx: du = 2 ln x · dx/x e v = x. Então ∫ (ln x)² dx = x(ln x)² − ∫ 2 ln x dx. E ∫ 2 ln x dx = 2(x ln x − x). Juntando: x(ln x)² − 2x ln x + 2x + C.\n\nx(ln x)² − 2x ln x + C esquece a última parcela, que vem da primitiva de ln x. (ln x)³/3 + C aplica a regra da potência sem o fator 1/x. x(ln x)² + C para em uv. E a última alternativa erra o sinal da parcela 2x.",
   },
@@ -361,12 +361,12 @@ export const questoes = [
       "Quanto vale a integral de ln x/x² entre x = 1 e x = e?",
     opcoes: [
       "1 − 1/e",
-      "2/e",
       "1 − 2/e",
+      "2/e",
       "1/2",
       "1 + 2/e",
     ],
-    correta: 2,
+    correta: 1,
     explicacao:
       "Por partes, uma primitiva de ln x/x² é −(ln x + 1)/x. Em x = e: −(1 + 1)/e = −2/e. Em x = 1: −(0 + 1)/1 = −1. A integral vale −2/e − (−1) = 1 − 2/e ≈ 0,26.\n\n1 − 1/e esquece a parcela −1/x da primitiva, ficando com −ln x/x. 2/e é o valor da primitiva em x = e, sem sinal e sem subtrair. 1/2 é a integral de ln x/x, com a primitiva (ln x)²/2. E 1 + 2/e erra o sinal do valor em x = e.",
   },
@@ -377,13 +377,13 @@ export const questoes = [
     enunciado:
       "Nos intervalos em que cos x ≠ 0, qual é a integral ∫ x · (sec x)² dx?",
     opcoes: [
+      "x · tg x + ln|cos x| + C",
       "x · tg x − ln|cos x| + C",
       "x · tg x + C",
-      "x · tg x + ln|cos x| + C",
       "(x²/2) · tg x + C",
       "tg x + x + C",
     ],
-    correta: 2,
+    correta: 0,
     explicacao:
       "Com u = x e dv = (sec x)² dx, vem du = dx e v = tg x. Então ∫ x(sec x)² dx = x tg x − ∫ tg x dx = x tg x − (−ln|cos x|) = x tg x + ln|cos x| + C. A primitiva da tangente, −ln|cos x|, é a peça que falta.\n\nx · tg x − ln|cos x| + C erra o sinal da primitiva da tangente, que é −ln|cos x|. x · tg x + C para em uv. (x²/2) · tg x + C integra os fatores em separado. E tg x + x + C não sai da fórmula.",
   },
@@ -396,11 +396,11 @@ export const questoes = [
     opcoes: [
       "eˣ(sen x − cos x)/2 + C",
       "eˣ(sen x + cos x) + C",
-      "eˣ(sen x + cos x)/2 + C",
       "eˣ · sen x + C",
       "eˣ(cos x − sen x)/2 + C",
+      "eˣ(sen x + cos x)/2 + C",
     ],
-    correta: 2,
+    correta: 4,
     explicacao:
       "Chamando J = ∫ eˣ cos x dx, com u = cos x e dv = eˣ dx: J = eˣ cos x + ∫ eˣ sen x dx. De novo, com u = sen x: ∫ eˣ sen x dx = eˣ sen x − J. Então J = eˣ cos x + eˣ sen x − J, e 2J = eˣ(sen x + cos x): J = eˣ(sen x + cos x)/2 + C.\n\neˣ(sen x − cos x)/2 + C é a primitiva de eˣ sen x. eˣ(sen x + cos x) + C esquece de dividir por 2. eˣ · sen x + C esquece a parcela do cosseno e a divisão. E eˣ(cos x − sen x)/2 + C erra o sinal do seno.",
   },
@@ -412,12 +412,12 @@ export const questoes = [
       "Escrevendo x³ · e^(x²) = x² · (x · e^(x²)), qual é a integral ∫ x³ · e^(x²) dx?",
     opcoes: [
       "e^(x²) · x²/2 + C",
-      "e^(x²) · (x² + 1)/2 + C",
       "e^(x²) · (x² − 1)/2 + C",
+      "e^(x²) · (x² + 1)/2 + C",
       "x⁴ · e^(x²)/4 + C",
       "e^(x²) · (x² − 1) + C",
     ],
-    correta: 2,
+    correta: 1,
     explicacao:
       "Com u = x² e dv = x e^(x²) dx: du = 2x dx e v = e^(x²)/2, por substituição. Então ∫ x³e^(x²) dx = x²e^(x²)/2 − ∫ x e^(x²) dx = x²e^(x²)/2 − e^(x²)/2 = e^(x²)(x² − 1)/2 + C.\n\ne^(x²) · x²/2 + C para em uv. e^(x²) · (x² + 1)/2 + C soma a integral em vez de subtrair. x⁴ · e^(x²)/4 + C integra os fatores em separado. E e^(x²) · (x² − 1) + C esquece o fator 1/2 de v.",
   },
@@ -429,12 +429,12 @@ export const questoes = [
       "No intervalo [0, π/2], qual é o valor exato de ∫ x · cos x dx?",
     opcoes: [
       "π/2",
-      "1",
       "π/2 − 1",
+      "1",
       "π/2 + 1",
       "−1",
     ],
-    correta: 2,
+    correta: 1,
     explicacao:
       "Por partes, uma primitiva de x cos x é x sen x + cos x. Em x = π/2: (π/2) · 1 + 0 = π/2. Em x = 0: 0 + 1 = 1. A integral vale π/2 − 1 ≈ 0,57. É a primitiva de x cos x obtida por partes, calculada nos extremos.\n\nπ/2 esquece de subtrair o valor em x = 0, que é 1, e não zero. 1 fica só com o valor em x = 0. π/2 + 1 soma em vez de subtrair. E −1 esquece a parcela x sen x.",
   },
@@ -464,11 +464,11 @@ export const questoes = [
     opcoes: [
       "x² ln x + C",
       "x² ln x − x² + C",
-      "x² ln x − x²/2 + C",
       "2x ln x − 2x + C",
       "x² ln x − x²/4 + C",
+      "x² ln x − x²/2 + C",
     ],
-    correta: 2,
+    correta: 4,
     explicacao:
       "Como ln(x²) = 2 ln x, o integrando é 2x ln x. Por partes, com u = ln x e dv = 2x dx: v = x², du = dx/x, e ∫ 2x ln x dx = x² ln x − ∫ x dx = x² ln x − x²/2 + C.\n\nx² ln x + C para em uv. x² ln x − x² + C esquece de dividir x² por 2 na integral de x. 2x ln x − 2x + C é o dobro da primitiva de ln x, sem o fator x. E x² ln x − x²/4 + C usa a conta de ∫ x ln x, esquecendo o fator 2.",
   },
@@ -480,12 +480,12 @@ export const questoes = [
       "Aplicando partes, com u = x e dv = eˣ dx, à integral de xeˣ de 0 a 1, que expressão se obtém?",
     opcoes: [
       "[xeˣ] de 0 a 1 + (integral de eˣ de 0 a 1)",
-      "[eˣ] de 0 a 1 − (integral de xeˣ de 0 a 1)",
       "[xeˣ] de 0 a 1 − (integral de eˣ de 0 a 1)",
+      "[eˣ] de 0 a 1 − (integral de xeˣ de 0 a 1)",
       "[x²eˣ/2] de 0 a 1 + (integral de x²eˣ/2 de 0 a 1)",
       "(integral de x de 0 a 1) · (integral de eˣ de 0 a 1)",
     ],
-    correta: 2,
+    correta: 1,
     explicacao:
       "Na versão definida, a fórmula é ∫ₐᵇ u dv = [uv]ₐᵇ − ∫ₐᵇ v du. Com u = x, du = dx, v = eˣ: ∫₀¹ xeˣ dx = [xeˣ]₀¹ − ∫₀¹ eˣ dx = e − (e − 1) = 1.\n\nSomar a integral de eˣ erra o sinal da fórmula. [eˣ] − ∫ xeˣ troca os papéis de u e v e ainda repete a integral original. A expressão com x²eˣ/2 usa u = eˣ, mas soma a integral que devia subtrair. E o produto das integrais integra os fatores em separado, o que não vale.",
   },
@@ -498,11 +498,11 @@ export const questoes = [
     opcoes: [
       "(x²/2) · arctg x + C",
       "(x²/2) · arctg x − x/2 + C",
-      "((x² + 1) · arctg x − x)/2 + C",
       "((x² + 1) · arctg x + x)/2 + C",
       "x · arctg x − ln(1 + x²)/2 + C",
+      "((x² + 1) · arctg x − x)/2 + C",
     ],
-    correta: 2,
+    correta: 4,
     explicacao:
       "Com u = arctg x, du = dx/(1 + x²); com dv = x dx, v = x²/2. Então ∫ x arctg x dx = (x²/2) arctg x − (1/2)∫ x²/(1 + x²) dx. Como x²/(1 + x²) = 1 − 1/(1 + x²), a integral que sobra vale x − arctg x. Juntando: ((x² + 1) arctg x − x)/2 + C.\n\n(x²/2) · arctg x + C para em uv. (x²/2) · arctg x − x/2 + C esquece a parcela arctg x/2 que vem da divisão. ((x² + 1) · arctg x + x)/2 + C erra o sinal de x. E a última alternativa é a primitiva de arctg x, sem o fator x.",
   },
@@ -531,12 +531,12 @@ export const questoes = [
       "Com u = ln(x² + 1) e dv = dx, qual é a integral ∫ ln(x² + 1) dx?",
     opcoes: [
       "x · ln(x² + 1) − 2x + C",
+      "x · ln(x² + 1) − 2x + 2arctg x + C",
       "x · ln(x² + 1) + C",
       "2x/(x² + 1) + C",
-      "x · ln(x² + 1) − 2x + 2arctg x + C",
       "x · ln(x² + 1) − 2arctg x + C",
     ],
-    correta: 3,
+    correta: 1,
     explicacao:
       "Com u = ln(x² + 1), du = 2x dx/(x² + 1); com dv = dx, v = x. Então ∫ ln(x² + 1) dx = x ln(x² + 1) − ∫ 2x²/(x² + 1) dx. Como 2x²/(x² + 1) = 2 − 2/(x² + 1), a integral que sobra vale 2x − 2arctg x. Resultado: x ln(x² + 1) − 2x + 2arctg x + C.\n\nx · ln(x² + 1) − 2x + C esquece a parcela do arco tangente. x · ln(x² + 1) + C para em uv. 2x/(x² + 1) + C é a derivada do integrando. E a última alternativa esquece a parcela −2x.",
   },
@@ -567,10 +567,10 @@ export const questoes = [
       "eˣ · cos x + C",
       "eˣ(sen x − cos x) + C",
       "eˣ(sen x + cos x) + C",
-      "eˣ · sen x + C",
       "−eˣ · cos x + C",
+      "eˣ · sen x + C",
     ],
-    correta: 3,
+    correta: 4,
     explicacao:
       "Por partes em ∫ eˣ sen x dx, com u = sen x e v = eˣ: eˣ sen x − ∫ eˣ cos x dx. Somando ∫ eˣ cos x dx, a integral que sobra se cancela: o resultado é eˣ sen x + C. É a regra do produto de trás para a frente: (eˣ sen x)' = eˣ sen x + eˣ cos x.\n\neˣ · cos x + C tem derivada eˣ(cos x − sen x). eˣ(sen x − cos x) + C tem derivada 2eˣ sen x. eˣ(sen x + cos x) + C tem derivada 2eˣ cos x. E −eˣ · cos x + C tem derivada eˣ(sen x − cos x).",
   },
@@ -582,12 +582,12 @@ export const questoes = [
       "Com u = x e dv = sen(2x) dx, qual é a integral ∫ x · sen(2x) dx?",
     opcoes: [
       "−x · cos(2x)/2 + sen(2x)/2 + C",
+      "−x · cos(2x)/2 + sen(2x)/4 + C",
       "x · cos(2x)/2 − sen(2x)/4 + C",
       "−x · cos(2x) + sen(2x) + C",
-      "−x · cos(2x)/2 + sen(2x)/4 + C",
       "−(x²/2) · cos(2x) + C",
     ],
-    correta: 3,
+    correta: 1,
     explicacao:
       "Com u = x e dv = sen(2x) dx: du = dx e v = −cos(2x)/2. Então ∫ x sen(2x) dx = −x cos(2x)/2 + ∫ cos(2x)/2 dx = −x cos(2x)/2 + sen(2x)/4 + C. Os fatores 1/2 vêm de integrar funções de 2x.\n\n−x · cos(2x)/2 + sen(2x)/2 + C esquece o segundo fator 1/2. x · cos(2x)/2 − sen(2x)/4 + C troca todos os sinais. −x · cos(2x) + sen(2x) + C esquece os dois fatores. E −(x²/2) · cos(2x) + C integra os fatores em separado.",
   },
@@ -652,10 +652,10 @@ export const questoes = [
       "e^π + 1",
       "(e^π − 1)/2",
       "e^π/2",
-      "(e^π + 1)/2",
       "0",
+      "(e^π + 1)/2",
     ],
-    correta: 3,
+    correta: 4,
     explicacao:
       "Uma primitiva de eˣ sen x, por partes duas vezes, é eˣ(sen x − cos x)/2. Em x = π: e^π(0 + 1)/2 = e^π/2. Em x = 0: (0 − 1)/2 = −1/2. A integral vale e^π/2 + 1/2 = (e^π + 1)/2 ≈ 12,1.\n\ne^π + 1 esquece a divisão por 2 que isola a integral. (e^π − 1)/2 erra o sinal do valor em x = 0. e^π/2 esquece de subtrair o valor em x = 0. E 0 supõe que o seno faz as áreas se cancelarem, mas em [0, π] ele é positivo.",
   },
@@ -685,11 +685,11 @@ export const questoes = [
     opcoes: [
       "3ˣ · (x/ln 3 − 1/ln 3) + C",
       "x · 3ˣ/ln 3 + C",
-      "3ˣ · (x · ln 3 − 1) + C",
       "3ˣ · (x/ln 3 − 1/(ln 3)²) + C",
+      "3ˣ · (x · ln 3 − 1) + C",
       "3ˣ · (x/ln 3 + 1/(ln 3)²) + C",
     ],
-    correta: 3,
+    correta: 2,
     explicacao:
       "Com dv = 3ˣ dx, v = 3ˣ/ln 3. Então ∫ x · 3ˣ dx = x · 3ˣ/ln 3 − ∫ 3ˣ/ln 3 dx = x · 3ˣ/ln 3 − 3ˣ/(ln 3)² = 3ˣ(x/ln 3 − 1/(ln 3)²) + C. O fator ln 3 aparece duas vezes, uma em cada integração da exponencial.\n\n3ˣ · (x/ln 3 − 1/ln 3) + C divide só uma vez por ln 3 na integral que sobra. x · 3ˣ/ln 3 + C para em uv. 3ˣ · (x · ln 3 − 1) + C multiplica por ln 3 em vez de dividir. E a última alternativa soma a integral em vez de subtrair.",
   },
@@ -717,13 +717,13 @@ export const questoes = [
     enunciado:
       "Qual é a integral ∫ e^(2x) · cos(3x) dx, obtida por partes duas vezes?",
     opcoes: [
+      "e^(2x) · (2cos(3x) + 3sen(3x))/13 + C",
       "e^(2x) · (2cos(3x) − 3sen(3x))/13 + C",
       "e^(2x) · (2cos(3x) + 3sen(3x))/5 + C",
       "e^(2x) · sen(3x)/6 + C",
       "e^(2x) · (3cos(3x) + 2sen(3x))/13 + C",
-      "e^(2x) · (2cos(3x) + 3sen(3x))/13 + C",
     ],
-    correta: 4,
+    correta: 0,
     explicacao:
       "Chamando J a integral: com u = cos(3x) e v = e^(2x)/2, J = e^(2x)cos(3x)/2 + (3/2)∫ e^(2x) sen(3x) dx. De novo: ∫ e^(2x) sen(3x) dx = e^(2x) sen(3x)/2 − (3/2)J. Então J = e^(2x)cos(3x)/2 + (3/4)e^(2x) sen(3x) − (9/4)J, e (13/4)J = e^(2x)(2cos(3x) + 3sen(3x))/4. Resultado: e^(2x)(2cos(3x) + 3sen(3x))/13 + C.\n\nA alternativa com o sinal de menos erra o sinal da primeira integral por partes. A divisão por 5 soma 2 + 3 em vez de 2² + 3² = 13. e^(2x) · sen(3x)/6 + C integra os fatores em separado. E a última troca os coeficientes 2 e 3 de lugar.",
   },
@@ -734,13 +734,13 @@ export const questoes = [
     enunciado:
       "A secante ao cubo tem uma primitiva clássica, obtida por partes. Qual é ∫ (sec x)³ dx?",
     opcoes: [
+      "(sec x · tg x + ln|sec x + tg x|)/2 + C",
       "sec x · tg x + C",
       "(sec x)⁴/4 + C",
       "(sec x · tg x − ln|sec x + tg x|)/2 + C",
       "sec x · tg x + ln|sec x + tg x| + C",
-      "(sec x · tg x + ln|sec x + tg x|)/2 + C",
     ],
-    correta: 4,
+    correta: 0,
     explicacao:
       "Com u = sec x e dv = (sec x)² dx: du = sec x tg x dx e v = tg x. Então I = sec x tg x − ∫ sec x (tg x)² dx = sec x tg x − ∫ sec x((sec x)² − 1) dx = sec x tg x − I + ∫ sec x dx. Como ∫ sec x dx = ln|sec x + tg x|, vem 2I = sec x tg x + ln|sec x + tg x|, e I é a metade disso.\n\nsec x · tg x + C é a derivada de sec x, e fica só com uv. (sec x)⁴/4 + C aplica a regra da potência sem o fator que a substituição exigiria. A alternativa com o sinal de menos erra a primitiva da secante. E a última esquece a divisão por 2 ao isolar I.",
   },
@@ -752,12 +752,12 @@ export const questoes = [
       "Pela fórmula de redução obtida por partes, Iₙ = ((n − 1)/n) · Iₙ₋₂ para a integral de (sen x)ⁿ de 0 a π/2. Quanto vale I₄?",
     opcoes: [
       "π/4",
+      "3π/16",
       "3π/8",
       "π/16",
       "1/4",
-      "3π/16",
     ],
-    correta: 4,
+    correta: 1,
     explicacao:
       "Com I₀ = ∫₀^(π/2) dx = π/2, a fórmula dá I₂ = (1/2) · π/2 = π/4 e I₄ = (3/4) · π/4 = 3π/16 ≈ 0,59. A fórmula sai de partes com u = (sen x)ⁿ⁻¹ e dv = sen x dx, e o termo de fronteira se anula em 0 e em π/2.\n\nπ/4 é I₂, uma etapa antes. 3π/8 esquece o fator 1/2 de I₂ e usa I₀ direto. π/16 multiplica por 1/4 no lugar de 3/4. E 1/4 esquece o fator π que vem de I₀.",
   },
@@ -787,11 +787,11 @@ export const questoes = [
     opcoes: [
       "x²",
       "2x",
+      "x² + 2x",
       "x² − 2x",
       "x² + 2x + 2",
-      "x² + 2x",
     ],
-    correta: 4,
+    correta: 2,
     explicacao:
       "Pelo teorema fundamental, a derivada da primitiva é o integrando: (x²eˣ)' = 2xeˣ + x²eˣ = (x² + 2x)eˣ. Então f(x)eˣ = (x² + 2x)eˣ, e f(x) = x² + 2x. É o caminho inverso da integração por partes.\n\nx² supõe que eˣ se integra sem deixar marca no fator polinomial. 2x fica só com a derivada de x². x² − 2x erra o sinal. E x² + 2x + 2 soma uma parcela que viria de outra integração.",
   },
@@ -802,13 +802,13 @@ export const questoes = [
     enunciado:
       "Para x > 0, com u = √x seguido de partes, qual é a integral ∫ e^(√x) dx?",
     opcoes: [
+      "2(√x − 1) · e^(√x) + C",
       "2√x · e^(√x) + C",
       "(√x − 1) · e^(√x) + C",
       "e^(√x)/(2√x) + C",
       "2(√x + 1) · e^(√x) + C",
-      "2(√x − 1) · e^(√x) + C",
     ],
-    correta: 4,
+    correta: 0,
     explicacao:
       "Com w = √x, x = w² e dx = 2w dw, e a integral vira 2∫ w eʷ dw. Por partes, ∫ w eʷ dw = (w − 1)eʷ. Então ∫ e^(√x) dx = 2(√x − 1)e^(√x) + C. Conferindo: a derivada é 2 · e^(√x)/(2√x) + 2(√x − 1) · e^(√x)/(2√x) = e^(√x).\n\n2√x · e^(√x) + C para em uv. (√x − 1) · e^(√x) + C esquece o fator 2 de dx = 2w dw. e^(√x)/(2√x) + C é a derivada de e^(√x). E 2(√x + 1) · e^(√x) + C soma a integral em vez de subtrair.",
   },
@@ -819,13 +819,13 @@ export const questoes = [
     enunciado:
       "A primitiva x · arctg x − ln(1 + x²)/2 sai por partes. Qual é, então, a área sob y = arctg x de 0 a 1?",
     opcoes: [
+      "π/4 − ln 2/2",
       "π/4",
       "π/4 − ln 2",
       "π/4 + ln 2/2",
       "1 − ln 2/2",
-      "π/4 − ln 2/2",
     ],
-    correta: 4,
+    correta: 0,
     explicacao:
       "Por partes, uma primitiva de arctg x é x arctg x − ln(1 + x²)/2. Em x = 1: π/4 − ln 2/2. Em x = 0: 0. A integral vale π/4 − ln 2/2 ≈ 0,44. O valor fica abaixo de π/4 ≈ 0,79, o maior valor do integrando no intervalo, como deve ser.\n\nπ/4 esquece a parcela do logaritmo. π/4 − ln 2 esquece o fator 1/2 da substituição. π/4 + ln 2/2 soma a integral em vez de subtrair. E 1 − ln 2/2 troca arctg 1 = π/4 por 1.",
   },
@@ -855,11 +855,11 @@ export const questoes = [
     opcoes: [
       "−e^(−x) · (x² + 1) + C",
       "e^(−x) · (x² + 2x + 3) + C",
+      "−e^(−x) · (x² + 2x + 3) + C",
       "−e^(−x) · (x² + 2x + 1) + C",
       "−e^(−x) · (x² − 2x + 3) + C",
-      "−e^(−x) · (x² + 2x + 3) + C",
     ],
-    correta: 4,
+    correta: 2,
     explicacao:
       "Pelo método tabular: deriva-se x² + 1 (x² + 1, 2x, 2, 0) e integra-se e^(−x) repetidamente (−e^(−x), e^(−x), −e^(−x)). Os produtos com sinais +, −, + dão −(x² + 1)e^(−x) − 2xe^(−x) − 2e^(−x) = −e^(−x)(x² + 2x + 3) + C.\n\n−e^(−x) · (x² + 1) + C para em uv. e^(−x) · (x² + 2x + 3) + C perde o sinal de fora. −e^(−x) · (x² + 2x + 1) + C esquece a última parcela do método tabular, −2e^(−x), que vem da derivada segunda. E a última erra o sinal da parcela 2x.",
   },

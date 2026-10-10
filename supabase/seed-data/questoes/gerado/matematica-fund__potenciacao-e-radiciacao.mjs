@@ -37,13 +37,13 @@ export const questoes = [
     enunciado:
       "Uma potência de base 10 é fácil de calcular. Quanto vale 10³?",
     opcoes: [
-      "1.000",
       "30",
       "100",
+      "1.000",
       "10.000",
       "300",
     ],
-    correta: 0,
+    correta: 2,
     explicacao:
       "O expoente 3 indica três fatores 10: 10 × 10 × 10 = 1.000. Em potências de 10, o expoente diz quantos zeros seguem o algarismo 1, então 10³ é o 1 seguido de três zeros.\n\n30 multiplica a base pelo expoente, 10 × 3. 100 é 10², com um zero a menos. 10.000 é 10⁴, com um zero a mais. E 300 mistura a base, o expoente e o número de zeros sem relação com a definição de potência.",
   },
@@ -71,13 +71,13 @@ export const questoes = [
     enunciado:
       "Calculando uma potência com expoente maior, quanto vale 3⁴?",
     opcoes: [
-      "81",
       "12",
+      "81",
       "64",
       "27",
       "243",
     ],
-    correta: 0,
+    correta: 1,
     explicacao:
       "O expoente 4 indica quatro fatores 3: 3 × 3 × 3 × 3. Multiplicando aos pares, 3 × 3 = 9 e 9 × 9 = 81. Outra forma é 3² = 9 e 9² = 81. Em potências, o expoente conta quantas vezes a base aparece como fator, e não por quanto ela é multiplicada.\n\n12 multiplica a base pelo expoente, 3 × 4. 64 troca as posições, calculando 4³. 27 usa o expoente 3, um fator a menos. E 243 usa o expoente 5, um fator a mais.",
   },
@@ -88,13 +88,13 @@ export const questoes = [
     enunciado:
       "A raiz quadrada de um quadrado perfeito é exata. Qual é a raiz quadrada de 49?",
     opcoes: [
-      "7",
       "24,5",
       "9",
       "98",
+      "7",
       "6",
     ],
-    correta: 0,
+    correta: 3,
     explicacao:
       "A raiz quadrada de 49 é o número positivo que, multiplicado por ele mesmo, dá 49. Como 7 × 7 = 49, a raiz quadrada de 49 é 7. Conferindo, 7² = 49, e por isso a raiz quadrada e o quadrado são operações inversas.\n\n24,5 divide 49 por 2, confundindo raiz quadrada com metade. 9 e 6 são números próximos de 7, mas 9 × 9 = 81 e 6 × 6 = 36, que não são 49. E 98 dobra o número em vez de extrair a raiz.",
   },
@@ -122,13 +122,13 @@ export const questoes = [
     enunciado:
       "A raiz cúbica desfaz a elevação ao cubo. Qual é a raiz cúbica de 27?",
     opcoes: [
-      "3",
       "9",
       "13,5",
       "81",
       "6",
+      "3",
     ],
-    correta: 0,
+    correta: 4,
     explicacao:
       "A raiz cúbica de 27 é o número que, multiplicado por ele mesmo três vezes, dá 27. Como 3 × 3 × 3 = 27, a raiz cúbica de 27 é 3. Conferindo, o cubo de 3 volta exatamente ao número 27, mostrando que as operações são inversas.\n\n9 é a raiz quadrada de 81 e também o quadrado de 3, mas 9 × 9 × 9 = 729. 13,5 divide 27 por 2, sem relação com a raiz. 81 é 3⁴, uma potência do próprio 3. E 6 dobra a raiz correta, e 6 × 6 × 6 = 216.",
   },
@@ -139,13 +139,13 @@ export const questoes = [
     enunciado:
       "Elevando um número negativo a um expoente ímpar, quanto vale (−2)³?",
     opcoes: [
-      "−8",
       "8",
       "−6",
       "6",
+      "−8",
       "−9",
     ],
-    correta: 0,
+    correta: 3,
     explicacao:
       "(−2)³ = (−2) × (−2) × (−2). Os dois primeiros fatores dão (−2) × (−2) = +4, e multiplicar por −2 de novo dá 4 × (−2) = −8. Com expoente ímpar, o resultado de uma base negativa continua negativo.\n\n8 perde o sinal negativo, como se o expoente fosse par. −6 multiplica a base pelo expoente, −2 × 3. 6 faz a mesma conta, perdendo também o sinal. E −9 troca a base pelo 3, calculando algo parecido com −3².",
   },
@@ -156,13 +156,13 @@ export const questoes = [
     enunciado:
       "Ao elevar −3 ao quadrado, com parênteses mostrando que o sinal faz parte da base, que resultado se obtém?",
     opcoes: [
-      "9",
       "−9",
+      "9",
       "6",
       "−6",
       "12",
     ],
-    correta: 0,
+    correta: 1,
     explicacao:
       "(−3)² = (−3) × (−3) = 9, porque o produto de dois números negativos é positivo. Com expoente par, uma base negativa dá resultado positivo, já que os sinais se cancelam em pares.\n\n−9 mantém o sinal negativo, o que só aconteceria se o sinal de menos ficasse fora da potência, −(3²). −6 e 6 multiplicam a base pelo expoente. E 12 multiplica 3 por 4, sem relação com a potência pedida.",
   },
@@ -173,13 +173,13 @@ export const questoes = [
     enunciado:
       "O quadrado de um número é esse número multiplicado por ele mesmo. Qual é o quadrado de 15?",
     opcoes: [
-      "225",
       "30",
+      "225",
       "125",
       "152",
       "215",
     ],
-    correta: 0,
+    correta: 1,
     explicacao:
       "O quadrado de 15 é 15² = 15 × 15. Multiplicando por partes, 15 × 10 = 150 e 15 × 5 = 75, e 150 + 75 = 225. Conferindo por outro caminho, 15² = (10 + 5)² = 100 + 2 × 10 × 5 + 25 = 100 + 100 + 25 = 225.\n\n30 dobra o número, 15 × 2, confundindo quadrado com dobro. 125 é 5³, um cubo e não o quadrado de 15. 152 apenas inverte os algarismos de 15 e 2. E 215 erra a soma das multiplicações parciais.",
   },
@@ -191,12 +191,12 @@ export const questoes = [
       "Multiplicando potências de mesma base, quanto vale 2³ × 2⁴?",
     opcoes: [
       "16.384",
-      "128",
       "64",
       "56",
+      "128",
       "14",
     ],
-    correta: 1,
+    correta: 3,
     explicacao:
       "Na multiplicação de potências de mesma base, conservam-se a base e somam-se os expoentes: 2³ × 2⁴ = 2⁷ = 128. Conferindo, 2³ = 8, 2⁴ = 16 e 8 × 16 = 128.\n\n16.384 multiplica as bases, 2 × 2 = 4, e soma os expoentes, o que dá 4⁷ e não o produto pedido. 64 multiplica os expoentes em vez de somar, dando um valor que não confere com 8 × 16. 56 e 14 misturam os números 8, 16, 3 e 4 por somas ou produtos sem relação com a regra.",
   },
@@ -207,13 +207,13 @@ export const questoes = [
     enunciado:
       "Somando duas potências de 10 com expoentes diferentes, quanto vale 10⁰ + 10¹?",
     opcoes: [
-      "10",
       "11",
+      "10",
       "20",
       "1",
       "0",
     ],
-    correta: 1,
+    correta: 0,
     explicacao:
       "Calculando cada potência, 10⁰ = 1, pois todo número não nulo elevado a zero vale 1, e 10¹ = 10, pois o expoente 1 mantém a base. Somando, 1 + 10 = 11.\n\n10 é só a segunda potência, esquecendo de somar 10⁰. 20 toma as duas potências como 10. 1 é só a primeira potência. E 0 supõe que uma potência de expoente zero vale zero, o que é um erro comum.",
   },
@@ -242,12 +242,12 @@ export const questoes = [
       "Dividindo potências de mesma base, quanto vale 5⁶ ÷ 5²?",
     opcoes: [
       "125",
-      "625",
       "3",
       "15.625",
       "25",
+      "625",
     ],
-    correta: 1,
+    correta: 4,
     explicacao:
       "Na divisão de potências de mesma base, conservam-se a base e subtraem-se os expoentes: 5⁶ ÷ 5² = 5⁶⁻² = 5⁴ = 625. Conferindo, 5⁶ = 15.625, 5² = 25 e 15.625 ÷ 25 = 625.\n\n125 divide os expoentes, 6 ÷ 2 = 3, em vez de subtraí-los. 3 é essa mesma divisão sem calcular a potência. 15.625 é o dividendo, sem dividir por nada. E 25 é o divisor, 5², sem efetuar a divisão.",
   },
@@ -259,12 +259,12 @@ export const questoes = [
       "Elevando uma potência a outro expoente, quanto vale (2³)²?",
     opcoes: [
       "32",
-      "64",
       "16",
+      "64",
       "512",
       "8",
     ],
-    correta: 1,
+    correta: 2,
     explicacao:
       "Na potência de potência, multiplicam-se os expoentes: (2³)² = 2³ˣ² = 2⁶ = 64. Conferindo, 2³ = 8 e 8² = 64. Isso vale porque elevar ao quadrado é repetir duas vezes o produto de três fatores 2.\n\n32 soma os expoentes, 3 + 2 = 5, em vez de multiplicá-los. 16 e 8 usam um único fator ou uma das potências intermediárias. E 512 é 2⁹, isto é, 2 elevado a 3², como se a potência de potência fosse calculada de fora para dentro.",
   },
@@ -292,13 +292,13 @@ export const questoes = [
     enunciado:
       "Pela ordem das operações, em que o sinal de menos sem parênteses fica fora da potência, quanto vale −3⁴?",
     opcoes: [
-      "81",
       "−81",
+      "81",
       "−12",
       "12",
       "−64",
     ],
-    correta: 1,
+    correta: 0,
     explicacao:
       "Sem parênteses em volta do −3, a potência age só sobre a base 3: −3⁴ = −(3⁴) = −(3 × 3 × 3 × 3) = −81. O sinal de menos é aplicado depois de calcular a potência. O sinal de menos só entra na base quando aparece dentro de parênteses junto com o número.\n\n81 seria o valor de (−3)⁴, com o sinal dentro dos parênteses. −12 e 12 multiplicam a base pelo expoente. E −64 troca a base e o expoente, calculando −4³.",
   },
@@ -310,12 +310,12 @@ export const questoes = [
       "Um expoente negativo indica o inverso da potência. Quanto vale 2⁻³?",
     opcoes: [
       "−8",
-      "1/8",
       "−6",
       "1/6",
       "8",
+      "1/8",
     ],
-    correta: 1,
+    correta: 4,
     explicacao:
       "Uma base elevada a um expoente negativo é o inverso da mesma base elevada ao expoente positivo: 2⁻³ = 1/2³ = 1/8. Isso mantém a regra da divisão de potências, pois 2⁰ ÷ 2³ = 2⁻³ e 1 ÷ 8 = 1/8.\n\n−8 apenas troca o sinal do resultado de 2³ em vez de inverter. −6 e 1/6 multiplicam a base pelo expoente. E 8 calcula 2³ e esquece de inverter o resultado.",
   },
@@ -344,12 +344,12 @@ export const questoes = [
       "Multiplicando duas raízes quadradas exatas, quanto vale √25 × √4?",
     opcoes: [
       "20",
-      "10",
       "7",
       "100",
       "29",
+      "10",
     ],
-    correta: 1,
+    correta: 4,
     explicacao:
       "√25 = 5 e √4 = 2, então o produto é 5 × 2 = 10. Conferindo pela propriedade da raiz do produto, √25 × √4 = √(25 × 4) = √100 = 10. Em símbolos, √a × √b = √(a × b), propriedade que vale para radicandos positivos e confere os dois caminhos.\n\n20 multiplica 5 × 4, esquecendo de extrair a raiz de 4. 7 soma as raízes em vez de multiplicar. 100 é o produto dos radicandos, sem extrair a raiz. E 29 soma os radicandos.",
   },
@@ -362,11 +362,11 @@ export const questoes = [
     opcoes: [
       "6 e 7",
       "8 e 9",
-      "7 e 8",
       "5 e 6",
+      "7 e 8",
       "24 e 25",
     ],
-    correta: 2,
+    correta: 3,
     explicacao:
       "Os quadrados perfeitos vizinhos de 50 são 49 = 7² e 64 = 8². Como 49 < 50 < 64, a raiz √50 está entre √49 = 7 e √64 = 8, e vale cerca de 7,07.\n\n6 e 7 corresponderiam a números entre 36 e 49. 8 e 9 corresponderiam a números entre 64 e 81. 5 e 6 corresponderiam a números entre 25 e 36. E 24 e 25 são aproximadamente a metade de 50, que não tem relação com a raiz.",
   },
@@ -377,13 +377,13 @@ export const questoes = [
     enunciado:
       "Quantos números quadrados perfeitos existem entre 1 e 100, contando as duas extremidades?",
     opcoes: [
+      "10",
       "9",
       "11",
-      "10",
       "100",
       "50",
     ],
-    correta: 2,
+    correta: 0,
     explicacao:
       "Os quadrados perfeitos nesse intervalo são 1², 2², 3², ..., 10², isto é, 1, 4, 9, 16, 25, 36, 49, 64, 81 e 100. São 10 números, pois 10² = 100 e 11² = 121 já passa do limite.\n\n9 esquece de contar o 100, que é 10². 11 conta também 11², que vale 121. 100 confunde a quantidade de números do intervalo com a de quadrados perfeitos. E 50 supõe que metade dos números seria quadrado perfeito.",
   },
@@ -394,13 +394,13 @@ export const questoes = [
     enunciado:
       "Somando dois quadrados, quanto vale 3² + 4²?",
     opcoes: [
+      "25",
       "49",
       "14",
-      "25",
       "7",
       "24",
     ],
-    correta: 2,
+    correta: 0,
     explicacao:
       "Calculando cada potência, 3² = 9 e 4² = 16. Somando, 9 + 16 = 25. O resultado é um quadrado perfeito, 5², pois (3, 4, 5) é um trio pitagórico.\n\n49 é (3 + 4)², elevando a soma ao quadrado em vez de somar os quadrados. 14 é 2 × 7, somando 3 + 4 e dobrando. 7 é a soma das bases, sem elevar nada ao quadrado. E 24 erra a soma dos quadrados por uma unidade.",
   },
@@ -412,12 +412,12 @@ export const questoes = [
       "Comparando o quadrado de uma soma com a soma dos quadrados, quanto vale (5 + 2)² − 5² − 2²?",
     opcoes: [
       "0",
-      "24",
       "20",
+      "24",
       "14",
       "10",
     ],
-    correta: 2,
+    correta: 1,
     explicacao:
       "Calculando cada parte, (5 + 2)² = 7² = 49, 5² = 25 e 2² = 4. Então 49 − 25 − 4 = 20. A diferença é 2 × 5 × 2 = 20, o termo do meio do produto notável (a + b)² = a² + 2ab + b².\n\n0 supõe que o quadrado da soma é igual à soma dos quadrados, o que não vale. 24 erra a subtração, tirando 25 e 0. 14 e 10 misturam os números 5, 2 e 7 por somas ou produtos sem relação com a expressão.",
   },
@@ -430,11 +430,11 @@ export const questoes = [
     opcoes: [
       "100",
       "512",
-      "1.024",
       "2.048",
       "20",
+      "1.024",
     ],
-    correta: 2,
+    correta: 4,
     explicacao:
       "A cada dobra, o tamanho é multiplicado por 2. Depois de 10 dobras, o tamanho é 2¹⁰ = 1.024 unidades. Conferindo por partes, 2⁵ = 32 e 32 × 32 = 1.024. Cada dobra multiplica o tamanho anterior por 2, e dez dobras seguidas multiplicam 2 dez vezes.\n\n100 confunde 2¹⁰ com 10². 512 é 2⁹, uma dobra a menos. 2.048 é 2¹¹, uma dobra a mais. E 20 multiplica o número de dobras por 2 em vez de elevar 2 ao número de dobras.",
   },
@@ -445,13 +445,13 @@ export const questoes = [
     enunciado:
       "Fatorando 144 em fatores primos, qual é o expoente do fator 2?",
     opcoes: [
+      "4",
       "2",
       "3",
-      "4",
       "6",
       "12",
     ],
-    correta: 2,
+    correta: 0,
     explicacao:
       "Dividindo sucessivamente por 2: 144 ÷ 2 = 72, ÷ 2 = 36, ÷ 2 = 18, ÷ 2 = 9, e 9 já não é divisível por 2. Foram 4 divisões, então o expoente do 2 é 4. O restante 9 = 3², e 144 = 2⁴ × 3². Esse processo é a decomposição em fatores primos, usada para extrair raízes e calcular divisores.\n\n2 é o expoente do fator 3, e não do 2. 3 e 6 contam divisões a menos ou a mais. E 12 é a raiz quadrada de 144, sem relação com o expoente do fator 2.",
   },
@@ -464,11 +464,11 @@ export const questoes = [
     opcoes: [
       "45.000",
       "450",
-      "4.500",
       "45",
+      "4.500",
       "4.500.000",
     ],
-    correta: 2,
+    correta: 3,
     explicacao:
       "Multiplicar por 10³ = 1.000 desloca a vírgula três casas para a direita: 4,5 → 45 → 450 → 4.500. O resultado é 4.500, e o zero é acrescentado quando faltam algarismos. Esse é o princípio da notação científica.\n\n45.000 desloca a vírgula quatro casas. 450 a desloca duas casas. 45 a desloca apenas uma. E 4.500.000 desloca a vírgula seis casas, como se a multiplicação fosse por 10⁶.",
   },
@@ -496,13 +496,13 @@ export const questoes = [
     enunciado:
       "Um quadrado tem área de 81 cm². Quanto mede o lado desse quadrado?",
     opcoes: [
+      "9",
       "40,5",
       "18",
-      "9",
       "8",
       "27",
     ],
-    correta: 2,
+    correta: 0,
     explicacao:
       "A área do quadrado é lado × lado, então o lado é a raiz quadrada da área: √81 = 9 cm, pois 9 × 9 = 81. Conferindo, 9² = 81. Geometricamente, um quadrado de lado 9 tem 9 fileiras de 9 quadradinhos unitários, totalizando 81 unidades de área.\n\n40,5 divide a área por 2, sem relação com o lado. 18 dobra o valor correto. 8 tem quadrado 64. E 27 é a área dividida por 3, que também não é a raiz.",
   },
@@ -530,13 +530,13 @@ export const questoes = [
     enunciado:
       "Um cubo tem volume de 125 cm³. Quanto mede a aresta desse cubo, em cm?",
     opcoes: [
+      "5",
       "25",
       "15",
       "62,5",
-      "5",
       "12,5",
     ],
-    correta: 3,
+    correta: 0,
     explicacao:
       "O volume do cubo é aresta³, então a aresta é a raiz cúbica do volume: ∛125 = 5 cm, pois 5 × 5 × 5 = 125. Conferindo, 5³ = 125.\n\n25 é 5², a área de uma face, e 25 × 25 × 25 é muito maior que 125. 15 é 125 dividido por 3 arredondado, e 62,5 é metade do volume, e 12,5 é um décimo dele. Nenhum desses, multiplicado por ele mesmo três vezes, dá 125.",
   },
@@ -550,10 +550,10 @@ export const questoes = [
       "0,06",
       "0,18",
       "0,36",
-      "0,6",
       "6",
+      "0,6",
     ],
-    correta: 3,
+    correta: 4,
     explicacao:
       "Escrevendo 0,36 = 36/100, a raiz é √36/√100 = 6/10 = 0,6. Conferindo, 0,6 × 0,6 = 0,36, pois 6 × 6 = 36 e as duas casas decimais de cada fator somam duas casas decimais no produto. Essa mesma ideia vale para raízes de outros decimais que sejam quadrados de decimais exatos.\n\n0,06 tem quadrado 0,0036. 0,18 é a metade de 0,36, como se a raiz fosse dividir por 2. 0,36 é o próprio radicando. E 6 esquece de ajustar a vírgula.",
   },
@@ -566,11 +566,11 @@ export const questoes = [
     opcoes: [
       "1",
       "0",
-      "−101",
       "−1",
+      "−101",
       "101",
     ],
-    correta: 3,
+    correta: 2,
     explicacao:
       "As potências de −1 alternam entre −1 e 1: (−1)¹ = −1, (−1)² = 1, (−1)³ = −1, e assim por diante. Com expoente ímpar, o resultado é −1. Como 101 é ímpar, (−1)¹⁰¹ = −1. Em geral, (−1) elevado a um expoente par vale 1, e elevado a um expoente ímpar vale −1, qualquer que seja o tamanho do expoente.\n\n1 seria o valor com expoente par. 0 supõe, sem base, que a potência zera. −101 e 101 multiplicam a base pelo expoente, o que não vale para potências.",
   },
@@ -584,10 +584,10 @@ export const questoes = [
       "15",
       "−7",
       "3",
-      "7",
       "57",
+      "7",
     ],
-    correta: 3,
+    correta: 4,
     explicacao:
       "Calculando cada potência, 2⁵ = 32 e 5² = 25. Subtraindo, 32 − 25 = 7. Os dois números parecem trocar base e expoente, mas resultam em valores diferentes, pois a potenciação não é comutativa.\n\n15 subtrai 10 − 5, multiplicando base e expoente. −7 inverte a ordem da subtração. 3 é a diferença 5 − 2 das bases. E 57 soma as potências em vez de subtrair.",
   },
@@ -600,11 +600,11 @@ export const questoes = [
     opcoes: [
       "100.000",
       "100.000.000",
-      "60",
       "1.000.000",
+      "60",
       "1.000",
     ],
-    correta: 3,
+    correta: 2,
     explicacao:
       "Na potência de potência, multiplicam-se os expoentes: (10²)³ = 10²ˣ³ = 10⁶ = 1.000.000, o 1 seguido de seis zeros. Conferindo, 10² = 100 e 100 × 100 × 100 = 1.000.000.\n\n100.000 é 10⁵, somando os expoentes, 2 + 3. 100.000.000 é 10⁸, elevando 2 ao cubo e usando o resultado como expoente. 60 multiplica 10 por 2 e por 3. E 1.000 é 10³, conservando só um dos expoentes.",
   },
@@ -617,11 +617,11 @@ export const questoes = [
     opcoes: [
       "0",
       "10",
-      "1.000",
       "24",
+      "1.000",
       "124",
     ],
-    correta: 3,
+    correta: 2,
     explicacao:
       "Calculando cada uma, 2¹⁰ = 1.024 e 10³ = 1.000. Subtraindo, 1.024 − 1.000 = 24. Por isso, 2¹⁰ é frequentemente usada como uma aproximação de mil, com erro de apenas 24 unidades.\n\n0 supõe que as duas potências são iguais, o que não é verdade. 10 é apenas o expoente de 2¹⁰, sem relação com a diferença pedida. 1.000 é o valor de 10³ sozinho. E 124 erra a subtração por 100.",
   },
@@ -635,10 +635,10 @@ export const questoes = [
       "72",
       "36",
       "14",
-      "6",
       "12",
+      "6",
     ],
-    correta: 3,
+    correta: 4,
     explicacao:
       "A raiz cúbica de 216 é o número cujo cubo é 216. Como 6 × 6 × 6 = 216, a raiz cúbica é 6. Outra forma é fatorar, 216 = 2³ × 3³, e extrair um grupo de três de cada fator: 2 × 3 = 6. Conferindo, 6³ = 6 × 6 × 6 = 36 × 6 = 216, o que mostra que a raiz cúbica desfaz o cubo.\n\n72 é 216 dividido por 3, sem relação com a raiz. 36 é 6², o quadrado de 6. 14 e 12 ficam longe: 14³ é bem maior que 216, e 12³ = 1.728.",
   },
@@ -650,12 +650,12 @@ export const questoes = [
       "Combinando raiz e potência, quanto vale √(2⁶)?",
     opcoes: [
       "12",
+      "8",
       "6",
       "32",
-      "8",
       "3",
     ],
-    correta: 3,
+    correta: 1,
     explicacao:
       "Calculando 2⁶ = 64, e √64 = 8. Outra forma é usar a propriedade: a raiz quadrada de uma potência de expoente par divide o expoente por 2, então √(2⁶) = 2³ = 8.\n\n12 multiplica 6 por 2, em vez de dividir. 6 repete o expoente, sem calcular a raiz. 32 é 2⁵, 2⁶ dividido por 2, que confunde raiz com metade. E 3 é o expoente da resposta correta, sem a base elevada a ele.",
   },
@@ -668,11 +668,11 @@ export const questoes = [
     opcoes: [
       "2",
       "8",
-      "16",
       "4",
+      "16",
       "1",
     ],
-    correta: 3,
+    correta: 2,
     explicacao:
       "Primeiro, (2²)³ = 2⁶ = 64. Depois, 2⁶ ÷ 2⁴ = 2⁶⁻⁴ = 2² = 4. Conferindo, 64 ÷ 16 = 4. Esse tipo de expressão se resolve com as propriedades das potências, sem precisar calcular números grandes.\n\n2 é o expoente da resposta ou o valor de uma potência intermediária, sem calcular o resultado final. 8 soma os expoentes do numerador em vez de multiplicá-los. 16 é o divisor, 2⁴. E 1 supõe, sem base, que as potências se cancelam por completo.",
   },
@@ -703,10 +703,10 @@ export const questoes = [
       "3",
       "27",
       "81",
-      "2",
       "9",
+      "2",
     ],
-    correta: 4,
+    correta: 3,
     explicacao:
       "Na divisão de potências de mesma base, subtraem-se os expoentes: 3⁵⁰ ÷ 3⁴⁸ = 3⁵⁰⁻⁴⁸ = 3² = 9. Não é preciso calcular os números enormes: basta notar que 3⁵⁰ = 3⁴⁸ × 3², e o fator 3⁴⁸ se cancela.\n\n3 é o expoente 1, ou só a base. 27 é 3³ e 81 é 3⁴, expoentes maiores que a diferença 2. E 2 é a diferença dos expoentes, e não o valor da potência.",
   },
@@ -719,11 +719,11 @@ export const questoes = [
     opcoes: [
       "7",
       "9",
+      "1",
       "3",
       "0",
-      "1",
     ],
-    correta: 4,
+    correta: 2,
     explicacao:
       "Os últimos algarismos das potências de 7 são 7, 9, 3, 1 para os expoentes 1, 2, 3, 4, e depois o ciclo se repete a cada 4. Como 2.024 = 4 × 506, o expoente é múltiplo de 4, e o último algarismo é o mesmo de 7⁴, isto é, 1.\n\n7 é o algarismo final para expoentes que deixam resto 1 na divisão por 4, e 9, para resto 2. 3, para resto 3. E 0 é impossível, pois 7 e suas potências nunca terminam em zero.",
   },
@@ -737,10 +737,10 @@ export const questoes = [
       "882",
       "44",
       "36",
-      "49",
       "42",
+      "49",
     ],
-    correta: 4,
+    correta: 3,
     explicacao:
       "Fatorando, 1.764 = 2² × 3² × 7². Como cada expoente é par, a raiz quadrada é obtida tomando metade de cada um: 2 × 3 × 7 = 42. Conferindo, 42 × 42 = 1.764. O método da fatoração evita tentativas ao acaso e funciona para qualquer quadrado perfeito, mesmo grande.\n\n882 é metade de 1.764, e não a raiz. 44 e 36 ficam perto do valor correto, mas 44² = 1.936 e 36² = 1.296, que não são 1.764. E 49 tem quadrado 2.401.",
   },
@@ -752,12 +752,12 @@ export const questoes = [
       "Elevando uma raiz quadrada não exata a um expoente par, quanto vale (√2)⁶?",
     opcoes: [
       "6",
+      "8",
       "12",
       "4",
       "2",
-      "8",
     ],
-    correta: 4,
+    correta: 1,
     explicacao:
       "(√2)⁶ = ((√2)²)³ = 2³ = 8, pois (√2)² = 2. Em outras palavras, cada par de fatores √2 × √2 dá 2, e são três pares, 2 × 2 × 2 = 8. Esse resultado é racional, embora √2 seja irracional, porque a potência de expoente par elimina a raiz: o expoente 6 é múltiplo de 2.\n\n6 e 12 multiplicam a base ou o radicando pelo expoente. 4 faz (√2)⁴ = 4, dois pares em vez de três. E 2 é só (√2)² = 2, um único par.",
   },
@@ -769,12 +769,12 @@ export const questoes = [
       "Contando os algarismos de um número grande, quantos algarismos tem 2²⁰?",
     opcoes: [
       "6",
+      "7",
       "8",
       "20",
       "5",
-      "7",
     ],
-    correta: 4,
+    correta: 1,
     explicacao:
       "Calculando, 2²⁰ = 2¹⁰ × 2¹⁰ = 1.024 × 1.024 = 1.048.576. Esse número tem 7 algarismos: 1, 0, 4, 8, 5, 7 e 6. Como 10⁶ = 1.000.000 tem 7 algarismos e 10⁷ tem 8, 2²⁰ está entre 10⁶ e 10⁷, e portanto tem 7 algarismos.\n\n6 conta só os algarismos depois do primeiro. 8 conta um algarismo a mais. 20 confunde o número de algarismos com o expoente. E 5 subestima o tamanho, pois 2²⁰ passa de um milhão.",
   },
@@ -805,10 +805,10 @@ export const questoes = [
       "17",
       "7",
       "169",
-      "119",
       "13",
+      "119",
     ],
-    correta: 4,
+    correta: 3,
     explicacao:
       "Calculando 12² = 144 e 5² = 25, a soma é 144 + 25 = 169. Como 13 × 13 = 169, √169 = 13. Os números 5, 12 e 13 formam um trio pitagórico, os lados de um triângulo retângulo.\n\n17 soma as bases, 12 + 5, sem elevar ao quadrado nem extrair a raiz, enquanto a raiz de uma soma não é a soma das raízes. 7 é a diferença das bases. 169 é o radicando, sem extrair a raiz. E 119 subtrai 25 de 144 em vez de somar.",
   },
@@ -821,11 +821,11 @@ export const questoes = [
     opcoes: [
       "25",
       "625",
+      "125",
       "3.125",
       "50",
-      "125",
     ],
-    correta: 4,
+    correta: 2,
     explicacao:
       "Cinco parcelas iguais a 5² somam 5 × 5² = 5¹ × 5² = 5³ = 125. Conferindo, 5² = 25 e 5 × 25 = 125. Somar cinco parcelas iguais equivale a multiplicar por 5, o que soma 1 ao expoente da base, pois 5 é a própria base.\n\n25 é uma única parcela. 625 é 5⁴, como se a soma fosse um produto de 25 por ele mesmo. 3.125 é 5⁵, multiplicando as cinco parcelas de 5, e não somando. E 50 soma só duas parcelas.",
   },
@@ -839,10 +839,10 @@ export const questoes = [
       "72",
       "−36",
       "36",
-      "−17",
       "−72",
+      "−17",
     ],
-    correta: 4,
+    correta: 3,
     explicacao:
       "Calculando cada potência, (−2)³ = −8, negativo pelo expoente ímpar, e (−3)² = 9, positivo pelo expoente par. O produto é −8 × 9 = −72. O expoente ímpar mantém o sinal negativo da base, e o expoente par o elimina, definindo o sinal do produto final.\n\n72 perde o sinal negativo de (−2)³. −36 e 36 usam o produto 2 × ... sem relação com as duas potências, como 4 × 9. E −17 soma os dois valores, −8 + (−9), trocando o sinal de 9.",
   },

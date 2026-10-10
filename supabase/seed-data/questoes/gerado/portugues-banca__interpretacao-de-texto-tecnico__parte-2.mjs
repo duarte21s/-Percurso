@@ -20,13 +20,13 @@ export const questoes = [
     enunciado:
       "Uma norma de segurança diz: “Os extintores de pó químico devem ser inspecionados mensalmente e recarregados a cada 12 meses. A recarga é também obrigatória imediatamente após qualquer utilização, ainda que parcial.” Um extintor foi usado parcialmente ontem, e sua última recarga ocorreu há 3 meses. Com base unicamente no texto, qual providência é exigida?",
     opcoes: [
-      "Recarregá-lo imediatamente, porque houve utilização, ainda que parcial.",
       "Aguardar a recarga dos 12 meses, porque só se passaram 3 meses.",
       "Apenas inspecioná-lo no fim do mês, sem recarregar.",
       "Descartá-lo, porque foi usado parcialmente.",
       "Recarregá-lo somente se tiver sido usado por completo.",
+      "Recarregá-lo imediatamente, porque houve utilização, ainda que parcial.",
     ],
-    correta: 0,
+    correta: 4,
     explicacao:
       "O texto traz duas regras de recarga: a periódica, a cada 12 meses, e a imediata, após qualquer utilização, ainda que parcial. As duas valem de forma independente, e basta uma delas para exigir a recarga. Como o extintor foi usado ontem, a segunda regra se aplica, e a recarga é imediata, mesmo que a última tenha sido feita há apenas 3 meses.\n\nAguardar os 12 meses ignora a recarga após uso. Apenas inspecionar não cumpre a obrigação de recarregar. Descartar é uma providência que o texto não prevê. E limitar a recarga ao uso completo contraria a expressão “ainda que parcial”.",
   },
@@ -54,13 +54,13 @@ export const questoes = [
     enunciado:
       "A política de acesso de uma empresa estabelece: “A senha deve ter no mínimo 10 caracteres, incluir pelo menos uma letra maiúscula e pelo menos um número, e não pode conter o nome do usuário.” O usuário se chama Marta. Qual das senhas abaixo atende a todas as exigências?",
     opcoes: [
-      "Verde2024Sol",
       "Marta12345678",
+      "Verde2024Sol",
       "sol2024verde",
       "SolVerde",
       "Verde2024",
     ],
-    correta: 0,
+    correta: 1,
     explicacao:
       "A senha Verde2024Sol tem 12 caracteres, uma maiúscula no início, o número 2024 e não contém marta. Cumpre, portanto, as quatro exigências do texto: tamanho mínimo, maiúscula, número e ausência do nome.\n\nMarta12345678 tem tamanho, maiúscula e número, mas contém o nome do usuário. A senha sol2024verde, toda em minúsculas, é a que falha nesse ponto. SolVerde tem só 8 caracteres e não tem número. E Verde2024 tem maiúscula e número, mas só 9 caracteres, um a menos que o mínimo.",
   },
@@ -71,13 +71,13 @@ export const questoes = [
     enunciado:
       "O manual de um elevador informa: “A capacidade é de 8 pessoas ou 600 kg, prevalecendo o limite que for atingido primeiro.” Entraram 7 pessoas, cada uma com 90 kg. O que se pode afirmar, com base unicamente no texto?",
     opcoes: [
-      "A carga excede o limite, porque as 7 pessoas somam 630 kg, acima de 600 kg.",
       "A carga está dentro do limite, porque são menos de 8 pessoas.",
       "A carga excede o limite, porque são mais de 6 pessoas.",
+      "A carga excede o limite, porque as 7 pessoas somam 630 kg, acima de 600 kg.",
       "A carga está dentro do limite, porque 630 kg é inferior a 8 vezes 90 kg.",
       "Nada se pode afirmar, porque o texto não indica o peso máximo.",
     ],
-    correta: 0,
+    correta: 2,
     explicacao:
       "O texto traz dois limites, 8 pessoas e 600 kg, e vale o que for atingido primeiro. Com 7 pessoas, o limite de pessoas não foi alcançado. Mas 7 vezes 90 kg dão 630 kg, acima de 600 kg, e o limite de peso foi atingido primeiro. Por isso a carga excede o limite.\n\nDizer que está dentro porque são menos de 8 pessoas ignora o limite de peso. Falar em mais de 6 pessoas inventa um limite que o texto não tem. A comparação com 8 vezes 90 kg, igual a 720 kg, usa um valor que não é limite. E o texto indica, sim, o peso máximo: 600 kg.",
   },
@@ -88,13 +88,13 @@ export const questoes = [
     enunciado:
       "O acordo de nível de serviço de uma equipe de suporte prevê: “Os chamados são classificados em três níveis: urgente, com resposta em até 4 horas corridas; normal, com resposta em até 24 horas corridas; e baixo, com resposta em até 72 horas corridas.” Um chamado classificado como normal foi aberto às 15h de uma segunda-feira. Qual é o prazo final de resposta?",
     opcoes: [
-      "terça-feira, às 15h",
       "segunda-feira, às 19h",
       "quarta-feira, às 15h",
+      "terça-feira, às 15h",
       "terça-feira, às 19h",
       "quinta-feira, às 15h",
     ],
-    correta: 0,
+    correta: 2,
     explicacao:
       "O chamado é de nível normal, que tem prazo de até 24 horas corridas. Contadas sem interrupção a partir das 15h de segunda-feira, as 24 horas terminam às 15h de terça-feira. Horas corridas incluem a noite inteira, sem desconto de horário comercial.\n\nSegunda-feira às 19h corresponde ao prazo de 4 horas, do nível urgente. Quarta-feira às 15h somaria 48 horas. Terça-feira às 19h soma 28 horas. E quinta-feira às 15h corresponde ao prazo de 72 horas, do nível baixo.",
   },
@@ -122,13 +122,13 @@ export const questoes = [
     enunciado:
       "Em um manual de manutenção, lê-se: “Desligar o equipamento da tomada. Aguardar 5 minutos. Remover a tampa lateral.” Qual é o efeito do emprego dos verbos no infinitivo (desligar, aguardar, remover) nesse trecho?",
     opcoes: [
-      "Expressar a opinião do redator sobre o equipamento",
       "Dar às instruções caráter objetivo e impessoal, em sequência de passos",
+      "Expressar a opinião do redator sobre o equipamento",
       "Narrar fatos já ocorridos no passado",
       "Indicar dúvida quanto ao procedimento",
       "Criar uma comparação entre dois equipamentos",
     ],
-    correta: 1,
+    correta: 0,
     explicacao:
       "Em manuais, o infinitivo é a forma usual de dar instruções, porque dispensa o sujeito, não se dirige a uma pessoa em particular e apresenta cada passo de modo direto. O resultado é um texto objetivo e impessoal, em que a ordem dos verbos corresponde à ordem das ações.\n\nO infinitivo, aqui, não expressa opinião do redator. Não narra fatos passados, porque indica o que deve ser feito. Não indica dúvida, porque os passos são firmes. E não compara equipamentos, já que o trecho trata de um só.",
   },
@@ -140,12 +140,12 @@ export const questoes = [
       "Uma norma administrativa determina: “O órgão deve responder ao requerimento em até 5 dias úteis, contados a partir do primeiro dia útil seguinte ao do protocolo. Sábados, domingos e feriados não são computados.” Um requerimento foi protocolado na quinta-feira, 6 de março de 2025. Não há feriados no período. Qual é o último dia do prazo?",
     opcoes: [
       "12 de março de 2025",
-      "13 de março de 2025",
       "11 de março de 2025",
       "14 de março de 2025",
       "15 de março de 2025",
+      "13 de março de 2025",
     ],
-    correta: 1,
+    correta: 4,
     explicacao:
       "A contagem começa no primeiro dia útil seguinte ao do protocolo. Depois de quinta-feira, 6 de março, o primeiro dia útil é sexta-feira, 7 (1º dia). Sábado e domingo não contam. Segue segunda, 10 (2º), terça, 11 (3º), quarta, 12 (4º) e quinta, 13 (5º). O último dia é 13 de março de 2025.\n\n12 de março seria o 4º dia, e 11 de março, o 3º. 14 de março seria o 6º dia. E 15 de março é sábado, dia que o texto manda não computar.",
   },
@@ -157,12 +157,12 @@ export const questoes = [
       "Uma especificação de qualidade determina: “Cada lote de componentes é aprovado se a massa medida estiver dentro de uma tolerância de ±2% em relação ao valor nominal; fora disso, é rejeitado.” O valor nominal é 500 g. Foram medidas as massas dos lotes P (489 g), Q (509 g), R (511 g) e S (495 g). Quais lotes são aprovados?",
     opcoes: [
       "P e Q",
-      "Q e S",
       "R e S",
       "P, Q e S",
+      "Q e S",
       "Q, R e S",
     ],
-    correta: 1,
+    correta: 3,
     explicacao:
       "A tolerância de ±2% sobre 500 g é de 10 g, e a faixa aceita vai de 490 g a 510 g. O lote Q, com 509 g, está dentro. O lote S, com 495 g, também. O lote P, com 489 g, fica 1 g abaixo do mínimo. E o lote R, com 511 g, fica 1 g acima do máximo. São aprovados Q e S.\n\nAs demais respostas incluem P ou R, que estão fora da faixa, ou omitem Q ou S, que estão dentro. O erro mais comum é aceitar P e R, por estarem muito perto do limite.",
   },
@@ -173,13 +173,13 @@ export const questoes = [
     enunciado:
       "Um regulamento estabelece: “A isenção será concedida ao requerente que, cumulativamente, (I) tenha renda familiar de até 3 salários mínimos e (II) resida no município há mais de 2 anos.” Os requerentes são: Ana (renda de 2,5 salários mínimos; 3 anos de residência), Beto (3 salários mínimos; 2 anos exatos), Carla (4 salários mínimos; 5 anos) e Davi (1 salário mínimo; 1 ano). Quem terá a isenção?",
     opcoes: [
-      "Beto",
       "Ana",
+      "Beto",
       "Carla",
       "Davi",
       "Ana e Beto",
     ],
-    correta: 1,
+    correta: 0,
     explicacao:
       "As duas condições são cumulativas: é preciso cumprir a renda de até 3 salários mínimos e a residência de mais de 2 anos. Ana tem renda de 2,5 e 3 anos de residência, e cumpre as duas. Beto tem renda de 3, que cumpre (até 3 inclui o 3), mas residência de 2 anos exatos, e “mais de 2 anos” exclui o 2. Carla tem 5 anos, mas renda de 4, acima do limite. Davi tem renda de 1, mas apenas 1 ano de residência.\n\nSó Ana cumpre as duas. Beto falha na segunda por um ano exato, e a resposta “Ana e Beto” erra por desconsiderar a expressão “mais de”.",
   },
@@ -192,11 +192,11 @@ export const questoes = [
     opcoes: [
       "Apenas Gil e Noé",
       "Apenas Rui e Eva",
-      "Rui, Eva, Gil e Noé",
       "Lia, Gil e Noé",
+      "Rui, Eva, Gil e Noé",
       "Apenas Noé",
     ],
-    correta: 2,
+    correta: 3,
     explicacao:
       "As duas condições são alternativas, ligadas por ou: basta cumprir uma delas. Rui e Eva têm autorização escrita, e por isso têm acesso, mesmo com crachá de nível baixo. Gil, de nível 3, e Noé, de nível 4, têm o crachá exigido, mesmo sem autorização. Lia não cumpre nenhuma das duas condições: seu nível é 2, e não tem autorização.\n\nPor isso têm acesso Rui, Eva, Gil e Noé. As demais respostas restringem o acesso a um dos grupos, ou incluem Lia, que não cumpre nenhuma das condições.",
   },
@@ -209,11 +209,11 @@ export const questoes = [
     opcoes: [
       "Fotografar uma amostra sem autorização prévia do responsável.",
       "Ligar para um colega, com autorização prévia do responsável.",
-      "Fotografar uma amostra com autorização prévia do responsável.",
       "Ouvir música com fones de ouvido, com autorização prévia do responsável.",
+      "Fotografar uma amostra com autorização prévia do responsável.",
       "Responder a mensagens de trabalho durante o expediente.",
     ],
-    correta: 2,
+    correta: 3,
     explicacao:
       "A regra geral é a proibição do uso do celular no laboratório, com uma única exceção: o registro fotográfico de amostras, desde que haja autorização prévia. Só a conduta que reúne as duas condições, foto de amostra e autorização, é permitida.\n\nFotografar sem autorização cumpre a finalidade, mas não a condição. Ligar para um colega e ouvir música não são o registro fotográfico, e a autorização não os torna permitidos. E responder a mensagens é uso de celular fora da exceção. A autorização só vale para o que a exceção prevê.",
   },
@@ -226,11 +226,11 @@ export const questoes = [
     opcoes: [
       "R$ 1.600,00",
       "R$ 2.000,00",
-      "R$ 2.300,00",
       "R$ 2.800,00",
+      "R$ 2.300,00",
       "R$ 3.300,00",
     ],
-    correta: 2,
+    correta: 3,
     explicacao:
       "Como o atraso foi de 8 dias, superior a 5, aplica-se o segundo regime, que substitui o primeiro. A multa fixa é de 10% de R$ 20.000,00, ou seja, R$ 2.000,00. Os dias que excederam os 5 primeiros são 3, e cada um custa 0,5% de R$ 20.000,00, ou R$ 100,00, o que dá R$ 300,00. A multa total é R$ 2.300,00.\n\nR$ 1.600,00 usa 1% ao dia por 8 dias, regime que não vale acima de 5 dias. R$ 2.000,00 esquece o acréscimo. R$ 2.800,00 aplica os 0,5% a todos os 8 dias. E R$ 3.300,00 soma o regime anterior, o que o texto proíbe ao dizer “em lugar dessa”.",
   },
@@ -243,11 +243,11 @@ export const questoes = [
     opcoes: [
       "Aprovado, porque a média é 31 MPa, superior a 30 MPa.",
       "Reprovado, porque a média é inferior a 30 MPa.",
-      "Reprovado, porque um corpo de prova ficou abaixo de 27 MPa, embora a média seja 31 MPa.",
       "Aprovado, porque a maioria dos corpos de prova supera 30 MPa.",
       "Aprovado, porque 26 MPa se aproxima de 27 MPa.",
+      "Reprovado, porque um corpo de prova ficou abaixo de 27 MPa, embora a média seja 31 MPa.",
     ],
-    correta: 2,
+    correta: 4,
     explicacao:
       "A aprovação exige duas condições ao mesmo tempo: média de pelo menos 30 MPa e nenhum valor abaixo de 27 MPa. A média dos quatro valores é (31 + 32 + 26 + 35) / 4 = 31 MPa, e cumpre a primeira. Mas o corpo de prova de 26 MPa está abaixo de 27 MPa, e a segunda condição não é cumprida. Logo, o lote é reprovado.\n\nAprovar pela média ignora a segunda condição. Dizer que a média é inferior a 30 está errado, pois é 31. A maioria acima de 30 não é critério do texto. E a proximidade de 26 a 27 não substitui o mínimo exigido.",
   },
@@ -278,10 +278,10 @@ export const questoes = [
       "Abrir o painel, desligar a chave geral, aguardar 5 minutos",
       "Aguardar 5 minutos, desligar a chave geral, abrir o painel",
       "Desligar a chave geral, abrir o painel, aguardar 5 minutos",
-      "Desligar a chave geral, aguardar 5 minutos, abrir o painel",
       "Abrir o painel, aguardar 5 minutos, desligar a chave geral",
+      "Desligar a chave geral, aguardar 5 minutos, abrir o painel",
     ],
-    correta: 3,
+    correta: 4,
     explicacao:
       "O texto impõe uma ordem: primeiro desligar a chave geral, depois aguardar 5 minutos, e somente então abrir o painel. A sequência correta é, portanto, desligar a chave geral, aguardar 5 minutos e abrir o painel.\n\nAbrir o painel antes de desligar a chave contraria “antes de abrir”. Aguardar antes de desligar inverte as duas primeiras etapas, e a espera só se conta depois do desligamento. Abrir o painel antes dos 5 minutos contraria “somente após esse intervalo”. E abrir o painel antes de qualquer etapa desrespeita a ordem inteira.",
   },
@@ -294,11 +294,11 @@ export const questoes = [
     opcoes: [
       "40",
       "960",
-      "16",
       "24",
+      "16",
       "36",
     ],
-    correta: 3,
+    correta: 2,
     explicacao:
       "O número de peças que falharam é 2,5% de 1.600, ou seja, 0,025 × 1.600 = 40 peças. Desse total, 60% falharam por problemas na solda, e 0,6 × 40 = 24 peças. A pergunta pede o resultado do segundo cálculo, e não do primeiro.\n\n40 é o total de peças que falharam, e não só as de solda. 960 aplica 60% ao lote inteiro de 1.600. 16 corresponde a 40% das falhas, as que não foram de solda. E 36 não resulta de nenhuma das duas porcentagens aplicadas corretamente.",
   },
@@ -309,13 +309,13 @@ export const questoes = [
     enunciado:
       "Uma tabela do relatório de perdas informa o percentual de perda por setor: setor A, 12%; setor B, 8%; setor C, 20%. Qual setor apresenta perda acima da média simples dos três setores?",
     opcoes: [
+      "C",
       "A",
       "B",
       "A e C",
-      "C",
       "Todos",
     ],
-    correta: 3,
+    correta: 0,
     explicacao:
       "A média simples é (12 + 8 + 20) / 3 = 40 / 3, aproximadamente 13,3%. Só o setor C, com 20%, está acima dessa média. O setor A, com 12%, fica abaixo, por pouco. E o setor B, com 8%, fica bem abaixo.\n\nA resposta A e C inclui o setor A, que tem 12%, abaixo de 13,3%. Dizer que todos estão acima contraria a própria definição de média, pois nem todos os valores podem superar a média. A confusão mais comum é comparar com 12%, o valor central, em vez da média.",
   },
@@ -343,13 +343,13 @@ export const questoes = [
     enunciado:
       "Uma instrução de manuseio determina: “Todos os equipamentos com massa superior a 20 kg devem ser movimentados por duas pessoas.” Qual das afirmações abaixo decorre necessariamente desse texto?",
     opcoes: [
+      "Um equipamento de 25 kg deve ser movimentado por duas pessoas.",
       "Um equipamento de 15 kg não pode ser movimentado por duas pessoas.",
       "Um equipamento de 20 kg deve ser movimentado por duas pessoas.",
       "Somente equipamentos acima de 20 kg podem ser movimentados por duas pessoas.",
-      "Um equipamento de 25 kg deve ser movimentado por duas pessoas.",
       "Nenhum equipamento pode ser movimentado por uma só pessoa.",
     ],
-    correta: 3,
+    correta: 0,
     explicacao:
       "A regra obriga duas pessoas para equipamentos com massa superior a 20 kg. Um equipamento de 25 kg está nessa faixa, e por isso a afirmação decorre do texto.\n\nO texto não proíbe duas pessoas para equipamentos leves, e por isso a afirmação sobre 15 kg não decorre dele. Um equipamento de exatamente 20 kg não é superior a 20 kg, e a regra não o alcança. A expressão “somente” transforma a regra em exclusividade, o que o texto não diz. E afirmar que nenhum equipamento é movimentado por uma só pessoa amplia a regra para todas as massas.",
   },
@@ -361,12 +361,12 @@ export const questoes = [
       "A norma de viagens de um órgão determina: “A hospedagem é reembolsada até o limite de R$ 300,00 por diária; as refeições, até R$ 80,00 por dia. Despesas com bebidas alcoólicas nunca são reembolsadas e não entram no cálculo do limite das refeições.” Uma viagem de 2 dias teve hospedagem de R$ 280,00 e R$ 340,00. As refeições custaram R$ 75,00 no primeiro dia e R$ 95,00 no segundo, dos quais R$ 20,00 foram de bebida alcoólica. Qual é o valor total a ser reembolsado?",
     opcoes: [
       "R$ 735,00",
+      "R$ 730,00",
       "R$ 790,00",
       "R$ 770,00",
       "R$ 580,00",
-      "R$ 730,00",
     ],
-    correta: 4,
+    correta: 1,
     explicacao:
       "Na hospedagem, a primeira diária (R$ 280,00) está abaixo do limite e é reembolsada por inteiro. A segunda (R$ 340,00) passa de R$ 300,00 e é reembolsada até o limite. Soma: 280 + 300 = R$ 580,00. Nas refeições, o primeiro dia (R$ 75,00) está abaixo de R$ 80,00. No segundo, retiram-se R$ 20,00 de bebida alcoólica e sobram R$ 75,00, também abaixo do limite. Soma: 75 + 75 = R$ 150,00. Total: R$ 730,00.\n\nR$ 735,00 aplica o limite de R$ 80,00 aos R$ 95,00 sem retirar a bebida. R$ 790,00 não aplica limites. R$ 770,00 aplica a retirada da bebida, mas não o limite de hospedagem. E R$ 580,00 considera só a hospedagem.",
   },
@@ -379,11 +379,11 @@ export const questoes = [
     opcoes: [
       "22 de fevereiro de 2025 (sábado)",
       "21 de fevereiro de 2025 (sexta-feira)",
+      "24 de fevereiro de 2025 (segunda-feira)",
       "25 de fevereiro de 2025 (terça-feira)",
       "7 de março de 2025 (sexta-feira)",
-      "24 de fevereiro de 2025 (segunda-feira)",
     ],
-    correta: 4,
+    correta: 2,
     explicacao:
       "A contagem começa no dia seguinte à publicação, sábado, 8 de fevereiro, que é o 1º dia. O 15º dia é 22 de fevereiro de 2025, um sábado. Como o último dia cai em sábado, o prazo é prorrogado para o primeiro dia útil seguinte, que é segunda-feira, 24 de fevereiro de 2025.\n\n22 de fevereiro é o 15º dia, mas cai em sábado e foi prorrogado. 21 de fevereiro seria o 14º dia. 25 de fevereiro prorroga um dia além do necessário. E 7 de março não corresponde a nenhuma contagem possível do texto.",
   },
@@ -395,12 +395,12 @@ export const questoes = [
       "Duas normas de uma empresa tratam do intervalo para refeição. A norma geral estabelece: “Para jornadas superiores a 6 horas, o intervalo mínimo é de 30 minutos.” A norma específica do setor de segurança, que prevalece sobre a geral nos casos que trata, estabelece: “Para jornadas superiores a 8 horas, o intervalo mínimo é de 45 minutos; para jornadas de 6 a 8 horas, mantém-se o intervalo de 30 minutos.” Marcos trabalha no setor de segurança, com jornada de 9 horas. Paula trabalha no setor administrativo, com jornada de 9 horas. Sara trabalha no setor administrativo, com jornada de 5 horas. Qual das opções indica corretamente os intervalos mínimos?",
     opcoes: [
       "Marcos, 30 minutos; Paula, 30 minutos; Sara, 30 minutos",
+      "Marcos, 45 minutos; Paula, 30 minutos; Sara, nenhum intervalo obrigatório",
       "Marcos, 45 minutos; Paula, 45 minutos; Sara, 30 minutos",
       "Marcos, 45 minutos; Paula, 30 minutos; Sara, 30 minutos",
       "Marcos, 30 minutos; Paula, 45 minutos; Sara, nenhum intervalo obrigatório",
-      "Marcos, 45 minutos; Paula, 30 minutos; Sara, nenhum intervalo obrigatório",
     ],
-    correta: 4,
+    correta: 1,
     explicacao:
       "Para Marcos, do setor de segurança, prevalece a norma específica, e a jornada de 9 horas é superior a 8, o que dá intervalo mínimo de 45 minutos. Paula, do setor administrativo, não está sob a norma específica, e fica na geral: jornada de 9 horas, superior a 6, intervalo de 30 minutos. Sara tem jornada de 5 horas, que não supera 6, e a norma geral não lhe impõe intervalo obrigatório.\n\nAs demais respostas erram ao aplicar 30 minutos a Marcos, 45 minutos a Paula, ou ao impor 30 minutos a Sara, cuja jornada de 5 horas não é superior a 6.",
   },
@@ -412,12 +412,12 @@ export const questoes = [
       "Uma norma de arquivamento dispõe: “Nenhum relatório será arquivado sem a assinatura do responsável técnico, salvo se tiver sido emitido em caráter de urgência, caso em que a assinatura poderá ser colhida em até 48 horas após o arquivamento.” Qual das situações abaixo contraria o texto?",
     opcoes: [
       "Relatório de urgência arquivado hoje, com assinatura colhida no dia seguinte.",
+      "Relatório comum arquivado sem assinatura, sob a promessa de colhê-la depois.",
       "Relatório comum arquivado após a assinatura do responsável técnico.",
       "Relatório de urgência arquivado após a assinatura do responsável técnico.",
       "Relatório de urgência arquivado hoje, com assinatura colhida 40 horas depois.",
-      "Relatório comum arquivado sem assinatura, sob a promessa de colhê-la depois.",
     ],
-    correta: 4,
+    correta: 1,
     explicacao:
       "A regra geral proíbe arquivar sem assinatura. A exceção vale só para relatórios de urgência, cuja assinatura pode ser colhida em até 48 horas depois do arquivamento. O relatório comum arquivado sem assinatura não se enquadra na exceção, e por isso contraria o texto, mesmo que a assinatura seja prometida para depois.\n\nO relatório de urgência com assinatura colhida no dia seguinte, ou 40 horas depois, está dentro das 48 horas. O relatório comum assinado antes do arquivamento cumpre a regra geral. E o relatório de urgência assinado antes também cumpre a regra, pois a exceção é uma possibilidade, e não uma obrigação.",
   },

@@ -37,13 +37,13 @@ export const questoes = [
     enunciado:
       "Numa pesquisa, 60% dos entrevistados leem jornal, 50% leem revista e 20% leem os dois. Qual é o percentual dos que não leem nem jornal nem revista?",
     opcoes: [
-      "10%",
       "0%",
       "30%",
       "20%",
       "40%",
+      "10%",
     ],
-    correta: 0,
+    correta: 4,
     explicacao:
       "Somando 60% e 50%, os 20% que leem os dois entram duas vezes. Os que leem pelo menos um são 60% + 50% − 20% = 90%. Os que não leem nenhum são o que falta para 100%: 10%.\n\n0% aparece quando se soma 60% + 50% = 110% e se conclui que todos leem algo, sem descontar a repetição. 30% são os que leem só revista (50% − 20%), e 40%, os que leem só jornal (60% − 20%). E 20% são os que leem os dois.",
   },
@@ -71,13 +71,13 @@ export const questoes = [
     enunciado:
       "Numa empresa com 80 funcionários, 45 falam inglês, 30 falam espanhol e 10 falam os dois idiomas. Quantos falam exatamente um desses dois idiomas?",
     opcoes: [
-      "55",
       "65",
       "75",
+      "55",
       "35",
       "45",
     ],
-    correta: 0,
+    correta: 2,
     explicacao:
       "Os que falam só inglês são 45 − 10 = 35, e os que falam só espanhol são 30 − 10 = 20. Exatamente um idioma: 35 + 20 = 55.\n\n65 é o número dos que falam pelo menos um (45 + 30 − 10), que inclui os 10 que falam os dois. 75 soma 45 + 30 sem descontar ninguém. 35 conta só os que falam apenas inglês. E 45 é o total de quem fala inglês, com ou sem espanhol.",
   },
@@ -88,13 +88,13 @@ export const questoes = [
     enunciado:
       "Dos 200 inscritos num concurso, 150 fizeram pelo menos uma das provas, A ou B. Sabe-se que 90 fizeram a prova A e 100 fizeram a prova B. Quantos fizeram somente a prova A?",
     opcoes: [
-      "50",
       "90",
       "40",
       "60",
       "110",
+      "50",
     ],
-    correta: 0,
+    correta: 4,
     explicacao:
       "Somando 90 + 100 = 190 e comparando com os 150 que fizeram pelo menos uma prova, o excesso de 40 são os que fizeram as duas (contados duas vezes). Os que fizeram só a A são 90 − 40 = 50.\n\n90 é o total da prova A, incluindo quem também fez a B. 40 são os que fizeram as duas. 60 são os que fizeram só a B (100 − 40). E 110 aparece quando se faz 200 − 90, misturando o total de inscritos com a conta da prova A.",
   },
@@ -105,13 +105,13 @@ export const questoes = [
     enunciado:
       "Num grupo de pessoas, 70% gostam de café, 45% gostam de chá e 25% gostam das duas bebidas. Qual é o percentual das que gostam de apenas uma das duas?",
     opcoes: [
-      "65%",
       "90%",
       "45%",
+      "65%",
       "20%",
       "10%",
     ],
-    correta: 0,
+    correta: 2,
     explicacao:
       "Só café: 70% − 25% = 45%. Só chá: 45% − 25% = 20%. Apenas uma das bebidas: 45% + 20% = 65%.\n\n90% é o percentual de quem gosta de pelo menos uma (70% + 45% − 25%), que inclui quem gosta das duas. 45% e 20% são as duas parcelas separadas — só café e só chá. E 10% é o percentual de quem não gosta de nenhuma, o que falta para 100%. As quatro regiões do diagrama — 45%, 25%, 20% e 10% — somam 100% e conferem todos os dados.",
   },
@@ -122,13 +122,13 @@ export const questoes = [
     enunciado:
       "Numa empresa de 100 pessoas, 70 falam inglês e 60 falam espanhol. No mínimo, quantas pessoas falam os dois idiomas?",
     opcoes: [
-      "30",
       "60",
       "10",
       "0",
       "40",
+      "30",
     ],
-    correta: 0,
+    correta: 4,
     explicacao:
       "Para ter o menor número possível de pessoas com os dois idiomas, os dois grupos devem se sobrepor o mínimo possível. Mas só há 100 pessoas: 70 + 60 = 130, e as 30 que passam de 100 precisam estar nos dois grupos ao mesmo tempo. Com exatamente 30 nos dois, ficam 40 só com inglês, 30 só com espanhol e ninguém sem idioma — e isso é possível.\n\n0 ignora que 130 não cabe em 100. 60 é o máximo possível, quando todos os que falam espanhol também falam inglês. 10 é pouco demais, e 40 é possível, mas não é o mínimo.",
   },
@@ -139,13 +139,13 @@ export const questoes = [
     enunciado:
       "Numa turma de 50 alunos, 32 fizeram o trabalho de história e 21 fizeram o de geografia. No máximo, quantos alunos podem ter feito os dois trabalhos? E, nesse caso, quantos não fizeram nenhum?",
     opcoes: [
-      "21 e 18",
       "3 e 0",
+      "21 e 18",
       "21 e 0",
       "32 e 18",
       "21 e 29",
     ],
-    correta: 0,
+    correta: 1,
     explicacao:
       "O maior número possível de alunos com os dois trabalhos acontece quando todos os 21 que fizeram geografia também fizeram história — não podem ser mais de 21, o tamanho do grupo menor. Nesse caso, os que fizeram pelo menos um trabalho são só os 32 de história, e os que não fizeram nenhum são 50 − 32 = 18.\n\n“3 e 0” descreve o caso oposto, o mínimo de sobreposição (32 + 21 − 50 = 3). “21 e 0” acerta o máximo, mas esquece de recalcular quem ficou sem trabalho. “32 e 18” põe no grupo dos dois trabalhos mais alunos do que fizeram geografia. E “21 e 29” desconta do total o grupo de geografia, e não o de história.",
   },
@@ -156,13 +156,13 @@ export const questoes = [
     enunciado:
       "Numa pesquisa, 15 pessoas disseram usar só ônibus, 12 só metrô, 8 usar os dois e 5 não usar nenhum. Quantas pessoas foram entrevistadas e quantas usam metrô, respectivamente?",
     opcoes: [
-      "40 e 20",
       "35 e 20",
       "40 e 12",
+      "40 e 20",
       "35 e 12",
       "40 e 28",
     ],
-    correta: 0,
+    correta: 2,
     explicacao:
       "Cada pessoa está em exatamente uma das quatro situações, então o total é a soma: 15 + 12 + 8 + 5 = 40 entrevistados. Usam metrô os que usam só metrô e os que usam os dois: 12 + 8 = 20.\n\n35 esquece os 5 que não usam nenhum dos dois. 12 conta só quem usa apenas metrô, sem os 8 que usam os dois. E 28 conta duas vezes os que usam os dois (12 + 8 + 8).",
   },
@@ -173,13 +173,13 @@ export const questoes = [
     enunciado:
       "Sabendo que n(A) = 12, n(B) = 9 e n(A ∩ B) = 4, quantos elementos tem o conjunto A ∪ B?",
     opcoes: [
-      "17",
       "21",
       "13",
       "25",
       "8",
+      "17",
     ],
-    correta: 0,
+    correta: 4,
     explicacao:
       "Pela fórmula da união, o número de elementos de A ∪ B é a soma dos elementos de A e de B menos os da interseção: 12 + 9 − 4 = 17. Os 4 elementos comuns aparecem tanto em A quanto em B, e por isso são descontados uma vez.\n\n21 soma 12 + 9 sem descontar os comuns, contando-os duas vezes. 13 desconta os comuns duas vezes (21 − 8). 25 soma os comuns em vez de descontar. E 8 é o número de elementos que estão só em A (12 − 4).",
   },
@@ -191,12 +191,12 @@ export const questoes = [
       "Numa escola de idiomas com 100 alunos, 50 estudam inglês, 40 estudam espanhol e 30 estudam francês. Estudam inglês e espanhol 15; inglês e francês, 10; espanhol e francês, 8; e 5 estudam os três — esses 5 estão incluídos nas contagens de pares. Quantos alunos não estudam nenhum dos três idiomas?",
     opcoes: [
       "0",
-      "8",
       "13",
       "18",
       "3",
+      "8",
     ],
-    correta: 1,
+    correta: 4,
     explicacao:
       "Pelo princípio da inclusão e exclusão: n(I ∪ E ∪ F) = 50 + 40 + 30 − 15 − 10 − 8 + 5 = 92. Somam-se os três grupos, descontam-se as interseções de dois (contadas duas vezes) e devolve-se a interseção dos três, que, depois dos descontos, ficou sem ser contada. Os que não estudam nenhum idioma são 100 − 92 = 8.\n\n13 esquece de devolver os 5 que estudam os três (a união ficaria 87). 18 desconta esses 5 em vez de devolvê-los. 3 devolve os 5 duas vezes. E 0 vem de ver que 50 + 40 + 30 = 120 passa de 100 e concluir que todos estudam algum idioma, sem descontar as repetições.",
   },
@@ -224,13 +224,13 @@ export const questoes = [
     enunciado:
       "Numa pesquisa com 200 pessoas sobre três aplicativos de transporte, X, Y e Z, 110 usam X, 90 usam Y e 60 usam Z. Usam X e Y 40 pessoas; X e Z, 30; Y e Z, 20; e 10 usam os três (incluídos nas contagens de pares). Quantas pessoas usam pelo menos dois aplicativos?",
     opcoes: [
-      "90",
       "70",
+      "90",
       "80",
       "60",
       "100",
     ],
-    correta: 1,
+    correta: 0,
     explicacao:
       "Pelo menos dois aplicativos significa exatamente dois ou os três. Exatamente dois: (40 − 10) + (30 − 10) + (20 − 10) = 30 + 20 + 10 = 60. Somando os 10 que usam os três: 60 + 10 = 70. Uma conta direta dá o mesmo: soma dos pares menos duas vezes o grupo dos três, 90 − 20 = 70.\n\n90 soma os pares sem descontar nada: os 10 que usam os três entram três vezes. 80 desconta os 10 uma vez só. 60 conta só quem usa exatamente dois, esquecendo os que usam os três. E 100 soma os 10 mais uma vez aos 90.",
   },
@@ -242,12 +242,12 @@ export const questoes = [
       "Numa turma de 50 alunos, 28 gostam de álgebra, 25 de geometria e 20 de estatística. Gostam de álgebra e geometria 12; de álgebra e estatística, 10; de geometria e estatística, 9. Três alunos não gostam de nenhuma das três áreas. Quantos alunos gostam das três?",
     opcoes: [
       "3",
-      "5",
       "8",
       "0",
+      "5",
       "7",
     ],
-    correta: 1,
+    correta: 3,
     explicacao:
       "Os que gostam de pelo menos uma área são 50 − 3 = 47. Pelo princípio da inclusão e exclusão, 47 = 28 + 25 + 20 − 12 − 10 − 9 + x, em que x é o número dos que gostam das três. Isso dá 47 = 42 + x, então x = 5.\n\n3 é o número dos que não gostam de nenhuma, não dos que gostam de todas. 8 aparece quando se esquece de descontar os 3 do total (50 − 42). 0 supõe que ninguém gosta das três, sem fazer a conta. E 7 é o número dos que gostam só de álgebra e geometria (12 − 5), uma das partes exclusivas dos pares.",
   },
@@ -292,13 +292,13 @@ export const questoes = [
     enunciado:
       "Sabendo que n(A) = 10, n(B) = 12, n(C) = 8, n(A ∩ B) = 4, n(A ∩ C) = 3, n(B ∩ C) = 5 e n(A ∩ B ∩ C) = 2, quantos elementos tem A ∪ B ∪ C?",
     opcoes: [
-      "18",
       "20",
+      "18",
       "30",
       "22",
       "16",
     ],
-    correta: 1,
+    correta: 0,
     explicacao:
       "Pelo princípio da inclusão e exclusão: n(A ∪ B ∪ C) = 10 + 12 + 8 − 4 − 3 − 5 + 2 = 20. Os elementos das interseções de dois foram somados duas vezes e são descontados; os da interseção tripla foram somados três vezes e descontados três vezes, por isso voltam uma vez.\n\n18 esquece de devolver a interseção tripla. 30 soma os três conjuntos sem descontar nada. 22 devolve a interseção tripla duas vezes. E 16 desconta a interseção tripla em vez de devolvê-la.",
   },
@@ -310,12 +310,12 @@ export const questoes = [
       "Sabendo que n(A ∪ B) = 30, n(A) = 20 e n(B) = 15, quantos elementos pertencem a A, mas não a B?",
     opcoes: [
       "5",
-      "15",
       "20",
       "10",
+      "15",
       "25",
     ],
-    correta: 1,
+    correta: 3,
     explicacao:
       "Primeiro, a interseção: somando os elementos de A e de B e tirando os da união, sobram os contados duas vezes, 20 + 15 − 30 = 5. Os elementos de A que não estão em B são os de A menos os da interseção: 20 − 5 = 15. Outra forma: tirando da união os 15 elementos de B, sobram 30 − 15 = 15, os que estão só em A.\n\n5 é a interseção, não a diferença. 20 é o total de A, incluindo a parte comum. 10 é o número de elementos só de B (15 − 5). E 25 soma 20 + 5, contando a interseção a mais em vez de retirá-la.",
   },
@@ -326,13 +326,13 @@ export const questoes = [
     enunciado:
       "Os conjuntos A e B são tais que A está contido em B, com n(A) = 8 e n(B) = 15. Quantos elementos tem o conjunto B − A?",
     opcoes: [
-      "8",
       "7",
+      "8",
       "15",
       "23",
       "0",
     ],
-    correta: 1,
+    correta: 0,
     explicacao:
       "Como todo elemento de A também está em B, o conjunto B − A reúne os elementos de B que ficam fora de A: 15 − 8 = 7. Nesse caso, A ∩ B = A, e a diferença é só a subtração das quantidades.\n\n8 é o número de elementos de A. 15 é o total de B. 23 soma os dois conjuntos, como se fossem separados. E 0 seria n(A − B): não há elementos de A fora de B, mas a pergunta é sobre B − A.",
   },
@@ -344,12 +344,12 @@ export const questoes = [
       "Dados A = {1, 2, 3, 4, 5} e B = {4, 5, 6, 7}, qual é o conjunto A ∩ B?",
     opcoes: [
       "{1, 2, 3}",
-      "{4, 5}",
       "{1, 2, 3, 4, 5, 6, 7}",
       "{6, 7}",
+      "{4, 5}",
       "{1, 2, 3, 6, 7}",
     ],
-    correta: 1,
+    correta: 3,
     explicacao:
       "A interseção reúne os elementos que estão nos dois conjuntos ao mesmo tempo. Percorrendo A: 1, 2 e 3 não estão em B; 4 e 5 estão. Logo, A ∩ B = {4, 5}.\n\n{1, 2, 3, 4, 5, 6, 7} é a união, que junta os elementos dos dois conjuntos. {1, 2, 3} é A − B, os elementos só de A. {6, 7} é B − A. E {1, 2, 3, 6, 7} é a diferença simétrica — os que estão em apenas um dos conjuntos, o oposto da interseção.",
   },
@@ -379,11 +379,11 @@ export const questoes = [
     opcoes: [
       "{6}",
       "{2, 4, 8, 10}",
-      "{2, 3, 4, 8, 9, 10}",
       "{3, 9}",
       "{2, 3, 4, 6, 8, 9, 10}",
+      "{2, 3, 4, 8, 9, 10}",
     ],
-    correta: 2,
+    correta: 4,
     explicacao:
       "A − B tem os elementos de A que não estão em B: {2, 4, 8, 10} (o 6 sai, porque está em B). B − A tem os de B que não estão em A: {3, 9}. A união das duas diferenças é {2, 3, 4, 8, 9, 10} — todos os elementos que estão em apenas um dos conjuntos.\n\n{6} é a interseção, justamente o que fica de fora. {2, 4, 8, 10} é só A − B, e {3, 9} é só B − A. E {2, 3, 4, 6, 8, 9, 10} é a união completa, que não retira o elemento comum.",
   },
@@ -411,13 +411,13 @@ export const questoes = [
     enunciado:
       "Dados A = {1, 2, 3}, B = {3, 4, 5} e C = {2, 3, 4, 6}, qual é o conjunto (A ∪ B) ∩ C?",
     opcoes: [
+      "{2, 3, 4}",
       "{1, 2, 3, 4}",
       "{3}",
-      "{2, 3, 4}",
       "{1, 2, 3, 4, 5, 6}",
       "{1, 5, 6}",
     ],
-    correta: 2,
+    correta: 0,
     explicacao:
       "Primeiro o que está entre parênteses: A ∪ B = {1, 2, 3, 4, 5}. Depois, a interseção com C = {2, 3, 4, 6}: ficam os elementos que estão nos dois, {2, 3, 4}.\n\n{1, 2, 3, 4} resulta de fazer A ∪ (B ∩ C), mudando os parênteses de lugar — e a ordem das operações muda o resultado. {3} é a interseção dos três conjuntos. {1, 2, 3, 4, 5, 6} é a união dos três. E {1, 5, 6} reúne os elementos da união dos três que ficaram fora do resultado.",
   },
@@ -429,12 +429,12 @@ export const questoes = [
       "Sendo A = [1, 5] e B = ]3, 8] intervalos de números reais, qual é o conjunto A ∩ B?",
     opcoes: [
       "[3, 5]",
-      "[1, 8]",
       "]3, 5]",
+      "[1, 8]",
       "]3, 5[",
       "[1, 3]",
     ],
-    correta: 2,
+    correta: 1,
     explicacao:
       "A ∩ B reúne os números que estão nos dois intervalos. A vai de 1 a 5, com as duas pontas incluídas; B vai de 3 a 8, sem o 3 (o colchete virado para fora, em ]3, indica ponta aberta) e com o 8. Os números comuns são os maiores que 3 e menores ou iguais a 5: ]3, 5].\n\n[3, 5] inclui o 3, que não pertence a B. ]3, 5[ exclui o 5, que pertence aos dois. [1, 8] é a união. E [1, 3] é a parte de A que fica fora de B, ou seja, A − B.",
   },
@@ -445,13 +445,13 @@ export const questoes = [
     enunciado:
       "Sendo A = [−2, 3[ e B = [1, 6] intervalos de números reais, qual é o conjunto A ∪ B?",
     opcoes: [
+      "[−2, 6]",
       "[1, 3[",
       "[−2, 6[",
-      "[−2, 6]",
       "]−2, 6]",
       "[−2, 1[",
     ],
-    correta: 2,
+    correta: 0,
     explicacao:
       "A vai de −2 (incluído) até 3 (excluído), e B vai de 1 a 6, com as duas pontas. Como os intervalos se sobrepõem entre 1 e 3, a união é um único intervalo, do menor início ao maior fim: [−2, 6]. O −2 está em A e o 6 está em B, então as duas pontas ficam incluídas. O 3, que não está em A, está em B — por isso não abre buraco.\n\n[1, 3[ é a interseção. [−2, 6[ exclui o 6, que pertence a B. ]−2, 6] exclui o −2, que pertence a A. E [−2, 1[ é A − B.",
   },
@@ -464,11 +464,11 @@ export const questoes = [
     opcoes: [
       "[0, 2[ ∪ ]5, 10]",
       "]2, 5[",
-      "[0, 2] ∪ [5, 10]",
       "[0, 2] ∪ ]5, 10]",
+      "[0, 2] ∪ [5, 10]",
       "[0, 10]",
     ],
-    correta: 2,
+    correta: 3,
     explicacao:
       "A − B tira de A os números que estão em B, ou seja, os maiores que 2 e menores que 5. O 2 e o 5 não pertencem a B (as pontas de B são abertas), então continuam em A − B. Sobram [0, 2] e [5, 10], com as pontas 2 e 5 fechadas: [0, 2] ∪ [5, 10].\n\n[0, 2[ ∪ ]5, 10] tira também o 2 e o 5, que não estavam em B. [0, 2] ∪ ]5, 10] erra só a ponta do 5. ]2, 5[ é o próprio B — ou A ∩ B —, justamente o que foi retirado. E [0, 10] é o próprio A, sem retirar nada.",
   },
@@ -481,11 +481,11 @@ export const questoes = [
     opcoes: [
       "8",
       "4",
-      "16",
       "15",
+      "16",
       "24",
     ],
-    correta: 2,
+    correta: 3,
     explicacao:
       "Para formar um subconjunto, decide-se, para cada um dos 4 elementos, se ele entra ou não: 2 escolhas por elemento. São 2 × 2 × 2 × 2 = 2⁴ = 16 subconjuntos, do vazio ao próprio {a, b, c, d}.\n\n8 é 2³, o número de subconjuntos de um conjunto de 3 elementos. 4 conta só os subconjuntos de um elemento. 15 esquece o conjunto vazio. E 24 é 4! = 4 × 3 × 2 × 1, o número de ordenações dos elementos, não de subconjuntos.",
   },
@@ -496,13 +496,13 @@ export const questoes = [
     enunciado:
       "Quantos subconjuntos do conjunto {a, b, c, d, e} contêm o elemento a?",
     opcoes: [
+      "16",
       "32",
       "15",
-      "16",
       "5",
       "31",
     ],
-    correta: 2,
+    correta: 0,
     explicacao:
       "Se o elemento a precisa estar no subconjunto, só resta decidir os outros 4 elementos, cada um com 2 escolhas (entra ou não): 2⁴ = 16 subconjuntos. Faz sentido: metade dos 32 subconjuntos contém a, e a outra metade não.\n\n32 é o total de subconjuntos, com ou sem a. 31 é o total sem o vazio. 15 esquece o subconjunto {a}, que contém a e mais nenhum elemento. E 5 confunde a quantidade de elementos do conjunto com a de subconjuntos.",
   },
@@ -513,13 +513,13 @@ export const questoes = [
     enunciado:
       "Um conjunto tem exatamente 64 subconjuntos, contando o vazio e ele mesmo. Quantos elementos tem esse conjunto?",
     opcoes: [
+      "6",
       "8",
       "32",
-      "6",
       "7",
       "5",
     ],
-    correta: 2,
+    correta: 0,
     explicacao:
       "Um conjunto com n elementos tem 2ⁿ subconjuntos. Procura-se n com 2ⁿ = 64: como 2⁶ = 64, o conjunto tem 6 elementos.\n\n8 vem de pensar em 8 × 8 = 64, confundindo 2ⁿ com n². 32 é metade de 64. 7 e 5 dariam 128 e 32 subconjuntos. A relação entre elementos e subconjuntos é exponencial: cada elemento a mais dobra o número de subconjuntos — de 5 para 6 elementos, eles passam de 32 para 64.",
   },
@@ -548,12 +548,12 @@ export const questoes = [
       "Quantos números inteiros de 1 a 100 são múltiplos de 2 ou de 3?",
     opcoes: [
       "83",
+      "67",
       "50",
       "16",
-      "67",
       "66",
     ],
-    correta: 3,
+    correta: 1,
     explicacao:
       "Há 50 múltiplos de 2 e 33 múltiplos de 3 entre 1 e 100. Os múltiplos de 6 (16 deles: 6, 12, …, 96) são múltiplos dos dois e entraram duas vezes. Pelo princípio da inclusão e exclusão: 50 + 33 − 16 = 67.\n\n83 soma 50 + 33 sem descontar os múltiplos de 6. 50 conta só os múltiplos de 2. 16 conta só os múltiplos de 6, os que estão nas duas listas ao mesmo tempo. E 66 usa 32 múltiplos de 3 em vez de 33 — o 99 também conta.",
   },
@@ -583,11 +583,11 @@ export const questoes = [
     opcoes: [
       "62",
       "56",
-      "12",
       "50",
+      "12",
       "37",
     ],
-    correta: 3,
+    correta: 2,
     explicacao:
       "Divisíveis por 4: 37 (4, 8, …, 148). Divisíveis por 6: 25 (6, 12, …, 150). Os divisíveis pelos dois são os múltiplos de 12, o mínimo múltiplo comum — e não de 24: são 12 (12, 24, …, 144). Pela inclusão e exclusão: 37 + 25 − 12 = 50.\n\n62 não desconta os que foram contados duas vezes. 56 desconta só os múltiplos de 24 (4 × 6), que são 6, e deixa de fora números como 12 e 36. 12 conta só os divisíveis pelos dois. E 37 conta só os divisíveis por 4.",
   },
@@ -601,10 +601,10 @@ export const questoes = [
       "35%",
       "25%",
       "80%",
-      "10%",
       "0%",
+      "10%",
     ],
-    correta: 3,
+    correta: 4,
     explicacao:
       "Quem assiste a pelo menos um canal é 100% − 30% = 70%. Somando 45% + 35% = 80%, passa-se de 70% em 10 pontos — são os que assistem aos dois e foram contados duas vezes. A resposta é 10%.\n\n80% é a soma direta dos dois canais, sem descontar a repetição. 35% e 25% são os que assistem só ao A (45% − 10%) e só ao B (35% − 10%). E 0% supõe que as duas audiências não se misturam, o que faria o total passar de 100% (45% + 35% + 30% = 110%).",
   },
@@ -615,13 +615,13 @@ export const questoes = [
     enunciado:
       "Num diagrama, o círculo dos médicos está inteiramente dentro do círculo dos graduados, e o círculo dos atletas tem uma parte em comum com o dos médicos. Com base apenas nisso, qual afirmação é necessariamente verdadeira?",
     opcoes: [
+      "Algum atleta é graduado",
       "Todo atleta é graduado",
       "Todo graduado é médico",
       "Nenhum atleta é graduado",
-      "Algum atleta é graduado",
       "Todo médico é atleta",
     ],
-    correta: 3,
+    correta: 0,
     explicacao:
       "A parte comum entre atletas e médicos tem pelo menos uma pessoa. Essa pessoa é médica, e todo médico está dentro do círculo dos graduados; então ela é atleta e graduada ao mesmo tempo. Logo, algum atleta é graduado.\n\n“Todo atleta é graduado” não é garantido: o círculo dos atletas pode ter uma parte fora do dos graduados. “Todo graduado é médico” inverte a inclusão — o círculo dos graduados é o maior. “Nenhum atleta é graduado” contradiz esse raciocínio. E “todo médico é atleta” exigiria o círculo dos médicos dentro do dos atletas, o que o diagrama não diz.",
   },
@@ -634,11 +634,11 @@ export const questoes = [
     opcoes: [
       "B ⊂ A",
       "C ⊂ B",
-      "A ∪ C = B",
       "A ∩ C = ∅",
+      "A ∪ C = B",
       "A = B",
     ],
-    correta: 3,
+    correta: 2,
     explicacao:
       "Todo elemento de A está em B, e nenhum elemento de B está em C. Então nenhum elemento de A pode estar em C: A ∩ C = ∅. Num diagrama, o círculo de A fica dentro do de B, e o de C fica fora do de B — logo, também fora do de A.\n\n“B ⊂ A” inverte a inclusão dada. “C ⊂ B” contradiz o fato de B e C não terem elementos comuns, a não ser que C seja vazio. “A ∪ C = B” e “A = B” não decorrem: B pode ter elementos que não estão em A, e C pode ter elementos, todos fora de B.",
   },
@@ -686,10 +686,10 @@ export const questoes = [
       "Aᶜ ∩ B",
       "A ∪ Bᶜ",
       "B − A",
-      "A ∩ Bᶜ",
       "(A ∩ B)ᶜ",
+      "A ∩ Bᶜ",
     ],
-    correta: 3,
+    correta: 4,
     explicacao:
       "A − B reúne os elementos que estão em A e não estão em B. “Não estar em B” é estar no complementar de B; então A − B = A ∩ Bᶜ.\n\nAᶜ ∩ B descreve os elementos de B que estão fora de A: é B − A, a diferença na ordem inversa, que também está errada. A ∪ Bᶜ inclui tudo o que está fora de B, mesmo o que está fora de A. E (A ∩ B)ᶜ inclui tudo o que não está na interseção, bem mais do que A − B.",
   },
@@ -701,12 +701,12 @@ export const questoes = [
       "Numa escola, todo aluno participa de pelo menos uma das atividades, dança ou teatro. Participam de dança 40 alunos, de teatro 35, e 15 participam das duas. Quantos alunos a escola tem?",
     opcoes: [
       "75",
+      "60",
       "45",
       "90",
       "25",
-      "60",
     ],
-    correta: 4,
+    correta: 1,
     explicacao:
       "Como todos participam de pelo menos uma atividade, o total de alunos é a união: 40 + 35 − 15 = 60. Os 15 que participam das duas estão tanto entre os 40 da dança quanto entre os 35 do teatro, e por isso são descontados uma vez.\n\n75 soma 40 + 35 sem descontar os 15. 45 desconta os 15 duas vezes — e coincide com o número dos que fazem uma única atividade (25 + 20), esquecendo os 15 que fazem as duas. 90 soma os 15 em vez de descontar. E 25 são os que fazem só dança.",
   },
@@ -718,12 +718,12 @@ export const questoes = [
       "Numa pesquisa sobre dois jornais, 25 pessoas leem só o jornal A, 15 leem os dois, e 40 leem o jornal B. Quantas pessoas leem só o jornal B e quantas leem o jornal A, respectivamente?",
     opcoes: [
       "40 e 25",
+      "25 e 40",
       "25 e 25",
       "15 e 40",
       "40 e 40",
-      "25 e 40",
     ],
-    correta: 4,
+    correta: 1,
     explicacao:
       "Os 40 leitores do jornal B incluem os 15 que leem os dois; os que leem só B são 40 − 15 = 25. Os leitores de A são os que leem só A mais os que leem os dois: 25 + 15 = 40.\n\n“40 e 25” inverte as duas respostas. “25 e 25” acerta os que leem só B, mas esquece que os leitores de A incluem os 15 comuns. “15 e 40” toma os que leem os dois pelos que leem só B. E “40 e 40” não desconta os 15 comuns do jornal B.",
   },
@@ -735,12 +735,12 @@ export const questoes = [
       "Num grupo de 60 pessoas, 30 têm carro, 20 têm moto, e o número de pessoas que não têm nenhum dos dois veículos é o dobro do número das que têm os dois. Quantas pessoas têm carro e moto?",
     opcoes: [
       "20",
+      "10",
       "5",
       "15",
       "30",
-      "10",
     ],
-    correta: 4,
+    correta: 1,
     explicacao:
       "Seja x o número de pessoas com os dois veículos. As que têm pelo menos um são 30 + 20 − x = 50 − x, e as que não têm nenhum são 2x. Somando, o grupo todo: (50 − x) + 2x = 60, então 50 + x = 60 e x = 10. Conferência: 20 só com carro, 10 só com moto, 10 com os dois e 20 sem nenhum — total 60, e 20 é o dobro de 10.\n\n20 é o número dos que não têm nenhum veículo, não dos que têm os dois. 5 e 15 não fecham o total: com 5, seriam 45 + 10 = 55 pessoas; com 15, 35 + 30 = 65. E 30 é o total dos que têm carro.",
   },
@@ -753,11 +753,11 @@ export const questoes = [
     opcoes: [
       "67",
       "9",
+      "17",
       "21",
       "12",
-      "17",
     ],
-    correta: 4,
+    correta: 2,
     explicacao:
       "Como toda prova tem pelo menos um dos assuntos, a união é o total: 50. Somando 38 + 29 = 67, o excesso de 17 sobre 50 corresponde às provas contadas duas vezes — as que têm os dois assuntos.\n\n67 é a soma sem desconto. 9 é a diferença 38 − 29, sem relação com a interseção. 21 são as provas só de lógica (38 − 17), e 12, as só de português (29 − 17).",
   },
@@ -788,10 +788,10 @@ export const questoes = [
       "30%",
       "50%",
       "80%",
-      "40%",
       "60%",
+      "40%",
     ],
-    correta: 4,
+    correta: 3,
     explicacao:
       "Os que jogam os dois são 30% da turma, e os que jogam vôlei são 50% da turma. Entre os de vôlei, a fração que também joga futebol é 30% ÷ 50% = 0,6, ou seja, 60%. Numa turma de 100 alunos: 50 jogam vôlei, e 30 deles jogam futebol — 30 de 50.\n\n30% é a fração da turma inteira que joga os dois, não a fração dos jogadores de vôlei. 50% é o percentual de vôlei na turma. 40% são, entre os de vôlei, os que não jogam futebol (20 de 50). E 80% é a união (60% + 50% − 30%), que responde a outra pergunta.",
   },
@@ -821,11 +821,11 @@ export const questoes = [
     opcoes: [
       "18",
       "24",
+      "12",
       "6",
       "8",
-      "12",
     ],
-    correta: 4,
+    correta: 2,
     explicacao:
       "(A ∪ B) − (A ∩ B) reúne os elementos que estão em apenas um dos dois conjuntos. Só em A: 14 − 6 = 8. Só em B: 10 − 6 = 4. Total: 8 + 4 = 12. Pela conta direta, n(A ∪ B) = 14 + 10 − 6 = 18, e 18 − 6 = 12.\n\n18 é a própria união, sem retirar a interseção. 24 soma 14 + 10 sem descontar nada. 6 é a interseção, que foi justamente retirada. E 8 conta só os elementos exclusivos de A, esquecendo os exclusivos de B.",
   },
@@ -837,12 +837,12 @@ export const questoes = [
       "Numa escola de 100 alunos, fazem o curso livre X 45 alunos, o Y 40 e o Z 35. Fazem X e Y 15; X e Z, 12; Y e Z, 10; e 5 fazem os três (incluídos nos pares). Quantos alunos fazem exatamente um curso?",
     opcoes: [
       "46",
+      "61",
       "51",
       "88",
       "22",
-      "61",
     ],
-    correta: 4,
+    correta: 1,
     explicacao:
       "Só X: 45 − 15 − 12 + 5 = 23 (tiram-se os pares e devolvem-se os 5 que estavam nos dois pares). Só Y: 40 − 15 − 10 + 5 = 20. Só Z: 35 − 12 − 10 + 5 = 18. Exatamente um curso: 23 + 20 + 18 = 61.\n\n46 esquece de devolver os que fazem os três em cada conta (18 + 15 + 13). 51 devolve os 5 uma vez só, no total. 88 é o número dos que fazem pelo menos um curso. E 22 é o número dos que fazem exatamente dois (10 + 7 + 5).",
   },
@@ -855,11 +855,11 @@ export const questoes = [
     opcoes: [
       "11",
       "9",
+      "10",
       "1",
       "30",
-      "10",
     ],
-    correta: 4,
+    correta: 2,
     explicacao:
       "A = {3, 6, 9, 12, 15, 18} tem 6 elementos, e B = {4, 8, 12, 16, 20} tem 5. O 12 está nos dois (é múltiplo de 12). A união tem 6 + 5 − 1 = 10 elementos.\n\n11 soma 6 + 5 sem descontar o 12. 9 desconta o 12 duas vezes. 1 é a interseção. E 30 multiplica 6 × 5, confundindo a união com o número de pares formados por um elemento de A e outro de B.",
   },

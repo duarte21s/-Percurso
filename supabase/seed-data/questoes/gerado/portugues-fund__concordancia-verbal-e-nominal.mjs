@@ -20,13 +20,13 @@ export const questoes = [
     enunciado:
       "Em que consiste a concordância verbal na língua portuguesa?",
     opcoes: [
-      "O verbo concorda com o sujeito em número e pessoa",
       "O adjetivo concorda com o substantivo em gênero e número",
       "O artigo concorda com o verbo em gênero",
       "O verbo concorda com o complemento em número",
+      "O verbo concorda com o sujeito em número e pessoa",
       "O advérbio concorda com o verbo em pessoa",
     ],
-    correta: 0,
+    correta: 3,
     explicacao:
       "A concordância verbal é a relação entre o verbo e o sujeito: o verbo se ajusta ao sujeito em número, singular ou plural, e em pessoa, primeira, segunda ou terceira. Em os alunos chegaram, o verbo está no plural porque o sujeito, os alunos, está no plural.\n\nA concordância do adjetivo com o substantivo é a concordância nominal. O artigo concorda com o substantivo, e não com o verbo. O verbo não concorda com o complemento. E o advérbio é invariável. Só a primeira definição descreve a concordância verbal.",
   },
@@ -37,13 +37,13 @@ export const questoes = [
     enunciado:
       "Em qual das frases abaixo o verbo concorda com o sujeito?",
     opcoes: [
-      "Os alunos chegaram cedo.",
       "Os alunos chegou cedo.",
+      "Os alunos chegaram cedo.",
       "O aluno chegaram cedo.",
       "As alunas chegou cedo.",
       "Eu chegaram cedo.",
     ],
-    correta: 0,
+    correta: 1,
     explicacao:
       "O sujeito os alunos está no plural, e o verbo chegaram também: os alunos chegaram cedo. A concordância se faz em número e em pessoa.\n\nNa segunda frase, o verbo chegou está no singular com sujeito plural. Na terceira, chegaram está no plural com sujeito singular. Na quarta, o mesmo erro da segunda. E na quinta, o verbo está na terceira pessoa do plural, e o sujeito eu está na primeira pessoa do singular. Só a primeira frase concorda o verbo com o sujeito.",
   },
@@ -54,13 +54,13 @@ export const questoes = [
     enunciado:
       "Qual forma verbal completa a frase “Todos os dias, as meninas ___ no pátio”, com o verbo brincar no presente?",
     opcoes: [
-      "brincam",
       "brinca",
       "brincamos",
       "brinco",
       "brincas",
+      "brincam",
     ],
-    correta: 0,
+    correta: 4,
     explicacao:
       "O sujeito as meninas está na terceira pessoa do plural, e o verbo brincar, no presente do indicativo, fica brincam: as meninas brincam. A terminação -am marca a terceira pessoa do plural.\n\nBrinca é a terceira do singular. Brincamos é a primeira do plural. Brinco é a primeira do singular. E brincas é a segunda do singular. Nenhuma delas concorda com as meninas. Só brincam completa a frase.",
   },
@@ -71,13 +71,13 @@ export const questoes = [
     enunciado:
       "Qual forma verbal completa a frase “Eu e minha irmã ___ ao cinema ontem”, com o verbo ir no pretérito?",
     opcoes: [
-      "fomos",
       "foram",
       "foi",
       "fui",
       "foste",
+      "fomos",
     ],
-    correta: 0,
+    correta: 4,
     explicacao:
       "O sujeito é composto: eu e minha irmã. Quando o sujeito composto inclui a primeira pessoa, o verbo vai para a primeira pessoa do plural, que equivale a nós: fomos. A frase diz o mesmo que nós fomos ao cinema.\n\nFoi é a terceira do singular. Fui é a primeira do singular. Foram é a terceira do plural. E foste é a segunda do singular. Nenhuma delas inclui quem fala. Só fomos concorda com o sujeito composto.",
   },
@@ -105,13 +105,13 @@ export const questoes = [
     enunciado:
       "Qual palavra completa a frase “As meninas são muito ___”, com o adjetivo educado?",
     opcoes: [
-      "educadas",
       "educado",
+      "educadas",
       "educados",
       "educada",
       "educadés",
     ],
-    correta: 0,
+    correta: 1,
     explicacao:
       "O adjetivo concorda em gênero e número com o substantivo a que se refere. As meninas é feminino plural, e por isso o adjetivo fica educadas, no feminino plural.\n\nEducado é masculino singular. Educados é masculino plural. Educada é feminino singular. E educadés não existe. Só educadas concorda com o substantivo em gênero e em número, como a regra da concordância nominal exige em todas as frases.",
   },
@@ -122,13 +122,13 @@ export const questoes = [
     enunciado:
       "Qual expressão está de acordo com a concordância nominal?",
     opcoes: [
-      "casas bonitas",
       "casas bonita",
       "casa bonitas",
       "casas bonitos",
+      "casas bonitas",
       "casa bonitos",
     ],
-    correta: 0,
+    correta: 3,
     explicacao:
       "O adjetivo concorda com o substantivo em gênero e número. Casas é feminino plural, e por isso o adjetivo fica bonitas: casas bonitas.\n\nCasas bonita deixa o adjetivo no singular. Casa bonitas deixa o substantivo no singular. Casas bonitos põe o adjetivo no masculino. E casa bonitos põe o adjetivo no masculino plural com substantivo feminino singular. Só casas bonitas concorda em gênero e número.",
   },
@@ -139,13 +139,13 @@ export const questoes = [
     enunciado:
       "Ao agradecer, uma mulher deve dizer qual forma?",
     opcoes: [
-      "Muito obrigada.",
       "Muito obrigado.",
       "Muito obrigadas.",
       "Muito obrigados.",
+      "Muito obrigada.",
       "Muita obrigada.",
     ],
-    correta: 0,
+    correta: 3,
     explicacao:
       "A palavra obrigado é adjetivo e concorda com a pessoa que fala. Uma mulher, ao agradecer, diz obrigada, no feminino singular. Um homem diz obrigado. E o advérbio muito, que reforça o adjetivo, fica invariável.\n\nObrigado é a forma masculina, usada por um homem. Obrigadas e obrigados estão no plural, usados quando várias pessoas agradecem. E muita obrigada flexiona o advérbio, o que não se faz. Só muito obrigada é a forma correta para uma mulher.",
   },
@@ -156,13 +156,13 @@ export const questoes = [
     enunciado:
       "Qual das frases abaixo, sobre tempo decorrido, está correta?",
     opcoes: [
-      "Faz dois anos que moro aqui.",
       "Fazem dois anos que moro aqui.",
       "Fazemos dois anos que moro aqui.",
       "Fizeram dois anos que moro aqui.",
       "Fazem-se dois anos que moro aqui.",
+      "Faz dois anos que moro aqui.",
     ],
-    correta: 0,
+    correta: 4,
     explicacao:
       "O verbo fazer, indicando tempo decorrido, não tem sujeito e fica sempre na terceira pessoa do singular: faz dois anos, fazia dois anos, fez dois anos. O termo dois anos não é o sujeito, e por isso não puxa o verbo para o plural.\n\nFazem, fizeram e fazem-se levam o verbo ao plural, como se dois anos fosse o sujeito. Fazemos o põe na primeira pessoa do plural. Só faz dois anos está de acordo com a norma-padrão.",
   },
@@ -191,12 +191,12 @@ export const questoes = [
       "Qual forma verbal completa a frase “Maria e Ana ___ amigas”, com o verbo ser no presente?",
     opcoes: [
       "é",
-      "são",
       "somos",
       "sou",
       "és",
+      "são",
     ],
-    correta: 1,
+    correta: 4,
     explicacao:
       "O sujeito é composto: Maria e Ana, duas pessoas. A soma de dois núcleos pede o verbo no plural, na terceira pessoa: elas são. Por isso o verbo ser fica são.\n\nÉ é a terceira do singular. Somos é a primeira do plural. Sou é a primeira do singular. E és é a segunda do singular. Nenhuma delas concorda com Maria e Ana. Só são completa a frase.",
   },
@@ -225,12 +225,12 @@ export const questoes = [
       "Qual das frases abaixo está correta quanto à concordância verbal?",
     opcoes: [
       "O professor e a diretora chegou cedo.",
-      "O professor e a diretora chegaram cedo.",
       "O professor e a diretora chegamos cedo.",
+      "O professor e a diretora chegaram cedo.",
       "O professor e a diretora chegaste cedo.",
       "O professor e a diretora chega cedo.",
     ],
-    correta: 1,
+    correta: 2,
     explicacao:
       "O sujeito é composto, com dois núcleos, o professor e a diretora, e vem antes do verbo. Nesse caso, o verbo vai para o plural: chegaram. Os dois são pessoas de quem se fala, na terceira pessoa.\n\nChegou e chega estão no singular. Chegamos está na primeira pessoa do plural, e chegaste, na segunda do singular. Nenhum deles concorda com o sujeito. Só chegaram concorda com o professor e a diretora.",
   },
@@ -242,12 +242,12 @@ export const questoes = [
       "Qual forma verbal completa a frase “Eu e você ___ à festa de aniversário”, com o verbo ir no pretérito?",
     opcoes: [
       "foram",
-      "fomos",
       "foi",
+      "fomos",
       "foste",
       "fui",
     ],
-    correta: 1,
+    correta: 2,
     explicacao:
       "O sujeito composto eu e você reúne duas pessoas, e quem fala está entre elas. Quando o sujeito composto inclui a primeira pessoa, o verbo vai para a primeira do plural, equivalente a nós: fomos.\n\nFoi é a terceira do singular. Foram é a terceira do plural. Foste é a segunda do singular. E fui é a primeira do singular. Nenhuma inclui os dois sujeitos de modo correto. Só fomos concorda com eu e você.",
   },
@@ -259,12 +259,12 @@ export const questoes = [
       "Qual forma verbal completa a frase “Mais de um aluno ___ à prova ontem”, com o verbo faltar no pretérito?",
     opcoes: [
       "faltaram",
-      "faltou",
       "faltamos",
+      "faltou",
       "faltei",
       "faltaste",
     ],
-    correta: 1,
+    correta: 2,
     explicacao:
       "A expressão mais de um, seguida de um substantivo no singular, pede o verbo no singular: mais de um aluno faltou. Embora a ideia seja de mais de uma pessoa, o núcleo do sujeito, aluno, está no singular.\n\nFaltaram deixa o verbo no plural. Faltamos está na primeira do plural, e faltei, na primeira do singular. E faltaste está na segunda do singular. Nenhum deles concorda com o aluno. Só faltou concorda com a expressão mais de um aluno.",
   },
@@ -276,12 +276,12 @@ export const questoes = [
       "Qual das frases abaixo está correta quanto ao verbo haver?",
     opcoes: [
       "Haviam muitas pessoas na fila.",
-      "Havia muitas pessoas na fila.",
       "Haviamos muitas pessoas na fila.",
       "Houveram muitas pessoas na fila.",
+      "Havia muitas pessoas na fila.",
       "Haviam-se muitas pessoas na fila.",
     ],
-    correta: 1,
+    correta: 3,
     explicacao:
       "O verbo haver, no sentido de existir, não tem sujeito e fica na terceira pessoa do singular: havia muitas pessoas na fila. O termo muitas pessoas é o objeto direto e não puxa o verbo para o plural.\n\nHaviam e houveram põem o verbo no plural, como se muitas pessoas fosse o sujeito. Haviamos o põe na primeira do plural. E haviam-se também o leva ao plural. Só havia está de acordo com a norma-padrão.",
   },
@@ -310,12 +310,12 @@ export const questoes = [
       "Qual forma verbal completa a frase “___ duas horas da tarde”, com o verbo ser no presente?",
     opcoes: [
       "É",
-      "São",
       "Foi",
+      "São",
       "Sou",
       "Somos",
     ],
-    correta: 1,
+    correta: 2,
     explicacao:
       "Quando o verbo ser indica as horas, ele concorda com o número que aparece na frase: são duas horas, são três horas, são dez horas. Como duas horas está no plural, o verbo fica são.\n\nÉ está no singular e só serviria para uma hora, meio-dia ou meia-noite. Foi está no passado. Sou e somos estão na primeira pessoa, o que não combina com a indicação de horas. Só são concorda com duas horas.",
   },
@@ -344,12 +344,12 @@ export const questoes = [
       "Qual forma verbal completa a frase “Cerca de vinte alunos ___ à festa”, com o verbo ir no pretérito?",
     opcoes: [
       "foi",
-      "foram",
       "fomos",
       "fui",
       "foste",
+      "foram",
     ],
-    correta: 1,
+    correta: 4,
     explicacao:
       "A expressão cerca de vinte indica aproximação, e o verbo concorda com o numeral que a acompanha: vinte alunos, no plural. Por isso o verbo fica foram.\n\nFoi está no singular e não concorda com o plural. Fomos está na primeira pessoa do plural, e fui, na primeira do singular. E foste está na segunda do singular. Só foram concorda com cerca de vinte alunos.",
   },
@@ -360,13 +360,13 @@ export const questoes = [
     enunciado:
       "Qual das frases abaixo, com o pronome se, está correta?",
     opcoes: [
+      "Alugam-se casas na praia.",
       "Aluga-se casas na praia.",
       "Alugamos-se casas na praia.",
-      "Alugam-se casas na praia.",
       "Aluguem-se casas na praia.",
       "Alugou-se casas na praia.",
     ],
-    correta: 2,
+    correta: 0,
     explicacao:
       "Em alugam-se casas, o pronome se indica que as casas são alugadas, e o verbo concorda com o sujeito, casas, no plural: alugam-se. O sujeito é casas, e o se é partícula apassivadora. Por isso o verbo vai para o plural.\n\nAluga-se e alugou-se deixam o verbo no singular com sujeito plural. Alugamos-se o põe na primeira do plural. E aluguem-se está no subjuntivo, o que não combina com a frase. Só alugam-se concorda com casas.",
   },
@@ -377,13 +377,13 @@ export const questoes = [
     enunciado:
       "Qual forma verbal completa a frase “O bando de pássaros ___ para o sul”, com o verbo voar no pretérito?",
     opcoes: [
+      "voou",
       "voaram",
       "voamos",
-      "voou",
       "voei",
       "voastes",
     ],
-    correta: 2,
+    correta: 0,
     explicacao:
       "A palavra bando é um substantivo coletivo, no singular, e o verbo concorda com ela: o bando voou. Mesmo que o bando seja formado por muitos pássaros, o núcleo do sujeito é bando.\n\nVoaram põe o verbo no plural, como se o núcleo fosse pássaros, que faz parte do complemento de bando. Voamos está na primeira do plural, e voei, na primeira do singular. E voastes está na segunda do plural. Só voou concorda com o coletivo no singular.",
   },
@@ -396,11 +396,11 @@ export const questoes = [
     opcoes: [
       "é",
       "sou",
-      "são",
       "somos",
+      "são",
       "sois",
     ],
-    correta: 2,
+    correta: 3,
     explicacao:
       "O sujeito composto você e seus amigos tem dois núcleos, e o verbo vai para o plural. Como você é pronome de tratamento, e usa a terceira pessoa, a forma adequada é a terceira do plural: são.\n\nÉ está no singular. Sou está na primeira do singular. Somos está na primeira do plural. E sois está na segunda do plural, forma própria de vós. Só são concorda com você e seus amigos.",
   },
@@ -428,13 +428,13 @@ export const questoes = [
     enunciado:
       "Qual expressão está de acordo com a concordância dos adjetivos compostos?",
     opcoes: [
+      "olhos verde-claros",
       "olhos verdes-claros",
       "olhos verde-claro",
-      "olhos verde-claros",
       "olhos verdes-claro",
       "olho verdes-claros",
     ],
-    correta: 2,
+    correta: 0,
     explicacao:
       "Nos adjetivos compostos de dois adjetivos, só o último varia: olhos verde-claros. O primeiro elemento, verde, fica no singular, e o último concorda com o substantivo, que está no plural: claros.\n\nOlhos verdes-claros faz o primeiro elemento variar. Olhos verde-claro deixa o último no singular. Olhos verdes-claro varia o primeiro e não varia o último. E olho verdes-claros deixa o substantivo no singular. Só olhos verde-claros segue a regra.",
   },
@@ -446,12 +446,12 @@ export const questoes = [
       "Qual palavra completa a frase “Ela ficou ___ preocupada com a prova”?",
     opcoes: [
       "meia",
-      "meios",
       "meio",
+      "meios",
       "meias",
       "mei",
     ],
-    correta: 2,
+    correta: 1,
     explicacao:
       "Na frase, a palavra indica o grau da preocupação, equivalente a um pouco. Quando meio tem esse valor, é advérbio e fica invariável: ela ficou meio preocupada, e elas ficaram meio preocupadas.\n\nMeia e meias são formas variáveis, usadas como adjetivo, como em meia hora. Meios é o plural do substantivo ou do adjetivo. E mei não existe. Só meio, invariável, completa a frase.",
   },
@@ -464,11 +464,11 @@ export const questoes = [
     opcoes: [
       "meio",
       "meios",
-      "meia",
       "meias",
       "mei",
+      "meia",
     ],
-    correta: 2,
+    correta: 4,
     explicacao:
       "Na frase, a palavra indica metade de uma hora e acompanha um substantivo feminino, hora. Quando meio é adjetivo, concorda com o substantivo: meia hora, meio dia, meio metro.\n\nMeio é masculino e não concorda com hora. Meios e meias são formas do plural. E mei não existe. Só meia concorda com hora, no feminino singular, como acontece em meia noite e em meia dúzia.",
   },
@@ -498,11 +498,11 @@ export const questoes = [
     opcoes: [
       "bastante",
       "bastanta",
-      "bastantes",
       "bastantas",
       "bastanti",
+      "bastantes",
     ],
-    correta: 2,
+    correta: 4,
     explicacao:
       "Na frase, a palavra acompanha o substantivo alunos e indica quantidade. Nesse uso, é adjetivo e concorda com o substantivo em número: havia bastantes alunos, no plural.\n\nBastante, no singular, é a forma do advérbio, como em bastante cansados. Bastanta e bastantas estariam no feminino, e alunos é masculino. E bastanti não existe. Só bastantes concorda com o substantivo.",
   },
@@ -515,11 +515,11 @@ export const questoes = [
     opcoes: [
       "anexo",
       "anexas",
-      "anexos",
       "anexa",
       "em anexos",
+      "anexos",
     ],
-    correta: 2,
+    correta: 4,
     explicacao:
       "A palavra anexo, nessa frase, é adjetivo e concorda com o substantivo a que se refere: os documentos, masculino plural. Por isso fica anexos: seguem anexos os documentos.\n\nAnexo, no singular, não concorda com o plural. Anexas e anexa estão no feminino. E em anexos não existe, pois a locução em anexo é invariável. Só anexos concorda com os documentos.",
   },
@@ -531,12 +531,12 @@ export const questoes = [
       "Qual palavra completa a frase “As alunas ___ prepararam o trabalho”, no sentido de elas próprias?",
     opcoes: [
       "mesmo",
+      "mesmas",
       "mesmos",
       "mesma",
-      "mesmas",
       "mesmices",
     ],
-    correta: 3,
+    correta: 1,
     explicacao:
       "A palavra mesmo, como reforço do substantivo, é adjetivo e concorda com ele em gênero e número. As alunas é feminino plural, e por isso a forma é mesmas: as alunas mesmas prepararam o trabalho.\n\nMesmo está no masculino singular. Mesmos está no masculino plural. Mesma está no feminino singular. E mesmices é outro substantivo. Só mesmas concorda com as alunas.",
   },
@@ -566,11 +566,11 @@ export const questoes = [
     opcoes: [
       "sozinha",
       "sozinhos",
-      "sozinho",
       "sozinhas",
+      "sozinho",
       "sozinhamente",
     ],
-    correta: 3,
+    correta: 2,
     explicacao:
       "A palavra sozinhas, nessa frase, é adjetivo e se refere ao sujeito, as meninas. Concorda com ele em gênero e número: feminino plural, sozinhas.\n\nSozinha está no singular. Sozinhos e sozinho estão no masculino. E sozinhamente não existe com esse sentido. Quando a palavra se refere ao sujeito e indica o estado em que ele fica, ela concorda com o sujeito. Só sozinhas concorda com as meninas.",
   },
@@ -582,12 +582,12 @@ export const questoes = [
       "Qual palavra completa a frase “Os meninos agradeceram: ‘Muito ___!’”?",
     opcoes: [
       "obrigado",
+      "obrigados",
       "obrigadas",
       "obrigada",
-      "obrigados",
       "obrigade",
     ],
-    correta: 3,
+    correta: 1,
     explicacao:
       "A palavra obrigado é adjetivo e concorda com a pessoa que fala. Quando vários meninos agradecem, o adjetivo fica no masculino plural: obrigados. O advérbio muito fica invariável.\n\nObrigado está no singular. Obrigadas e obrigada estão no feminino. E obrigade não existe. Quando vários meninos agradecem, é como se cada um se dissesse obrigado, e por isso o adjetivo vai para o plural. Só obrigados concorda com os meninos.",
   },
@@ -600,11 +600,11 @@ export const questoes = [
     opcoes: [
       "Falta dois dias para a prova.",
       "Faltamos dois dias para a prova.",
-      "Faltou dois dias para a prova.",
       "Faltam dois dias para a prova.",
+      "Faltou dois dias para a prova.",
       "Faltas dois dias para a prova.",
     ],
-    correta: 3,
+    correta: 2,
     explicacao:
       "O verbo faltar tem sujeito: dois dias é o sujeito, e vem depois do verbo. Como está no plural, o verbo vai para o plural: faltam dois dias para a prova.\n\nFalta e faltou deixam o verbo no singular. Faltamos o põe na primeira do plural. E faltas o põe na segunda do singular. Nenhum deles concorda com dois dias. Só faltam concorda com o sujeito posposto.",
   },
@@ -633,12 +633,12 @@ export const questoes = [
       "Qual forma verbal completa a frase “Ele e eu ___ amigos desde pequenos”, com o verbo ser no presente?",
     opcoes: [
       "são",
+      "somos",
       "é",
       "sou",
-      "somos",
       "sois",
     ],
-    correta: 3,
+    correta: 1,
     explicacao:
       "O sujeito composto ele e eu reúne a terceira e a primeira pessoa, e quem fala está entre elas. Quando o sujeito composto inclui a primeira pessoa, o verbo vai para a primeira do plural, equivalente a nós: somos.\n\nSão está na terceira do plural. É está na terceira do singular. Sou está na primeira do singular. E sois está na segunda do plural. Só somos concorda com ele e eu.",
   },
@@ -683,13 +683,13 @@ export const questoes = [
     enunciado:
       "Qual afirmação descreve corretamente a concordância nominal?",
     opcoes: [
+      "O adjetivo concorda com o substantivo em gênero e número",
       "O verbo concorda com o sujeito em pessoa",
       "O advérbio concorda com o verbo em número",
       "O artigo concorda com o verbo em gênero",
-      "O adjetivo concorda com o substantivo em gênero e número",
       "O substantivo concorda com o adjetivo em pessoa",
     ],
-    correta: 3,
+    correta: 0,
     explicacao:
       "A concordância nominal é a relação entre os nomes. O adjetivo, o artigo, o numeral e o pronome que acompanham um substantivo ficam no mesmo gênero e no mesmo número que ele: as casas bonitas, os livros novos.\n\nA concordância do verbo com o sujeito é a verbal. O advérbio é invariável. O artigo concorda com o substantivo, e não com o verbo. E o substantivo não concorda com o adjetivo em pessoa. Só a primeira afirmação descreve a concordância nominal.",
   },
@@ -700,13 +700,13 @@ export const questoes = [
     enunciado:
       "Qual das frases abaixo está correta quanto à concordância nominal?",
     opcoes: [
+      "É proibida a entrada de animais.",
       "É proibido a entrada de animais.",
       "É proibidas a entrada de animais.",
       "É proibidos a entrada de animais.",
       "É proibida as entrada de animais.",
-      "É proibida a entrada de animais.",
     ],
-    correta: 4,
+    correta: 0,
     explicacao:
       "Quando a expressão é proibido vem seguida de um substantivo com artigo, o adjetivo concorda com ele: é proibida a entrada, com proibida no feminino singular, como entrada. Se o substantivo viesse sem artigo, a expressão ficaria no masculino singular: é proibido entrada.\n\nÉ proibido a entrada ignora o artigo a e deixa o adjetivo no masculino. É proibidas e é proibidos põem o adjetivo no plural. E as entrada põe o artigo no plural com o substantivo no singular. Só a primeira frase concorda o adjetivo com a entrada.",
   },
@@ -717,13 +717,13 @@ export const questoes = [
     enunciado:
       "Qual das frases abaixo está correta quanto à concordância de anexo?",
     opcoes: [
+      "Seguem anexas as fotos.",
       "Seguem anexo as fotos.",
       "Segue anexas as fotos.",
       "Segue anexos as fotos.",
       "Seguem anexos as fotos.",
-      "Seguem anexas as fotos.",
     ],
-    correta: 4,
+    correta: 0,
     explicacao:
       "A palavra anexo é adjetivo e concorda com o substantivo a que se refere. As fotos é feminino plural, e por isso a forma é anexas. O verbo seguir também concorda com o sujeito, as fotos, e fica seguem.\n\nSeguem anexo e segue anexas misturam singular e plural. Segue anexos põe o verbo no singular e o adjetivo no masculino. E seguem anexos põe o adjetivo no masculino. Só a primeira frase concorda o verbo e o adjetivo com as fotos.",
   },
@@ -736,11 +736,11 @@ export const questoes = [
     opcoes: [
       "Devem haver soluções para o problema.",
       "Devemos haver soluções para o problema.",
+      "Deve haver soluções para o problema.",
       "Devia-se haver soluções para o problema.",
       "Deveriam haver soluções para o problema.",
-      "Deve haver soluções para o problema.",
     ],
-    correta: 4,
+    correta: 2,
     explicacao:
       "O verbo haver, no sentido de existir, não tem sujeito. Quando ele aparece depois de um verbo auxiliar, como dever, o auxiliar também fica no singular, acompanhando-o: deve haver soluções. A norma-padrão não deixa o auxiliar no plural.\n\nDevem haver e deveriam haver põem o auxiliar no plural, como se soluções fosse o sujeito. Devemos haver o põe na primeira do plural. E devia-se haver usa uma construção que não cabe nesse sentido. Só deve haver segue a norma-padrão.",
   },
@@ -785,13 +785,13 @@ export const questoes = [
     enunciado:
       "Ao se dirigir a uma ministra, qual das frases abaixo está correta?",
     opcoes: [
+      "Vossa Excelência está cansada.",
       "Vossa Excelência estás cansada.",
       "Vossa Excelência está cansado.",
       "Vossa Excelência estais cansada.",
       "Vossa Excelência estão cansada.",
-      "Vossa Excelência está cansada.",
     ],
-    correta: 4,
+    correta: 0,
     explicacao:
       "Os pronomes de tratamento, como Vossa Excelência, levam o verbo à terceira pessoa do singular: está. O adjetivo se refere à pessoa tratada e concorda com o seu sexo, e não com o gênero gramatical do pronome: para uma ministra, cansada.\n\nEstás e estais são formas de segunda pessoa, próprias de tu e de vós. Cansado está no masculino, e a pessoa tratada é mulher. E estão leva o verbo ao plural com um tratamento no singular. Só a primeira frase concorda o verbo e o adjetivo.",
   },
@@ -803,12 +803,12 @@ export const questoes = [
       "Qual das frases abaixo está correta quanto à concordância verbal?",
     opcoes: [
       "Mais de dois alunos faltou à aula.",
+      "Mais de dois alunos faltaram à aula.",
       "Mais de dois alunos faltamos à aula.",
       "Mais de dois alunos faltaste à aula.",
       "Mais de dois alunos falta à aula.",
-      "Mais de dois alunos faltaram à aula.",
     ],
-    correta: 4,
+    correta: 1,
     explicacao:
       "Quando a expressão mais de é seguida de um numeral maior que um, o verbo vai para o plural: mais de dois alunos faltaram. O núcleo do sujeito, alunos, está no plural, e o verbo concorda com ele.\n\nFaltou e falta deixam o verbo no singular. Faltamos o põe na primeira do plural. E faltaste o põe na segunda do singular. Nenhum deles concorda com dois alunos. Só faltaram concorda com o sujeito. A regra difere da de mais de um, que pede o singular.",
   },
@@ -822,10 +822,10 @@ export const questoes = [
       "Faz dois anos que ele viajou.",
       "Houve muitas festas no bairro.",
       "Existem muitas festas no bairro.",
-      "Chegaram os convidados cedo.",
       "Fazem dois anos que ele viajou.",
+      "Chegaram os convidados cedo.",
     ],
-    correta: 4,
+    correta: 3,
     explicacao:
       "O verbo fazer, indicando o tempo decorrido, não tem sujeito e fica no singular: faz dois anos. Em fazem dois anos, o verbo vai ao plural, e isso é erro de concordância.\n\nFaz dois anos está correta. Houve muitas festas deixa haver no singular, o que está certo. Existem muitas festas concorda com o sujeito, no plural. E chegaram os convidados cedo concorda o verbo com o sujeito posposto. Só a primeira frase tem erro.",
   },
@@ -836,13 +836,13 @@ export const questoes = [
     enunciado:
       "Qual das frases abaixo tem um erro de concordância nominal?",
     opcoes: [
+      "Ela está meia cansada.",
       "Ela está meio cansada.",
       "Ela esperou meia hora.",
       "As alunas estão bastante cansadas.",
       "Havia bastantes alunos na sala.",
-      "Ela está meia cansada.",
     ],
-    correta: 4,
+    correta: 0,
     explicacao:
       "Quando meio indica grau, equivalente a um pouco, é advérbio e fica invariável: ela está meio cansada. Em ela está meia cansada, a palavra variou para o feminino, e isso é erro.\n\nEla está meio cansada está correta. Meia hora está correta, pois meia é adjetivo e concorda com hora. Bastante, como advérbio de intensidade, é invariável. E bastantes, como adjetivo, concorda com alunos. Só a primeira frase tem erro.",
   },
@@ -855,11 +855,11 @@ export const questoes = [
     opcoes: [
       "Há bastante motivos para comemorar, e as meninas estão meia nervosas.",
       "Hão bastantes motivos para comemorar, e as meninas estão meio nervosas.",
+      "Há bastantes motivos para comemorar, e as meninas estão meio nervosas.",
       "Há bastantes motivos para comemorar, e as meninas estão meio nervoso.",
       "Há bastantes motivos para comemorar, e as meninas estão meias nervosas.",
-      "Há bastantes motivos para comemorar, e as meninas estão meio nervosas.",
     ],
-    correta: 4,
+    correta: 2,
     explicacao:
       "A primeira frase acerta em quatro pontos: há, de haver existencial, fica no singular; bastantes concorda com motivos, no masculino plural; meio, como advérbio de grau, fica invariável; e nervosas concorda com as meninas, no feminino plural.\n\nAs demais erram em algum ponto: bastante no singular com motivos, hão no plural com haver, meia ou meias no lugar do advérbio meio, ou nervoso no singular. Só a primeira frase acerta todas as concordâncias.",
   },

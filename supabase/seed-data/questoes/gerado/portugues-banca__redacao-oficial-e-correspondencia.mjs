@@ -20,13 +20,13 @@ export const questoes = [
     enunciado:
       "Qual documento é usado para a comunicação interna entre unidades de um mesmo órgão?",
     opcoes: [
-      "Memorando",
       "Ofício",
       "Requerimento",
       "Procuração",
+      "Memorando",
       "Atestado",
     ],
-    correta: 0,
+    correta: 3,
     explicacao:
       "O memorando é o documento da comunicação interna: circula entre setores, unidades ou chefias do mesmo órgão, para tratar de assuntos administrativos, de modo ágil e padronizado. O ofício, ao contrário, é usado na comunicação externa, com outros órgãos ou com particulares.\n\nO requerimento é um pedido dirigido a uma autoridade. A procuração é o documento pelo qual alguém confere poderes a outra pessoa. E o atestado é o documento que comprova um fato ou situação, como o atestado médico.",
   },
@@ -37,13 +37,13 @@ export const questoes = [
     enunciado:
       "Qual documento é usado para a comunicação oficial com outros órgãos ou com particulares?",
     opcoes: [
-      "Ofício",
       "Memorando",
+      "Ofício",
       "Ata",
       "Procuração",
       "Declaração",
     ],
-    correta: 0,
+    correta: 1,
     explicacao:
       "O ofício é o documento da comunicação oficial externa: serve para um órgão se dirigir a outros órgãos, a autoridades ou a particulares, para tratar de assuntos de interesse do serviço público. Segue um padrão de redação e de diagramação.\n\nO memorando é a comunicação interna entre unidades do mesmo órgão. A ata registra o que se passou em uma reunião. A procuração confere poderes a outra pessoa. E a declaração afirma um fato sob responsabilidade de quem a assina.",
   },
@@ -54,13 +54,13 @@ export const questoes = [
     enunciado:
       "Qual documento é usado para pedir algo a uma autoridade, como um direito ou um benefício?",
     opcoes: [
-      "Requerimento",
       "Ata",
       "Memorando",
+      "Requerimento",
       "Procuração",
       "Relatório",
     ],
-    correta: 0,
+    correta: 2,
     explicacao:
       "O requerimento é o documento pelo qual uma pessoa solicita uma providência, um direito ou um benefício a uma autoridade, em geral com a fórmula tradicional de fecho “Nestes termos, pede deferimento”. É dirigido à autoridade competente para decidir.\n\nA ata registra uma reunião. O memorando é comunicação interna. A procuração confere poderes. E o relatório descreve atividades e resultados. Nenhum deles tem a finalidade de formular um pedido a uma autoridade.",
   },
@@ -71,13 +71,13 @@ export const questoes = [
     enunciado:
       "Qual documento registra o que se passou em uma reunião, com data, participantes e decisões?",
     opcoes: [
-      "Ata",
       "Ofício",
+      "Ata",
       "Requerimento",
       "Procuração",
       "Atestado",
     ],
-    correta: 0,
+    correta: 1,
     explicacao:
       "A ata é o documento que registra, de forma resumida e fiel, o que ocorreu em uma reunião, assembleia ou sessão: data, hora, local, participantes, assuntos tratados e decisões tomadas. É assinada pelos presentes ou por quem a lavrou.\n\nO ofício é comunicação externa. O requerimento é um pedido. A procuração confere poderes. E o atestado comprova um fato ou situação. Só a ata tem a função de registrar uma reunião.",
   },
@@ -156,13 +156,13 @@ export const questoes = [
     enunciado:
       "Qual característica da redação oficial exige que o texto não expresse opiniões pessoais do redator?",
     opcoes: [
-      "Impessoalidade",
       "Concisão",
       "Formalidade",
+      "Impessoalidade",
       "Clareza",
       "Padronização",
     ],
-    correta: 0,
+    correta: 2,
     explicacao:
       "A impessoalidade exige que o texto oficial não expresse opiniões, gostos ou sentimentos pessoais de quem o redige, porque quem fala é o órgão, e não o indivíduo. Por isso se usam construções como informa-se, solicita-se e comunica-se.\n\nA concisão pede texto breve. A formalidade pede tom respeitoso e linguagem culta. A clareza pede que o texto seja compreendido sem esforço. E a padronização pede uniformidade de formato. Só a impessoalidade se ocupa da ausência de opinião pessoal.",
   },
@@ -173,13 +173,13 @@ export const questoes = [
     enunciado:
       "Qual fecho é adequado a um ofício dirigido a uma autoridade de hierarquia superior à do signatário?",
     opcoes: [
-      "Respeitosamente,",
       "Atenciosamente,",
       "Abraços,",
       "Valeu,",
+      "Respeitosamente,",
       "Até logo,",
     ],
-    correta: 0,
+    correta: 3,
     explicacao:
       "Na redação oficial, o fecho Respeitosamente é usado em comunicações dirigidas a autoridades superiores ao signatário, inclusive ao Presidente da República. Marca a deferência devida à hierarquia.\n\nAtenciosamente é o fecho para autoridades de mesma hierarquia ou de hierarquia inferior. Abraços, Valeu e Até logo são fechos informais, próprios de mensagens pessoais, e não de documentos oficiais.",
   },
@@ -191,12 +191,12 @@ export const questoes = [
       "Qual fecho é adequado a um ofício dirigido a uma autoridade de mesma hierarquia ou de hierarquia inferior?",
     opcoes: [
       "Respeitosamente,",
-      "Atenciosamente,",
       "Beijos,",
       "Fui,",
+      "Atenciosamente,",
       "Tchau,",
     ],
-    correta: 1,
+    correta: 3,
     explicacao:
       "Na redação oficial, o fecho Atenciosamente é usado em comunicações dirigidas a autoridades de mesma hierarquia ou inferior à do signatário. É o fecho de uso corrente e comum.\n\nRespeitosamente é o fecho para autoridades superiores. Beijos, Fui e Tchau são fechos informais, próprios de mensagens pessoais, e não de documentos oficiais. A escolha do fecho depende da relação hierárquica entre quem escreve e quem recebe.",
   },
@@ -208,12 +208,12 @@ export const questoes = [
       "Em um ofício, qual parte resume em poucas palavras o tema tratado?",
     opcoes: [
       "Fecho",
-      "Assunto",
       "Vocativo",
+      "Assunto",
       "Timbre",
       "Assinatura",
     ],
-    correta: 1,
+    correta: 2,
     explicacao:
       "O assunto é a parte do ofício que indica, em uma frase curta, o tema tratado, de modo que o destinatário saiba do que se trata antes de ler o texto. Costuma ficar logo depois do local e data.\n\nO fecho é a despedida. O vocativo é a forma de tratar o destinatário. O timbre identifica o órgão emissor. E a assinatura identifica quem assina. Só o assunto resume o tema.",
   },
@@ -224,13 +224,13 @@ export const questoes = [
     enunciado:
       "Qual vocativo é adequado em um ofício dirigido a um Ministro de Estado?",
     opcoes: [
-      "Prezado amigo,",
       "Senhor Ministro,",
+      "Prezado amigo,",
       "Ilustríssimo,",
       "Meu caro Ministro,",
       "Olá, Excelência,",
     ],
-    correta: 1,
+    correta: 0,
     explicacao:
       "O vocativo é a forma de se dirigir ao destinatário no início do texto, e na redação oficial usa-se Senhor seguido do cargo: Senhor Ministro, Senhor Governador. É formal e adequado à hierarquia.\n\nPrezado amigo e meu caro Ministro são formas informais. Olá, Excelência mistura uma saudação informal com o tratamento. E Ilustríssimo não é vocativo, mas um título usado no endereçamento a autoridades de nível diferente. Por isso Senhor Ministro é a opção correta.",
   },
@@ -242,12 +242,12 @@ export const questoes = [
       "Qual é a forma adequada de endereçamento a um Ministro de Estado em um ofício?",
     opcoes: [
       "Ao Ilustríssimo Ministro Fulano",
-      "A Sua Excelência o Senhor Fulano de Tal",
       "Para o Fulano",
+      "A Sua Excelência o Senhor Fulano de Tal",
       "Ao amigo Fulano",
       "A Vossa Excelência, Fulano",
     ],
-    correta: 1,
+    correta: 2,
     explicacao:
       "O endereçamento é a parte em que se identifica o destinatário, e para um Ministro de Estado se usa A Sua Excelência o Senhor, seguido do nome e do cargo. Nessa parte o tratamento é feito em terceira pessoa, com Sua Excelência.\n\nIlustríssimo é título para autoridades de outro nível. Para o Fulano e ao amigo Fulano são formas informais. E A Vossa Excelência, Fulano usa a segunda forma no lugar da terceira, o que contraria a convenção do endereçamento.",
   },
@@ -259,12 +259,12 @@ export const questoes = [
       "Em qual das frases a concordância com o pronome de tratamento está de acordo com a norma-padrão, dirigindo-se a uma Senadora?",
     opcoes: [
       "Vossa Excelência estás convidada para a sessão solene.",
-      "Vossa Excelência está convidada para a sessão solene.",
       "Vossa Excelência estais convidada para a sessão solene.",
       "Vossa Excelência está convidado para a sessão solene.",
+      "Vossa Excelência está convidada para a sessão solene.",
       "Vossa Excelência estou convidada para a sessão solene.",
     ],
-    correta: 1,
+    correta: 3,
     explicacao:
       "Os pronomes de tratamento levam o verbo à terceira pessoa, e o adjetivo ou particípio concorda com o sexo da pessoa tratada. Como se trata de uma senadora, a frase correta é Vossa Excelência está convidada.\n\nEstás e estais são formas de segunda pessoa, e estou é de primeira, e nenhuma concorda com um pronome de tratamento. Convidado, no masculino, não concorda com o sexo de uma senadora.",
   },
@@ -276,12 +276,12 @@ export const questoes = [
       "A quais autoridades se aplica o tratamento Vossa Excelência na redação oficial?",
     opcoes: [
       "Apenas ao Presidente da República",
-      "Chefes de Poder, ministros e parlamentares",
       "A todo e qualquer cidadão",
       "Apenas a reitores de universidades",
       "A pessoas de idade avançada",
+      "Chefes de Poder, ministros e parlamentares",
     ],
-    correta: 1,
+    correta: 4,
     explicacao:
       "Vossa Excelência é o tratamento reservado a uma lista de autoridades: chefes de Poder, ministros de Estado, parlamentares, governadores, prefeitos, embaixadores, magistrados, entre outros. Não se limita ao Presidente da República.\n\nNão se aplica a todo cidadão, que recebe Vossa Senhoria ou o tratamento de senhor. Reitores têm tratamento próprio, Vossa Magnificência. E a idade avançada não é critério de tratamento na redação oficial.",
   },
@@ -293,12 +293,12 @@ export const questoes = [
       "Qual é a função da introdução no texto de um ofício?",
     opcoes: [
       "Reunir todos os detalhes do tema",
-      "Apresentar o assunto e a razão da comunicação",
       "Concluir o assunto e propor providências",
       "Substituir o fecho",
+      "Apresentar o assunto e a razão da comunicação",
       "Identificar o signatário",
     ],
-    correta: 1,
+    correta: 3,
     explicacao:
       "O texto do ofício se organiza em introdução, desenvolvimento e conclusão. A introdução apresenta o assunto e a razão da comunicação, de modo que o leitor saiba logo do que se trata e por que se escreve. Em geral, é um parágrafo curto.\n\nO desenvolvimento reúne os detalhes. A conclusão encerra o assunto e indica providências. O fecho é a despedida. E a identificação do signatário vem depois da assinatura. A introdução, portanto, só situa o leitor.",
   },
@@ -310,12 +310,12 @@ export const questoes = [
       "Como deve ser o texto de uma ata lavrada em livro?",
     opcoes: [
       "Em tópicos numerados e com abreviaturas",
-      "Corrido, sem parágrafos nem espaços em branco, e sem rasuras",
       "Em forma de verso",
       "Com rasuras livres, para facilitar correções",
+      "Corrido, sem parágrafos nem espaços em branco, e sem rasuras",
       "Sem data nem assinaturas",
     ],
-    correta: 1,
+    correta: 3,
     explicacao:
       "A ata lavrada em livro deve ser escrita em texto corrido, sem parágrafos nem espaços em branco, para impedir acréscimos posteriores, e sem rasuras, raspagens ou emendas. Se houver erro, usa-se a expressão digo, e se corrige no próprio texto.\n\nTópicos numerados, abreviaturas, versos e rasuras livres não são admitidos. E a ata deve conter data e assinaturas, que dão validade ao registro.",
   },
@@ -327,12 +327,12 @@ export const questoes = [
       "Como se escrevem datas e números em uma ata?",
     opcoes: [
       "Com algarismos e abreviaturas",
-      "Por extenso",
       "Apenas em algarismos romanos",
       "Em letras maiúsculas apenas",
+      "Por extenso",
       "Em notação científica",
     ],
-    correta: 1,
+    correta: 3,
     explicacao:
       "Na ata, datas e números são escritos por extenso, como em aos dez dias do mês de março de dois mil e vinte e cinco, às nove horas. Isso evita fraudes e alterações, porque um algarismo é mais fácil de modificar do que uma palavra.\n\nAlgarismos e abreviaturas, algarismos romanos apenas, letras maiúsculas apenas e notação científica não são as formas previstas para a redação de atas.",
   },
@@ -344,12 +344,12 @@ export const questoes = [
       "Como se corrige um erro percebido no meio do texto de uma ata lavrada em livro?",
     opcoes: [
       "Com corretivo líquido",
-      "Com a expressão “digo”, sem rasuras",
       "Riscando e escrevendo por cima",
+      "Com a expressão “digo”, sem rasuras",
       "Apagando com borracha",
       "Rasgando a folha",
     ],
-    correta: 1,
+    correta: 2,
     explicacao:
       "Na ata lavrada em livro, não se admitem rasuras. Quando o erro é percebido no meio do texto, usa-se a expressão digo, seguida da palavra correta, para que a correção fique registrada no próprio texto: aos dez dias do mês de março, digo, de abril.\n\nCorretivo líquido, riscar por cima, apagar com borracha e rasgar a folha deixam marcas ou comprometem a integridade do livro, e por isso não são admitidos.",
   },
@@ -360,13 +360,13 @@ export const questoes = [
     enunciado:
       "Qual fecho tradicional é usado em um requerimento?",
     opcoes: [
+      "Nestes termos, pede deferimento.",
       "Atenciosamente, cumprimenta.",
       "Sem mais, abraços.",
-      "Nestes termos, pede deferimento.",
       "Até breve.",
       "Cordiais saudações.",
     ],
-    correta: 2,
+    correta: 0,
     explicacao:
       "O fecho tradicional do requerimento é Nestes termos, pede deferimento, ou Termos em que pede deferimento. Deferimento é a concessão do pedido, e a fórmula indica que o requerente aguarda a decisão da autoridade.\n\nAtenciosamente, cumprimenta e Cordiais saudações são fórmulas de correspondência. Sem mais, abraços e Até breve são fechos informais. A fórmula do requerimento é própria dele.",
   },
@@ -379,11 +379,11 @@ export const questoes = [
     opcoes: [
       "Quem recebe os poderes",
       "Quem testemunha o ato",
-      "Quem confere os poderes",
       "Quem redige o documento",
       "Quem registra o documento",
+      "Quem confere os poderes",
     ],
-    correta: 2,
+    correta: 4,
     explicacao:
       "Na procuração, o outorgante é quem confere os poderes, e o outorgado é quem os recebe para agir em nome do outorgante. A palavra outorgar significa conceder.\n\nQuem recebe os poderes é o outorgado, e não o outorgante. A testemunha, o redator e quem registra o documento são figuras que podem aparecer, mas não são o outorgante. Para lembrar, outorgante é quem outorga, isto é, quem concede.",
   },
@@ -396,11 +396,11 @@ export const questoes = [
     opcoes: [
       "Venho, por meio desta, requerer...",
       "Fica nomeado...",
-      "Declaro, para os devidos fins, que...",
       "Aos dias do mês de...",
       "Atesto, para os fins médicos...",
+      "Declaro, para os devidos fins, que...",
     ],
-    correta: 2,
+    correta: 4,
     explicacao:
       "A declaração costuma começar com Declaro, para os devidos fins, que..., seguida do fato que se afirma. A expressão para os devidos fins indica que o documento poderá ser usado onde for exigido.\n\nVenho, por meio desta, requerer abre um requerimento. Fica nomeado abre um ato de nomeação. Aos dias do mês de abre uma ata. E atesto, para os fins médicos, abre um atestado. Cada documento tem sua fórmula de abertura.",
   },
@@ -412,12 +412,12 @@ export const questoes = [
       "Qual documento é adequado para comunicar uma decisão a uma empresa externa ao órgão?",
     opcoes: [
       "Memorando",
-      "Ata",
       "Ofício",
+      "Ata",
       "Procuração",
       "Declaração",
     ],
-    correta: 2,
+    correta: 1,
     explicacao:
       "A comunicação oficial com quem está fora do órgão, como uma empresa, é feita por ofício, que é o documento da comunicação externa. O ofício segue um padrão de redação e de diagramação, e é assinado por autoridade competente.\n\nO memorando é para comunicação interna. A ata registra reuniões. A procuração confere poderes. E a declaração afirma um fato. Nenhum deles é o documento próprio para comunicar uma decisão a uma empresa externa.",
   },
@@ -429,12 +429,12 @@ export const questoes = [
       "Em qual das frases a impessoalidade da redação oficial é respeitada?",
     opcoes: [
       "Eu acho que o prazo foi prorrogado.",
-      "Pessoalmente, creio que o prazo vai mudar.",
       "Informa-se que o prazo foi prorrogado.",
+      "Pessoalmente, creio que o prazo vai mudar.",
       "Na minha opinião, o prazo é longo.",
       "Tenho certeza de que o prazo foi prorrogado.",
     ],
-    correta: 2,
+    correta: 1,
     explicacao:
       "A impessoalidade exige que o texto não exprima opinião ou sentimento do redator: informa-se que o prazo foi prorrogado apresenta o fato sem marca pessoal, como se o próprio órgão falasse.\n\nEu acho, pessoalmente, creio, na minha opinião e tenho certeza trazem a opinião do redator, o que a redação oficial evita. A voz passiva sintética ou a terceira pessoa são recursos para manter o texto impessoal.",
   },
@@ -446,12 +446,12 @@ export const questoes = [
       "Qual reescrita torna mais concisa a frase “Venho, por meio da presente, solicitar a Vossa Senhoria a gentileza de me informar”?",
     opcoes: [
       "Venho, por intermédio deste documento, pedir a gentileza de informar",
-      "Peço, com a máxima gentileza possível, que me informe",
       "Solicito a Vossa Senhoria que informe",
+      "Peço, com a máxima gentileza possível, que me informe",
       "Venho por meio desta carta, com todo o respeito, pedir que informe",
       "Solicito, se for possível, caso não haja inconveniente, que informe",
     ],
-    correta: 2,
+    correta: 1,
     explicacao:
       "A concisão pede que se diga o necessário com o menor número de palavras, sem perder clareza e cortesia. Solicito a Vossa Senhoria que informe mantém o pedido e o tratamento, eliminando rodeios como venho, por meio da presente e a gentileza de.\n\nAs demais reescritas mantêm ou aumentam os rodeios: por intermédio deste documento, com a máxima gentileza possível, com todo o respeito, se for possível, caso não haja inconveniente. Todas alongam o pedido sem acrescentar informação.",
   },
@@ -464,11 +464,11 @@ export const questoes = [
     opcoes: [
       "“Ficam acordados os termos”",
       "“Encaminho para análise”",
-      "“Tá tudo certo”",
       "“Segue o relatório”",
+      "“Tá tudo certo”",
       "“Aguardo manifestação”",
     ],
-    correta: 2,
+    correta: 3,
     explicacao:
       "A redação oficial exige linguagem formal, no padrão culto. Tá tudo certo é uma forma coloquial, com a contração tá e a expressão tudo certo, própria da conversa informal, e por isso é inadequada.\n\nFicam acordados os termos, encaminho para análise, segue o relatório e aguardo manifestação são formas formais e comuns nos documentos oficiais. Elas são claras, objetivas e respeitam o padrão culto.",
   },
@@ -481,11 +481,11 @@ export const questoes = [
     opcoes: [
       "Brasília, 01 de março de 2025.",
       "Brasília, 1/3/25.",
-      "Brasília, 1º de março de 2025.",
       "Brasília, 1 mar. 2025.",
+      "Brasília, 1º de março de 2025.",
       "Brasília, 01.03.2025.",
     ],
-    correta: 2,
+    correta: 3,
     explicacao:
       "Na redação oficial, a data é escrita por extenso, com o local, o dia, o mês e o ano: Brasília, 1º de março de 2025. O primeiro dia do mês leva o ordinal 1º, e os demais dias, o cardinal, sem zero à esquerda.\n\nBrasília, 01 de março de 2025 usa o zero à esquerda. As datas numéricas e as abreviadas, como 1/3/25, 1 mar. 2025 e 01.03.2025, não são as previstas para o corpo do documento oficial.",
   },
@@ -497,12 +497,12 @@ export const questoes = [
       "Como deve ser escrito o número de um ofício?",
     opcoes: [
       "Ofício 123 de 2025 número",
-      "Ofício Nº.:123-2025",
       "Ofício nº 123/2025",
+      "Ofício Nº.:123-2025",
       "Ofício número cento e vinte e três",
       "Ofício #123",
     ],
-    correta: 2,
+    correta: 1,
     explicacao:
       "O número do ofício é escrito com a palavra ofício, o sinal nº, o número sequencial e o ano, separados por barra: Ofício nº 123/2025. Em alguns órgãos, acrescenta-se a sigla da unidade, como em Ofício nº 123/2025/ABC.\n\nAs demais formas misturam a ordem, usam pontuação a mais, escrevem o número por extenso ou empregam um símbolo informal, o jogo da velha, que não faz parte da prática da redação oficial.",
   },
@@ -514,12 +514,12 @@ export const questoes = [
       "Onde fica o nome do signatário em um ofício?",
     opcoes: [
       "Acima do timbre",
-      "Dentro do vocativo",
       "Abaixo da assinatura, com o cargo",
+      "Dentro do vocativo",
       "Antes do assunto",
       "No meio do texto",
     ],
-    correta: 2,
+    correta: 1,
     explicacao:
       "O nome do signatário, isto é, de quem assina o ofício, vem abaixo do espaço reservado à assinatura, seguido do cargo ou função. Assim se identifica quem assina o documento.\n\nO timbre fica no alto e identifica o órgão. O vocativo se dirige ao destinatário. O assunto vem logo depois do local e da data. E o meio do texto é o espaço do desenvolvimento. Por isso a identificação do signatário vem no fim, depois da assinatura.",
   },
@@ -532,11 +532,11 @@ export const questoes = [
     opcoes: [
       "Resumir o assunto",
       "Identificar o órgão emissor",
-      "Registrar a data",
       "Tratar o destinatário conforme o cargo",
+      "Registrar a data",
       "Encerrar o documento",
     ],
-    correta: 3,
+    correta: 2,
     explicacao:
       "O vocativo é a forma de o redator se dirigir ao destinatário, no início do texto, com o tratamento adequado ao cargo: Senhor Ministro, Senhora Diretora. Marca a formalidade e a hierarquia.\n\nResumir o assunto é função do campo assunto. Identificar o órgão emissor é função do timbre. Registrar a data é função do local e data. E encerrar o documento é função do fecho, seguido da assinatura. Cada parte do ofício tem uma função.",
   },
@@ -550,10 +550,10 @@ export const questoes = [
       "Ao se dirigir ao Presidente da República",
       "Ao se dirigir a reitores",
       "Ao se dirigir a ministros",
-      "Ao se dirigir a autoridades de nível inferior e a particulares",
       "Ao se dirigir ao Papa",
+      "Ao se dirigir a autoridades de nível inferior e a particulares",
     ],
-    correta: 3,
+    correta: 4,
     explicacao:
       "Vossa Senhoria é o tratamento usado para autoridades que não têm tratamento próprio, como diretores e chefes, e também para particulares: empresas, cidadãos, pessoas em geral. É o tratamento mais comum na correspondência com quem está fora do governo.\n\nO Presidente da República e os ministros recebem Vossa Excelência. Os reitores recebem Vossa Magnificência. E o Papa recebe Vossa Santidade. Cada autoridade tem um tratamento.",
   },
@@ -566,11 +566,11 @@ export const questoes = [
     opcoes: [
       "Vossa é usado para falar dela a terceiros, e Sua, para falar com a pessoa",
       "Os dois são usados apenas para particulares",
-      "Os dois significam a mesma coisa em qualquer contexto",
       "Vossa é usado para falar com a pessoa, e Sua, para falar dela a terceiros",
+      "Os dois significam a mesma coisa em qualquer contexto",
       "Vossa é usado só por escrito, e Sua, só oralmente",
     ],
-    correta: 3,
+    correta: 2,
     explicacao:
       "Vossa Excelência é a forma usada para se dirigir diretamente à pessoa tratada, no vocativo e no corpo do texto: solicito a Vossa Excelência. Sua Excelência é a forma usada para falar dela a terceiros, ou no endereçamento: a Sua Excelência o Senhor Ministro.\n\nInverter as formas contraria o uso. Os dois tratamentos se aplicam a autoridades, e não a particulares. Não significam o mesmo em qualquer contexto, porque a pessoa gramatical é diferente. E os dois se usam por escrito e oralmente.",
   },
@@ -582,12 +582,12 @@ export const questoes = [
       "Qual documento propõe ao Presidente da República a adoção de um ato normativo ou a tomada de decisão?",
     opcoes: [
       "Ata",
+      "Exposição de motivos",
       "Procuração",
       "Declaração",
-      "Exposição de motivos",
       "Memorando",
     ],
-    correta: 3,
+    correta: 1,
     explicacao:
       "A exposição de motivos é o documento dirigido ao Presidente da República ou ao Vice-Presidente por um ministro de Estado para informá-lo de determinado assunto, propor uma medida ou submeter a sua consideração um projeto de ato normativo. Justifica a proposta.\n\nA ata registra reuniões. A procuração confere poderes. A declaração afirma um fato. E o memorando é comunicação interna. Nenhum deles tem a finalidade de propor ao Presidente um ato normativo.",
   },
@@ -598,13 +598,13 @@ export const questoes = [
     enunciado:
       "Qual documento descreve atividades realizadas e seus resultados em determinado período?",
     opcoes: [
+      "Relatório",
       "Procuração",
       "Requerimento",
       "Atestado",
-      "Relatório",
       "Aviso",
     ],
-    correta: 3,
+    correta: 0,
     explicacao:
       "O relatório é o documento que descreve as atividades realizadas, os resultados alcançados e, quando for o caso, as dificuldades encontradas em um período. Serve para prestar contas e embasar decisões.\n\nA procuração confere poderes. O requerimento é um pedido. O atestado comprova um fato ou situação. E o aviso é uma comunicação, em geral de autoridades superiores. Só o relatório tem a função de descrever atividades e resultados.",
   },
@@ -615,13 +615,13 @@ export const questoes = [
     enunciado:
       "Qual é a vantagem de padronizar os documentos oficiais?",
     opcoes: [
+      "Facilitar a leitura e a compreensão, dando uniformidade",
       "Permitir que cada redator use o estilo que preferir",
       "Tornar os textos mais longos e detalhados",
       "Eliminar a necessidade de assinatura",
-      "Facilitar a leitura e a compreensão, dando uniformidade",
       "Dispensar a revisão do texto",
     ],
-    correta: 3,
+    correta: 0,
     explicacao:
       "A padronização dos documentos oficiais, que define a estrutura, o tratamento e a diagramação, facilita a leitura e a compreensão, porque o leitor sabe onde encontrar cada informação. Também dá uniformidade à comunicação do Estado.\n\nA padronização não existe para permitir estilos pessoais, nem para alongar os textos, nem para dispensar a assinatura ou a revisão. É um dos princípios da redação oficial, ao lado da impessoalidade, da formalidade, da concisão e da clareza.",
   },
@@ -634,11 +634,11 @@ export const questoes = [
     opcoes: [
       "O documento oficial usa gírias e expressões afetivas",
       "A carta pessoal é obrigatoriamente impessoal",
-      "Os dois seguem as mesmas regras de padronização",
       "O documento oficial usa linguagem formal, impessoal e padronizada",
+      "Os dois seguem as mesmas regras de padronização",
       "O documento oficial dispensa o padrão culto",
     ],
-    correta: 3,
+    correta: 2,
     explicacao:
       "O documento oficial se dirige a uma coletividade ou a uma autoridade em nome de uma instituição, e por isso usa linguagem formal, impessoal e padronizada, no padrão culto. A carta pessoal, escrita entre pessoas, pode ser informal e afetiva.\n\nAs gírias e expressões afetivas pertencem à carta pessoal. A carta pessoal pode ser pessoal, e não obrigatoriamente impessoal. Os dois não seguem as mesmas regras de padronização. E o documento oficial exige o padrão culto.",
   },
@@ -651,11 +651,11 @@ export const questoes = [
     opcoes: [
       "O resumo do assunto, no início",
       "A identificação do órgão, no alto da página",
-      "O tratamento dado ao destinatário",
       "A despedida que encerra o texto, antes da assinatura",
+      "O tratamento dado ao destinatário",
       "A data do documento",
     ],
-    correta: 3,
+    correta: 2,
     explicacao:
       "O fecho é a fórmula de despedida que encerra o texto do documento, antes da assinatura: Atenciosamente, Respeitosamente. Marca a cortesia e a relação hierárquica entre remetente e destinatário.\n\nO resumo do assunto é o campo assunto. A identificação do órgão, no alto, é o timbre. O tratamento ao destinatário é o vocativo. E a data é o local e data. O fecho só diz respeito à despedida.",
   },
@@ -666,13 +666,13 @@ export const questoes = [
     enunciado:
       "Qual é a finalidade do timbre em um documento oficial?",
     opcoes: [
+      "Identificar o órgão que emite o documento",
       "Indicar o assunto tratado",
       "Registrar a assinatura",
       "Dirigir-se ao destinatário",
-      "Identificar o órgão que emite o documento",
       "Despedir-se do leitor",
     ],
-    correta: 3,
+    correta: 0,
     explicacao:
       "O timbre é a identificação do órgão emissor, em geral com o brasão ou logotipo e o nome do órgão, no alto da primeira página. Mostra de onde vem o documento e lhe confere autenticidade.\n\nO assunto indica o tema. A assinatura registra quem assina. O vocativo se dirige ao destinatário. E o fecho é a despedida. Cada uma dessas partes tem função própria, diferente da do timbre.",
   },
@@ -685,11 +685,11 @@ export const questoes = [
     opcoes: [
       "Apresentar o assunto pela primeira vez",
       "Reunir todos os dados e justificativas",
-      "Identificar o signatário",
       "Encerrar e indicar as providências",
+      "Identificar o signatário",
       "Informar a data do documento",
     ],
-    correta: 3,
+    correta: 2,
     explicacao:
       "A conclusão encerra o texto do ofício retomando o essencial e indicando as providências solicitadas ou o que se espera do destinatário: pede-se resposta até o dia 20. Deixa claro o próximo passo.\n\nApresentar o assunto pela primeira vez é papel da introdução. Reunir dados e justificativas é papel do desenvolvimento. Identificar o signatário e informar a data são partes do documento, e não do texto. A conclusão é o fecho do raciocínio.",
   },
@@ -735,12 +735,12 @@ export const questoes = [
       "Qual reescrita torna impessoal e concisa a frase “Eu acho que seria muito bom, na minha opinião, que o prazo fosse prorrogado”?",
     opcoes: [
       "Eu creio que o prazo deve ser prorrogado, na minha opinião.",
+      "Sugere-se a prorrogação do prazo.",
       "Acho que o prazo deveria, quem sabe, ser prorrogado.",
       "Seria ótimo, eu acho, prorrogar o prazo.",
       "Eu sugiro, na minha opinião, o prazo prorrogado.",
-      "Sugere-se a prorrogação do prazo.",
     ],
-    correta: 4,
+    correta: 1,
     explicacao:
       "Sugere-se a prorrogação do prazo é impessoal, porque usa a voz passiva sintética e não aponta o redator, e é concisa, porque elimina as marcas de opinião e os rodeios. Mantém a ideia central: a sugestão de prorrogar.\n\nAs demais reescritas mantêm a opinião pessoal (eu creio, acho, eu acho, eu sugiro, na minha opinião) e os rodeios (quem sabe, seria ótimo). Por isso nenhuma delas é impessoal nem concisa.",
   },
@@ -771,10 +771,10 @@ export const questoes = [
       "Aos 10/03/25, às 9h, reuniram-se os membros do conselho para tratar de assuntos diversos.",
       "Em 10 mar. 25, às 9h, houve reunião dos membros do conselho para tratar de assuntos diversos.",
       "No dia 10, em local não indicado, houve reunião do conselho para tratar de assuntos diversos.",
-      "Hoje, reunimo-nos para conversar sobre os assuntos diversos do conselho, sem horário marcado.",
       "Aos dez dias do mês de março de dois mil e vinte e cinco, às nove horas, reuniram-se os membros do conselho.",
+      "Hoje, reunimo-nos para conversar sobre os assuntos diversos do conselho, sem horário marcado.",
     ],
-    correta: 4,
+    correta: 3,
     explicacao:
       "A abertura da ata registra o dia, o mês, o ano e a hora, escritos por extenso: aos dez dias do mês de março de dois mil e vinte e cinco, às nove horas. Indica também quem se reuniu, no caso os membros do conselho. A escrita por extenso evita alterações posteriores.\n\nAs aberturas com algarismos e abreviaturas (10/03/25, 9h, 10 mar. 25), sem mês nem ano e sem local, ou com tom de conversa (hoje, reunimo-nos para conversar, sem horário marcado), não seguem as normas da ata.",
   },
@@ -803,12 +803,12 @@ export const questoes = [
       "Em qual das situações o fecho Atenciosamente é o adequado, conforme a prática dos manuais de redação oficial?",
     opcoes: [
       "Ofício dirigido a autoridade de hierarquia superior",
+      "Ofício dirigido a autoridade de mesma hierarquia ou inferior",
       "Ofício dirigido ao Presidente da República",
       "Requerimento dirigido a uma autoridade",
       "Ata de reunião",
-      "Ofício dirigido a autoridade de mesma hierarquia ou inferior",
     ],
-    correta: 4,
+    correta: 1,
     explicacao:
       "O fecho Atenciosamente é usado em ofícios dirigidos a autoridades de mesma hierarquia ou inferior à do signatário. Marca a cortesia sem a deferência especial devida a quem está acima.\n\nOfícios dirigidos a autoridades superiores, inclusive ao Presidente da República, levam Respeitosamente. O requerimento tem sua fórmula própria, nestes termos, pede deferimento. E a ata não leva fecho de correspondência, porque termina com as assinaturas.",
   },
@@ -836,13 +836,13 @@ export const questoes = [
     enunciado:
       "Qual afirmação sobre ofício e memorando está correta?",
     opcoes: [
+      "O ofício é externo, e o memorando, interno",
       "O ofício é interno, e o memorando, externo",
       "Os dois são exclusivamente externos",
       "Os dois são requerimentos",
       "Não há diferença entre eles",
-      "O ofício é externo, e o memorando, interno",
     ],
-    correta: 4,
+    correta: 0,
     explicacao:
       "O ofício é o documento da comunicação oficial externa, dirigido a outros órgãos, autoridades ou particulares. O memorando é o documento da comunicação interna, trocado entre unidades ou chefias do mesmo órgão. Os dois seguem um padrão de redação e de diagramação.\n\nInverter as definições contraria o uso. Os dois não são exclusivamente externos, nem são requerimentos, que são pedidos dirigidos a autoridades. E há, sim, diferença entre eles: o destinatário, interno ou externo.",
   },

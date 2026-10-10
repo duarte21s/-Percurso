@@ -20,13 +20,13 @@ export const questoes = [
     enunciado:
       "Considere as premissas: “Se Ana passar no concurso, fará uma viagem” e “Ana passou no concurso”. Qual conclusão decorre logicamente delas?",
     opcoes: [
-      "Ana fará uma viagem",
       "Ana não fará uma viagem",
       "Ana passou no concurso, mas não fará uma viagem",
+      "Ana fará uma viagem",
       "Ana não passou no concurso",
       "Ana não passou no concurso ou não fará uma viagem",
     ],
-    correta: 0,
+    correta: 2,
     explicacao:
       "É o modus ponens, a forma mais básica de argumento válido: de “se p, então q” e de “p”, conclui-se “q”. Como a condicional garante a viagem sempre que Ana passa, e ela passou, a viagem é consequência necessária.\n\nNegar a viagem contradiz as premissas — e “passou, mas não fará a viagem” é justamente o único caso que a condicional proíbe. Dizer que Ana não passou contradiz a segunda premissa. E a disjunção “não passou ou não fará a viagem” exigiria que pelo menos um dos dois fatos fosse falso, quando as premissas garantem os dois.",
   },
@@ -37,13 +37,13 @@ export const questoes = [
     enunciado:
       "Considere as premissas: “Se o sistema estiver atualizado, o relatório será gerado” e “O relatório não foi gerado”. Qual conclusão é válida?",
     opcoes: [
-      "O sistema não está atualizado",
       "O sistema está atualizado",
+      "O sistema não está atualizado",
       "O sistema está atualizado ou o relatório foi gerado",
       "Se o relatório não foi gerado, o sistema está atualizado",
       "O sistema pode ou não estar atualizado",
     ],
-    correta: 0,
+    correta: 1,
     explicacao:
       "É o modus tollens: de “se p, então q” e de “não q”, conclui-se “não p”. Se o sistema estivesse atualizado, o relatório teria saído; como não saiu, o sistema não pode estar atualizado — do contrário, a primeira premissa seria falsa.\n\nConcluir que o sistema está atualizado contradiz as premissas. A disjunção “está atualizado ou o relatório foi gerado” exigiria pelo menos um desses fatos, e os dois estão descartados. A condicional “se não foi gerado, está atualizado” inverte o sentido da contrapositiva, que seria “se não foi gerado, não está atualizado”. E a indefinição ignora que o modus tollens determina o valor do antecedente.",
   },
@@ -71,13 +71,13 @@ export const questoes = [
     enunciado:
       "Uma coordenadora afirmou: “Se o aluno entregar o projeto, será aprovado. Esse aluno não entregou o projeto. Logo, não será aprovado.” O que se pode dizer desse argumento?",
     opcoes: [
-      "É inválido: é a falácia de negar o antecedente",
       "É válido: é um modus tollens",
       "É válido: é um modus ponens",
       "É inválido: é a falácia de afirmar o consequente",
       "É válido, desde que o aluno realmente não tenha entregado o projeto",
+      "É inválido: é a falácia de negar o antecedente",
     ],
-    correta: 0,
+    correta: 4,
     explicacao:
       "A forma é p → q, ~p ⊢ ~q. A condicional diz o que acontece quando o projeto é entregue, mas nada diz sobre quem não entrega: o aluno pode ser aprovado por outros meios. Há, portanto, uma linha com as premissas verdadeiras e a conclusão falsa (p falsa, q verdadeira). É a falácia de negar o antecedente.\n\nO modus tollens partiria de ~q para concluir ~p, não o contrário. O modus ponens partiria de p. Afirmar o consequente é a falácia vizinha, que parte de q. E a validade não depende de as premissas serem verdadeiras de fato: é uma questão de forma. Mesmo com o aluno sem entregar, a conclusão não é garantida.",
   },
@@ -105,13 +105,13 @@ export const questoes = [
     enunciado:
       "Considere as premissas: “O pagamento foi feito por boleto ou por cartão” e “O pagamento não foi feito por boleto”. Qual conclusão é válida?",
     opcoes: [
-      "O pagamento foi feito por cartão",
       "O pagamento não foi feito por cartão",
+      "O pagamento foi feito por cartão",
       "O pagamento foi feito por boleto e por cartão",
       "O pagamento não foi feito",
       "Nada se pode concluir sobre o cartão",
     ],
-    correta: 0,
+    correta: 1,
     explicacao:
       "É o silogismo disjuntivo: de p ∨ q e de ~p, conclui-se q. Se pelo menos uma das formas de pagamento foi usada e uma delas está descartada, resta a outra.\n\nConcluir que não foi por cartão tornaria a primeira premissa falsa, porque nenhuma forma teria sido usada. A conjunção “boleto e cartão” contradiz a segunda premissa. Dizer que o pagamento não foi feito ignora a primeira premissa, que afirma que foi. E a indefinição não se sustenta: com a disjunção verdadeira e uma parte falsa, a outra parte é necessariamente verdadeira.",
   },
@@ -122,13 +122,13 @@ export const questoes = [
     enunciado:
       "Um analista escreveu: “O servidor será promovido ou transferido. Ele foi promovido. Logo, não será transferido.” Esse argumento é válido?",
     opcoes: [
-      "Não, porque o “ou” inclusivo admite que as duas coisas aconteçam",
       "Sim, é um silogismo disjuntivo",
       "Sim, porque a disjunção exige que só uma das partes seja verdadeira",
       "Não, porque é a falácia de negar o antecedente",
       "Sim, porque é um modus tollens",
+      "Não, porque o “ou” inclusivo admite que as duas coisas aconteçam",
     ],
-    correta: 0,
+    correta: 4,
     explicacao:
       "A premissa usa o “ou” comum, inclusivo: afirma que pelo menos uma das coisas acontece, sem excluir as duas. Saber que o servidor foi promovido não impede que ele também seja transferido. Há uma linha com as premissas verdadeiras e a conclusão falsa (promovido e transferido), então o argumento é inválido.\n\nO silogismo disjuntivo válido parte da NEGAÇÃO de uma das partes (“não foi promovido, logo será transferido”), e não da sua afirmação. Ler o “ou” como exclusivo é justamente o erro que torna o raciocínio tentador. Negação do antecedente e modus tollens são formas de condicional, que não aparecem aqui.",
   },
@@ -139,13 +139,13 @@ export const questoes = [
     enunciado:
       "Considere as premissas: “Se Bruno for escalado, Caio ficará no banco”, “Se Caio ficar no banco, Davi jogará” e “Davi não jogou”. Qual conclusão decorre delas?",
     opcoes: [
-      "Bruno não foi escalado",
       "Bruno foi escalado",
+      "Bruno não foi escalado",
       "Caio não ficou no banco e Bruno foi escalado",
       "Bruno foi escalado ou Caio ficou no banco",
       "Caio ficou no banco",
     ],
-    correta: 0,
+    correta: 1,
     explicacao:
       "Encadeando as condicionais, Bruno escalado leva a Caio no banco, que leva a Davi jogando (silogismo hipotético: p → r). Como Davi não jogou, o modus tollens desfaz a cadeia de trás para frente: Caio não ficou no banco e, com isso, Bruno não foi escalado.\n\nAfirmar que Bruno foi escalado forçaria Davi a jogar, contradizendo a terceira premissa. Pelo mesmo motivo, Caio não pode ter ficado no banco — por isso a opção que junta “Caio fora do banco” com “Bruno escalado” também contradiz as premissas. E a disjunção “Bruno foi escalado ou Caio ficou no banco” exigiria pelo menos um desses fatos, e os dois foram descartados.",
   },
@@ -156,13 +156,13 @@ export const questoes = [
     enunciado:
       "Como se classifica o argumento “Todo número par é divisível por 4. O número 6 é par. Logo, 6 é divisível por 4”?",
     opcoes: [
-      "Válido, porém não sólido: a forma é correta, mas uma premissa é falsa",
       "Inválido, porque a conclusão é falsa",
       "Válido e sólido, porque a conclusão segue das premissas",
       "Inválido, porque uma premissa é falsa",
+      "Válido, porém não sólido: a forma é correta, mas uma premissa é falsa",
       "Nem válido nem inválido, porque a conclusão é falsa",
     ],
-    correta: 0,
+    correta: 3,
     explicacao:
       "Validade é uma propriedade da FORMA: se as premissas fossem verdadeiras, a conclusão teria de ser. Aqui a forma é a de um silogismo correto — o que vale para todo par vale para o 6 —, então o argumento é válido. Ele só não é sólido, porque a primeira premissa é falsa (6 é par e não é divisível por 4).\n\nClassificá-lo como inválido por causa da conclusão falsa, ou da premissa falsa, confunde verdade com validade: um argumento válido pode ter conclusão falsa, desde que alguma premissa seja falsa. Chamá-lo de sólido exigiria premissas verdadeiras. E todo argumento é válido ou inválido; não existe terceira classe.",
   },
@@ -173,13 +173,13 @@ export const questoes = [
     enunciado:
       "Considere as premissas: “Se o voo atrasar, perderei a conexão” e “Se chover, o voo atrasará”. Sabe-se que choveu. Qual conclusão decorre?",
     opcoes: [
-      "Perderei a conexão",
       "Não perderei a conexão",
       "O voo não atrasou",
       "O voo não atrasou ou não perderei a conexão",
       "O voo atrasou, mas não perderei a conexão",
+      "Perderei a conexão",
     ],
-    correta: 0,
+    correta: 4,
     explicacao:
       "Da chuva e de “se chover, o voo atrasará”, conclui-se que o voo atrasou (modus ponens). Do atraso e de “se o voo atrasar, perderei a conexão”, conclui-se que a conexão será perdida (outro modus ponens). A cadeia é chuva → atraso → conexão perdida.\n\nAs opções que negam o atraso ou a perda da conexão contradizem uma das premissas diante da chuva. A disjunção “o voo não atrasou ou não perderei a conexão” exigiria que pelo menos um desses fatos fosse falso, e a cadeia garante os dois. E aceitar o atraso sem aceitar a perda da conexão é quebrar a cadeia no segundo elo, contrariando a primeira premissa.",
   },
@@ -190,13 +190,13 @@ export const questoes = [
     enunciado:
       "Qual das formas de argumento abaixo é válida?",
     opcoes: [
-      "p → q, q ⊢ p",
       "p → q, ~q ⊢ ~p",
+      "p → q, q ⊢ p",
       "p → q, ~p ⊢ ~q",
       "p ∨ q, p ⊢ ~q",
       "p → q ⊢ q → p",
     ],
-    correta: 1,
+    correta: 0,
     explicacao:
       "A forma p → q, ~q ⊢ ~p é o modus tollens, válida: não existe linha da tabela com p → q verdadeira, q falsa e p verdadeira ao mesmo tempo, porque p verdadeira com q falsa tornaria a condicional falsa.\n\nAs demais são falácias clássicas. p → q, q ⊢ p é a afirmação do consequente (falha com p = F, q = V). p → q, ~p ⊢ ~q é a negação do antecedente (falha na mesma linha). p ∨ q, p ⊢ ~q trata o “ou” como exclusivo (falha com p e q verdadeiras). E p → q ⊢ q → p conclui a recíproca a partir da condicional, o que também falha em p = F, q = V.",
   },
@@ -208,12 +208,12 @@ export const questoes = [
       "Considere as premissas: “Se houver greve, as aulas serão suspensas”, “Se houver chuva forte, as aulas serão suspensas” e “Haverá greve ou chuva forte”. Qual conclusão é válida?",
     opcoes: [
       "Haverá greve",
-      "As aulas serão suspensas",
       "Haverá chuva forte",
+      "As aulas serão suspensas",
       "Não haverá greve",
       "As aulas não serão suspensas",
     ],
-    correta: 1,
+    correta: 2,
     explicacao:
       "É um dilema construtivo simples: se cada uma das duas possibilidades leva ao mesmo resultado, e pelo menos uma delas vai ocorrer, o resultado ocorre. Com greve, as aulas são suspensas; com chuva forte, também; e uma das duas acontecerá. Logo, as aulas serão suspensas.\n\nAs premissas não decidem QUAL das duas possibilidades ocorrerá — só que pelo menos uma ocorre. Por isso não se pode concluir que haverá greve, nem que haverá chuva, nem que não haverá greve. E concluir que as aulas não serão suspensas contradiz as três premissas juntas.",
   },
@@ -225,12 +225,12 @@ export const questoes = [
       "Considere as premissas: “Se o réu mentiu, será condenado”, “Se o réu foi coagido, a promotoria abrirá investigação” e “O réu mentiu ou foi coagido”. Qual conclusão decorre delas?",
     opcoes: [
       "O réu será condenado, e não haverá investigação",
-      "O réu será condenado ou a promotoria abrirá investigação",
       "Haverá investigação, e o réu não será condenado",
       "O réu mentiu e também foi coagido",
+      "O réu será condenado ou a promotoria abrirá investigação",
       "O réu não mentiu, mas foi coagido",
     ],
-    correta: 1,
+    correta: 3,
     explicacao:
       "É o dilema construtivo: de (p → q) ∧ (r → s) e de p ∨ r, conclui-se q ∨ s. Cada possibilidade leva a um resultado, e pelo menos uma delas ocorre; então pelo menos um dos resultados ocorre.\n\nNão dá para escolher qual: as premissas admitem que o réu só tenha mentido (condenação, talvez sem investigação) e também que só tenha sido coagido (investigação, talvez sem condenação). Por isso, as duas opções que fixam um resultado e negam o outro vão além do que as premissas garantem — cada uma falha no cenário oposto. “Mentiu e também foi coagido” lê o “ou” como se afirmasse as duas coisas. E “não mentiu, mas foi coagido” escolhe uma das possibilidades sem apoio.",
   },
@@ -242,12 +242,12 @@ export const questoes = [
       "Considere as premissas: “Se a meta for batida, haverá bônus” e “Não haverá bônus ou haverá festa”. Sabe-se que não haverá festa. Qual conclusão decorre?",
     opcoes: [
       "A meta foi batida",
-      "A meta não foi batida",
       "Haverá bônus",
       "Haverá bônus, mas não festa",
       "Nada se pode concluir sobre a meta",
+      "A meta não foi batida",
     ],
-    correta: 1,
+    correta: 4,
     explicacao:
       "Da segunda premissa, “não haverá bônus ou haverá festa”, e da informação de que não haverá festa, o silogismo disjuntivo conclui que não haverá bônus. Em seguida, de “se a meta for batida, haverá bônus” e de “não haverá bônus”, o modus tollens conclui que a meta não foi batida.\n\nConcluir que a meta foi batida, ou que haverá bônus, contradiz a cadeia: o bônus ficou descartado no primeiro passo. A opção “bônus sem festa” esbarra na segunda premissa, que, sem festa, exige que não haja bônus. E a indefinição sobre a meta ignora o segundo passo, que a determina.",
   },
@@ -259,12 +259,12 @@ export const questoes = [
       "O que caracteriza um argumento válido, do ponto de vista da lógica formal?",
     opcoes: [
       "Todas as premissas são verdadeiras",
-      "É impossível que as premissas sejam verdadeiras e a conclusão falsa ao mesmo tempo",
       "A conclusão é verdadeira",
+      "É impossível que as premissas sejam verdadeiras e a conclusão falsa ao mesmo tempo",
       "As premissas e a conclusão tratam do mesmo assunto",
       "A conclusão é aceita pela maioria das pessoas que analisam o argumento",
     ],
-    correta: 1,
+    correta: 2,
     explicacao:
       "Validade é uma relação entre premissas e conclusão: o argumento é válido quando não existe situação em que todas as premissas sejam verdadeiras e a conclusão seja falsa. Em tabela-verdade, é não haver nenhuma linha com premissas V e conclusão F.\n\nPremissas verdadeiras são exigência da solidez, não da validade. Uma conclusão verdadeira pode sair de um argumento inválido — por acaso. Tratar do mesmo assunto não basta: “se chover, a rua molha; a rua molhou; logo, choveu” fala de um só assunto e é inválido. E aceitação pela maioria é critério retórico, não lógico.",
   },
@@ -275,13 +275,13 @@ export const questoes = [
     enunciado:
       "Considere o argumento: “Se Laura é gerente, tem acesso ao cofre. Laura tem acesso ao cofre. Logo, Laura é gerente.” Qual situação mostra que ele é inválido?",
     opcoes: [
-      "Laura é gerente e tem acesso ao cofre",
       "Laura não é gerente, mas tem acesso ao cofre como tesoureira",
+      "Laura é gerente e tem acesso ao cofre",
       "Laura é gerente e não tem acesso ao cofre",
       "Laura não é gerente e não tem acesso ao cofre",
       "Nenhuma, porque o argumento é válido",
     ],
-    correta: 1,
+    correta: 0,
     explicacao:
       "Para mostrar que um argumento é inválido, basta um contraexemplo: uma situação em que as premissas são verdadeiras e a conclusão é falsa. Laura sem ser gerente, com acesso ao cofre por outro cargo, torna verdadeira a condicional (antecedente falso) e verdadeira a segunda premissa, enquanto a conclusão “Laura é gerente” é falsa.\n\nLaura gerente com acesso é uma situação em que tudo é verdadeiro, então não derruba nada. Laura gerente sem acesso torna falsa a primeira premissa, e contraexemplo precisa de premissas verdadeiras. A situação sem cargo e sem acesso torna falsa a segunda premissa. E o argumento não é válido: é a afirmação do consequente.",
   },
@@ -326,13 +326,13 @@ export const questoes = [
     enunciado:
       "Um vendedor argumenta: “Ou você compra o plano anual, ou vai pagar mais caro todo mês.” O cliente sabe que existe também o plano semestral, com preço intermediário. Que falácia o vendedor cometeu?",
     opcoes: [
-      "Ataque à pessoa: desqualificou o cliente em vez de discutir o plano",
       "Falso dilema: apresentou duas opções como se fossem as únicas possíveis",
+      "Ataque à pessoa: desqualificou o cliente em vez de discutir o plano",
       "Apelo à autoridade: citou alguém famoso para justificar a compra",
       "Afirmação do consequente: partiu da conclusão para a premissa",
       "Petição de princípio: usou a conclusão como premissa",
     ],
-    correta: 1,
+    correta: 0,
     explicacao:
       "O falso dilema (ou falsa dicotomia) apresenta duas alternativas como se esgotassem as possibilidades, quando há outras. O vendedor omite o plano semestral para empurrar o cliente para o anual. Em termos formais, ele usa como premissa uma disjunção “A ou B” que é falsa como descrição do cardápio de planos.\n\nNão houve ataque à pessoa: o vendedor não falou do cliente. Não houve apelo à autoridade: ninguém foi citado como fiador do argumento. A afirmação do consequente é uma falácia formal sobre condicionais, que não aparecem aqui. E a petição de princípio usaria a própria conclusão como premissa — por exemplo, “compre porque é a compra certa”.",
   },
@@ -343,13 +343,13 @@ export const questoes = [
     enunciado:
       "Num debate, um vereador respondeu à proposta de um colega assim: “Não podemos levar essa proposta a sério, porque quem a apresentou já foi reprovado em concurso.” Que falácia ele cometeu?",
     opcoes: [
-      "Falso dilema: reduziu o debate a duas opções",
       "Ataque à pessoa (ad hominem): atacou o autor, e não o conteúdo da proposta",
+      "Falso dilema: reduziu o debate a duas opções",
       "Generalização apressada: tirou conclusão geral de poucos casos",
       "Apelo à maioria: disse que a proposta é ruim porque muitos a rejeitam",
       "Afirmação do consequente: inverteu uma condicional",
     ],
-    correta: 1,
+    correta: 0,
     explicacao:
       "O ataque à pessoa (argumentum ad hominem) consiste em rejeitar uma tese por características de quem a defende, em vez de examinar a tese. A reprovação do colega em concurso nada diz sobre o mérito da proposta: ela seria boa ou ruim do mesmo jeito se tivesse sido apresentada por outra pessoa.\n\nNão há falso dilema, porque o vereador não apresentou duas alternativas como únicas. Não há generalização apressada: ele não extrapolou de casos para uma regra. Não há apelo à maioria, porque ninguém mencionou o que muitos pensam. E não há condicional invertida, que é o traço da afirmação do consequente.",
   },
@@ -379,11 +379,11 @@ export const questoes = [
     opcoes: [
       "Paula viaja",
       "Paula viaja sem a diária",
-      "Paula não viaja",
       "Paula viaja ou recebe a diária",
+      "Paula não viaja",
       "Nada se pode concluir sobre a viagem",
     ],
-    correta: 2,
+    correta: 3,
     explicacao:
       "A bicondicional amarra os valores das duas partes: viajar e receber a diária são ambos verdadeiros ou ambos falsos. Como Paula não recebeu a diária, ela também não viaja. Com bicondicional, tanto “afirmar um lado” quanto “negar um lado” leva a uma conclusão válida sobre o outro.\n\nConcluir que Paula viaja, com ou sem diária, quebra a coincidência exigida pela bicondicional. A disjunção “viaja ou recebe a diária” exigiria pelo menos um dos dois fatos, e a bicondicional, diante da falta de diária, descarta os dois. E a indefinição seria correta se a premissa fosse só a condicional “se viaja, recebe a diária” — mas com o “somente se” nos dois sentidos, a conclusão é garantida.",
   },
@@ -394,13 +394,13 @@ export const questoes = [
     enunciado:
       "Um jornalista escreveu: “Três restaurantes da rua foram multados pela vigilância sanitária. Portanto, todos os restaurantes do bairro são sujos.” Que falácia está presente?",
     opcoes: [
+      "Generalização apressada: tirou uma conclusão geral de poucos casos",
       "Ataque à pessoa: desqualificou os donos dos restaurantes",
       "Falso dilema: apresentou só duas possibilidades",
-      "Generalização apressada: tirou uma conclusão geral de poucos casos",
       "Negação do antecedente: negou a condição de uma condicional",
       "Apelo à autoridade: usou a vigilância sanitária como prova de tudo",
     ],
-    correta: 2,
+    correta: 0,
     explicacao:
       "A generalização apressada salta de uma amostra pequena, e possivelmente não representativa, para uma afirmação sobre todos os casos. Três restaurantes de uma rua não autorizam conclusão sobre todos os do bairro — e a própria multa diz respeito a problemas pontuais, não à limpeza geral.\n\nNão há ataque aos donos, nem duas opções apresentadas como únicas. A negação do antecedente exigiria uma condicional com o antecedente negado. E citar a vigilância sanitária não é apelo indevido à autoridade: ela é a fonte adequada sobre as multas; o erro está no salto dos três casos para o todo.",
   },
@@ -412,12 +412,12 @@ export const questoes = [
       "Considere as premissas: “Se Tiago for promovido, Lúcia será transferida”, “Se Lúcia for transferida, Marta assumirá a equipe” e “Marta não assumirá a equipe ou Tiago será promovido”. Qual das conclusões abaixo decorre necessariamente dessas premissas?",
     opcoes: [
       "Tiago é promovido se, e somente se, Marta não assume a equipe",
-      "Tiago será promovido e Marta assumirá a equipe",
       "Tiago é promovido se, e somente se, Marta assume a equipe",
+      "Tiago será promovido e Marta assumirá a equipe",
       "Lúcia será transferida, mas Tiago não será promovido",
       "Tiago não será promovido e Lúcia não será transferida",
     ],
-    correta: 2,
+    correta: 1,
     explicacao:
       "As duas primeiras premissas encadeiam Tiago promovido → Lúcia transferida → Marta na equipe, o que dá T → M. A terceira, “Marta não assumirá ou Tiago será promovido”, é a forma disjuntiva de M → T. Fecha-se um ciclo T → L → M → T: os três fatos são equivalentes, ou acontecem todos, ou nenhum. Em particular, T ↔ M.\n\nNenhuma premissa afirma um fato isolado: tanto “todos verdadeiros” quanto “todos falsos” satisfazem as três. Por isso “Tiago promovido e Marta na equipe” não decorre (falha com todos falsos), e “nem Tiago promovido nem Lúcia transferida” também não (falha com todos verdadeiros). Lúcia transferida sem Tiago promovido quebra o ciclo, e T ↔ ~M afirma o oposto da equivalência.",
   },
@@ -428,13 +428,13 @@ export const questoes = [
     enunciado:
       "Um palestrante afirmou: “Esse remédio funciona, porque um ator famoso disse que usa e recomenda.” Que falácia está presente?",
     opcoes: [
+      "Apelo à autoridade: usou como prova a opinião de alguém que não é especialista no assunto",
       "Ataque à pessoa: desqualificou quem discorda do remédio",
       "Falso dilema: apresentou só duas opções de tratamento",
-      "Apelo à autoridade: usou como prova a opinião de alguém que não é especialista no assunto",
       "Generalização apressada: concluiu a partir de muitos pacientes",
       "Silogismo disjuntivo: eliminou uma das alternativas",
     ],
-    correta: 2,
+    correta: 0,
     explicacao:
       "O apelo à autoridade é falacioso quando a “autoridade” invocada não tem competência sobre o tema: a fama de um ator não o torna fonte confiável sobre a eficácia de um medicamento. A pergunta relevante — há evidência clínica de que funciona? — ficou sem resposta.\n\nNinguém foi atacado, então não é ad hominem. Não houve duas opções apresentadas como únicas. A generalização apressada partiria de poucos casos para uma regra, mas aqui nem há casos, só o testemunho de uma pessoa. E o silogismo disjuntivo é uma forma válida de argumento, com uma disjunção e a negação de uma das partes — nada disso aparece na frase.",
   },
@@ -446,12 +446,12 @@ export const questoes = [
       "Considere as premissas: “Se o relatório estiver correto, a empresa lucrou” e “Se a empresa lucrou, os acionistas receberão dividendos”. Os acionistas não receberam dividendos. O que se pode concluir sobre o relatório?",
     opcoes: [
       "O relatório está correto",
-      "A empresa lucrou",
       "O relatório não está correto",
+      "A empresa lucrou",
       "A empresa lucrou ou os acionistas receberam dividendos",
       "O relatório está correto, mas a empresa não lucrou",
     ],
-    correta: 2,
+    correta: 1,
     explicacao:
       "O silogismo hipotético junta as duas premissas em “se o relatório estiver correto, os acionistas receberão dividendos”. Como não receberam, o modus tollens conclui que o relatório não está correto — e, no caminho, que a empresa não lucrou.\n\nAfirmar que o relatório está correto, ou que a empresa lucrou, levaria, pela cadeia, a dividendos pagos, o que contradiz o dado. A disjunção “lucrou ou pagou dividendos” exigiria pelo menos um dos dois fatos, e a cadeia descarta ambos. E a combinação “relatório correto sem lucro” torna falsa a primeira premissa.",
   },
@@ -464,11 +464,11 @@ export const questoes = [
     opcoes: [
       "Inválido: há linha em que p e r valem e q ∧ s é falsa",
       "Inválido: seria preciso saber se p e r são verdadeiras",
-      "Válido: sempre que p e r valem, as duas condicionais garantem q e s",
       "Válido apenas se p e r forem verdadeiras",
+      "Válido: sempre que p e r valem, as duas condicionais garantem q e s",
       "Inválido: é uma forma de afirmar o consequente",
     ],
-    correta: 2,
+    correta: 3,
     explicacao:
       "Para a conclusão falhar, o antecedente p ∧ r precisa ser verdadeiro e o consequente q ∧ s falso. Com p verdadeira, a premissa p → q exige q verdadeira; com r verdadeira, r → s exige s verdadeira. Então q ∧ s é verdadeira sempre que p ∧ r é — não existe linha com as premissas V e a conclusão F. O argumento é válido.\n\nA suposta linha de falha não existe, porque as premissas a proíbem. Saber os valores de p e r não é necessário: validade é sobre todas as combinações ao mesmo tempo. Por isso também não faz sentido “válido apenas se”. E não há afirmação do consequente, porque a conclusão parte dos antecedentes, na direção certa das condicionais.",
   },
@@ -481,11 +481,11 @@ export const questoes = [
     opcoes: [
       "Beatriz é engenheira",
       "Beatriz é advogada e engenheira",
-      "Beatriz não é engenheira",
       "Beatriz pode ou não ser engenheira",
       "Beatriz não é advogada",
+      "Beatriz não é engenheira",
     ],
-    correta: 2,
+    correta: 4,
     explicacao:
       "A primeira premissa é uma disjunção exclusiva: exatamente uma das profissões vale. Sabendo que Beatriz é advogada, a outra parte precisa ser falsa: ela não é engenheira. Com o “ou” exclusivo, afirmar uma parte permite negar a outra — o que não acontece com o “ou” comum.\n\nConcluir que Beatriz é engenheira, ou as duas coisas, viola a exclusividade anunciada (“mas não as duas coisas”). A indefinição seria a resposta correta se o “ou” fosse inclusivo; aqui a premissa diz explicitamente o contrário. E negar que ela seja advogada contradiz a segunda premissa.",
   },
@@ -496,13 +496,13 @@ export const questoes = [
     enunciado:
       "Um aluno argumentou: “A lei é justa porque é a lei, e tudo o que é lei é justo porque foi aprovado como lei.” Que defeito tem esse raciocínio?",
     opcoes: [
+      "Petição de princípio: a conclusão já está pressuposta nas premissas",
       "Afirmação do consequente: inverteu uma condicional",
       "Falso dilema: ofereceu só duas alternativas",
-      "Petição de princípio: a conclusão já está pressuposta nas premissas",
       "Ataque à pessoa: desqualificou quem critica a lei",
       "Generalização apressada: partiu de poucos casos",
     ],
-    correta: 2,
+    correta: 0,
     explicacao:
       "A petição de princípio (raciocínio circular) usa a própria conclusão, às vezes disfarçada, como premissa. O aluno quer provar que a lei é justa e, para isso, supõe que tudo o que é lei é justo — exatamente o que estava em discussão. O argumento anda em círculo e não oferece razão independente.\n\nNão há condicional invertida, que caracterizaria a afirmação do consequente. Não há duas alternativas apresentadas como únicas. Ninguém foi atacado. E não há amostra de casos da qual se tenha tirado uma regra: o defeito está na estrutura circular, não em poucos exemplos.",
   },
@@ -550,10 +550,10 @@ export const questoes = [
       "Não, é a falácia de negar o antecedente",
       "Não, é a falácia de afirmar o consequente",
       "Sim, é um modus ponens",
-      "Sim, é um modus tollens",
       "Não, porque o alarme pode ter tocado por outro motivo",
+      "Sim, é um modus tollens",
     ],
-    correta: 3,
+    correta: 4,
     explicacao:
       "A forma é p → q, ~q ⊢ ~p: modus tollens, válida. Se o sensor tivesse falhado, o alarme teria tocado; como não tocou, a falha não ocorreu. Não existe linha em que a condicional seja verdadeira, o alarme não toque e o sensor tenha falhado.\n\nNegar o antecedente seria partir de “o sensor não falhou” para concluir “o alarme não tocou”. Afirmar o consequente seria partir do alarme TOCANDO para concluir a falha. O modus ponens partiria da falha. E a observação de que o alarme pode tocar por outro motivo é verdadeira, mas irrelevante aqui: ela mostra por que a afirmação do consequente falha, não o modus tollens.",
   },
@@ -566,11 +566,11 @@ export const questoes = [
     opcoes: [
       "Não: só é possível concluir que a taxa não caiu",
       "Não: só é possível concluir que as vendas não subiram",
-      "Não: as premissas não permitem concluir nada sobre a taxa",
       "Sim: o modus tollens aplicado duas vezes garante as duas partes",
+      "Não: as premissas não permitem concluir nada sobre a taxa",
       "Sim, mas apenas se o estoque tiver sido reposto",
     ],
-    correta: 3,
+    correta: 2,
     explicacao:
       "Da segunda premissa e de “o estoque não acabou”, o modus tollens conclui que as vendas não subiram. Da primeira premissa e de “as vendas não subiram”, outro modus tollens conclui que a taxa não caiu. As duas partes da conclusão são garantidas, e a conjunção também é.\n\nAs opções que admitem só uma das partes param no meio da cadeia: as duas são consequências necessárias. Dizer que nada se conclui sobre a taxa ignora o segundo modus tollens. E a reposição do estoque é um fato externo às premissas, que em nada altera a validade.",
   },
@@ -583,11 +583,11 @@ export const questoes = [
     opcoes: [
       "Não há erro, porque é um modus tollens",
       "Não há erro, porque é um modus ponens",
-      "É a afirmação do consequente, porque partiu do ponto para o gabarito",
       "É a negação do antecedente: a regra não diz o que acontece quando o gabarito não é anulado",
+      "É a afirmação do consequente, porque partiu do ponto para o gabarito",
       "O erro é que a premissa deveria usar “somente se” para ser uma condicional",
     ],
-    correta: 3,
+    correta: 2,
     explicacao:
       "A regra informa o que acontece se o gabarito for anulado, e nada mais. Concluir que ninguém ganha o ponto a partir da não anulação é negar o antecedente (p → q, ~p ⊢ ~q), forma inválida: alguém pode ganhar o ponto por recurso individual, por exemplo, sem que a regra seja violada.\n\nO modus tollens partiria de “alguém não ganhou o ponto” para concluir que o gabarito não foi anulado. O modus ponens partiria da anulação. A afirmação do consequente partiria de “todos ganharam o ponto”. E a frase com “se” já é uma condicional; “somente se” mudaria a direção, não a transformaria em condicional.",
   },
@@ -600,11 +600,11 @@ export const questoes = [
     opcoes: [
       "Pedro não foi à festa",
       "Joana e Pedro foram à festa",
-      "Pedro foi à festa",
       "Joana não foi à festa",
+      "Pedro foi à festa",
       "Joana foi à festa e Pedro não foi",
     ],
-    correta: 3,
+    correta: 2,
     explicacao:
       "Suponha que Joana tenha ido. Pela primeira premissa, Pedro também foi; pela segunda, Joana não foi — contradição. Logo, Joana não foi à festa. Encadeando, J → P → ~J dá J → ~J, que só é verdadeira com J falsa.\n\nSobre Pedro, nada se decide: com Joana ausente, as duas premissas continuam verdadeiras tanto com Pedro na festa quanto fora dela. Por isso “Pedro foi” e “Pedro não foi” não decorrem. Os dois juntos na festa tornam falsa a segunda premissa. E “Joana foi e Pedro não” torna falsa a primeira.",
   },
@@ -617,11 +617,11 @@ export const questoes = [
     opcoes: [
       "Carla não está no escritório",
       "Carla está em casa",
-      "Carla está no escritório e em casa",
       "Carla está no escritório",
+      "Carla está no escritório e em casa",
       "Carla está viajando",
     ],
-    correta: 3,
+    correta: 2,
     explicacao:
       "É um silogismo disjuntivo: a disjunção garante que pelo menos uma das possibilidades é verdadeira, e a segunda premissa elimina uma delas. Resta Carla estar no escritório.\n\nNegar que ela esteja no escritório tornaria falsa a primeira premissa, pois nenhuma das possibilidades valeria. Afirmar que está em casa contradiz a segunda premissa. Estar nos dois lugares ao mesmo tempo contradiz a segunda premissa também. E a viagem é uma terceira possibilidade que a primeira premissa exclui, ao dizer que Carla está em um dos dois lugares.",
   },
@@ -652,10 +652,10 @@ export const questoes = [
       "Ataque à pessoa: desqualificou os funcionários",
       "Apelo à autoridade: citou um especialista sem competência",
       "Petição de princípio: usou a conclusão como premissa",
-      "Declive escorregadio: encadeou consequências cada vez mais graves sem justificar cada passo",
       "Modus tollens: negou o consequente para negar o antecedente",
+      "Declive escorregadio: encadeou consequências cada vez mais graves sem justificar cada passo",
     ],
-    correta: 3,
+    correta: 4,
     explicacao:
       "O declive escorregadio (ladeira escorregadia) supõe que um primeiro passo desencadeará, inevitavelmente, uma sequência de consequências cada vez piores, sem mostrar por que cada elo se segue do anterior. Aprovar o home office não leva, por necessidade, a ninguém mais ir à empresa, e muito menos à falência.\n\nNinguém foi desqualificado, então não é ad hominem. Nenhuma autoridade foi citada. A conclusão (a empresa vai falir) não aparece como premissa, então não há circularidade. E modus tollens é uma forma válida, com uma condicional e a negação do consequente — o gerente não negou nada, só projetou uma cadeia de condicionais sem apoio.",
   },
@@ -718,12 +718,12 @@ export const questoes = [
       "Um apresentador argumentou: “A maioria dos brasileiros acredita nesse tratamento, então ele deve funcionar.” Qual é o defeito do argumento?",
     opcoes: [
       "Ataque à pessoa: desqualificou os médicos que criticam o tratamento",
+      "Apelo à popularidade: tomou a crença da maioria como prova de eficácia",
       "Falso dilema: apresentou duas opções de tratamento como as únicas",
       "Petição de princípio: supôs nas premissas a própria conclusão",
       "Afirmação do consequente: inverteu o sentido de uma condicional",
-      "Apelo à popularidade: tomou a crença da maioria como prova de eficácia",
     ],
-    correta: 4,
+    correta: 1,
     explicacao:
       "O apelo à popularidade (argumentum ad populum) toma a aceitação de muitas pessoas como prova de verdade. Mas a crença generalizada não testa a eficácia de um tratamento: quantas pessoas acreditam em algo e se esse algo é verdadeiro são questões independentes, e já houve crenças quase unânimes que se mostraram falsas.\n\nNão há ataque a médicos nem a ninguém. Não há duas opções apresentadas como únicas. A conclusão não aparece disfarçada como premissa, então não é circular. E não há condicional invertida na frase, que é a marca da afirmação do consequente.",
   },
@@ -735,12 +735,12 @@ export const questoes = [
       "Considere as premissas: “Se a peça for aprovada no teste, será enviada ao cliente” e “Se a peça for enviada ao cliente, será cobrada”. A peça não foi cobrada. Qual das conclusões abaixo é válida?",
     opcoes: [
       "A peça foi aprovada no teste",
+      "A peça não foi aprovada no teste",
       "A peça foi enviada ao cliente",
       "A peça foi enviada ou foi cobrada",
       "A peça foi enviada, mas não aprovada",
-      "A peça não foi aprovada no teste",
     ],
-    correta: 4,
+    correta: 1,
     explicacao:
       "O silogismo hipotético une as premissas em “se a peça for aprovada, será cobrada”. Como não foi cobrada, o modus tollens conclui que não foi aprovada no teste. No caminho, outro modus tollens mostra que ela também não foi enviada.\n\nA aprovação, ou o envio, levaria pela cadeia à cobrança, contrariando o dado. A disjunção “foi enviada ou foi cobrada” exigiria pelo menos um dos dois fatos, e a cadeia descarta ambos. E “enviada, mas não aprovada” esbarra na segunda premissa: enviada, ela teria sido cobrada.",
   },
@@ -754,10 +754,10 @@ export const questoes = [
       "O servidor A caiu",
       "O servidor B assumiu",
       "O tráfego ficou lento",
-      "O servidor B assumiu, mas o tráfego não ficou lento",
       "O servidor A não caiu",
+      "O servidor B assumiu, mas o tráfego não ficou lento",
     ],
-    correta: 4,
+    correta: 3,
     explicacao:
       "Começando pela única informação categórica: sem alerta, a terceira premissa exige que o tráfego não tenha ficado lento (silogismo disjuntivo). Pela segunda premissa, o modus tollens conclui que o servidor B não assumiu. Pela primeira, outro modus tollens conclui que o servidor A não caiu.\n\nAfirmar a queda de A, ou a assunção de B, leva pela cadeia ao tráfego lento, que já foi descartado. Afirmar o tráfego lento contradiz a terceira premissa diante da falta de alerta. E “B assumiu, mas o tráfego não ficou lento” torna falsa a segunda premissa.",
   },
@@ -768,13 +768,13 @@ export const questoes = [
     enunciado:
       "Um argumento tem premissas verdadeiras e é válido. O que se pode afirmar sobre a sua conclusão?",
     opcoes: [
+      "A conclusão é necessariamente verdadeira",
       "A conclusão pode ser falsa",
       "A conclusão é necessariamente falsa",
       "Nada se pode afirmar sem conhecer o assunto",
       "A conclusão é verdadeira apenas se também for uma das premissas",
-      "A conclusão é necessariamente verdadeira",
     ],
-    correta: 4,
+    correta: 0,
     explicacao:
       "Por definição, um argumento válido não admite premissas verdadeiras com conclusão falsa. Se as premissas são de fato verdadeiras, a conclusão tem de ser verdadeira. Esse tipo de argumento — válido e com premissas verdadeiras — é chamado de sólido (ou correto), e é o único que garante a verdade da conclusão.\n\nAdmitir conclusão falsa contradiz a definição de validade. Conclusão necessariamente falsa é ainda mais distante. O assunto não importa: a garantia vem da forma, aliada à verdade das premissas. E a conclusão não precisa repetir uma premissa — pode ser nova, como no modus ponens, e mesmo assim estar garantida.",
   },
@@ -805,10 +805,10 @@ export const questoes = [
       "p",
       "q",
       "r",
-      "p ∧ ~q",
       "~p",
+      "p ∧ ~q",
     ],
-    correta: 4,
+    correta: 3,
     explicacao:
       "Da terceira premissa, r é falsa. Na segunda, ~q ∨ r, com r falsa, o silogismo disjuntivo exige ~q: q é falsa. Na primeira, p → q, com q falsa, o modus tollens exige p falsa. A conclusão é ~p.\n\nConcluir p levaria, pela primeira premissa, a q verdadeira — e daí, pela segunda, a r verdadeira, contrariando a terceira. q e r também não podem ser verdadeiras pelos mesmos passos. E p ∧ ~q torna falsa a primeira premissa. Esse encadeamento de silogismo disjuntivo com modus tollens é o padrão de muitas questões com várias premissas.",
   },
@@ -821,11 +821,11 @@ export const questoes = [
     opcoes: [
       "“Todo peixe nada. O salmão nada. Logo, o salmão é um peixe.”",
       "“Se chover, o chão molha. O chão molhou. Logo, choveu.”",
+      "“Todo peixe voa. O salmão é um peixe. Logo, o salmão voa.”",
       "“Algum peixe é grande. O salmão é um peixe. Logo, o salmão é grande.”",
       "“O salmão é um peixe. Logo, todo peixe é salmão.”",
-      "“Todo peixe voa. O salmão é um peixe. Logo, o salmão voa.”",
     ],
-    correta: 4,
+    correta: 2,
     explicacao:
       "“Todo peixe voa; o salmão é um peixe; logo, o salmão voa” tem a forma de um silogismo correto: o que vale para todos os peixes vale para o salmão. É válido. A conclusão é falsa porque a primeira premissa é falsa — e isso não compromete a validade, só a solidez.\n\nO segundo argumento conclui que o salmão é peixe a partir de ele nadar, como se só peixes nadassem: é inválido, ainda que a conclusão seja verdadeira. O terceiro afirma o consequente. O quarto passa de “algum” para um indivíduo, o que não é garantido. E o último inverte uma inclusão de forma absurda. Validade e verdade da conclusão são coisas diferentes.",
   },
@@ -837,12 +837,12 @@ export const questoes = [
       "Considere as premissas: “Se Vinícius foi ao banco, pagou a conta” e “Se Vinícius pagou a conta, recebeu o recibo”. Vinícius foi ao banco. Qual conclusão é válida?",
     opcoes: [
       "Vinícius não recebeu o recibo",
+      "Vinícius recebeu o recibo",
       "Vinícius não pagou a conta",
       "Se Vinícius pagou a conta, não recebeu o recibo",
       "Vinícius foi ao banco, mas não pagou a conta",
-      "Vinícius recebeu o recibo",
     ],
-    correta: 4,
+    correta: 1,
     explicacao:
       "Pela primeira premissa e pela ida ao banco, o modus ponens conclui que Vinícius pagou a conta. Pela segunda e pelo pagamento, outro modus ponens conclui que recebeu o recibo. É a mesma cadeia do silogismo hipotético, percorrida para a frente com um fato de partida.\n\nNegar o recibo ou o pagamento quebra a cadeia e contradiz alguma premissa. A condicional “se pagou a conta, não recebeu o recibo” é o oposto da segunda premissa e, com o pagamento garantido, fica falsa. E “foi ao banco, mas não pagou” torna falsa a primeira premissa.",
   },

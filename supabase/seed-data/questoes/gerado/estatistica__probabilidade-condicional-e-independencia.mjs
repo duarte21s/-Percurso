@@ -54,13 +54,13 @@ export const questoes = [
     enunciado:
       "Uma moeda honesta deu coroa nas quatro últimas jogadas. Qual é a probabilidade de dar cara na próxima jogada?",
     opcoes: [
-      "1/2",
       "Mais que 1/2, para compensar",
       "Menos que 1/2, pela sequência",
       "1/16",
+      "1/2",
       "1/32",
     ],
-    correta: 0,
+    correta: 3,
     explicacao:
       "As jogadas de uma moeda honesta são independentes: a moeda não tem memória, e o resultado anterior não altera o seguinte. Assim, P(cara na quinta | coroa nas quatro primeiras) = P(cara) = 1/2. Das 32 sequências de cinco jogadas, as que começam com quatro coroas são 2, e só uma termina em cara.\n\nEsperar compensação é a falácia do jogador. Esperar a continuação da sequência também não tem base. 1/16 é a probabilidade de quatro coroas seguidas, e 1/32, a de quatro coroas seguidas de uma cara, calculadas antes das jogadas.",
   },
@@ -71,13 +71,13 @@ export const questoes = [
     enunciado:
       "Num sorteio, A e B são eventos independentes, com P(A) = 0,5 e P(B) = 0,4. Qual é a probabilidade de A e B ocorrerem juntos?",
     opcoes: [
-      "0,2",
       "0,9",
       "0,1",
       "0,7",
+      "0,2",
       "0,45",
     ],
-    correta: 0,
+    correta: 3,
     explicacao:
       "Para eventos independentes, a probabilidade da interseção é o produto: P(A ∩ B) = P(A) · P(B) = 0,5 · 0,4 = 0,2. Essa é a própria definição de independência: saber que B ocorreu não muda a chance de A, e P(A|B) = P(A) = 0,5.\n\n0,9 soma as probabilidades, o que daria a união de eventos disjuntos. 0,1 é a diferença. 0,7 é a probabilidade da união, 0,5 + 0,4 − 0,2. E 0,45 é a média das duas probabilidades.",
   },
@@ -88,13 +88,13 @@ export const questoes = [
     enunciado:
       "Duas lâmpadas de um corredor funcionam de forma independente, cada uma com probabilidade 0,9 de acender. Qual é a probabilidade de as duas acenderem?",
     opcoes: [
-      "0,81",
       "0,9",
       "1,8",
       "0,99",
+      "0,81",
       "0,18",
     ],
-    correta: 0,
+    correta: 3,
     explicacao:
       "Com eventos independentes, multiplicam-se as probabilidades: 0,9 · 0,9 = 0,81. Mesmo com lâmpadas confiáveis, a chance de todas funcionarem cai a cada lâmpada acrescentada, porque o produto de números menores que 1 diminui.\n\n0,9 é a probabilidade de uma lâmpada só. 1,8 soma as probabilidades e passa de 1. 0,99 é a probabilidade de pelo menos uma acender, 1 − 0,1 · 0,1. E 0,18 é a probabilidade de exatamente uma acender, 2 · 0,9 · 0,1.",
   },
@@ -105,13 +105,13 @@ export const questoes = [
     enunciado:
       "Numa turma, 12 dos 20 meninos e 10 das 25 meninas praticam esporte. Sorteando uma aluna entre as meninas, qual é a probabilidade de ela praticar esporte?",
     opcoes: [
-      "2/5",
       "2/9",
       "5/11",
       "22/45",
       "3/5",
+      "2/5",
     ],
-    correta: 0,
+    correta: 4,
     explicacao:
       "A informação de que a sorteada é menina restringe o espaço às 25 meninas, das quais 10 praticam esporte: P(esporte | menina) = 10/25 = 2/5. Na tabela de dupla entrada, a condição escolhe a linha, e o total da linha vira o denominador.\n\n2/9 divide pelo total da turma, 10/45. 5/11 inverte a condição: entre os que praticam esporte, a fração de meninas, 10/22. 22/45 é a proporção de praticantes na turma toda. E 3/5 é a proporção entre os meninos.",
   },
@@ -122,13 +122,13 @@ export const questoes = [
     enunciado:
       "Numa cidade, 50% dos adultos dirigem, e 80% dos que dirigem têm seguro do carro. Que porcentagem dos adultos dirige e tem seguro?",
     opcoes: [
-      "40%",
       "80%",
       "130%",
       "62,5%",
       "10%",
+      "40%",
     ],
-    correta: 0,
+    correta: 4,
     explicacao:
       "Os 80% são uma probabilidade condicional: P(seguro | dirige) = 0,8. Pela regra da multiplicação, P(dirige e tem seguro) = P(dirige) · P(seguro | dirige) = 0,5 · 0,8 = 0,4, ou 40% dos adultos.\n\n80% é a porcentagem entre os que dirigem, e não entre todos os adultos. 130% soma as porcentagens e passa de 100%. 62,5% divide 0,5 por 0,8. E 10% é a porcentagem de adultos que dirigem sem seguro, 0,5 · 0,2.",
   },
@@ -156,13 +156,13 @@ export const questoes = [
     enunciado:
       "Se A e B não podem ocorrer ao mesmo tempo, com P(A) = 0,3 e P(B) = 0,4, qual é a probabilidade de A ocorrer, sabendo que B ocorreu?",
     opcoes: [
-      "0",
       "0,3",
+      "0",
       "0,12",
       "0,75",
       "1",
     ],
-    correta: 0,
+    correta: 1,
     explicacao:
       "Eventos que não podem ocorrer juntos têm A ∩ B = ∅ e P(A ∩ B) = 0. Pela definição, P(A|B) = P(A ∩ B)/P(B) = 0/0,4 = 0: sabendo que B ocorreu, A fica impossível. Por isso, eventos disjuntos com probabilidades positivas nunca são independentes.\n\n0,3 é P(A) sem condição, o que valeria se A e B fossem independentes. 0,12 multiplica as probabilidades. 0,75 divide 0,3 por 0,4. E 1 trataria A como certo quando B ocorre.",
   },
@@ -173,13 +173,13 @@ export const questoes = [
     enunciado:
       "Qual condição define que dois eventos A e B, de probabilidades positivas, são independentes?",
     opcoes: [
-      "P(A ∩ B) = P(A) · P(B)",
       "P(A ∩ B) = 0",
       "P(A ∪ B) = P(A) + P(B)",
       "P(A|B) = P(B|A)",
       "P(A) + P(B) = 1",
+      "P(A ∩ B) = P(A) · P(B)",
     ],
-    correta: 0,
+    correta: 4,
     explicacao:
       "A e B são independentes quando P(A ∩ B) = P(A) · P(B). Com P(B) > 0, isso equivale a P(A|B) = P(A): saber que B ocorreu não altera a probabilidade de A. Os lançamentos de dois dados diferentes são o exemplo típico.\n\nP(A ∩ B) = 0 caracteriza eventos disjuntos, que, com probabilidades positivas, são dependentes. A soma na união também vale só para disjuntos. P(A|B) = P(B|A) só diz que P(A) = P(B), quando a interseção é positiva. E P(A) + P(B) = 1 não tem relação com independência.",
   },
@@ -191,12 +191,12 @@ export const questoes = [
       "Uma senha é formada por um algarismo, de 0 a 9, seguido de uma letra, entre 26, sorteados de forma independente. Qual é a probabilidade de a senha ser 7A?",
     opcoes: [
       "1/36",
-      "1/260",
       "1/10",
+      "1/260",
       "1/26",
       "1/130",
     ],
-    correta: 1,
+    correta: 2,
     explicacao:
       "O algarismo tem 10 possibilidades e a letra, 26. Como os sorteios são independentes, P(7 e A) = P(7) · P(A) = (1/10)(1/26) = 1/260. Pela contagem, há 10 · 26 = 260 senhas igualmente prováveis, e só uma é 7A.\n\n1/36 soma as possibilidades, 10 + 26, em vez de multiplicar. 1/10 considera só o algarismo, e 1/26, só a letra. E 1/130 conta duas ordens, 7A e A7, embora o formato fixe o algarismo antes da letra.",
   },
@@ -225,12 +225,12 @@ export const questoes = [
       "Dois dados são lançados, e sabe-se que a soma foi 8. Qual é a probabilidade de os dois dados mostrarem o mesmo número?",
     opcoes: [
       "1/6",
-      "1/5",
       "1/36",
       "1/3",
+      "1/5",
       "5/36",
     ],
-    correta: 1,
+    correta: 3,
     explicacao:
       "A condição reduz o espaço aos pares com soma 8: (2, 6), (3, 5), (4, 4), (5, 3) e (6, 2), cinco pares igualmente prováveis. Só (4, 4) tem números iguais, e P = 1/5. Pela fórmula: P(iguais e soma 8)/P(soma 8) = (1/36)/(5/36) = 1/5.\n\n1/6 é a probabilidade de números iguais sem a condição. 1/36 é a do par (4, 4) sem condicionar. 1/3 conta os pares sem ordem, {2, 6}, {3, 5} e {4, 4}. E 5/36 é a probabilidade da soma 8.",
   },
@@ -241,13 +241,13 @@ export const questoes = [
     enunciado:
       "Lançam-se dois dados, e alguém avisa que saiu pelo menos um 6. Qual é a probabilidade de a soma ser 10 ou mais?",
     opcoes: [
-      "1/6",
       "5/11",
+      "1/6",
       "5/36",
       "1/2",
       "6/11",
     ],
-    correta: 1,
+    correta: 0,
     explicacao:
       "Os pares com pelo menos um 6 são 11: seis com 6 no primeiro dado, seis com 6 no segundo, menos o (6, 6) contado duas vezes. Entre eles, a soma é 10 ou mais em (4, 6), (5, 6), (6, 6), (6, 5) e (6, 4): cinco pares. Então P = 5/11.\n\n1/6 é a probabilidade de soma 10 ou mais sem a condição, 6/36. 5/36 é a da interseção, sem dividir por P(pelo menos um 6). 1/2 é um palpite. E 6/11 é a probabilidade do complementar, soma menor que 10.",
   },
@@ -275,13 +275,13 @@ export const questoes = [
     enunciado:
       "Um casal tem dois filhos, e quem conhece a família informa que o primogênito é menino. Nessas condições, qual é a probabilidade de o casal ter dois meninos?",
     opcoes: [
-      "1/3",
       "1/2",
+      "1/3",
       "1/4",
       "2/3",
       "1",
     ],
-    correta: 1,
+    correta: 0,
     explicacao:
       "Saber que o primogênito é menino deixa duas sequências igualmente prováveis: menino-menino e menino-menina. Uma delas tem dois meninos, e P = 1/2. Como os nascimentos são independentes, a pergunta equivale a perguntar o sexo do segundo filho.\n\n1/3 seria a resposta com a informação mais fraca de que pelo menos um filho é menino, sem dizer qual. 1/4 ignora a informação. 2/3 não sai da contagem. E 1 trataria o segundo filho como certamente menino.",
   },
@@ -293,12 +293,12 @@ export const questoes = [
       "Lança-se uma moeda: com cara, joga-se um dado; com coroa, jogam-se dois dados e somam-se os pontos. Qual é a probabilidade de o resultado final ser 6?",
     opcoes: [
       "1/6",
-      "11/72",
       "11/36",
+      "11/72",
       "5/72",
       "1/12",
     ],
-    correta: 1,
+    correta: 2,
     explicacao:
       "Pela probabilidade total, soma-se sobre os dois ramos: P(6) = P(cara) · P(6 | cara) + P(coroa) · P(6 | coroa) = (1/2)(1/6) + (1/2)(5/36) = 1/12 + 5/72 = 6/72 + 5/72 = 11/72. A soma 6 com dois dados sai em 5 dos 36 pares.\n\n1/6 considera só o ramo de um dado. 11/36 soma as condicionais, 1/6 + 5/36, sem pesar pela moeda. 5/72 é só a contribuição do ramo da coroa, e 1/12, só a do ramo da cara.",
   },
@@ -309,13 +309,13 @@ export const questoes = [
     enunciado:
       "Uma fábrica tem duas máquinas: a máquina A faz 60% das peças, com 2% de defeituosas, e a B faz o restante, com 5% de defeituosas. Uma peça sorteada é defeituosa. Qual é a probabilidade de ela ter vindo de B?",
     opcoes: [
-      "40%",
       "62,5%",
+      "40%",
       "5%",
       "37,5%",
       "≈ 71,4%",
     ],
-    correta: 1,
+    correta: 0,
     explicacao:
       "Em 1.000 peças, A faz 600, com 12 defeituosas, e B faz 400, com 20 defeituosas. As defeituosas são 32, e 20 delas vieram de B: P(B | defeituosa) = 20/32 = 62,5%. Pelo teorema de Bayes: (0,4 · 0,05)/(0,6 · 0,02 + 0,4 · 0,05) = 0,02/0,032.\n\n40% é a fração de peças feitas por B, antes de saber do defeito. 5% é a taxa de defeito de B, P(defeituosa | B), a pergunta inversa. 37,5% é a probabilidade de a defeituosa ter vindo de A. E 71,4% compara as taxas, 5/(2 + 5), sem pesar pela produção de cada máquina.",
   },
@@ -327,12 +327,12 @@ export const questoes = [
       "Numa pesquisa com 200 pessoas, 80 fumam; 20 dos fumantes e 30 dos 120 não fumantes têm um certo problema respiratório. Nessa amostra, fumar e ter o problema são eventos independentes?",
     opcoes: [
       "Não: há mais casos entre os não fumantes",
-      "Sim: 25% têm o problema nos dois grupos",
       "Não: os fumantes são minoria",
       "Sim: porque 20 + 30 = 50",
       "Não dá para saber sem mais dados",
+      "Sim: 25% têm o problema nos dois grupos",
     ],
-    correta: 1,
+    correta: 4,
     explicacao:
       "Independência significa que a probabilidade do problema não muda com a condição de fumante. Entre os fumantes, 20/80 = 25%; entre os não fumantes, 30/120 = 25%; e no total, 50/200 = 25%. Também P(fuma e tem o problema) = 20/200 = 0,1 = 0,4 · 0,25. Nesses números, os eventos são independentes.\n\nHá mais casos entre os não fumantes só porque esse grupo é maior. Ser minoria não diz nada sobre dependência. 20 + 30 = 50 é só o total de casos, que não justifica a conclusão. E os dados da tabela bastam para decidir.",
   },
@@ -361,12 +361,12 @@ export const questoes = [
       "Um servidor guarda os dados em dois discos espelhados, e os dados só se perdem se os dois falharem. Cada disco funciona no período com probabilidade 0,9, de forma independente. Qual é a probabilidade de os dados serem preservados?",
     opcoes: [
       "0,81",
-      "0,9",
       "0,99",
+      "0,9",
       "1,8",
       "0,18",
     ],
-    correta: 2,
+    correta: 1,
     explicacao:
       "Os dados se perdem só se os dois discos falharem, com probabilidade 0,1 · 0,1 = 0,01, pela independência. O complementar dá P(preservados) = 1 − 0,01 = 0,99. Um sistema em paralelo como esse é mais confiável que cada componente isolado.\n\n0,81 é a probabilidade de os dois funcionarem, que seria a exigência de um sistema em série. 0,9 é a de um disco só. 1,8 soma as probabilidades e passa de 1. E 0,18 é a de exatamente um disco funcionar.",
   },
@@ -412,12 +412,12 @@ export const questoes = [
       "Numa empresa, 40% dos funcionários são engenheiros. Falam alemão 30% dos engenheiros e 10% dos demais. Sorteado um funcionário que fala alemão, qual é a probabilidade de ele ser engenheiro?",
     opcoes: [
       "30%",
-      "40%",
       "≈ 66,7%",
+      "40%",
       "18%",
       "12%",
     ],
-    correta: 2,
+    correta: 1,
     explicacao:
       "Em 100 funcionários: 40 engenheiros, dos quais 12 falam alemão, e 60 demais, dos quais 6 falam. Os que falam alemão são 18, e 12 deles são engenheiros: P(engenheiro | alemão) = 12/18 ≈ 66,7%. A condição troca o denominador para o grupo dos que falam alemão.\n\n30% é P(alemão | engenheiro), a condicional no sentido inverso. 40% é a fração de engenheiros sem a informação. 18% é a fração da empresa que fala alemão. E 12% é a de engenheiros que falam alemão, no total.",
   },
@@ -430,11 +430,11 @@ export const questoes = [
     opcoes: [
       "3/52",
       "1/13",
-      "1/4",
       "3/13",
+      "1/4",
       "1/12",
     ],
-    correta: 2,
+    correta: 3,
     explicacao:
       "As figuras são 12, três de cada naipe. Entre elas, 3 são de copas, e P(copas | figura) = 3/12 = 1/4. É a mesma probabilidade de copas sem a informação, 13/52 = 1/4: saber que a carta é figura não muda a chance do naipe, e os eventos copas e figura são independentes.\n\n3/52 é a probabilidade de a carta ser uma figura de copas, sem condicionar. 1/13 é a de um valor específico. 3/13 é a de ser figura. E 1/12 é a de uma figura específica, como o rei de copas, dado que é figura.",
   },
@@ -447,11 +447,11 @@ export const questoes = [
     opcoes: [
       "10%",
       "3%",
-      "≈ 33,3%",
       "30%",
       "≈ 66,7%",
+      "≈ 33,3%",
     ],
-    correta: 2,
+    correta: 4,
     explicacao:
       "Quem tem mais de 80 anos também tem mais de 60: o evento mais de 80 está contido em mais de 60, e a interseção dos dois é o próprio mais de 80, com 10%. Então P(mais de 80 | mais de 60) = 0,10/0,30 = 1/3, ou cerca de 33,3%.\n\n10% é a probabilidade sem a condição. 3% multiplica 10% por 30%, como se os eventos fossem independentes. 30% é a probabilidade de ter mais de 60. E 66,7% é a de ter entre 60 e 80 anos, dado que tem mais de 60.",
   },
@@ -515,11 +515,11 @@ export const questoes = [
     opcoes: [
       "1/24",
       "13/12",
-      "3/4",
       "1/4",
+      "3/4",
       "11/24",
     ],
-    correta: 2,
+    correta: 3,
     explicacao:
       "O problema fica sem solução só se os três errarem: (1/2)(2/3)(3/4) = 6/24 = 1/4, pela independência. Então P(pelo menos um acerta) = 1 − 1/4 = 3/4.\n\n1/24 é a probabilidade de os três acertarem, (1/2)(1/3)(1/4). 13/12 soma as três probabilidades e passa de 1, porque conta várias vezes os casos com mais de um acerto. 1/4 é a probabilidade de ninguém acertar. E 11/24 é a de exatamente um acertar.",
   },
@@ -531,12 +531,12 @@ export const questoes = [
       "Um dado é lançado duas vezes. Sejam A: o primeiro resultado é par, e B: a soma dos resultados é 7. Os eventos A e B são independentes?",
     opcoes: [
       "Não: a soma depende do primeiro resultado",
+      "Sim: P(A ∩ B) = 1/12 = P(A) · P(B)",
       "Não: P(A ∩ B) = 1/6",
       "Sim: porque P(A) = 1/2",
-      "Sim: P(A ∩ B) = 1/12 = P(A) · P(B)",
       "Não: A e B são disjuntos",
     ],
-    correta: 3,
+    correta: 1,
     explicacao:
       "P(A) = 1/2 e P(B) = 6/36 = 1/6. A ∩ B reúne os pares (2, 5), (4, 3) e (6, 1): P(A ∩ B) = 3/36 = 1/12 = (1/2)(1/6). Então A e B são independentes: qualquer que seja o primeiro resultado, há exatamente um segundo resultado que completa a soma 7.\n\nA soma depende do primeiro resultado em geral, mas não o evento soma 7, que tem chance 1/6 em qualquer caso. P(A ∩ B) vale 1/12, e não 1/6. P(A) = 1/2, sozinho, não decide nada. E A e B têm três pares em comum, não são disjuntos.",
   },
@@ -549,11 +549,11 @@ export const questoes = [
     opcoes: [
       "2/3",
       "1/2",
-      "1/4",
       "5/9",
+      "1/4",
       "4/9",
     ],
-    correta: 3,
+    correta: 2,
     explicacao:
       "Pela probabilidade total, P(branca) = (1/2)(2/5) + (1/2)(4/8) = 1/5 + 1/4 = 9/20. Pelo teorema de Bayes, P(II | branca) = (1/2)(1/2)/(9/20) = (1/4)/(9/20) = 5/9. A urna II, com proporção maior de brancas, fica mais provável depois de sair branca.\n\n2/3 junta as bolas das duas urnas, 4 das 6 brancas, sem considerar que as urnas têm tamanhos diferentes. 1/2 é a probabilidade antes da informação. 1/4 é P(II e branca), sem dividir por P(branca). E 4/9 é a probabilidade da urna I.",
   },
@@ -567,10 +567,10 @@ export const questoes = [
       "Sim: as duas probabilidades são sempre iguais",
       "Sim: se o exame é bom, o positivo é confiável",
       "Não: P(doente | positivo) é sempre 0,05",
-      "Não: depende também da prevalência e dos falsos positivos",
       "Não: P(doente | positivo) é sempre menor que 0,5",
+      "Não: depende também da prevalência e dos falsos positivos",
     ],
-    correta: 3,
+    correta: 4,
     explicacao:
       "P(positivo | doente) e P(doente | positivo) condicionam a eventos diferentes. Pelo teorema de Bayes, P(doente | positivo) = P(positivo | doente) · P(doente)/P(positivo), e o resultado depende de quantas pessoas têm a doença e de quantos sadios dão positivo. Com 1% de doentes e 5% de falsos positivos, fica perto de 16%; com metade da população doente e os mesmos 5%, chega a 95%.\n\nAs duas probabilidades não são iguais em geral. Um exame sensível pode gerar muitos positivos falsos quando a doença é rara. E o valor de P(doente | positivo) não é fixo: varia com a prevalência e pode ficar acima ou abaixo de 0,5.",
   },
@@ -599,12 +599,12 @@ export const questoes = [
       "Dois dados são lançados, e sabe-se que mostraram números diferentes. Qual é a probabilidade de a soma ser par?",
     opcoes: [
       "1/2",
+      "2/5",
       "1/3",
       "3/5",
-      "2/5",
       "5/6",
     ],
-    correta: 3,
+    correta: 1,
     explicacao:
       "Os pares com números diferentes são 36 − 6 = 30. A soma é par quando os dois números têm a mesma paridade: 3 · 3 = 9 pares com os dois ímpares e 9 com os dois pares, 18 no total, dos quais 6 têm números iguais. Restam 12, e P = 12/30 = 2/5.\n\n1/2 é a probabilidade de soma par sem a condição. 1/3 é 12/36, sem dividir pela probabilidade da condição. 3/5 é a probabilidade de soma ímpar, dado que os números são diferentes. E 5/6 é a probabilidade de os números serem diferentes.",
   },
@@ -632,13 +632,13 @@ export const questoes = [
     enunciado:
       "Tira-se uma carta de um baralho de 52 e, sem devolvê-la, tira-se outra. Sabendo que a primeira foi de copas, qual é a probabilidade de a segunda também ser de copas?",
     opcoes: [
+      "4/17",
       "1/4",
       "3/13",
       "13/51",
-      "4/17",
       "1/16",
     ],
-    correta: 3,
+    correta: 0,
     explicacao:
       "Depois de uma carta de copas sair, restam 51 cartas, das quais 12 de copas. Então P(2ª copas | 1ª copas) = 12/51 = 4/17, um pouco menos que 1/4, porque o naipe ficou com uma carta a menos.\n\n1/4 é a probabilidade sem a informação, que valeria com reposição. 3/13 = 12/52 tira a carta de copas, mas mantém 52 no total. 13/51 esquece de retirar a carta de copas já sorteada. E 1/16 é a probabilidade de as duas serem de copas com reposição, (1/4)².",
   },
@@ -649,13 +649,13 @@ export const questoes = [
     enunciado:
       "Três moedas são jogadas, e um observador conta que apareceu pelo menos uma cara. Qual é a probabilidade de terem aparecido exatamente duas caras?",
     opcoes: [
+      "3/7",
       "3/8",
       "1/3",
       "4/7",
-      "3/7",
       "1/2",
     ],
-    correta: 3,
+    correta: 0,
     explicacao:
       "Das 8 sequências igualmente prováveis, só coroa-coroa-coroa fica excluída pela informação, e sobram 7. Exatamente duas caras ocorrem em 3 delas, com a coroa em primeiro, segundo ou terceiro lugar. Então P = 3/7.\n\n3/8 é a probabilidade de exatamente duas caras sem a condição. 1/3 trata os casos uma, duas ou três caras como equiprováveis. 4/7 é a probabilidade de pelo menos duas caras, dada a condição. E 1/2 é um palpite.",
   },
@@ -686,10 +686,10 @@ export const questoes = [
       "2/3",
       "1/2",
       "2/5",
-      "3/5",
       "7/12",
+      "3/5",
     ],
-    correta: 3,
+    correta: 4,
     explicacao:
       "Pela probabilidade total, separando pela cor da primeira: se foi branca, com probabilidade 3/5, a urna fica com 4 brancas em 6; se foi preta, com probabilidade 2/5, fica com 3 brancas em 6. Então P(2ª branca) = (3/5)(4/6) + (2/5)(3/6) = 12/30 + 6/30 = 18/30 = 3/5, igual à da primeira.\n\n2/3 supõe que a primeira foi branca. 1/2 supõe que a primeira foi preta. 2/5 é a probabilidade de a segunda ser preta. E 7/12 faz a média simples de 2/3 e 1/2, sem pesar pelas chances da primeira retirada.",
   },
@@ -701,12 +701,12 @@ export const questoes = [
       "Um filtro marca como spam 98% das mensagens de spam e, por engano, 2% das mensagens legítimas. Sabe-se que 10% das mensagens recebidas são spam. Uma mensagem foi marcada. Qual é a probabilidade de ela ser spam?",
     opcoes: [
       "98%",
+      "≈ 84,5%",
       "10%",
       "≈ 15,5%",
       "≈ 11,6%",
-      "≈ 84,5%",
     ],
-    correta: 4,
+    correta: 1,
     explicacao:
       "Em 1.000 mensagens: 100 spams, dos quais 98 são marcados, e 900 legítimas, das quais 18 são marcadas por engano. As marcadas somam 116, e 98 delas são spam: P(spam | marcada) = 98/116 ≈ 84,5%. É o teorema de Bayes em forma de contagem.\n\n98% é P(marcada | spam), a condicional inversa. 10% é a proporção de spam antes da marcação. 15,5% é a probabilidade de a mensagem marcada ser legítima, 18/116. E 11,6% é a proporção de mensagens marcadas, 116/1.000.",
   },
@@ -717,13 +717,13 @@ export const questoes = [
     enunciado:
       "Num jogo, há três portas e um prêmio atrás de uma delas. O jogador escolhe uma porta; o apresentador, que sabe onde está o prêmio, abre outra porta, sem prêmio, e oferece a troca. Qual é a probabilidade de ganhar quem troca de porta?",
     opcoes: [
+      "2/3",
       "1/2",
       "1/3",
       "1",
       "3/4",
-      "2/3",
     ],
-    correta: 4,
+    correta: 0,
     explicacao:
       "Quem troca ganha exatamente quando a primeira escolha estava errada, o que acontece com probabilidade 2/3: nesse caso, o apresentador é obrigado a abrir a única outra porta sem prêmio, e a porta restante tem o prêmio. Quem mantém a escolha ganha só se acertou de início, com probabilidade 1/3.\n\n1/2 supõe que as duas portas fechadas ficam igualmente prováveis, esquecendo que o apresentador escolhe a porta sabendo onde está o prêmio. 1/3 é a chance de quem não troca. 1 exageraria a vantagem da troca. E 3/4 não sai de nenhum caso.",
   },
@@ -735,12 +735,12 @@ export const questoes = [
       "Duas moedas honestas são lançadas. Sejam A: a primeira dá cara; B: a segunda dá cara; C: as duas dão o mesmo resultado. O que se pode afirmar sobre A, B e C?",
     opcoes: [
       "Os três são mutuamente independentes",
+      "Independentes aos pares, mas não os três",
       "Nenhum par de eventos é independente",
       "Só A e B são independentes entre si",
       "C é impossível quando A e B ocorrem",
-      "Independentes aos pares, mas não os três",
     ],
-    correta: 4,
+    correta: 1,
     explicacao:
       "Cada evento tem probabilidade 1/2, e cada interseção de dois tem probabilidade 1/4: A ∩ B, A ∩ C e B ∩ C são, os três, o resultado cara-cara, com 1 dos 4 casos. Então cada par é independente. Mas A ∩ B ∩ C também é cara-cara, com probabilidade 1/4, e não 1/8 = (1/2)³: os três juntos não são independentes.\n\nA independência mútua exigiria também o produto triplo. Todos os pares são independentes, e não só A e B. E se A e B ocorrem, as duas moedas deram cara, e C ocorre com certeza.",
   },
@@ -753,11 +753,11 @@ export const questoes = [
     opcoes: [
       "0,729",
       "0,999",
+      "0,891",
       "0,81",
       "0,99",
-      "0,891",
     ],
-    correta: 4,
+    correta: 2,
     explicacao:
       "O bloco com B e C, em paralelo, falha só se os dois falharem: 0,1 · 0,1 = 0,01, e funciona com probabilidade 0,99. Em série com A, o sistema funciona com probabilidade 0,9 · 0,99 = 0,891, pela independência entre A e o bloco.\n\n0,729 = 0,9³ exige os três componentes funcionando, como numa série completa. 0,999 trata os três como paralelos. 0,81 exige A e um componente fixo do bloco. E 0,99 é a confiabilidade do bloco paralelo, sem A.",
   },
@@ -770,11 +770,11 @@ export const questoes = [
     opcoes: [
       "≈ 6,3%",
       "≈ 49,3%",
+      "≈ 50,7%",
       "≈ 5,9%",
       "≈ 0,3%",
-      "≈ 50,7%",
     ],
-    correta: 4,
+    correta: 2,
     explicacao:
       "O complementar é todos os aniversários serem diferentes: (365/365)(364/365)(363/365) ⋯ (343/365) ≈ 0,493, multiplicando as probabilidades condicionais de cada nova pessoa evitar os dias já ocupados. Então P(alguma coincidência) ≈ 1 − 0,493 = 0,507. Com 23 pessoas há 253 pares, e cada par pode coincidir, o que explica o valor alto.\n\n6,3% = 23/365 pensa em uma pessoa só. 49,3% é a probabilidade de todos os aniversários serem diferentes. 5,9% é a de alguém fazer aniversário no mesmo dia de uma pessoa específica. E 0,3% é a de duas pessoas específicas coincidirem, 1/365.",
   },
@@ -785,13 +785,13 @@ export const questoes = [
     enunciado:
       "O hospital A tratou 100 casos leves, com 90 curas, e 400 graves, com 200 curas. O hospital B tratou 400 casos leves, com 340 curas, e 100 graves, com 40 curas. Como se comparam as taxas de cura?",
     opcoes: [
+      "B no geral, mas A em cada tipo de caso",
       "A no geral e em cada tipo de caso",
       "B no geral e em cada tipo de caso",
       "A no geral, mas B em cada tipo de caso",
       "Os dois empatam no geral",
-      "B no geral, mas A em cada tipo de caso",
     ],
-    correta: 4,
+    correta: 0,
     explicacao:
       "Por tipo: nos leves, A cura 90% e B, 85%; nos graves, A cura 50% e B, 40%. A é melhor nos dois tipos. No geral, porém, A cura 290/500 = 58% e B, 380/500 = 76%. A inversão, chamada paradoxo de Simpson, vem da composição dos casos: A trata sobretudo casos graves, que têm taxas de cura menores.\n\nA não é melhor no geral. B não é melhor em nenhum tipo de caso. A inversão descrita na outra ordem não corresponde aos números. E as taxas gerais, 58% e 76%, não empatam.",
   },
@@ -805,10 +805,10 @@ export const questoes = [
       "1/2",
       "3/8",
       "1/4",
-      "2/3",
       "3/4",
+      "2/3",
     ],
-    correta: 4,
+    correta: 3,
     explicacao:
       "A condição x + y < 1 é o triângulo abaixo da diagonal, de área 1/2. Dentro dele, a parte com x < 1/2 é um trapézio de área igual à integral de 1 − x entre 0 e 1/2: 1/2 − 1/8 = 3/8. A condicional é a razão das áreas: (3/8)/(1/2) = 3/4. O triângulo é mais largo do lado de x pequeno, e por isso a resposta passa de 1/2.\n\n1/2 ignora a condição e usa o quadrado todo. 3/8 é a área da interseção, sem dividir pela área do triângulo. 1/4 é a condicional de x ≥ 1/2. E 2/3 não sai das áreas.",
   },

@@ -71,5 +71,6 @@
     "q48 × q30 (0.66)"
   ],
   "checar_qualidade": "sem problemas",
-  "gabarito_por_letra": "10 / 10 / 10 / 10 / 10"
+  "gabarito_por_letra": "10 / 10 / 10 / 10 / 10",
+  "gabarito_sorteado": "posição do gabarito sorteada com semente fixa por arquivo (rebalancear-gabarito.mjs), independente da dificuldade"
 }

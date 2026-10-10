@@ -54,25 +54,37 @@ const cotas = [0, 1, 2, 3, 4].map((i) => base + (i < sobra ? 1 : 0));
 const antes = [0, 0, 0, 0, 0];
 for (const q of questoes) antes[q.correta]++;
 
-/* Percorre na ordem e vai gastando as cotas, preferindo deixar a questão onde
-   já está quando ainda há cota para aquela posição. Isso evita mexer no que
-   já estava equilibrado. */
-const restante = [...cotas];
-const destinos = new Array(n).fill(-1);
+/* Sorteia, com semente fixa tirada do nome do arquivo, qual questão recebe
+   qual posição, respeitando as cotas.
 
-for (let i = 0; i < n; i++) {
-  const atual = questoes[i].correta;
-  if (restante[atual] > 0) {
-    destinos[i] = atual;
-    restante[atual]--;
-  }
+   A versão anterior gastava as cotas em ordem (as dez primeiras questões
+   ficavam em A, as dez seguintes em B…). Como os arquivos vêm ordenados por
+   dificuldade, o resultado era um vazamento medido em 6.001 questões: 76% das
+   fáceis tinham o gabarito em A e 87% das difíceis, em E, ou seja, dava para
+   acertar pela dificuldade sem saber o assunto. Com o sorteio, a posição do
+   gabarito deixa de depender da ordem do arquivo e da dificuldade. A semente
+   é fixa para que rodar de novo dê o mesmo arquivo. */
+function mulberry32(a) {
+  return () => {
+    a |= 0;
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
 }
-let proxima = 0;
-for (let i = 0; i < n; i++) {
-  if (destinos[i] !== -1) continue;
-  while (restante[proxima] === 0) proxima++;
-  destinos[i] = proxima;
-  restante[proxima]--;
+const nomeBase = caminho.split(/[\\/]/).pop();
+let semente = 7;
+for (const c of nomeBase) semente = (semente * 31 + c.charCodeAt(0)) % 1000003;
+const sorteio = mulberry32(semente);
+
+const destinos = [];
+cotas.forEach((cota, posicao) => {
+  for (let k = 0; k < cota; k++) destinos.push(posicao);
+});
+for (let i = destinos.length - 1; i > 0; i--) {
+  const j = Math.floor(sorteio() * (i + 1));
+  [destinos[i], destinos[j]] = [destinos[j], destinos[i]];
 }
 
 let movidas = 0;

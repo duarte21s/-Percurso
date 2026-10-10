@@ -217,6 +217,21 @@ e com autorização.
   abrir conexão, e ganhou `--offline`.
 - **Teste.** `npm run testar-trava-seed` monta pastas temporárias com
   relatórios e registros fabricados e confere o que a trava retém (offline).
+- **Posição do gabarito sorteada.** Descoberto na revisão: o
+  `rebalancear-gabarito.mjs` gastava as cotas em ordem (as dez primeiras
+  questões em A, as dez seguintes em B…) e os arquivos vêm ordenados por
+  dificuldade. Nas 6.001 questões das oito matérias, 76% das fáceis (1.086 de
+  1.421) tinham o gabarito em A e 87% das difíceis (1.046 de 1.202), em E:
+  dava para acertar pela dificuldade, sem saber o assunto. O script agora
+  sorteia a posição com semente fixa tirada do nome do arquivo, e os 123
+  arquivos foram regravados (4.863 questões mudaram de posição; enunciado,
+  explicação e texto de cada alternativa ficaram intactos, conferido por
+  comparação antes/depois). Depois: A 1.204, B 1.203, C 1.203, D 1.203,
+  E 1.188, e a distribuição por dificuldade ficou uniforme. As outras
+  matérias de `gerado/` (artes, física, química etc., 6.400 questões) não
+  foram tocadas e têm o mesmo vício em grau menor: 653 das 1.357 fáceis
+  (48%) têm o gabarito em A e 348 das 1.174 difíceis (30%), em E. Basta rodar
+  o `rebalancear-gabarito.mjs` nesses arquivos, com autorização.
 - **Registro das 271 antigas.** Os sete arquivos de questões anteriores (sem
   relatório de geração) entram em `gerado/_revisao/` com todas as questões
   `pendente`, de modo que a trava as segura mesmo onde o cabeçalho não diz

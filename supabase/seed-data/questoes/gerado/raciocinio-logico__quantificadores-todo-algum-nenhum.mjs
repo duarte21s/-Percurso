@@ -20,13 +20,13 @@ export const questoes = [
     enunciado:
       "Qual é a negação lógica da afirmação “Todo servidor do setor é pontual”?",
     opcoes: [
-      "Algum servidor do setor não é pontual",
       "Nenhum servidor do setor é pontual",
       "Algum servidor do setor é pontual",
+      "Algum servidor do setor não é pontual",
       "Todo servidor pontual é do setor",
       "Todo servidor que não é pontual está fora do setor",
     ],
-    correta: 0,
+    correta: 2,
     explicacao:
       "Para negar “todo servidor do setor é pontual”, basta existir um servidor do setor que não seja pontual. A negação é, então, “algum servidor do setor não é pontual”: verdadeira exatamente quando a frase original é falsa, e falsa exatamente quando ela é verdadeira.\n\n“Nenhum servidor do setor é pontual” é forte demais: se metade dos servidores for pontual, ela e a frase original são ambas falsas, então não é a negação. “Algum servidor do setor é pontual” é compatível com a original. “Todo servidor pontual é do setor” trata da relação inversa. E “todo servidor que não é pontual está fora do setor” é a contrapositiva — diz exatamente o mesmo que a original, em vez de negá-la.",
   },
@@ -37,13 +37,13 @@ export const questoes = [
     enunciado:
       "Qual é a negação da afirmação “Algum aluno da turma gosta de xadrez”?",
     opcoes: [
-      "Nenhum aluno da turma gosta de xadrez",
       "Algum aluno da turma não gosta de xadrez",
       "Todo aluno da turma gosta de xadrez",
       "Todos os que gostam de xadrez são alunos da turma",
+      "Nenhum aluno da turma gosta de xadrez",
       "Algum apreciador de xadrez é aluno da turma",
     ],
-    correta: 0,
+    correta: 3,
     explicacao:
       "A frase “algum aluno da turma gosta de xadrez” afirma que existe pelo menos um aluno da turma que gosta de xadrez. Para negá-la, é preciso dizer que esse aluno não existe: nenhum aluno da turma gosta de xadrez.\n\n“Algum aluno da turma não gosta de xadrez” pode ser verdadeira junto com a original — basta haver um aluno que gosta e outro que não gosta. “Todo aluno da turma gosta de xadrez” reforça a original em vez de negá-la. “Todos os que gostam de xadrez são alunos da turma” fala de outra relação. E “algum apreciador de xadrez é aluno da turma” diz o mesmo que a original, só com a ordem invertida.",
   },
@@ -54,13 +54,13 @@ export const questoes = [
     enunciado:
       "Qual é a negação da afirmação “Nenhum candidato foi eliminado”?",
     opcoes: [
-      "Pelo menos um candidato foi eliminado",
       "Todos os candidatos foram eliminados",
       "Algum candidato não foi eliminado",
       "Nenhum eliminado era candidato",
+      "Pelo menos um candidato foi eliminado",
       "Todo eliminado era candidato",
     ],
-    correta: 0,
+    correta: 3,
     explicacao:
       "“Nenhum candidato foi eliminado” diz que não existe candidato eliminado. A negação afirma o contrário exato: existe pelo menos um candidato eliminado. Basta um caso para derrubar o “nenhum”.\n\n“Todos os candidatos foram eliminados” vai além do necessário: se só um candidato for eliminado, a frase original é falsa e essa também — então não é a negação. “Algum candidato não foi eliminado” é compatível com a original. “Nenhum eliminado era candidato” diz o mesmo que ela, com a ordem invertida. E “todo eliminado era candidato” trata de outra relação, sobre quem foi eliminado.",
   },
@@ -88,13 +88,13 @@ export const questoes = [
     enunciado:
       "Qual é a negação da afirmação “Todos os fiscais são concursados, e alguns fiscais são engenheiros”?",
     opcoes: [
-      "Algum fiscal não é concursado ou nenhum fiscal é engenheiro",
       "Algum fiscal não é concursado e nenhum fiscal é engenheiro",
+      "Algum fiscal não é concursado ou nenhum fiscal é engenheiro",
       "Nenhum fiscal é concursado ou todos os fiscais são engenheiros",
       "Algum fiscal não é concursado ou algum fiscal não é engenheiro",
       "Nenhum fiscal é concursado e nenhum fiscal é engenheiro",
     ],
-    correta: 0,
+    correta: 1,
     explicacao:
       "A frase é uma conjunção: “todos os fiscais são concursados” E “alguns fiscais são engenheiros”. Pela lei de De Morgan, a negação de uma conjunção é a disjunção das negações. A negação de “todos são concursados” é “algum não é concursado”; a de “alguns são engenheiros” é “nenhum é engenheiro”. Juntando com “ou”: algum fiscal não é concursado ou nenhum fiscal é engenheiro.\n\nTrocar o “ou” por “e” exige as duas falhas ao mesmo tempo, quando basta uma. “Nenhum fiscal é concursado” e “todos são engenheiros” não negam as partes; exageram no sentido oposto. E “algum fiscal não é engenheiro” é compatível com “alguns fiscais são engenheiros”, então não nega a segunda parte.",
   },
@@ -122,13 +122,13 @@ export const questoes = [
     enunciado:
       "Qual é a negação da afirmação “Existe um relatório que todos os gerentes aprovaram”?",
     opcoes: [
-      "Para cada relatório, há pelo menos um gerente que não o aprovou",
       "Existe um relatório que nenhum gerente aprovou",
       "Nenhum gerente aprovou relatório algum",
       "Existe um gerente que não aprovou nenhum relatório",
+      "Para cada relatório, há pelo menos um gerente que não o aprovou",
       "Todo relatório foi aprovado por algum gerente",
     ],
-    correta: 0,
+    correta: 3,
     explicacao:
       "A frase afirma a existência de um relatório com uma propriedade forte: todos os gerentes o aprovaram. Para negá-la, é preciso que nenhum relatório tenha essa propriedade — ou seja, que cada relatório tenha pelo menos um gerente que não o aprovou. Na negação, “existe” vira “para cada”, e “todos” vira “pelo menos um... não”.\n\n“Existe um relatório que nenhum gerente aprovou” é mais forte que a negação: pode ser falsa mesmo com a frase original falsa. Com “nenhum gerente aprovou relatório algum” ocorre o mesmo, com mais exagero ainda. “Existe um gerente que não aprovou nenhum relatório” também é forte demais. E “todo relatório foi aprovado por algum gerente” é compatível com a frase original.",
   },
@@ -156,13 +156,13 @@ export const questoes = [
     enunciado:
       "Qual é a negação da afirmação “Se todo servidor é pontual, então algum chefe é elogiado”?",
     opcoes: [
-      "Todo servidor é pontual e nenhum chefe é elogiado",
       "Algum servidor não é pontual e nenhum chefe é elogiado",
       "Se algum servidor não é pontual, então nenhum chefe é elogiado",
+      "Todo servidor é pontual e nenhum chefe é elogiado",
       "Todo servidor é pontual e algum chefe não é elogiado",
       "Algum servidor não é pontual ou algum chefe é elogiado",
     ],
-    correta: 0,
+    correta: 2,
     explicacao:
       "A negação de uma condicional “se P, então Q” é “P e não Q”: a condicional só falha quando o antecedente acontece e o consequente não. Aqui, P é “todo servidor é pontual”, que se mantém, e Q é “algum chefe é elogiado”, cuja negação é “nenhum chefe é elogiado”. Resultado: todo servidor é pontual e nenhum chefe é elogiado.\n\nNegar também o antecedente (“algum servidor não é pontual”) é erro comum: na negação, o antecedente precisa continuar verdadeiro. Manter a forma de condicional não nega nada. “Algum chefe não é elogiado” não é a negação de “algum chefe é elogiado”. E “algum servidor não é pontual ou algum chefe é elogiado” é equivalente à frase original, não à sua negação.",
   },
@@ -190,13 +190,13 @@ export const questoes = [
     enunciado:
       "A afirmação “Todo auditor é contador” equivale a qual das afirmações abaixo?",
     opcoes: [
-      "Todo contador é auditor",
       "Quem não é contador não é auditor",
+      "Todo contador é auditor",
       "Quem não é auditor não é contador",
       "Algum auditor é contador",
       "Algum contador não é auditor",
     ],
-    correta: 1,
+    correta: 0,
     explicacao:
       "“Todo auditor é contador” coloca o grupo dos auditores dentro do grupo dos contadores. Quem está fora do grupo maior (não é contador) está, necessariamente, fora do menor (não é auditor). Essa é a contrapositiva, sempre equivalente: “todo A é B” e “todo não B é não A” descrevem a mesma situação.\n\n“Todo contador é auditor” inverte a inclusão. “Quem não é auditor não é contador” também inverte — falha com um contador que não é auditor. “Algum auditor é contador” e “algum contador não é auditor” são afirmações parciais: podem ser verdadeiras sem que a inclusão total seja, e por isso não equivalem a ela.",
   },
@@ -208,12 +208,12 @@ export const questoes = [
       "A afirmação “Nem todo candidato foi aprovado” equivale a qual das afirmações abaixo?",
     opcoes: [
       "Nenhum candidato foi aprovado",
-      "Algum candidato não foi aprovado",
       "Algum candidato foi aprovado",
+      "Algum candidato não foi aprovado",
       "Todo aprovado era candidato",
       "Algum aprovado não era candidato",
     ],
-    correta: 1,
+    correta: 2,
     explicacao:
       "“Nem todo candidato foi aprovado” nega a frase “todo candidato foi aprovado”. Para que a inclusão total falhe, basta um candidato fora do grupo dos aprovados: algum candidato não foi aprovado. “Nem todo” e “algum... não” dizem a mesma coisa.\n\n“Nenhum candidato foi aprovado” é muito mais forte — seria verdadeira só se todos fossem reprovados. “Algum candidato foi aprovado” é compatível com a frase, mas não equivalente: pode ser falsa com ela verdadeira, quando ninguém é aprovado. E “todo aprovado era candidato” e “algum aprovado não era candidato” tratam da relação inversa, de quem foi aprovado.",
   },
@@ -225,12 +225,12 @@ export const questoes = [
       "A afirmação “Não existe servidor que não tenha feito o curso de ética” equivale a qual das afirmações abaixo?",
     opcoes: [
       "Nenhum servidor fez o curso de ética",
-      "Todo servidor fez o curso de ética",
       "Algum servidor não fez o curso de ética",
       "Todos os que fizeram o curso de ética são servidores",
       "Algum servidor fez o curso de ética",
+      "Todo servidor fez o curso de ética",
     ],
-    correta: 1,
+    correta: 4,
     explicacao:
       "A frase nega a existência de um servidor com a propriedade “não fez o curso”. Se não há nenhum servidor assim, todo servidor fez o curso. É a equivalência entre “não existe X que não seja Y” e “todo X é Y” — duas negações que se anulam.\n\n“Nenhum servidor fez o curso” inverte o sentido. “Algum servidor não fez o curso” é exatamente o que a frase declara não existir. “Todos os que fizeram o curso são servidores” trata de outra relação: pode haver terceirizados no curso sem que isso afete a frase. E “algum servidor fez o curso” é mais fraca: pode ser verdadeira sem que todos tenham feito.",
   },
@@ -241,13 +241,13 @@ export const questoes = [
     enunciado:
       "Um edital diz: “Só os aprovados na prova objetiva serão chamados para a discursiva”. Essa regra equivale a qual das afirmações abaixo?",
     opcoes: [
-      "Todo aprovado na objetiva será chamado para a discursiva",
       "Todo chamado para a discursiva foi aprovado na objetiva",
+      "Todo aprovado na objetiva será chamado para a discursiva",
       "Algum aprovado na objetiva não será chamado para a discursiva",
       "Algum chamado para a discursiva não foi aprovado na objetiva",
       "Serão chamados todos os aprovados na objetiva, e somente eles",
     ],
-    correta: 1,
+    correta: 0,
     explicacao:
       "“Só os aprovados serão chamados” impõe uma condição necessária: para ser chamado, é preciso ter sido aprovado. Logo, todo chamado para a discursiva foi aprovado na objetiva. O “só” (ou “somente”, “apenas”) inverte a ordem habitual: “só A são B” equivale a “todo B é A”.\n\n“Todo aprovado será chamado” lê o “só” ao contrário: a frase não garante vaga para todos os aprovados. Pelo mesmo motivo, “todos os aprovados, e somente eles” acrescenta uma garantia que não foi dada. “Algum aprovado não será chamado” também não decorre — pode ser que todos sejam chamados. E “algum chamado não foi aprovado” contradiz a regra.",
   },
@@ -259,12 +259,12 @@ export const questoes = [
       "Qual dos pares abaixo reúne duas afirmações que NÃO podem ser verdadeiras ao mesmo tempo, qualquer que seja o grupo de pessoas considerado?",
     opcoes: [
       "“Algum gerente viaja” e “Algum gerente não viaja”",
-      "“Todo gerente viaja” e “Algum gerente não viaja”",
       "“Todo gerente viaja” e “Todo viajante é gerente”",
       "“Nenhum gerente viaja” e “Algum viajante não é gerente”",
       "“Todo gerente viaja” e “Algum viajante não é gerente”",
+      "“Todo gerente viaja” e “Algum gerente não viaja”",
     ],
-    correta: 1,
+    correta: 4,
     explicacao:
       "“Todo gerente viaja” e “algum gerente não viaja” são contraditórias: a segunda é exatamente a negação da primeira. Se todo gerente viaja, não existe gerente que não viaje; se existe um, a inclusão total falha. Em qualquer grupo, uma delas é verdadeira e a outra é falsa.\n\nOs outros pares convivem. “Algum gerente viaja” e “algum gerente não viaja” são verdadeiras juntas num grupo com gerentes dos dois tipos. “Todo gerente viaja” e “todo viajante é gerente” valem juntas se os dois grupos coincidirem. E, nos pares que falam de um viajante que não é gerente, basta imaginar um grupo com esse viajante e com gerentes que se encaixem na outra afirmação.",
   },
@@ -276,12 +276,12 @@ export const questoes = [
       "Considere as premissas: “Todo advogado do escritório é bacharel em Direito” e “Todo bacharel em Direito passou por uma faculdade”. Qual conclusão é válida?",
     opcoes: [
       "Todos os que passaram por uma faculdade são advogados do escritório",
-      "Todo advogado do escritório passou por uma faculdade",
       "Todo bacharel em Direito é advogado do escritório",
       "Algum advogado do escritório não passou por uma faculdade",
       "Todos os que passaram por uma faculdade são bacharéis em Direito",
+      "Todo advogado do escritório passou por uma faculdade",
     ],
-    correta: 1,
+    correta: 4,
     explicacao:
       "As premissas formam uma cadeia de inclusões: os advogados do escritório estão dentro do grupo dos bacharéis, que está dentro do grupo dos que passaram por faculdade. Logo, os advogados do escritório estão dentro do grupo dos que passaram por faculdade. É o silogismo mais clássico, em que o termo médio (bacharel) liga os outros dois.\n\nAs conclusões que invertem alguma inclusão — “todo bacharel é advogado do escritório”, “todos os que passaram por faculdade são bacharéis” ou “são advogados do escritório” — não decorrem: o grupo maior pode ter gente fora do menor. E “algum advogado do escritório não passou por faculdade” contradiz a conclusão correta.",
   },
@@ -310,12 +310,12 @@ export const questoes = [
       "Um candidato escreveu: “Todo auditor é servidor público. Todo professor da rede estadual é servidor público. Logo, todo auditor é professor da rede estadual.” Como se avalia esse argumento?",
     opcoes: [
       "Válido: os dois grupos estão no mesmo conjunto, logo coincidem",
-      "Inválido: os dois grupos podem estar entre os servidores sem ter ninguém em comum",
       "Válido, porque as duas premissas são verdadeiras",
       "Inválido, apenas porque a conclusão é falsa na realidade",
       "Válido, desde que exista pelo menos um auditor",
+      "Inválido: os dois grupos podem estar entre os servidores sem ter ninguém em comum",
     ],
-    correta: 1,
+    correta: 4,
     explicacao:
       "Para que o argumento fosse válido, as premissas teriam de forçar a conclusão. Mas elas só dizem que auditores e professores estão, ambos, dentro do grupo dos servidores. Os dois grupos podem ocupar partes diferentes desse conjunto maior, sem ninguém em comum. O termo que liga as premissas (servidor) não garante a ligação entre os outros dois.\n\nEstar no mesmo conjunto maior não faz dois grupos coincidirem. A verdade das premissas não basta: validade é questão de forma. A falsidade da conclusão no mundo real é indício, mas o defeito está na forma — o mesmo esquema seria inválido com uma conclusão verdadeira. E supor que exista um auditor não muda nada: ele pode ser servidor sem ser professor.",
   },
@@ -327,12 +327,12 @@ export const questoes = [
       "Considere as premissas: “Algum engenheiro da obra é estrangeiro” e “Todo estrangeiro tem visto de trabalho”. Qual conclusão é válida?",
     opcoes: [
       "Todo engenheiro da obra tem visto de trabalho",
-      "Algum engenheiro da obra tem visto de trabalho",
       "Todos os que têm visto de trabalho são estrangeiros",
       "Algum engenheiro da obra não tem visto de trabalho",
+      "Algum engenheiro da obra tem visto de trabalho",
       "Todo engenheiro da obra é estrangeiro",
     ],
-    correta: 1,
+    correta: 3,
     explicacao:
       "Pela primeira premissa, existe pelo menos um engenheiro da obra que é estrangeiro. Pela segunda, todo estrangeiro tem visto de trabalho — inclusive esse engenheiro. Logo, algum engenheiro da obra tem visto de trabalho.\n\n“Todo engenheiro da obra tem visto” e “todo engenheiro da obra é estrangeiro” transformam o “algum” da primeira premissa em “todo”. “Algum engenheiro não tem visto” pode ser falsa: todos os engenheiros podem ser estrangeiros. E “todos os que têm visto são estrangeiros” inverte a segunda premissa, que não impede outras pessoas de também terem visto.",
   },
@@ -344,12 +344,12 @@ export const questoes = [
       "Considere as premissas: “Nenhum item importado tem isenção de taxa” e “Todos os itens do lote 7 são importados”. Qual conclusão é válida?",
     opcoes: [
       "Algum item do lote 7 tem isenção de taxa",
-      "Nenhum item do lote 7 tem isenção de taxa",
       "Todo item importado é do lote 7",
       "Algum item importado não é do lote 7",
       "Todo item sem isenção de taxa é do lote 7",
+      "Nenhum item do lote 7 tem isenção de taxa",
     ],
-    correta: 1,
+    correta: 4,
     explicacao:
       "Os itens do lote 7 estão dentro do grupo dos importados (segunda premissa), e nenhum importado tem isenção (primeira premissa). Logo, nenhum item do lote 7 tem isenção: se algum tivesse, seria um importado com isenção, o que a primeira premissa proíbe.\n\n“Algum item do lote 7 tem isenção” contradiz essa conclusão. “Todo item importado é do lote 7” inverte a segunda premissa. “Algum importado não é do lote 7” pode ser falsa: todos os importados podem estar nesse lote. E “todo item sem isenção é do lote 7” extrapola: pode haver itens nacionais sem isenção fora do lote, sem contrariar as premissas.",
   },
@@ -378,12 +378,12 @@ export const questoes = [
       "Considere as premissas: “Algum contrato da gerência não tem garantia” e “Todo contrato renovável tem garantia”. Qual conclusão é válida?",
     opcoes: [
       "Nenhum contrato da gerência é renovável",
-      "Algum contrato da gerência é renovável",
       "Algum contrato da gerência não é renovável",
+      "Algum contrato da gerência é renovável",
       "Todo contrato com garantia é renovável",
       "Algum contrato renovável não é da gerência",
     ],
-    correta: 2,
+    correta: 1,
     explicacao:
       "O contrato da gerência sem garantia (a primeira premissa garante que existe) não pode ser renovável: todo contrato renovável tem garantia, e ele não tem. Então há pelo menos um contrato da gerência que não é renovável — é um modus tollens aplicado a esse contrato.\n\n“Nenhum contrato da gerência é renovável” generaliza demais: outros contratos da gerência podem ter garantia e ser renováveis. “Algum contrato da gerência é renovável” não é garantido. “Todo contrato com garantia é renovável” inverte a segunda premissa. E nada obriga a existir contrato renovável fora da gerência.",
   },
@@ -394,13 +394,13 @@ export const questoes = [
     enunciado:
       "Considere as premissas: “Todo servidor da Receita é concursado” e “Paulo não é concursado”. Qual conclusão é válida?",
     opcoes: [
+      "Paulo não é servidor da Receita",
       "Paulo é servidor da Receita",
       "Algum servidor da Receita não é concursado",
-      "Paulo não é servidor da Receita",
       "Nenhum concursado é servidor da Receita",
       "Todo concursado é servidor da Receita",
     ],
-    correta: 2,
+    correta: 0,
     explicacao:
       "A primeira premissa põe todos os servidores da Receita dentro do grupo dos concursados. Paulo está fora desse grupo (não é concursado), então não pode estar no grupo menor, que fica dentro dele: Paulo não é servidor da Receita. É o modus tollens aplicado a um indivíduo.\n\nAfirmar que Paulo é servidor da Receita contradiz as premissas. “Algum servidor da Receita não é concursado” nega a primeira premissa. “Nenhum concursado é servidor da Receita” e “todo concursado é servidor da Receita” não decorrem: as premissas não dizem quantos concursados estão na Receita.",
   },
@@ -413,11 +413,11 @@ export const questoes = [
     opcoes: [
       "Sim: quem faz plantão é, por isso, farmacêutico",
       "Sim: as duas premissas falam da mesma pessoa",
-      "Não: Lúcia pode fazer plantão sem ser farmacêutica do hospital",
       "Não: a premissa deveria dizer “algum farmacêutico faz plantão”",
+      "Não: Lúcia pode fazer plantão sem ser farmacêutica do hospital",
       "Sim, desde que exista pelo menos um farmacêutico no hospital",
     ],
-    correta: 2,
+    correta: 3,
     explicacao:
       "A premissa “todo farmacêutico do hospital faz plantão” coloca os farmacêuticos dentro do grupo de quem faz plantão, mas não diz que todo plantonista é farmacêutico. Lúcia está no grupo maior; nada garante que esteja no menor. Um contraexemplo basta: Lúcia é enfermeira e faz plantão — as premissas continuam verdadeiras, e a conclusão é falsa.\n\nDizer que quem faz plantão é farmacêutico inverte a premissa. Falar da mesma pessoa não garante validade. Trocar a premissa por “algum farmacêutico faz plantão” deixaria o raciocínio ainda mais fraco. E supor que exista um farmacêutico no hospital não muda nada: ele pode ser outra pessoa.",
   },
@@ -430,11 +430,11 @@ export const questoes = [
     opcoes: [
       "Algum analista é menor de idade",
       "Todos os que fizeram estágio são analistas",
-      "Nenhum analista é menor de idade",
       "Todo graduado é analista",
+      "Nenhum analista é menor de idade",
       "Todo maior de idade é analista",
     ],
-    correta: 2,
+    correta: 3,
     explicacao:
       "As duas primeiras premissas encadeiam analistas ⊂ graduados ⊂ quem fez estágio. A terceira diz que nenhum dos que fizeram estágio é menor de idade. Como todos os analistas estão entre os que fizeram estágio, nenhum analista é menor de idade.\n\n“Algum analista é menor de idade” contradiz essa conclusão. “Todos os que fizeram estágio são analistas” e “todo graduado é analista” invertem inclusões: o grupo maior pode ter gente fora do menor. E “todo maior de idade é analista” não tem apoio algum — pode haver adultos que nunca foram analistas sem contrariar nenhuma premissa.",
   },
@@ -445,13 +445,13 @@ export const questoes = [
     enunciado:
       "Considere as premissas: “Nenhum produto da marca Alfa é orgânico” e “Alguns produtos orgânicos são importados”. Qual conclusão é válida?",
     opcoes: [
+      "Algum produto importado não é da marca Alfa",
       "Nenhum produto importado é da marca Alfa",
       "Algum produto da marca Alfa é importado",
-      "Algum produto importado não é da marca Alfa",
       "Todo produto importado é orgânico",
       "Algum produto importado é da marca Alfa",
     ],
-    correta: 2,
+    correta: 0,
     explicacao:
       "A segunda premissa garante um produto que é, ao mesmo tempo, orgânico e importado. Como nenhum produto da marca Alfa é orgânico, esse produto não é da marca Alfa. Logo, existe produto importado que não é da marca Alfa.\n\n“Nenhum produto importado é da marca Alfa” generaliza demais: a marca pode ter importados não orgânicos. Pelo mesmo motivo, “algum produto da marca é importado” e “algum importado é da marca” não são garantidos — podem ser verdadeiros ou falsos. E “todo produto importado é orgânico” lê o “alguns” da segunda premissa como “todos”.",
   },
@@ -479,13 +479,13 @@ export const questoes = [
     enunciado:
       "Um estudante argumentou: “Alguns médicos são professores. Alguns professores são escritores. Logo, alguns médicos são escritores.” Como se avalia esse argumento?",
     opcoes: [
+      "Inválido: os professores médicos podem não ser os mesmos que escrevem",
       "Válido: os professores ligam os médicos aos escritores",
       "Válido, porque as duas premissas são particulares",
-      "Inválido: os professores médicos podem não ser os mesmos que escrevem",
       "Inválido, porque a conclusão deveria ser universal",
       "Válido, desde que exista pelo menos um médico",
     ],
-    correta: 2,
+    correta: 0,
     explicacao:
       "As duas premissas falam de “alguns” professores, mas não necessariamente dos mesmos. Pode haver um grupo de professores que são médicos e outro, sem ninguém em comum, de professores que são escritores. Nesse cenário, as premissas são verdadeiras e nenhum médico é escritor: o argumento é inválido.\n\nO termo médio (professor) não liga os outros dois, porque nenhuma premissa fala de todos os professores. Ser particular não torna um argumento válido; ao contrário, com duas premissas particulares nenhuma conclusão sobre médicos e escritores está garantida. A exigência de conclusão universal não faz sentido. E supor que exista um médico não altera nada.",
   },
@@ -497,12 +497,12 @@ export const questoes = [
       "Considere as premissas: “Nenhum funcionário do turno da noite usa o estacionamento” e “Nenhum usuário do estacionamento mora perto da empresa”. Qual conclusão é válida?",
     opcoes: [
       "Nenhum funcionário do turno da noite mora perto da empresa",
-      "Algum funcionário do turno da noite mora perto da empresa",
       "Nenhum usuário do estacionamento é do turno da noite",
+      "Algum funcionário do turno da noite mora perto da empresa",
       "Todo funcionário do turno da noite mora perto da empresa",
       "Algum funcionário do turno da noite não mora perto da empresa",
     ],
-    correta: 2,
+    correta: 1,
     explicacao:
       "Com duas premissas negativas, não se tira conclusão sobre os funcionários da noite e a proximidade de casa: os dois grupos ficam fora do grupo do estacionamento, mas podem se sobrepor totalmente, em parte ou de modo algum. As quatro afirmações que relacionam “turno da noite” e “mora perto” falham em algum desses cenários.\n\nO que decorre é só a conversão da primeira premissa: se nenhum funcionário da noite usa o estacionamento, nenhum usuário do estacionamento é da noite. A relação “nenhum” é simétrica, então a troca de ordem mantém o sentido. É uma conclusão modesta, mas é a única garantida.",
   },
@@ -514,12 +514,12 @@ export const questoes = [
       "Sabendo que a afirmação “Todo fiscal é engenheiro” é verdadeira, qual das afirmações abaixo é necessariamente falsa?",
     opcoes: [
       "Todo engenheiro é fiscal",
-      "Algum engenheiro não é fiscal",
       "Algum fiscal não é engenheiro",
+      "Algum engenheiro não é fiscal",
       "Algum fiscal é engenheiro",
       "Quem não é engenheiro não é fiscal",
     ],
-    correta: 2,
+    correta: 1,
     explicacao:
       "Se todo fiscal é engenheiro, não pode existir fiscal fora do grupo dos engenheiros. Por isso “algum fiscal não é engenheiro” é necessariamente falsa — ela é a contraditória da frase dada, a única que sempre tem o valor oposto.\n\n“Todo engenheiro é fiscal” e “algum engenheiro não é fiscal” tratam da relação inversa, que a frase não decide: podem ser verdadeiras ou falsas. “Algum fiscal é engenheiro” não é falsa — no mínimo, é compatível com a frase. E “quem não é engenheiro não é fiscal” é a contrapositiva: diz o mesmo que a frase, então é verdadeira.",
   },
@@ -530,13 +530,13 @@ export const questoes = [
     enunciado:
       "Sabendo que a afirmação “Algum candidato faltou à prova” é falsa, qual das afirmações abaixo é necessariamente verdadeira?",
     opcoes: [
+      "Nenhum candidato faltou à prova",
       "Todo candidato faltou à prova",
       "Pelo menos um candidato faltou à prova",
       "Todos os que faltaram à prova eram candidatos",
-      "Nenhum candidato faltou à prova",
       "Algum dos que faltaram à prova era candidato",
     ],
-    correta: 3,
+    correta: 0,
     explicacao:
       "Se “algum candidato faltou” é falsa, não existe nenhum candidato que tenha faltado. Isso é exatamente “nenhum candidato faltou à prova”, a contraditória da frase dada: quando uma é falsa, a outra é verdadeira.\n\n“Todo candidato faltou” não é garantida — havendo candidatos, é até incompatível com a informação. “Pelo menos um candidato faltou” repete a frase falsa, e “algum dos que faltaram era candidato” diz o mesmo com outra ordem. Já “todos os que faltaram eram candidatos” não decorre: pode ter havido ausentes que não eram candidatos.",
   },
@@ -567,10 +567,10 @@ export const questoes = [
       "Nenhum extintor do prédio está dentro da validade",
       "Algum extintor do prédio está dentro da validade",
       "A maioria dos extintores do prédio está fora da validade",
-      "Pelo menos um extintor do prédio está fora da validade",
       "Nenhum extintor do prédio está fora da validade",
+      "Pelo menos um extintor do prédio está fora da validade",
     ],
-    correta: 3,
+    correta: 4,
     explicacao:
       "Se é falso que todos os extintores estão na validade, então existe pelo menos um fora dela. A negação de “todo” não é “nenhum”: basta uma exceção para derrubar a afirmação universal.\n\n“Nenhum extintor está dentro da validade” (todos vencidos) é possível, mas não garantido — pode haver só um vencido. Pela mesma razão, “algum está dentro da validade” não é certo. “A maioria está fora da validade” exige uma informação de quantidade que a frase não dá. E “nenhum extintor está fora da validade” diz o mesmo que a frase original, que se sabe falsa.",
   },
@@ -583,11 +583,11 @@ export const questoes = [
     opcoes: [
       "Podem ser ambas falsas, mas não podem ser ambas verdadeiras",
       "Uma é sempre a negação da outra",
-      "Podem ser ambas verdadeiras e podem ser ambas falsas",
       "Podem ser ambas verdadeiras, mas não podem ser ambas falsas",
+      "Podem ser ambas verdadeiras e podem ser ambas falsas",
       "Se uma é verdadeira, a outra é necessariamente falsa",
     ],
-    correta: 3,
+    correta: 2,
     explicacao:
       "Com pelo menos um estagiário na empresa, ele fala inglês ou não fala. No primeiro caso, “algum estagiário fala inglês” é verdadeira; no segundo, “algum estagiário não fala inglês” é verdadeira. Então as duas nunca são falsas ao mesmo tempo. Mas podem ser verdadeiras juntas: basta haver um estagiário que fala e outro que não fala.\n\nEssas proposições são chamadas subcontrárias. Não são negação uma da outra — a negação de “algum fala” é “nenhum fala”. Ser ambas falsas é impossível, como se viu. E a verdade de uma não obriga a outra a ser falsa. A suposição de que existe estagiário é essencial: sem nenhum estagiário, as duas seriam falsas.",
   },
@@ -601,10 +601,10 @@ export const questoes = [
       "A equipe tem dois analistas, e os dois trabalham remotamente",
       "A equipe tem dois analistas, e os dois trabalham presencialmente",
       "A equipe tem um único analista, que trabalha remotamente",
-      "A equipe tem dois analistas: um trabalha remotamente e o outro, presencialmente",
       "A equipe tem um único analista, que trabalha presencialmente",
+      "A equipe tem dois analistas: um trabalha remotamente e o outro, presencialmente",
     ],
-    correta: 3,
+    correta: 4,
     explicacao:
       "“Todo analista trabalha remotamente” fica falsa quando há pelo menos um analista presencial; “nenhum analista trabalha remotamente” fica falsa quando há pelo menos um analista remoto. Para as duas serem falsas ao mesmo tempo, a equipe precisa ter analistas dos dois tipos — um remoto e outro presencial.\n\nCom os dois analistas remotos, ou com um único analista remoto, a frase com “todo” é verdadeira. Com os dois presenciais, ou com um único presencial, a frase com “nenhum” é verdadeira. Por isso essas duas frases são chamadas contrárias: não podem ser verdadeiras juntas (havendo analista), mas podem ser falsas juntas.",
   },
@@ -617,11 +617,11 @@ export const questoes = [
     opcoes: [
       "∀x (P(x) → ~Q(x))",
       "∃x (P(x) → ~Q(x))",
-      "∀x (P(x) ∧ ~Q(x))",
       "∃x (P(x) ∧ ~Q(x))",
+      "∀x (P(x) ∧ ~Q(x))",
       "∃x (~P(x) ∧ Q(x))",
     ],
-    correta: 3,
+    correta: 2,
     explicacao:
       "Negar “para todo x, se P(x) então Q(x)” é afirmar que existe pelo menos um x para o qual a condicional falha. Uma condicional falha quando o antecedente é verdadeiro e o consequente é falso. Então a negação é ∃x (P(x) ∧ ~Q(x)): existe um x que tem P e não tem Q. Em linguagem comum, “todo P é Q” se nega com “algum P não é Q”.\n\n∀x (P(x) → ~Q(x)) diz “nenhum P é Q”, que é outra coisa. ∃x (P(x) → ~Q(x)) é fraca demais: fica verdadeira até com um x que não tenha P. ∀x (P(x) ∧ ~Q(x)) exige que todos os elementos tenham P e não tenham Q. E ∃x (~P(x) ∧ Q(x)) descreve um elemento que não afeta a sentença original.",
   },
@@ -651,11 +651,11 @@ export const questoes = [
     opcoes: [
       "∀x ∃y ~R(x, y)",
       "∃x ∃y ~R(x, y)",
-      "∀x ∀y ~R(x, y)",
       "∃x ∀y ~R(x, y)",
+      "∀x ∀y ~R(x, y)",
       "∃y ∀x ~R(x, y)",
     ],
-    correta: 3,
+    correta: 2,
     explicacao:
       "A negação troca cada quantificador e leva o “não” para dentro: ~∀x ∃y R(x, y) equivale a ∃x ~∃y R(x, y), que equivale a ∃x ∀y ~R(x, y). Em palavras: se não é verdade que todo x se relaciona com algum y, então existe um x que não se relaciona com nenhum y.\n\n∀x ∃y ~R(x, y) só nega a relação, sem trocar os quantificadores. ∃x ∃y ~R(x, y) é fraca demais: basta um par sem relação. ∀x ∀y ~R(x, y) é forte demais: exige que nenhum par se relacione. E ∃y ∀x ~R(x, y) inverte os papéis de x e y, descrevendo um y com o qual ninguém se relaciona.",
   },
@@ -667,12 +667,12 @@ export const questoes = [
       "Das equivalências abaixo, entre sentenças da lógica de predicados, apenas uma NÃO é válida. Qual é ela?",
     opcoes: [
       "∀x (P(x) ∧ Q(x)) ≡ ∀x P(x) ∧ ∀x Q(x)",
+      "∀x (P(x) ∨ Q(x)) ≡ ∀x P(x) ∨ ∀x Q(x)",
       "∃x (P(x) ∨ Q(x)) ≡ ∃x P(x) ∨ ∃x Q(x)",
       "~∃x P(x) ≡ ∀x ~P(x)",
-      "∀x (P(x) ∨ Q(x)) ≡ ∀x P(x) ∨ ∀x Q(x)",
       "~∀x P(x) ≡ ∃x ~P(x)",
     ],
-    correta: 3,
+    correta: 1,
     explicacao:
       "Para ∀x (P(x) ∨ Q(x)) ser verdadeira, basta que cada elemento tenha P ou Q — cada um pode ter uma propriedade diferente. Já ∀x P(x) ∨ ∀x Q(x) exige que todos tenham P, ou que todos tenham Q. Num universo com dois elementos, um só com P e outro só com Q, o lado esquerdo é verdadeiro e o direito é falso. Essa equivalência não vale.\n\nAs outras são leis conhecidas. O “para todo” se distribui sobre o “e”, e o “existe” se distribui sobre o “ou”. E as duas últimas são as regras de negação dos quantificadores: “não existe x com P” é “todo x não tem P”, e “nem todo x tem P” é “existe x sem P”.",
   },
@@ -684,12 +684,12 @@ export const questoes = [
       "Sendo A(x): “x é aluno da turma” e R(x): “x é repetente”, qual sentença da lógica de predicados traduz “Nenhum aluno da turma é repetente”?",
     opcoes: [
       "∀x (~A(x) → R(x))",
+      "∀x (A(x) → ~R(x))",
       "∃x (A(x) ∧ ~R(x))",
       "~∀x (A(x) → R(x))",
-      "∀x (A(x) → ~R(x))",
       "∀x (R(x) → A(x))",
     ],
-    correta: 3,
+    correta: 1,
     explicacao:
       "“Nenhum aluno da turma é repetente” diz que, para qualquer x, se x é aluno da turma, então x não é repetente: ∀x (A(x) → ~R(x)). Uma forma equivalente é ~∃x (A(x) ∧ R(x)), “não existe aluno da turma que seja repetente”.\n\n∀x (~A(x) → R(x)) diz que quem não é da turma é repetente, algo sem relação com a frase. ∃x (A(x) ∧ ~R(x)) diz só que algum aluno não é repetente. ~∀x (A(x) → R(x)) nega “todo aluno é repetente”, o que também é mais fraco. E ∀x (R(x) → A(x)) diz que todo repetente é da turma — quase o contrário da frase.",
   },
@@ -718,12 +718,12 @@ export const questoes = [
       "Sabendo que é verdadeira a afirmação “Existe um livro que todos os alunos da turma leram”, qual das afirmações abaixo é necessariamente verdadeira?",
     opcoes: [
       "Todo livro foi lido por pelo menos um aluno da turma",
+      "Todo aluno da turma leu pelo menos um livro",
       "Todo aluno da turma leu todos os livros",
       "Algum aluno da turma leu todos os livros",
       "Existe um livro que algum aluno da turma não leu",
-      "Todo aluno da turma leu pelo menos um livro",
     ],
-    correta: 4,
+    correta: 1,
     explicacao:
       "Se existe um livro que todos os alunos leram, esse livro serve para cada aluno: todo aluno leu pelo menos aquele livro. Por isso “todo aluno da turma leu pelo menos um livro” é necessariamente verdadeira.\n\nAs outras não são garantidas. Pode haver livros que ninguém leu, então nem todo livro foi lido por algum aluno, e nem todo aluno leu todos os livros. Também é possível que nenhum aluno tenha lido todos: cada um leu o livro comum e mais nada, havendo outros livros. E “existe um livro que algum aluno não leu” falha se houver um único livro, lido por todos.",
   },
@@ -737,10 +737,10 @@ export const questoes = [
       "7",
       "2",
       "13",
-      "11",
       "9",
+      "11",
     ],
-    correta: 4,
+    correta: 3,
     explicacao:
       "Um contraexemplo para “todo X é Y” é um caso que é X e não é Y. Aqui, precisa ser um número ímpar, maior que 1, e que não seja primo. O 9 é ímpar, maior que 1 e tem o divisor 3 (9 = 3 × 3), então não é primo: basta ele para mostrar que a afirmação é falsa.\n\n7, 11 e 13 são ímpares e primos, então confirmam a regra em vez de derrubá-la. O 2 é primo, mas é par — não pertence ao grupo de que a afirmação fala, por isso não serve como contraexemplo. Para refutar uma afirmação universal, um único contraexemplo é suficiente.",
   },
@@ -752,12 +752,12 @@ export const questoes = [
       "A afirmação “Todo múltiplo de 4 é múltiplo de 8” é falsa. Qual número serve de contraexemplo para ela?",
     opcoes: [
       "16",
+      "12",
       "24",
       "10",
       "40",
-      "12",
     ],
-    correta: 4,
+    correta: 1,
     explicacao:
       "O contraexemplo precisa ser múltiplo de 4 e, ao mesmo tempo, não ser múltiplo de 8. O 12 é múltiplo de 4 (12 = 4 × 3), mas não de 8 (12 ÷ 8 = 1,5). Ele pertence ao grupo de que a afirmação fala e não tem a propriedade prometida, o que basta para derrubá-la.\n\n16, 24 e 40 são múltiplos de 4 e também de 8, então estão de acordo com a afirmação. O 10 nem é múltiplo de 4 (10 ÷ 4 = 2,5): fica fora do grupo e não testa a regra. Todo múltiplo de 8 é múltiplo de 4, mas a recíproca, que é a afirmação dada, é falsa.",
   },
@@ -770,11 +770,11 @@ export const questoes = [
     opcoes: [
       "Todo múltiplo de 3 é múltiplo de 6",
       "Nenhum número par é múltiplo de 3",
+      "Todo múltiplo de 6 é múltiplo de 3",
       "Algum número ímpar é múltiplo de 2",
       "Todo número primo é ímpar",
-      "Todo múltiplo de 6 é múltiplo de 3",
     ],
-    correta: 4,
+    correta: 2,
     explicacao:
       "Se um número é múltiplo de 6, ele é 6 × k para algum inteiro k, e 6 × k = 3 × (2k): portanto é múltiplo de 3. Todo múltiplo de 6 está dentro do grupo dos múltiplos de 3.\n\nA recíproca é falsa: 3, 9 e 15 são múltiplos de 3 e não de 6. “Nenhum par é múltiplo de 3” cai com o 6. “Algum ímpar é múltiplo de 2” é impossível — ser múltiplo de 2 é justamente a definição de par. E “todo primo é ímpar” cai com o 2, o único primo par. Para derrubar um “todo” ou um “nenhum”, basta um contraexemplo.",
   },
@@ -805,10 +805,10 @@ export const questoes = [
       "No mínimo 1 e no máximo 8",
       "No mínimo 0 e no máximo 7",
       "Exatamente 4",
-      "No mínimo 2 e no máximo 6",
       "No mínimo 1 e no máximo 7",
+      "No mínimo 2 e no máximo 6",
     ],
-    correta: 4,
+    correta: 3,
     explicacao:
       "“Alguém fala espanhol” garante pelo menos uma pessoa que fala; então o mínimo é 1. “Nem todos falam espanhol” garante pelo menos uma que não fala; então, das 8, no máximo 7 falam. Qualquer número de 1 a 7 é compatível com as duas informações.\n\nChegar a 8 contraria o “nem todos”. Aceitar 0 contraria o “alguém”. “Exatamente 4” escolhe um valor sem apoio: as frases com “alguém” e “nem todos” não falam de metade nem de maioria. E limitar entre 2 e 6 exclui casos possíveis, como uma única pessoa falando espanhol.",
   },
@@ -821,11 +821,11 @@ export const questoes = [
     opcoes: [
       "Rosa tem mais de dez anos de casa",
       "Algum servidor com mais de dez anos de casa não recebe adicional",
+      "Rosa não tem mais de dez anos de casa",
       "Nenhum servidor com até dez anos de casa recebe adicional",
       "Todos os que recebem adicional têm mais de dez anos de casa",
-      "Rosa não tem mais de dez anos de casa",
     ],
-    correta: 4,
+    correta: 2,
     explicacao:
       "Aplicada a Rosa, que é servidora, a primeira premissa diz: se Rosa tem mais de dez anos de casa, recebe adicional. Ela não recebe; então, pelo modus tollens, não tem mais de dez anos de casa.\n\nAfirmar que ela tem mais de dez anos contradiz as premissas. “Algum servidor com mais de dez anos não recebe adicional” nega a primeira premissa. “Nenhum servidor com até dez anos recebe adicional” e “todos os que recebem adicional têm mais de dez anos” não decorrem: a regra diz quem certamente recebe, não que só essas pessoas recebem.",
   },
@@ -837,12 +837,12 @@ export const questoes = [
       "Um edital afirma: “Qualquer candidato com deficiência pode pedir atendimento especial”. Essa frase equivale a qual das afirmações abaixo?",
     opcoes: [
       "Pelo menos um candidato com deficiência pode pedir atendimento especial",
+      "Todo candidato com deficiência pode pedir atendimento especial",
       "Só os candidatos com deficiência podem pedir atendimento especial",
       "Algum candidato com deficiência não pode pedir atendimento especial",
       "Todo candidato sem deficiência pode pedir atendimento especial",
-      "Todo candidato com deficiência pode pedir atendimento especial",
     ],
-    correta: 4,
+    correta: 1,
     explicacao:
       "“Qualquer”, numa afirmação geral, tem o sentido de “todo”: qualquer candidato com deficiência, seja qual for, pode pedir atendimento especial. A frase equivale a “todo candidato com deficiência pode pedir atendimento especial”.\n\n“Pelo menos um candidato com deficiência pode pedir” é mais fraca: seria verdadeira mesmo se só um tivesse o direito. “Só os candidatos com deficiência podem pedir” acrescenta uma exclusividade que a frase não tem — outros grupos podem ter o mesmo direito. “Algum candidato com deficiência não pode pedir” contradiz a frase. E a afirmação sobre quem não tem deficiência fala de outro grupo.",
   },

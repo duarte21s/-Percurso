@@ -54,13 +54,13 @@ export const questoes = [
     enunciado:
       "Um trecho de 0,5 m de um fio retilíneo, percorrido por uma corrente de 5 A, está num campo magnético uniforme de 0,2 T, perpendicular ao fio. Qual é a intensidade da força magnética sobre esse trecho?",
     opcoes: [
-      "0,5 N",
       "1 N",
       "12,5 N",
       "0,02 N",
       "0,25 N",
+      "0,5 N",
     ],
-    correta: 0,
+    correta: 4,
     explicacao:
       "A força sobre um fio retilíneo percorrido por corrente é F = B · I · L · sen θ, com θ o ângulo entre o fio e o campo. Com o fio perpendicular ao campo, sen θ = 1: F = 0,2 · 5 · 0,5 = 0,5 N. A força é perpendicular ao fio e ao campo, com o sentido dado pela regra da mão direita.\n\n1 N esquece o comprimento do fio e multiplica só B · I. 12,5 N divide I · L pelo campo. 0,02 N divide B · L pela corrente. E 0,25 N é metade do valor certo, como se o fio formasse 30° com o campo.",
   },
@@ -71,13 +71,13 @@ export const questoes = [
     enunciado:
       "Com µ₀ = 4π · 10⁻⁷ T·m/A, qual é a intensidade do campo magnético a 20 cm de um fio retilíneo muito longo percorrido por uma corrente de 10 A?",
     opcoes: [
-      "1 · 10⁻⁵ T",
       "2 · 10⁻⁵ T",
       "4 · 10⁻⁷ T",
       "3,14 · 10⁻⁵ T",
       "2 · 10⁻⁶ T",
+      "1 · 10⁻⁵ T",
     ],
-    correta: 0,
+    correta: 4,
     explicacao:
       "O campo de um fio longo, a uma distância d, é B = µ₀I/(2πd). Com d = 0,2 m: B = 4π · 10⁻⁷ · 10/(2π · 0,2) = 2 · 10⁻⁷ · 10/0,2 = 1 · 10⁻⁵ T. As linhas de campo são circunferências em torno do fio, e o campo diminui na proporção inversa da distância.\n\n2 · 10⁻⁵ T esquece o 2 do denominador. 4 · 10⁻⁷ T multiplica pela distância em vez de dividir. 3,14 · 10⁻⁵ T usa a fórmula do centro de uma espira circular, µ₀I/(2R). E 2 · 10⁻⁶ T esquece de dividir pela distância.",
   },
@@ -88,13 +88,13 @@ export const questoes = [
     enunciado:
       "Com µ₀ = 4π · 10⁻⁷ T·m/A, qual é a intensidade do campo magnético no centro de uma espira circular de 10 cm de raio percorrida por uma corrente de 5 A?",
     opcoes: [
-      "π · 10⁻⁵ T",
       "2π · 10⁻⁵ T",
+      "π · 10⁻⁵ T",
       "1 · 10⁻⁵ T",
       "π · 10⁻⁷ T",
       "0,5π · 10⁻⁵ T",
     ],
-    correta: 0,
+    correta: 1,
     explicacao:
       "No centro de uma espira circular, B = µ₀I/(2R). Com R = 0,1 m: B = 4π · 10⁻⁷ · 5/(2 · 0,1) = 4π · 10⁻⁷ · 25 = π · 10⁻⁵ T ≅ 3,14 · 10⁻⁵ T. Todos os trechos da espira contribuem com campo no mesmo sentido no centro, perpendicular ao plano dela.\n\n2π · 10⁻⁵ T esquece o 2 do denominador. 1 · 10⁻⁵ T usa a fórmula do fio retilíneo longo, µ₀I/(2πd). π · 10⁻⁷ T usa o raio em centímetros, 10 em vez de 0,1. E 0,5π · 10⁻⁵ T é o campo no centro de uma semicircunferência, metade da espira.",
   },
@@ -122,13 +122,13 @@ export const questoes = [
     enunciado:
       "O fluxo magnético através de cada espira de uma bobina de 50 espiras cai uniformemente de 0,6 Wb para 0,2 Wb em 0,1 s. Qual é a intensidade da força eletromotriz média induzida na bobina?",
     opcoes: [
-      "200 V",
       "4 V",
+      "200 V",
       "400 V",
       "2 V",
       "20 V",
     ],
-    correta: 0,
+    correta: 1,
     explicacao:
       "Pela lei de Faraday, a força eletromotriz induzida é ε = N · |ΔΦ|/Δt. A variação do fluxo em cada espira é 0,6 − 0,2 = 0,4 Wb, e então ε = 50 · 0,4/0,1 = 200 V. Pela lei de Lenz, a corrente induzida tem o sentido que se opõe à queda do fluxo, tentando mantê-lo.\n\n4 V esquece o número de espiras. 400 V soma os fluxos inicial e final (0,8 Wb) em vez de subtrair. 2 V multiplica pelo intervalo de tempo em vez de dividir. E 20 V esquece de dividir pelo tempo.",
   },
@@ -139,13 +139,13 @@ export const questoes = [
     enunciado:
       "Um transformador ideal tem 500 espiras no primário e 25 no secundário. Se o primário é ligado a uma tensão alternada de 220 V, qual é a tensão no secundário?",
     opcoes: [
-      "11 V",
       "4.400 V",
       "220 V",
+      "11 V",
       "5.500 V",
       "8,8 V",
     ],
-    correta: 0,
+    correta: 2,
     explicacao:
       "Num transformador ideal, as tensões são proporcionais ao número de espiras: Us/Up = Ns/Np. Então Us = 220 · 25/500 = 220/20 = 11 V. Com menos espiras no secundário, o transformador é abaixador de tensão, e a corrente no secundário fica maior que a do primário, na mesma proporção.\n\n4.400 V inverte a razão, como num transformador elevador. 220 V supõe que o transformador não altere a tensão. 5.500 V multiplica a tensão pelo número de espiras do secundário. E 8,8 V divide a tensão pelas espiras do secundário, sem usar as do primário.",
   },
@@ -156,13 +156,13 @@ export const questoes = [
     enunciado:
       "Um próton, de massa 1,6 · 10⁻²⁷ kg e carga 1,6 · 10⁻¹⁹ C, entra com velocidade de 2 · 10⁶ m/s perpendicularmente às linhas de um campo magnético uniforme de 0,5 T. Qual é o raio da trajetória circular que ele descreve?",
     opcoes: [
-      "4 cm",
       "2 cm",
       "1 cm",
       "8 cm",
+      "4 cm",
       "25 m",
     ],
-    correta: 0,
+    correta: 3,
     explicacao:
       "A força magnética faz o papel de resultante centrípeta: q · v · B = m · v²/r, e daí r = m · v/(q · B) = 1,6 · 10⁻²⁷ · 2 · 10⁶/(1,6 · 10⁻¹⁹ · 0,5) = 3,2 · 10⁻²¹/(8 · 10⁻²⁰) = 0,04 m = 4 cm. Quanto mais rápida ou mais pesada a partícula, maior o raio; quanto mais forte o campo, menor.\n\n2 cm esquece o campo no denominador. 1 cm multiplica pelo campo em vez de dividir. 8 cm é o diâmetro da trajetória, e não o raio. E 25 m inverte a fração, calculando q · B/(m · v).",
   },
@@ -207,13 +207,13 @@ export const questoes = [
     enunciado:
       "Uma barra condutora de 0,5 m se desloca a 4 m/s num campo magnético uniforme de 0,2 T, com a barra, a velocidade e o campo perpendiculares entre si. Qual é a força eletromotriz induzida entre as extremidades da barra?",
     opcoes: [
-      "1,6 V",
       "0,4 V",
+      "1,6 V",
       "10 V",
       "0,1 V",
       "0,8 V",
     ],
-    correta: 1,
+    correta: 0,
     explicacao:
       "Os elétrons livres da barra sofrem força magnética ao longo dela e se acumulam numa das pontas, até que o campo elétrico criado equilibre essa força. A força eletromotriz resultante é ε = B · L · v = 0,2 · 0,5 · 4 = 0,4 V. É o mesmo resultado da lei de Faraday: a barra varre uma área L · v a cada segundo, e o fluxo varia B · L · v por segundo.\n\n1,6 V divide B · v pelo comprimento. 10 V divide L · v pelo campo. 0,1 V esquece a velocidade. E 0,8 V esquece o comprimento da barra, multiplicando só B · v.",
   },
@@ -224,13 +224,13 @@ export const questoes = [
     enunciado:
       "Dois fios retilíneos longos e paralelos, separados por 10 cm, são percorridos por correntes de 10 A e 20 A no mesmo sentido. Com µ₀ = 4π · 10⁻⁷ T·m/A, qual é a força magnética em cada metro de fio, e ela é de atração ou de repulsão?",
     opcoes: [
-      "4 · 10⁻⁴ N, de repulsão",
       "4 · 10⁻⁴ N, de atração",
+      "4 · 10⁻⁴ N, de repulsão",
       "8 · 10⁻⁴ N, de atração",
       "4 · 10⁻⁶ N, de atração",
       "6 · 10⁻⁵ N, de atração",
     ],
-    correta: 1,
+    correta: 0,
     explicacao:
       "O primeiro fio cria, na posição do segundo, o campo B = µ₀I₁/(2πd) = 2 · 10⁻⁷ · 10/0,1 = 2 · 10⁻⁵ T. A força sobre cada metro do segundo fio é F = B · I₂ · L = 2 · 10⁻⁵ · 20 · 1 = 4 · 10⁻⁴ N. Pela regra da mão direita, correntes no mesmo sentido se atraem, e correntes em sentidos opostos se repelem. Pela 3ª lei de Newton, o primeiro fio sofre uma força igual e oposta.\n\nA repulsão valeria para correntes opostas. 8 · 10⁻⁴ N esquece o 2 do denominador de µ₀I/(2πd). 4 · 10⁻⁶ N usa a distância em centímetros. E 6 · 10⁻⁵ N soma as correntes, como se calculasse um campo, e não uma força.",
   },
@@ -259,12 +259,12 @@ export const questoes = [
       "Um solenoide de 50 cm de comprimento tem 1.000 espiras e é percorrido por uma corrente de 2 A. Com µ₀ = 4π · 10⁻⁷ T·m/A, qual é a intensidade do campo magnético no seu interior, longe das extremidades?",
     opcoes: [
       "0,4π · 10⁻³ T",
-      "1,6π · 10⁻³ T",
       "0,8π · 10⁻³ T",
+      "1,6π · 10⁻³ T",
       "3,2π · 10⁻³ T",
       "1,6 · 10⁻³ T",
     ],
-    correta: 1,
+    correta: 2,
     explicacao:
       "No interior de um solenoide longo, o campo é praticamente uniforme e vale B = µ₀ · (N/L) · I, em que N/L é o número de espiras por metro. Aqui N/L = 1.000/0,5 = 2.000 espiras por metro, e B = 4π · 10⁻⁷ · 2.000 · 2 = 1,6π · 10⁻³ T ≅ 5,0 · 10⁻³ T. O campo não depende do raio das espiras, desde que o solenoide seja longo comparado com ele.\n\n0,4π · 10⁻³ T multiplica pelo comprimento em vez de dividir. 0,8π · 10⁻³ T esquece de dividir pelo comprimento. 3,2π · 10⁻³ T dobra o resultado, dividindo por 25 cm. E 1,6 · 10⁻³ T esquece o π de µ₀.",
   },
@@ -276,12 +276,12 @@ export const questoes = [
       "Num seletor de velocidades, um campo elétrico de 2 · 10⁴ V/m e um campo magnético de 0,1 T são perpendiculares entre si e à velocidade das partículas. Qual é a velocidade das partículas que atravessam o seletor sem sofrer desvio?",
     opcoes: [
       "2 · 10³ m/s",
-      "2 · 10⁵ m/s",
       "5 · 10⁻⁶ m/s",
+      "2 · 10⁵ m/s",
       "2 · 10⁴ m/s",
       "2 · 10⁵ m/s, mas só para cargas positivas",
     ],
-    correta: 1,
+    correta: 2,
     explicacao:
       "Uma partícula passa sem desvio quando a força elétrica e a força magnética se equilibram: q · E = q · v · B, e então v = E/B = 2 · 10⁴/0,1 = 2 · 10⁵ m/s. A carga se cancela: o resultado não depende do sinal nem do valor dela, nem da massa. Numa carga negativa, as duas forças se invertem juntas e continuam se equilibrando. Partículas mais rápidas são desviadas no sentido da força magnética; mais lentas, no da força elétrica.\n\n2 · 10³ m/s multiplica E por B. 5 · 10⁻⁶ m/s inverte a razão, B/E. 2 · 10⁴ m/s ignora o campo magnético. E a restrição às cargas positivas não existe, como mostra o cancelamento da carga.",
   },
@@ -292,13 +292,13 @@ export const questoes = [
     enunciado:
       "Uma partícula de massa 4 · 10⁻²⁶ kg e carga 3,2 · 10⁻¹⁹ C é lançada com velocidade de 10⁵ m/s perpendicularmente a um campo magnético uniforme de 0,5 T. Qual é o período do seu movimento circular?",
     opcoes: [
-      "2,5 · 10⁻⁷ s",
       "5π · 10⁻⁷ s",
+      "2,5 · 10⁻⁷ s",
       "5π · 10⁻² s",
       "5π · 10⁻¹² s",
       "2,5π · 10⁻⁷ s",
     ],
-    correta: 1,
+    correta: 0,
     explicacao:
       "A força magnética é a resultante centrípeta: q · v · B = m · v²/r, e r = m · v/(q · B). O período é o tempo de uma volta, T = 2πr/v = 2πm/(q · B) = 2π · 4 · 10⁻²⁶/(3,2 · 10⁻¹⁹ · 0,5) = 2π · 2,5 · 10⁻⁷ = 5π · 10⁻⁷ s ≅ 1,6 · 10⁻⁶ s. A velocidade não entra no resultado: partículas mais rápidas descrevem círculos maiores, no mesmo tempo. É esse fato que permite o funcionamento do cíclotron.\n\n2,5 · 10⁻⁷ s esquece o fator 2π. 5π · 10⁻² s é o comprimento da circunferência, em metros, tomado como tempo. 5π · 10⁻¹² s divide ainda pela velocidade. E 2,5π · 10⁻⁷ s é o tempo de meia volta.",
   },
@@ -309,13 +309,13 @@ export const questoes = [
     enunciado:
       "Uma barra condutora de 0,5 m desliza a 2 m/s, com velocidade constante, sobre dois trilhos paralelos ligados por um resistor de 4 Ω, num campo magnético uniforme de 0,8 T perpendicular ao plano dos trilhos. Desprezando o atrito e as demais resistências, qual é a força externa necessária para manter a velocidade da barra?",
     opcoes: [
-      "0,2 N",
       "0,08 N",
+      "0,2 N",
       "0,32 N",
       "0,8 N",
       "0 N",
     ],
-    correta: 1,
+    correta: 0,
     explicacao:
       "A força eletromotriz induzida é ε = B · L · v = 0,8 · 0,5 · 2 = 0,8 V, e a corrente é I = ε/R = 0,8/4 = 0,2 A. A barra, percorrida por essa corrente dentro do campo, sofre uma força magnética F = B · I · L = 0,8 · 0,2 · 0,5 = 0,08 N, que se opõe ao movimento (lei de Lenz). Para manter a velocidade constante, a força externa precisa equilibrá-la: 0,08 N. A potência dessa força, 0,08 · 2 = 0,16 W, é a mesma dissipada no resistor, R · I² = 4 · 0,04.\n\n0,2 N é o valor da corrente tomado como força. 0,32 N usa a velocidade no lugar do comprimento, B · I · v. 0,8 N é o valor da força eletromotriz. E 0 N esquece a força magnética de frenagem, que existe mesmo sem atrito e retira energia do movimento.",
   },
@@ -327,12 +327,12 @@ export const questoes = [
       "Uma bobina de 100 espiras, cada uma com área de 0,02 m², gira com velocidade angular de 100 rad/s num campo magnético uniforme de 0,5 T, em torno de um eixo perpendicular ao campo. Qual é o valor máximo da força eletromotriz induzida?",
     opcoes: [
       "1 V",
-      "100 V",
       "63,7 V",
       "70,7 V",
       "628 V",
+      "100 V",
     ],
-    correta: 1,
+    correta: 4,
     explicacao:
       "O fluxo em cada espira varia como Φ = B · A · cos(ωt). Pela lei de Faraday, ε = −N · dΦ/dt = N · B · A · ω · sen(ωt), cujo valor máximo é εmáx = N · B · A · ω = 100 · 0,5 · 0,02 · 100 = 100 V. A fem máxima ocorre quando o plano da bobina está paralelo ao campo: o fluxo é nulo nesse instante, mas é quando ele varia mais depressa.\n\n1 V esquece o número de espiras. 63,7 V é o valor médio da fem ao longo de meia volta, 2/π do máximo. 70,7 V é o valor eficaz, o máximo dividido por √2. E 628 V toma 100 como frequência em hertz e multiplica por 2π.",
   },
@@ -344,12 +344,12 @@ export const questoes = [
       "Um transformador ideal é ligado a 120 V no primário e fornece 12 V no secundário, onde uma carga consome 2 A. Qual é a corrente no primário?",
     opcoes: [
       "20 A",
-      "0,2 A",
       "2 A",
       "24 A",
       "0,02 A",
+      "0,2 A",
     ],
-    correta: 1,
+    correta: 4,
     explicacao:
       "Num transformador ideal, não há perda de energia: a potência entregue ao primário é igual à consumida no secundário. No secundário, P = 12 · 2 = 24 W. No primário, 120 · Ip = 24, e Ip = 0,2 A. A corrente se transforma na razão inversa da tensão: a tensão cai 10 vezes do primário para o secundário, e a corrente sobe 10 vezes.\n\n20 A aplica a razão de tensões no sentido errado. 2 A supõe que a corrente seja a mesma dos dois lados. 24 A confunde a potência, 24 W, com a corrente. E 0,02 A divide a corrente pela razão de tensões duas vezes, como se ela entrasse ao quadrado.",
   },
@@ -362,11 +362,11 @@ export const questoes = [
     opcoes: [
       "0,1 A",
       "0,067 A",
-      "0,05 A",
       "0,015 A",
       "0,2 A",
+      "0,05 A",
     ],
-    correta: 2,
+    correta: 4,
     explicacao:
       "A variação do fluxo é ΔΦ = A · ΔB = 0,05 · (0,8 − 0,2) = 0,03 Wb, e a força eletromotriz induzida é ε = ΔΦ/Δt = 0,03/0,3 = 0,1 V. A corrente é I = ε/R = 0,1/2 = 0,05 A, constante enquanto o campo cresce no mesmo ritmo. Pela lei de Lenz, ela circula no sentido que cria um campo oposto ao aumento.\n\n0,1 A é o valor da força eletromotriz tomado como corrente. 0,067 A usa só o campo final, 0,8 T, como se o inicial fosse nulo. 0,015 A esquece de dividir pelo tempo. E 0,2 A multiplica a força eletromotriz pela resistência em vez de dividir.",
   },
@@ -377,13 +377,13 @@ export const questoes = [
     enunciado:
       "Uma bobina quadrada de 50 espiras, cada uma com área de 0,01 m², é percorrida por uma corrente de 2 A num campo magnético uniforme de 0,4 T. Qual é o torque sobre ela quando o plano das espiras está paralelo às linhas de campo?",
     opcoes: [
+      "0,4 N·m",
       "0 N·m",
       "0,008 N·m",
-      "0,4 N·m",
       "0,2 N·m",
       "0,8 N·m",
     ],
-    correta: 2,
+    correta: 0,
     explicacao:
       "O torque sobre uma bobina é τ = N · B · I · A · sen θ, em que θ é o ângulo entre o campo e a normal ao plano das espiras. Com o plano paralelo ao campo, a normal é perpendicular a ele: θ = 90°, e o torque é máximo, τ = 50 · 0,4 · 2 · 0,01 = 0,4 N·m. É esse torque que faz girar o rotor de um motor elétrico.\n\n0 N·m é o torque na posição em que o plano das espiras fica perpendicular ao campo, a de equilíbrio. 0,008 N·m esquece o número de espiras. 0,2 N·m multiplica por sen 30°, um ângulo que não aparece na situação. E 0,8 N·m soma os torques dos dois lados usando a largura inteira da espira como braço de alavanca, em vez da metade.",
   },
@@ -395,12 +395,12 @@ export const questoes = [
       "Uma bússola está 10 cm abaixo de um fio horizontal longo, alinhado na direção norte–sul. Sem corrente, a agulha aponta para o norte, sob a componente horizontal do campo terrestre, de 2 · 10⁻⁵ T. Com µ₀ = 4π · 10⁻⁷ T·m/A, de quanto a agulha se desvia quando o fio é percorrido por 10 A?",
     opcoes: [
       "90°",
-      "0°",
       "45°",
+      "0°",
       "30°",
       "60°",
     ],
-    correta: 2,
+    correta: 1,
     explicacao:
       "O fio cria, na posição da bússola, um campo B = µ₀I/(2πd) = 2 · 10⁻⁷ · 10/0,1 = 2 · 10⁻⁵ T. Como o fio está alinhado na direção norte–sul, esse campo é horizontal e aponta na direção leste–oeste, perpendicular ao campo terrestre. A agulha se alinha com a soma dos dois: com componentes iguais, tg θ = 1, e θ = 45°. Foi uma montagem assim que Ørsted usou para mostrar que a corrente elétrica produz campo magnético.\n\n90° supõe que o campo do fio domine completamente o terrestre. 0° supõe que o fio não afete a bússola. E 30° e 60° corresponderiam a campos em razão 1 : √3, o que não é o caso: aqui os dois campos são iguais.",
   },
@@ -413,11 +413,11 @@ export const questoes = [
     opcoes: [
       "0,52 N",
       "0,6 N",
-      "0,3 N",
       "0,15 N",
+      "0,3 N",
       "2,4 N",
     ],
-    correta: 2,
+    correta: 3,
     explicacao:
       "A força sobre o fio é F = B · I · L · sen θ, em que θ é o ângulo entre o fio e o campo: só a componente do campo perpendicular ao fio produz força. Com θ = 30°: F = 0,5 · 4 · 0,3 · 0,5 = 0,3 N. A força é perpendicular ao plano formado pelo fio e pelo campo, com o sentido dado pela regra da mão direita.\n\n0,52 N usa o cosseno de 30° no lugar do seno. 0,6 N ignora o ângulo, como se o fio fosse perpendicular ao campo. 0,15 N aplica o seno de 30° duas vezes. E 2,4 N divide I · L pelo campo em vez de multiplicar.",
   },
@@ -430,11 +430,11 @@ export const questoes = [
     opcoes: [
       "1,8 J",
       "0,3 J",
-      "0,9 J",
       "0,6 J",
+      "0,9 J",
       "0,45 J",
     ],
-    correta: 2,
+    correta: 3,
     explicacao:
       "A energia armazenada num indutor é E = L · I²/2 = 0,2 · 3²/2 = 0,2 · 9/2 = 0,9 J. Ela corresponde ao trabalho que a fonte realiza contra a força eletromotriz autoinduzida, ε = L · ΔI/Δt, enquanto a corrente cresce de zero até 3 A. Quando a corrente é interrompida, essa energia volta ao circuito, às vezes na forma de uma faísca na chave.\n\n1,8 J esquece a divisão por 2. 0,3 J usa L · I/2, sem elevar a corrente ao quadrado. 0,6 J usa L · I. E 0,45 J divide por 4 em vez de 2.",
   },
@@ -464,11 +464,11 @@ export const questoes = [
     opcoes: [
       "0,6 A nos dois casos",
       "Zero e 0,6 A",
-      "0,6 A e zero",
       "0,12 A e zero",
+      "0,6 A e zero",
       "1,2 A e zero",
     ],
-    correta: 2,
+    correta: 3,
     explicacao:
       "Enquanto a espira entra, a área dentro do campo cresce L · v = 0,2 · 3 = 0,6 m² por segundo, e o fluxo cresce B · L · v = 0,5 · 0,6 = 0,3 Wb/s: a força eletromotriz é 0,3 V, e a corrente, 0,3/0,5 = 0,6 A. Depois que a espira está inteiramente dentro da região, o fluxo fica constante (B vezes a área toda), e a corrente cessa, mesmo com a espira ainda em movimento.\n\n“0,6 A nos dois casos” supõe que bastaria o movimento dentro do campo para induzir corrente. “Zero e 0,6 A” inverte as duas fases. 0,12 A usa a área da espira, 0,04 m², no lugar do lado. E 1,2 A conta dois lados cortando as linhas de campo, quando, na entrada, só o lado da frente está dentro da região.",
   },
@@ -480,12 +480,12 @@ export const questoes = [
       "Uma espira circular está no plano da página, num campo magnético uniforme que entra na página e cuja intensidade aumenta com o tempo. Para quem olha a página de frente, qual é o sentido da corrente induzida na espira?",
     opcoes: [
       "Horário",
-      "Não há corrente, porque o campo é uniforme",
       "Anti-horário",
+      "Não há corrente, porque o campo é uniforme",
       "Horário enquanto o campo cresce e anti-horário quando ele se estabiliza",
       "Depende da resistência da espira",
     ],
-    correta: 2,
+    correta: 1,
     explicacao:
       "O fluxo que entra na página está aumentando. Pela lei de Lenz, a corrente induzida cria um campo que se opõe a esse aumento, isto é, um campo que sai da página no interior da espira. Pela regra da mão direita, uma corrente que produz campo saindo da página, no centro da espira, circula no sentido anti-horário para quem olha de frente.\n\nO sentido horário reforçaria o campo que entra, o que aconteceria se ele estivesse diminuindo. O campo ser uniforme não impede a indução: o que importa é o fluxo variar. Quando o campo se estabiliza, a corrente simplesmente cessa, sem inverter. E a resistência muda a intensidade da corrente, mas não o seu sentido.",
   },
@@ -497,12 +497,12 @@ export const questoes = [
       "Um transformador recebe 2 A a 220 V no primário e fornece 19,8 A a 20 V no secundário. Qual é o seu rendimento?",
     opcoes: [
       "10%",
-      "111%",
       "90%",
+      "111%",
       "9,1%",
       "100%",
     ],
-    correta: 2,
+    correta: 1,
     explicacao:
       "O rendimento é a razão entre a potência útil, entregue pelo secundário, e a potência recebida pelo primário. No primário: 220 · 2 = 440 W. No secundário: 20 · 19,8 = 396 W. Então η = 396/440 = 0,9 = 90%. Os 44 W restantes se perdem principalmente como calor, nos enrolamentos (efeito Joule) e no núcleo (correntes de Foucault e histerese).\n\n10% é a fração perdida, e não o rendimento. 111% inverte a razão, 440/396; um rendimento acima de 100% violaria a conservação da energia. 9,1% compara só as tensões, 20/220. E 100% é o rendimento de um transformador ideal, o que não é o caso, já que as potências diferem.",
   },
@@ -532,11 +532,11 @@ export const questoes = [
     opcoes: [
       "0 V",
       "0,05 V",
-      "20 V",
       "10 V",
+      "20 V",
       "15,7 V",
     ],
-    correta: 3,
+    correta: 2,
     explicacao:
       "No início, o fluxo em cada espira é máximo, B · A = 0,5 · 0,01 = 0,005 Wb; no fim, com o plano paralelo ao campo, é nulo. A força eletromotriz média é ε = N · |ΔΦ|/Δt = 200 · 0,005/0,1 = 10 V. Ao longo do giro, a fem instantânea varia como um seno, mas a média só depende da variação total do fluxo.\n\n0 V confunde o fluxo final nulo com ausência de variação. 0,05 V esquece o número de espiras. 20 V considera meia volta, em que o fluxo se inverte e varia 2 · B · A. E 15,7 V é o valor máximo da fem, N · B · A · ω, com ω = (π/2)/0,1 rad/s, e não a média.",
   },
@@ -550,10 +550,10 @@ export const questoes = [
       "1,6π · 10⁻⁵ V",
       "3,2π · 10⁻⁵ V",
       "4π V",
-      "1,6π · 10⁻³ V",
       "0 V",
+      "1,6π · 10⁻³ V",
     ],
-    correta: 3,
+    correta: 4,
     explicacao:
       "O campo no interior do solenoide é B = µ₀ · n · I, e o fluxo em cada espira da bobina externa é Φ = B · A = µ₀ · n · A · I (fora do solenoide, o campo é desprezível). A fem induzida é ε = N · dΦ/dt = N · µ₀ · n · A · dI/dt = 100 · 4π · 10⁻⁷ · 2.000 · 4 · 10⁻⁴ · 50 = 1,6π · 10⁻³ V ≅ 5 · 10⁻³ V. É a indução mútua, o princípio do transformador.\n\n1,6π · 10⁻⁵ V esquece as 100 espiras da bobina. 3,2π · 10⁻⁵ V é o fluxo total na bobina quando a corrente vale 1 A, sem a taxa de variação. 4π V esquece a área da seção. E 0 V supõe que, sem contato elétrico entre os enrolamentos, não surja tensão; a indução acontece pelo campo magnético.",
   },
@@ -565,12 +565,12 @@ export const questoes = [
       "Uma barra condutora de 0,2 kg é lançada a 3 m/s sobre trilhos horizontais sem atrito, ligados por um resistor, numa região de campo magnético vertical. A corrente induzida freia a barra até ela parar. Quanta energia é dissipada no resistor ao longo de todo o processo?",
     opcoes: [
       "0,6 J",
+      "0,9 J",
       "1,8 J",
       "0 J",
-      "0,9 J",
       "0,3 J",
     ],
-    correta: 3,
+    correta: 1,
     explicacao:
       "A única força horizontal sobre a barra é a força magnética de frenagem, que surge da corrente induzida. Toda a energia cinética inicial é convertida em calor no resistor: E = m · v²/2 = 0,2 · 3²/2 = 0,9 J. O resultado não depende do campo, do comprimento da barra nem da resistência: eles só mudam quanto tempo a barra leva para parar e a distância que ela percorre.\n\n0,6 J é a quantidade de movimento inicial, m · v, tomada como energia. 1,8 J esquece a divisão por 2 na energia cinética. 0 J supõe que a frenagem não dissipe energia. E 0,3 J divide m · v por 2, sem elevar a velocidade ao quadrado.",
   },
@@ -599,12 +599,12 @@ export const questoes = [
       "Um fio retilíneo longo, no plano da página, é percorrido por uma corrente para a direita, que está diminuindo. Uma espira retangular está no mesmo plano, logo acima do fio, com dois lados paralelos a ele. Para quem olha a página de frente, qual é o sentido da corrente induzida na espira, e qual é o efeito da força resultante sobre ela?",
     opcoes: [
       "Horário, e a espira é repelida pelo fio",
+      "Anti-horário, e a espira é atraída pelo fio",
       "Anti-horário, e a espira é repelida pelo fio",
       "Horário, e a espira é atraída pelo fio",
-      "Anti-horário, e a espira é atraída pelo fio",
       "Não há corrente induzida, porque a espira não se move",
     ],
-    correta: 3,
+    correta: 1,
     explicacao:
       "Acima de um fio com corrente para a direita, o campo sai da página (regra da mão direita). Com a corrente diminuindo, esse fluxo diminui, e, pela lei de Lenz, a corrente induzida tenta mantê-lo, criando campo saindo da página dentro da espira: sentido anti-horário. Nesse sentido, o lado de baixo da espira, mais próximo do fio, tem corrente para a direita, a favor da corrente do fio, e é atraído; o lado de cima tem corrente oposta e é repelido, mas está mais longe, onde o campo é mais fraco. A resultante é de atração, como prevê Lenz: a espira tende a ir para onde o fluxo é maior.\n\nO sentido horário corresponderia à corrente do fio aumentando, caso em que a espira seria repelida. As outras duas combinações misturam o sentido de um caso com a força do outro. E a indução não exige movimento: basta que o fluxo varie, e aqui ele varia porque a corrente muda.",
   },
@@ -635,10 +635,10 @@ export const questoes = [
       "0,173 Wb",
       "0,2 Wb",
       "0 Wb",
-      "0,1 Wb",
       "0,4 Wb",
+      "0,1 Wb",
     ],
-    correta: 3,
+    correta: 4,
     explicacao:
       "Na fórmula Φ = B · A · cos θ, o ângulo θ é medido entre o campo e a normal à superfície, e não entre o campo e o plano. Se as linhas formam 30° com o plano, formam 60° com a normal: Φ = 0,4 · 0,5 · cos 60° = 0,2 · 0,5 = 0,1 Wb. De forma equivalente, só a componente do campo perpendicular à superfície, B · sen 30°, a atravessa.\n\n0,173 Wb usa cos 30°, tomando o ângulo com o plano como se fosse com a normal. 0,2 Wb ignora a inclinação, como se o campo fosse perpendicular à superfície. 0 Wb supõe que um campo inclinado não atravesse a superfície. E 0,4 Wb divide pelo seno em vez de multiplicar.",
   },
@@ -652,10 +652,10 @@ export const questoes = [
       "A 20 cm do fio de 2 A, entre os fios",
       "No ponto médio, a 15 cm de cada fio",
       "A 30 cm do fio de 2 A, do lado de fora",
-      "A 10 cm do fio de 2 A, entre os fios",
       "Em nenhum ponto dessa reta",
+      "A 10 cm do fio de 2 A, entre os fios",
     ],
-    correta: 3,
+    correta: 4,
     explicacao:
       "Com correntes no mesmo sentido, entre os fios os dois campos têm sentidos opostos e podem se anular. O campo de cada fio é proporcional a I/d: com x a distância ao fio de 2 A, 2/x = 4/(30 − x), e então 60 − 2x = 4x, x = 10 cm. O ponto fica mais perto do fio de menor corrente, cujo campo precisa de uma distância menor para igualar o do outro.\n\n20 cm inverte a proporção, pondo o ponto mais perto do fio de maior corrente. O ponto médio só serviria para correntes iguais. 30 cm do lado de fora é a resposta para correntes em sentidos opostos. E o ponto de campo nulo existe: entre os fios, os campos se opõem, e em algum ponto têm a mesma intensidade.",
   },
@@ -703,10 +703,10 @@ export const questoes = [
       "0,1√3π m",
       "0,2π m",
       "0,05 m",
-      "0,05π m",
       "0,1π m",
+      "0,05π m",
     ],
-    correta: 4,
+    correta: 3,
     explicacao:
       "Decompõe-se a velocidade: a componente paralela ao campo, v · cos 60° = 10⁶ m/s, não sofre força e se mantém; a perpendicular, v · sen 60° = √3 · 10⁶ m/s, produz o movimento circular. O período da volta não depende da velocidade: T = 2πm/(q · B) = 2π · 10⁻⁸/0,2 = π · 10⁻⁷ s. O passo é a distância percorrida ao longo do campo nesse tempo: p = v∥ · T = 10⁶ · π · 10⁻⁷ = 0,1π m ≅ 0,31 m.\n\n0,1√3π m usa a componente perpendicular (sen 60°) no lugar da paralela. 0,2π m usa a velocidade inteira, sem decompor. 0,05 m esquece o fator 2π do período. E 0,05π m usa o tempo de meia volta.",
   },
@@ -719,11 +719,11 @@ export const questoes = [
     opcoes: [
       "4 m/s",
       "2 m/s",
+      "8 m/s",
       "0,125 m/s",
       "Não há velocidade limite: a barra cai com aceleração g",
-      "8 m/s",
     ],
-    correta: 4,
+    correta: 2,
     explicacao:
       "Ao cair com velocidade v, a barra gera ε = B · L · v, e a corrente I = B · L · v/R produz sobre ela uma força magnética para cima, F = B · I · L = B² · L² · v/R, que cresce com a velocidade. A velocidade limite é atingida quando essa força equilibra o peso: B² · L² · v/R = m · g, e v = m · g · R/(B² · L²) = 0,1 · 10 · 2/(1 · 0,25) = 8 m/s. A partir daí, toda a energia potencial perdida vira calor no resistor.\n\n4 m/s esquece de elevar B · L ao quadrado. 2 m/s põe a resistência no denominador. 0,125 m/s inverte a fração. E a barra não cai em queda livre: a corrente induzida cria uma força que se opõe ao movimento, como prevê a lei de Lenz.",
   },
@@ -751,13 +751,13 @@ export const questoes = [
     enunciado:
       "Um fio retilíneo longo e uma espira retangular estão no mesmo plano. A espira tem 0,5 m de lado paralelo ao fio e ocupa a faixa entre 0,1 m e 0,2 m de distância dele. Com µ₀ = 4π · 10⁻⁷ T·m/A, se a corrente no fio cai uniformemente de 10 A a zero em 0,02 s, qual é a força eletromotriz média induzida na espira?",
     opcoes: [
+      "≈ 3,5 · 10⁻⁵ V",
       "5 · 10⁻⁵ V",
       "2,5 · 10⁻⁵ V",
       "≈ 6,9 · 10⁻⁷ V",
       "Zero, porque o fio e a espira estão no mesmo plano",
-      "≈ 3,5 · 10⁻⁵ V",
     ],
-    correta: 4,
+    correta: 0,
     explicacao:
       "O campo do fio não é uniforme sobre a espira: vale µ₀I/(2πr) e diminui com a distância r. O fluxo se obtém somando faixas finas, paralelas ao fio: Φ = (µ₀ · I · ℓ/2π) · ln(b/a) = 2 · 10⁻⁷ · 10 · 0,5 · ln 2 ≅ 6,9 · 10⁻⁷ Wb. Com a corrente caindo a zero em 0,02 s, o fluxo cai desse valor a zero, e a fem média é ε = 6,9 · 10⁻⁷/0,02 ≅ 3,5 · 10⁻⁵ V.\n\n5 · 10⁻⁵ V supõe o campo uniforme e igual ao do lado mais próximo, a 0,1 m. 2,5 · 10⁻⁵ V usa o campo do lado mais distante, a 0,2 m. 6,9 · 10⁻⁷ V é o fluxo inicial, sem dividir pelo tempo. E estar no mesmo plano é justamente o que faz o campo do fio atravessar a espira perpendicularmente.",
   },
@@ -769,12 +769,12 @@ export const questoes = [
       "Num cíclotron de raio máximo 0,5 m, com campo magnético de 1 T, prótons são acelerados em órbitas cada vez maiores. Com a massa do próton igual a 1,6 · 10⁻²⁷ kg e a sua carga igual a 1,6 · 10⁻¹⁹ C, qual é a energia cinética máxima com que eles saem do aparelho?",
     opcoes: [
       "4 · 10⁻¹² J",
+      "2 · 10⁻¹² J",
       "8 · 10⁻¹² J",
       "5 · 10⁷ J",
       "8 · 10⁻²⁰ J",
-      "2 · 10⁻¹² J",
     ],
-    correta: 4,
+    correta: 1,
     explicacao:
       "Na órbita de raio máximo, r = m · v/(q · B), e a velocidade é v = q · B · r/m = 1,6 · 10⁻¹⁹ · 1 · 0,5/1,6 · 10⁻²⁷ = 5 · 10⁷ m/s. A energia cinética é m · v²/2 = 1,6 · 10⁻²⁷ · 25 · 10¹⁴/2 = 2 · 10⁻¹² J, cerca de 12,5 MeV. Em forma geral, Ec = q² · B² · r²/(2m): a energia final é limitada pelo tamanho do aparelho e pela intensidade do campo, e não pela tensão entre os dês, que só define quantas voltas o próton dá.\n\n4 · 10⁻¹² J esquece o fator 1/2 da energia cinética. 8 · 10⁻¹² J usa o diâmetro, 1 m, como raio. 5 · 10⁷ J toma a velocidade máxima, em m/s, como energia. E 8 · 10⁻²⁰ J é a quantidade de movimento, q · B · r, tomada como energia.",
   },
@@ -805,10 +805,10 @@ export const questoes = [
       "Diminui 10 vezes",
       "Aumenta 100 vezes",
       "Diminui 1.000 vezes",
-      "Não muda",
       "Diminui 100 vezes",
+      "Não muda",
     ],
-    correta: 4,
+    correta: 3,
     explicacao:
       "Para entregar a mesma potência, a corrente na linha é I = P/U: 100.000/5.000 = 20 A no primeiro caso e 100.000/50.000 = 2 A no segundo. A perda na linha é R · I²: 10 · 400 = 4.000 W, e depois 10 · 4 = 40 W. Com a tensão 10 vezes maior, a corrente fica 10 vezes menor, e a perda, que depende do quadrado da corrente, cai 100 vezes. É por isso que se transmite energia em alta tensão, com transformadores elevando e abaixando a tensão nas pontas da linha.\n\n“Diminui 10 vezes” supõe a perda proporcional à corrente. “Aumenta 100 vezes” aplica U²/R com a tensão de transmissão, mas essa tensão não fica toda sobre a resistência da linha: a queda na linha é só R · I. “Diminui 1.000 vezes” usa o cubo da razão. E “não muda” esquece que a corrente depende da tensão de transmissão.",
   },
@@ -821,11 +821,11 @@ export const questoes = [
     opcoes: [
       "0,2 s, no mesmo sentido na entrada e na saída",
       "0,35 s, todo o tempo em que alguma parte da espira está no campo",
+      "0,2 s, em sentidos opostos na entrada e na saída",
       "0,25 s, o tempo de atravessar a largura da faixa",
       "0,15 s, enquanto a espira está inteiramente dentro do campo",
-      "0,2 s, em sentidos opostos na entrada e na saída",
     ],
-    correta: 4,
+    correta: 2,
     explicacao:
       "Só há corrente enquanto o fluxo varia. Na entrada, a espira leva 0,2/2 = 0,1 s para ficar inteiramente dentro da faixa, e o fluxo cresce. Depois, por (0,5 − 0,2)/2 = 0,15 s, a espira está toda dentro do campo: o fluxo é constante e não há corrente. Na saída, mais 0,1 s com o fluxo diminuindo. No total, 0,2 s de corrente. Na entrada, ela se opõe ao aumento do fluxo e, na saída, à diminuição; por isso tem sentidos opostos nas duas fases.\n\n“No mesmo sentido” ignora que o fluxo cresce numa fase e decresce na outra. 0,35 s inclui o intervalo em que a espira está toda dentro do campo, sem variação de fluxo. 0,25 s é o tempo de percorrer a largura da faixa, que não coincide com as fases de variação. E 0,15 s é justamente o intervalo sem corrente.",
   },
@@ -838,11 +838,11 @@ export const questoes = [
     opcoes: [
       "60°",
       "90°",
+      "30°",
       "45°",
       "0°",
-      "30°",
     ],
-    correta: 4,
+    correta: 2,
     explicacao:
       "Dentro da região, o próton descreve um arco de circunferência de raio r = m · v/(q · B) = 1,6 · 10⁻²⁷ · 10⁶/(1,6 · 10⁻¹⁹ · 0,2) = 0,05 m = 5 cm. Ele entra perpendicularmente à borda, com o centro da circunferência sobre ela; ao avançar a largura d = 2,5 cm, o ângulo girado θ satisfaz sen θ = d/r = 2,5/5 = 0,5, e θ = 30°. Como a velocidade é sempre tangente ao arco, a direção do movimento gira desses mesmos 30°.\n\n60° usa cos θ = d/r em vez do seno. 90° supõe um quarto de volta, o que só aconteceria se a largura fosse igual ao raio. 45° supõe o desvio proporcional à largura, metade de 90°. E 0° confunde a rapidez, que o campo magnético não altera, com a direção, que ele altera.",
   },
@@ -855,11 +855,11 @@ export const questoes = [
     opcoes: [
       "1.000 W",
       "250 W",
+      "500 W",
       "707 W",
       "0,05 W",
-      "500 W",
     ],
-    correta: 4,
+    correta: 2,
     explicacao:
       "A fem máxima é εmáx = N · B · A · ω = 50 · 0,5 · 0,04 · 100 = 100 V. A potência instantânea no resistor é ε²/R = (εmáx²/R) · sen²(ωt), e a média de sen² ao longo de um ciclo é 1/2: P = εmáx²/(2R) = 10.000/20 = 500 W. Dá o mesmo usar o valor eficaz, εmáx/√2 ≅ 70,7 V: P = 70,7²/10 ≅ 500 W.\n\n1.000 W é a potência de pico, εmáx²/R, atingida só nos instantes de fem máxima. 250 W usa a metade da fem máxima como valor eficaz. 707 W divide por √2 em vez de 2, como se só a tensão fosse tomada pelo valor eficaz, e a corrente não. E 0,05 W esquece a velocidade angular no cálculo da fem.",
   },

@@ -20,13 +20,13 @@ export const questoes = [
     enunciado:
       "Qual é a diferença entre período simples e período composto?",
     opcoes: [
-      "O simples tem uma só oração, e o composto tem duas ou mais",
       "O simples tem duas orações, e o composto tem uma",
       "O simples não tem verbo, e o composto tem",
       "O simples só tem sujeito, e o composto só tem predicado",
       "Não há diferença entre eles",
+      "O simples tem uma só oração, e o composto tem duas ou mais",
     ],
-    correta: 0,
+    correta: 4,
     explicacao:
       "O período é o enunciado formado por uma ou mais orações, e cada oração tem um verbo ou uma locução verbal. O período simples tem uma só oração, que é chamada oração absoluta, como em o aluno estudou. O período composto tem duas ou mais orações: o aluno estudou e passou.\n\nDizer que o simples tem duas orações inverte a definição. Os dois têm verbo, porque a oração se define pelo verbo. A oração pode ter sujeito e predicado, no simples e no composto. E há, sim, diferença entre os dois.",
   },
@@ -37,13 +37,13 @@ export const questoes = [
     enunciado:
       "Na frase “Fui ao mercado e comprei pão”, como se classifica o período quanto ao número de orações?",
     opcoes: [
-      "Composto, com duas orações",
       "Simples, com uma oração",
+      "Composto, com duas orações",
       "Simples, com duas orações",
       "Composto, com uma oração",
       "Composto, com três orações",
     ],
-    correta: 0,
+    correta: 1,
     explicacao:
       "Há dois verbos, fui e comprei, e portanto duas orações: fui ao mercado e comprei pão. Como há mais de uma oração, o período é composto. As duas se ligam pela conjunção e, em uma relação de coordenação.\n\nO período simples tem uma só oração. Dizer simples com duas orações, ou composto com uma, contradiz a definição. E há apenas dois verbos, e não três.",
   },
@@ -54,13 +54,13 @@ export const questoes = [
     enunciado:
       "Em “Chegou, viu, venceu”, como se classificam as orações?",
     opcoes: [
-      "Coordenadas assindéticas",
       "Coordenadas sindéticas",
       "Subordinadas substantivas",
+      "Coordenadas assindéticas",
       "Subordinadas adjetivas",
       "Subordinadas adverbiais",
     ],
-    correta: 0,
+    correta: 2,
     explicacao:
       "As orações chegou, viu e venceu estão lado a lado, sem conjunção que as ligue, e uma não depende da outra. São orações coordenadas assindéticas, separadas por vírgula, que ocupam a posição que a conjunção ocuparia.\n\nAs coordenadas sindéticas teriam conjunção, como em chegou e viu. As subordinadas substantivas, adjetivas e adverbiais dependem de uma oração principal, o que não ocorre: nenhuma das três depende das outras.",
   },
@@ -71,13 +71,13 @@ export const questoes = [
     enunciado:
       "Em “Estudou muito, mas não passou”, como se classifica a oração introduzida por mas?",
     opcoes: [
-      "Coordenada sindética adversativa",
       "Coordenada sindética aditiva",
       "Coordenada sindética alternativa",
+      "Coordenada sindética adversativa",
       "Coordenada sindética conclusiva",
       "Coordenada sindética explicativa",
     ],
-    correta: 0,
+    correta: 2,
     explicacao:
       "A conjunção mas liga duas orações e estabelece entre elas uma relação de oposição: estudou muito, e o resultado esperado seria passar, mas não passou. A oração que ela introduz é coordenada sindética adversativa.\n\nA aditiva soma ideias, com e ou nem. A alternativa apresenta possibilidades que se excluem, com ou. A conclusiva tira uma consequência, com logo ou portanto. E a explicativa justifica a ordem da oração anterior, com pois ou que.",
   },
@@ -105,13 +105,13 @@ export const questoes = [
     enunciado:
       "Em “Penso, logo existo”, como se classifica a oração introduzida por logo?",
     opcoes: [
-      "Coordenada sindética conclusiva",
       "Coordenada sindética adversativa",
       "Coordenada sindética aditiva",
       "Coordenada sindética alternativa",
+      "Coordenada sindética conclusiva",
       "Coordenada sindética explicativa",
     ],
-    correta: 0,
+    correta: 3,
     explicacao:
       "A conjunção logo introduz uma conclusão tirada da oração anterior: se penso, concluo que existo. Por isso a oração introduzida por ela é coordenada sindética conclusiva. Outras conjunções conclusivas são portanto, por isso, assim e por conseguinte.\n\nA adversativa expressa oposição. A aditiva soma. A alternativa apresenta escolha. E a explicativa justifica a ordem dada na oração anterior. Nenhuma delas tira uma consequência.",
   },
@@ -122,13 +122,13 @@ export const questoes = [
     enunciado:
       "Qual conjunção completa a frase “Venha cedo, ___ haverá fila”, de modo a explicar a ordem dada?",
     opcoes: [
-      "pois",
       "mas",
       "logo",
       "ou",
       "nem",
+      "pois",
     ],
-    correta: 0,
+    correta: 4,
     explicacao:
       "Pois, no início da oração, justifica a ordem dada na primeira: venha cedo, e a razão é que haverá fila. É conjunção coordenativa explicativa, e a oração é coordenada sindética explicativa. Outras explicativas são que, porque e porquanto.\n\nMas é adversativa, e exprimiria oposição. Logo é conclusiva, e exprimiria consequência. Ou é alternativa, e apresentaria escolha. E nem é aditiva, e somaria uma negação. Só pois justifica a ordem.",
   },
@@ -156,13 +156,13 @@ export const questoes = [
     enunciado:
       "Quantas orações há no período “Chegamos, jantamos e dormimos”?",
     opcoes: [
-      "Três",
       "Duas",
       "Uma",
       "Quatro",
       "Cinco",
+      "Três",
     ],
-    correta: 0,
+    correta: 4,
     explicacao:
       "Cada oração se define por um verbo ou locução verbal. No período há três verbos: chegamos, jantamos e dormimos. Por isso há três orações, todas coordenadas: duas assindéticas, separadas por vírgula, e uma sindética aditiva, introduzida por e.\n\nDizer que há duas ou uma ignora um dos verbos. Dizer quatro ou cinco conta mais orações do que há verbos. A contagem das orações se faz sempre pelos verbos do período.",
   },
@@ -173,13 +173,13 @@ export const questoes = [
     enunciado:
       "Qual das conjunções abaixo liga orações coordenadas aditivas?",
     opcoes: [
-      "e",
       "mas",
+      "e",
       "ou",
       "logo",
       "pois",
     ],
-    correta: 0,
+    correta: 1,
     explicacao:
       "E é a conjunção aditiva mais comum, e liga orações ou termos, somando ideias: estudou e trabalhou. Outras aditivas são nem, não só... mas também e bem como.\n\nMas é adversativa, e expressa oposição. Ou é alternativa, e apresenta escolha. Logo é conclusiva, e tira consequência. E pois, no início da oração, é explicativa, e justifica a oração anterior.",
   },
@@ -191,12 +191,12 @@ export const questoes = [
       "Qual das conjunções abaixo é adversativa?",
     opcoes: [
       "portanto",
-      "contudo",
       "nem",
+      "contudo",
       "ou",
       "porque",
     ],
-    correta: 1,
+    correta: 2,
     explicacao:
       "Contudo expressa oposição entre duas orações: estudou muito, contudo não passou. É conjunção coordenativa adversativa, assim como mas, porém, todavia, entretanto e no entanto.\n\nPortanto é conclusiva. Nem é aditiva, e soma ideias negativas. Ou é alternativa, e apresenta escolha. E porque, nessa lista, é conjunção explicativa ou causal, que não expressa oposição.",
   },
@@ -207,13 +207,13 @@ export const questoes = [
     enunciado:
       "Em “Choveu, mas fomos à praia”, que ideia a conjunção mas estabelece entre as orações?",
     opcoes: [
-      "Soma",
       "Oposição",
+      "Soma",
       "Alternância",
       "Conclusão",
       "Explicação",
     ],
-    correta: 1,
+    correta: 0,
     explicacao:
       "A chuva seria um obstáculo para ir à praia, mas a segunda oração apresenta o contrário do esperado: fomos. A conjunção mas liga as duas orações com ideia de oposição, e é adversativa.\n\nA soma é própria da conjunção e. A alternância é própria de ou. A conclusão é própria de logo e portanto. E a explicação é própria de pois e que. A ideia de contraste afasta todas elas.",
   },
@@ -224,13 +224,13 @@ export const questoes = [
     enunciado:
       "No período “Fui ao mercado, comprei pão e voltei para casa”, como se classificam, respectivamente, as três orações?",
     opcoes: [
-      "Sindética aditiva nas três",
       "Assindética, assindética e sindética aditiva",
+      "Sindética aditiva nas três",
       "Assindética nas três",
       "Sindética aditiva, sindética aditiva e assindética",
       "Principal, subordinada e coordenada",
     ],
-    correta: 1,
+    correta: 0,
     explicacao:
       "A primeira oração, fui ao mercado, inicia o período e não tem conjunção: é coordenada assindética. A segunda, comprei pão, também não tem conjunção, e está separada por vírgula: é coordenada assindética. A terceira, e voltei para casa, é introduzida por e: coordenada sindética aditiva.\n\nDizer que as três são sindéticas, ou assindéticas, ignora a conjunção da terceira. Inverter a ordem coloca a sindética no início. E principal e subordinada não se aplicam, porque as orações são independentes.",
   },
@@ -242,12 +242,12 @@ export const questoes = [
       "Qual das palavras abaixo pode substituir mas em “Estudou muito, mas não passou”, sem alterar o sentido?",
     opcoes: [
       "portanto",
-      "porém",
       "logo",
       "pois",
       "ou",
+      "porém",
     ],
-    correta: 1,
+    correta: 4,
     explicacao:
       "Mas é conjunção adversativa, e pode ser substituída por outra adversativa sem alterar o sentido: porém, contudo, todavia, entretanto. Em estudou muito, porém não passou, a ideia de oposição se mantém.\n\nPortanto e logo são conclusivas, e dariam a ideia de consequência. Pois é explicativa ou conclusiva, conforme a posição. Ou é alternativa. Qualquer uma dessas trocas mudaria a relação entre as orações.",
   },
@@ -259,12 +259,12 @@ export const questoes = [
       "Em “Não só estudou, mas também trabalhou”, como se classifica a oração introduzida por mas também?",
     opcoes: [
       "Coordenada sindética adversativa",
-      "Coordenada sindética aditiva",
       "Coordenada sindética alternativa",
       "Coordenada sindética conclusiva",
       "Coordenada sindética explicativa",
+      "Coordenada sindética aditiva",
     ],
-    correta: 1,
+    correta: 4,
     explicacao:
       "A estrutura não só... mas também soma uma segunda ação à primeira, com ideia de acréscimo: estudou e também trabalhou. É conjunção aditiva correlativa, e a oração é coordenada sindética aditiva. Apesar da presença de mas, não há oposição.\n\nA adversativa expressaria contraste. A alternativa apresentaria escolha. A conclusiva tiraria consequência. E a explicativa justificaria a oração anterior. A ideia de soma afasta todas elas.",
   },
@@ -276,12 +276,12 @@ export const questoes = [
       "Em “Não estudou nem trabalhou”, como se classifica a oração introduzida por nem?",
     opcoes: [
       "Coordenada sindética adversativa",
-      "Coordenada sindética aditiva",
       "Coordenada sindética alternativa",
       "Coordenada sindética conclusiva",
+      "Coordenada sindética aditiva",
       "Coordenada sindética explicativa",
     ],
-    correta: 1,
+    correta: 3,
     explicacao:
       "Nem soma uma segunda ação negativa à primeira: não estudou e não trabalhou. É conjunção aditiva com valor negativo, e a oração que ela introduz é coordenada sindética aditiva. Equivale a e não.\n\nA adversativa expressaria oposição. A alternativa apresentaria escolha entre possibilidades. A conclusiva tiraria consequência. E a explicativa justificaria uma oração anterior. A frase apenas soma duas negações.",
   },
@@ -293,12 +293,12 @@ export const questoes = [
       "Em “Ora estuda, ora trabalha”, como se classificam as orações?",
     opcoes: [
       "Coordenadas sindéticas aditivas",
-      "Coordenadas sindéticas alternativas",
       "Coordenadas sindéticas adversativas",
+      "Coordenadas sindéticas alternativas",
       "Coordenadas assindéticas",
       "Subordinadas adverbiais",
     ],
-    correta: 1,
+    correta: 2,
     explicacao:
       "A repetição de ora indica alternância no tempo: em um momento, estuda; em outro, trabalha. Ora... ora é conjunção alternativa correlativa, e as duas orações são coordenadas sindéticas alternativas.\n\nAs aditivas somariam as ações. As adversativas expressariam oposição. As assindéticas não teriam conjunção, o que não é o caso. E as subordinadas dependeriam de uma principal, o que também não ocorre.",
   },
@@ -344,12 +344,12 @@ export const questoes = [
       "Qual das conjunções abaixo introduz oração coordenada sindética explicativa?",
     opcoes: [
       "todavia",
-      "porquanto",
       "logo",
       "ou",
       "e",
+      "porquanto",
     ],
-    correta: 1,
+    correta: 4,
     explicacao:
       "Porquanto justifica a oração anterior, apresentando a razão do que foi dito: leve o casaco, porquanto está frio. É conjunção coordenativa explicativa, assim como que, pois e porque, quando justificam uma afirmação ou ordem.\n\nTodavia é adversativa. Logo é conclusiva. Ou é alternativa. E e é aditiva. Nenhuma das quatro apresenta a razão do que foi dito antes.",
   },
@@ -360,13 +360,13 @@ export const questoes = [
     enunciado:
       "Em qual das frases há orações coordenadas sindéticas adversativas?",
     opcoes: [
+      "Estudou muito, mas não passou.",
       "Estudou muito e passou.",
       "Estudou muito, logo passou.",
-      "Estudou muito, mas não passou.",
       "Ou estuda, ou trabalha.",
       "Estude, pois a prova é difícil.",
     ],
-    correta: 2,
+    correta: 0,
     explicacao:
       "Em estudou muito, mas não passou, a conjunção mas introduz uma oração que contraria a expectativa criada pela anterior: é adversativa. A segunda oração é coordenada sindética adversativa.\n\nEm estudou muito e passou, a conjunção e é aditiva. Em estudou muito, logo passou, logo é conclusiva. Em ou estuda, ou trabalha, ou é alternativa. E em estude, pois a prova é difícil, pois é explicativa.",
   },
@@ -378,12 +378,12 @@ export const questoes = [
       "Qual das expressões abaixo é uma conjunção alternativa correlativa?",
     opcoes: [
       "não só... mas também",
-      "tanto... quanto",
       "seja... seja",
+      "tanto... quanto",
       "mal... quando",
       "nem... nem",
     ],
-    correta: 2,
+    correta: 1,
     explicacao:
       "Seja... seja apresenta duas hipóteses alternativas e é conjunção coordenativa alternativa correlativa: seja estudando, seja trabalhando. Outras são ou... ou, ora... ora e quer... quer.\n\nNão só... mas também e tanto... quanto são correlativas aditivas, pois somam ideias. Nem... nem é aditiva negativa, pois soma negações. Mal... quando expressa tempo, e não alternância. A correlação alternativa exige duas possibilidades que se excluem.",
   },
@@ -396,11 +396,11 @@ export const questoes = [
     opcoes: [
       "mas",
       "ou",
-      "pois",
       "nem",
+      "pois",
       "que",
     ],
-    correta: 2,
+    correta: 3,
     explicacao:
       "Pois, posposto ao verbo e entre vírgulas, equivale a portanto e exprime conclusão: ele é rico; tem, pois, o direito de escolher. Nessa posição, é conjunção coordenativa conclusiva. No início da oração, o pois é explicativo.\n\nMas é adversativa, e exprime oposição. Ou é alternativa, e apresenta escolha. Nem é aditiva, e soma negações. E que, como conjunção coordenativa, é explicativa, e justifica uma ordem. Só pois muda de valor conforme a posição.",
   },
@@ -413,11 +413,11 @@ export const questoes = [
     opcoes: [
       "Nenhuma tem verbo",
       "Todas têm o mesmo sujeito",
-      "Nenhuma exerce função sintática na outra",
       "Todas começam por conjunção",
+      "Nenhuma exerce função sintática na outra",
       "Todas são orações principais",
     ],
-    correta: 2,
+    correta: 3,
     explicacao:
       "As orações coordenadas são independentes porque nenhuma exerce função sintática dentro da outra: não é sujeito, objeto, adjunto ou complemento da outra. Cada uma tem seu próprio verbo e poderia constituir um período simples. A ligação entre elas é de sentido, e não de dependência.\n\nTodas têm verbo, mas isso é comum a toda oração. Podem ter sujeitos diferentes. Nem todas começam por conjunção, pois as assindéticas não têm. E nenhuma é chamada principal, porque essa denominação se aplica à subordinação.",
   },
@@ -447,11 +447,11 @@ export const questoes = [
     opcoes: [
       "Composto por coordenação",
       "Simples",
-      "Composto por subordinação",
       "Misto",
+      "Composto por subordinação",
       "Absoluto",
     ],
-    correta: 2,
+    correta: 3,
     explicacao:
       "A oração “quando chegou” indica o tempo em que ocorre a ação principal, e depende dela: é subordinada adverbial temporal. A oração principal é ela saiu. O período é composto por subordinação, pois há uma oração que exerce função em relação à outra.\n\nNão é coordenação, porque as orações não são independentes. Não é simples, porque há dois verbos. Não é misto, porque não há coordenação. E absoluto é a oração de um período simples.",
   },
@@ -464,11 +464,11 @@ export const questoes = [
     opcoes: [
       "Quando cheguei, jantei.",
       "Disse que chegaria.",
-      "Cheguei, jantei e dormi.",
       "O livro que li é bom.",
+      "Cheguei, jantei e dormi.",
       "Se chover, ficarei.",
     ],
-    correta: 2,
+    correta: 3,
     explicacao:
       "Em cheguei, jantei e dormi, as três orações são independentes, ligadas por vírgula e pela conjunção e: são coordenadas. Nenhuma exerce função na outra.\n\nEm quando cheguei, jantei, a primeira oração é subordinada adverbial temporal. Em disse que chegaria, a segunda é subordinada substantiva. Em o livro que li é bom, a oração que li é subordinada adjetiva. E em se chover, ficarei, a primeira é subordinada adverbial condicional.",
   },
@@ -481,11 +481,11 @@ export const questoes = [
     opcoes: [
       "mas",
       "ou",
-      "embora",
       "logo",
       "e",
+      "embora",
     ],
-    correta: 2,
+    correta: 4,
     explicacao:
       "Embora é conjunção subordinativa concessiva: ela introduz oração que depende de outra, como em embora estivesse cansado, terminou a prova. Não liga orações independentes.\n\nMas é coordenativa adversativa, ou é coordenativa alternativa, logo é coordenativa conclusiva, e e é coordenativa aditiva. As quatro ligam orações ou termos sem criar dependência.",
   },
@@ -497,12 +497,12 @@ export const questoes = [
       "Em “Estudou, logo passou”, que relação a oração “logo passou” exprime?",
     opcoes: [
       "Oposição",
-      "Soma",
       "Conclusão",
+      "Soma",
       "Alternância",
       "Explicação",
     ],
-    correta: 2,
+    correta: 1,
     explicacao:
       "A oração “logo passou” apresenta a consequência do fato expresso na anterior: estudou, e por isso passou. A relação é de conclusão, e a conjunção logo é conclusiva.\n\nA oposição seria expressa por mas ou porém. A soma, por e ou nem. A alternância, por ou ou ora... ora. E a explicação, por pois ou que. Nenhuma dessas relações é de consequência.",
   },
@@ -514,12 +514,12 @@ export const questoes = [
       "Em “Corra, que o ônibus vai sair”, que relação a oração “que o ônibus vai sair” exprime?",
     opcoes: [
       "Conclusão",
-      "Oposição",
       "Explicação",
+      "Oposição",
       "Soma",
       "Alternância",
     ],
-    correta: 2,
+    correta: 1,
     explicacao:
       "A oração “que o ônibus vai sair” justifica a ordem corra: a razão de correr é que o ônibus vai sair. A relação é de explicação, e a conjunção que é explicativa.\n\nA conclusão apresentaria uma consequência. A oposição apresentaria contraste. A soma acrescentaria uma informação. E a alternância apresentaria escolha. Nenhuma dessas relações justifica a ordem dada na primeira oração.",
   },
@@ -547,13 +547,13 @@ export const questoes = [
     enunciado:
       "Em “Quer chova, quer faça sol, iremos ao parque”, como se classificam as orações introduzidas por quer?",
     opcoes: [
+      "Alternativas",
       "Aditivas",
       "Adversativas",
       "Conclusivas",
-      "Alternativas",
       "Explicativas",
     ],
-    correta: 3,
+    correta: 0,
     explicacao:
       "A repetição de quer apresenta duas hipóteses alternativas: chova ou faça sol. Quer... quer é conjunção alternativa correlativa, como ou... ou, ora... ora e seja... seja. As orações introduzidas por ela expressam alternância.\n\nAs aditivas somariam ideias. As adversativas expressariam oposição. As conclusivas tirariam uma consequência. E as explicativas justificariam uma afirmação ou ordem.",
   },
@@ -581,13 +581,13 @@ export const questoes = [
     enunciado:
       "O que é uma oração absoluta na análise do período?",
     opcoes: [
+      "A que constitui sozinha um período simples",
       "A que depende de outra oração",
       "A que tem conjunção coordenativa",
       "A que não tem verbo",
-      "A que constitui sozinha um período simples",
       "A que é sempre uma pergunta",
     ],
-    correta: 3,
+    correta: 0,
     explicacao:
       "A oração absoluta é a que forma, sozinha, um período simples: não está ligada a nenhuma outra por coordenação nem por subordinação. O aluno estudou é oração absoluta, pois o período tem um só verbo.\n\nA que depende de outra é subordinada. A que tem conjunção coordenativa faz parte de um período composto. Toda oração tem verbo. E a oração absoluta pode ser declarativa, interrogativa ou exclamativa.",
   },
@@ -601,10 +601,10 @@ export const questoes = [
       "Duas: principal e subordinada",
       "Uma: oração absoluta",
       "Três: assindética, aditiva e adversativa",
-      "Duas: assindética e sindética adversativa",
       "Duas: ambas sindéticas aditivas",
+      "Duas: assindética e sindética adversativa",
     ],
-    correta: 3,
+    correta: 4,
     explicacao:
       "Há dois verbos, estudou e passou, e portanto duas orações. A primeira, o aluno estudou, inicia o período e não tem conjunção: é coordenada assindética. A segunda, mas não passou, é introduzida por mas: é coordenada sindética adversativa.\n\nPrincipal e subordinada não se aplicam, porque as orações são independentes. Não é oração absoluta, porque há dois verbos. Não há três orações. E a segunda não é aditiva, porque a conjunção é mas.",
   },
@@ -615,13 +615,13 @@ export const questoes = [
     enunciado:
       "Qual é a diferença entre uma oração coordenada assindética e uma sindética?",
     opcoes: [
+      "A assindética não tem conjunção, e a sindética é ligada por conjunção coordenativa",
       "A assindética tem conjunção subordinativa, e a sindética não tem conjunção",
       "A assindética depende de uma principal, e a sindética é independente",
       "A assindética sempre exprime oposição, e a sindética, soma",
-      "A assindética não tem conjunção, e a sindética é ligada por conjunção coordenativa",
       "Não há diferença entre elas",
     ],
-    correta: 3,
+    correta: 0,
     explicacao:
       "A oração coordenada assindética é a que não é introduzida por conjunção: ocupa o lugar em que a conjunção estaria, separada da anterior por vírgula, como em chegou, viu, venceu. A oração coordenada sindética é a que é ligada à anterior por conjunção coordenativa: chegou e viu.\n\nDizer que a assindética tem conjunção subordinativa mistura os dois tipos de ligação. As duas são independentes, e nenhuma depende de principal. Nenhuma delas exprime sempre uma só relação. E há, sim, diferença: a presença ou não da conjunção.",
   },
@@ -635,10 +635,10 @@ export const questoes = [
       "Estudou muito; portanto, não passou.",
       "Estudou muito, pois não passou.",
       "Estudou muito ou não passou.",
-      "Estudou muito; contudo, não passou.",
       "Estudou muito e passou.",
+      "Estudou muito; contudo, não passou.",
     ],
-    correta: 3,
+    correta: 4,
     explicacao:
       "Mas e contudo são conjunções adversativas, e a troca mantém a ideia de oposição: estudou muito; contudo, não passou. O ponto e vírgula e a vírgula depois de contudo acompanham a conjunção deslocada para o início da oração.\n\nPortanto é conclusiva, e daria a ideia de consequência. Pois é explicativa, e justificaria. Ou é alternativa. E e passou muda o sentido, porque a segunda oração passa a afirmar o contrário.",
   },
@@ -650,12 +650,12 @@ export const questoes = [
       "Qual das frases reescreve “Ele chegou cedo, logo pôde ajudar” sem alterar o sentido?",
     opcoes: [
       "Ele chegou cedo; mas pôde ajudar.",
+      "Ele chegou cedo; por isso, pôde ajudar.",
       "Ele chegou cedo, ou pôde ajudar.",
       "Ele chegou cedo, pois não pôde ajudar.",
-      "Ele chegou cedo; por isso, pôde ajudar.",
       "Ele chegou cedo e não pôde ajudar.",
     ],
-    correta: 3,
+    correta: 1,
     explicacao:
       "Logo e por isso são conjunções conclusivas e expressam consequência: ele chegou cedo, e por isso pôde ajudar. A troca mantém a ideia de que ajudar foi consequência de chegar cedo.\n\nMas introduziria oposição. Ou introduziria alternância. Pois não pôde ajudar contradiz a frase original. E e não pôde ajudar nega a consequência, o que muda o sentido.",
   },
@@ -684,12 +684,12 @@ export const questoes = [
       "Qual dos períodos abaixo NÃO tem orações coordenadas?",
     opcoes: [
       "Chove e faz frio.",
+      "Se chover, ficarei em casa.",
       "Estudou, mas não passou.",
       "Ou estuda, ou trabalha.",
-      "Se chover, ficarei em casa.",
       "Penso, logo existo.",
     ],
-    correta: 3,
+    correta: 1,
     explicacao:
       "Em se chover, ficarei em casa, a oração “se chover” depende da principal, ficarei em casa, e exprime condição: é subordinada adverbial condicional. O período é composto por subordinação.\n\nEm chove e faz frio, as orações estão ligadas por e. Em estudou, mas não passou, por mas. Em ou estuda, ou trabalha, por ou. E em penso, logo existo, por logo. Todos esses períodos são compostos por coordenação.",
   },
@@ -702,11 +702,11 @@ export const questoes = [
     opcoes: [
       "Não saí porque estava chovendo.",
       "Faltou porque estava doente.",
+      "Não saia, porque está chovendo.",
       "Chegou tarde porque perdeu o ônibus.",
       "Ficou em casa porque quis.",
-      "Não saia, porque está chovendo.",
     ],
-    correta: 4,
+    correta: 2,
     explicacao:
       "Em não saia, porque está chovendo, a oração com porque justifica a ordem dada na primeira: a razão de não sair é a chuva. Como justifica uma ordem ou afirmação, e não a causa de um fato, é coordenada sindética explicativa, com vírgula antes de porque.\n\nNas outras frases, porque introduz a causa de um fato expresso na oração principal: o motivo de não ter saído, de ter faltado, de ter chegado tarde, de ter ficado em casa. São subordinadas adverbiais causais, geralmente sem vírgula antes.",
   },
@@ -719,11 +719,11 @@ export const questoes = [
     opcoes: [
       "Leve o guarda-chuva, pois vai chover.",
       "Estude, pois a prova é difícil.",
+      "Ele é rico; tem, pois, o direito de escolher.",
       "Corra, pois o ônibus vai sair.",
       "Saia, pois está tarde.",
-      "Ele é rico; tem, pois, o direito de escolher.",
     ],
-    correta: 4,
+    correta: 2,
     explicacao:
       "Em ele é rico; tem, pois, o direito de escolher, o pois vem depois do verbo, entre vírgulas, e equivale a portanto: ele é rico, e por isso tem o direito. Posposto ao verbo, pois é conjunção conclusiva.\n\nNas outras frases, o pois vem no início da oração e justifica uma ordem: leve o guarda-chuva, porque vai chover; estude, porque a prova é difícil; corra, porque o ônibus vai sair; saia, porque está tarde. Anteposto à oração, pois é explicativo.",
   },
@@ -734,13 +734,13 @@ export const questoes = [
     enunciado:
       "No período “Estudou muito, mas não passou, logo precisará repetir a prova”, como se classificam, respectivamente, as três orações?",
     opcoes: [
+      "Assindética, sindética adversativa e sindética conclusiva",
       "Assindética, sindética conclusiva e sindética adversativa",
       "Sindética adversativa, assindética e sindética aditiva",
       "Assindética, sindética aditiva e sindética explicativa",
       "Assindética nas três",
-      "Assindética, sindética adversativa e sindética conclusiva",
     ],
-    correta: 4,
+    correta: 0,
     explicacao:
       "A primeira oração, estudou muito, inicia o período e não tem conjunção: assindética. A segunda, mas não passou, expressa oposição ao esperado: sindética adversativa. A terceira, logo precisará repetir a prova, tira uma conclusão da anterior: sindética conclusiva.\n\nTrocar a ordem entre adversativa e conclusiva inverte as relações. Dizer aditiva ou explicativa ignora as conjunções mas e logo. E dizer assindética nas três ignora as conjunções da segunda e da terceira.",
   },
@@ -753,11 +753,11 @@ export const questoes = [
     opcoes: [
       "Chegou, jantou e dormiu.",
       "Estudou muito, mas não passou.",
+      "Quando chegou, jantou e foi dormir.",
       "Ou estuda, ou trabalha.",
       "Penso, logo existo.",
-      "Quando chegou, jantou e foi dormir.",
     ],
-    correta: 4,
+    correta: 2,
     explicacao:
       "Em quando chegou, jantou e foi dormir, a oração “quando chegou” é subordinada adverbial temporal em relação a jantou. E as orações jantou e foi dormir são coordenadas entre si, ligadas por e. O período tem, portanto, subordinação e coordenação, e é chamado misto.\n\nNas demais frases, todas as orações são coordenadas: chegou, jantou e dormiu; estudou muito, mas não passou; ou estuda, ou trabalha; penso, logo existo. Em nenhuma há oração que dependa de outra.",
   },
@@ -788,10 +788,10 @@ export const questoes = [
       "Porque que é pronome relativo",
       "Porque o verbo está no futuro",
       "Porque falta sujeito",
-      "Porque tem conjunção coordenativa adversativa",
       "Porque justifica a ordem dada, e não a ação de outra oração",
+      "Porque tem conjunção coordenativa adversativa",
     ],
-    correta: 4,
+    correta: 3,
     explicacao:
       "A oração “que o ônibus vai sair” justifica a ordem corra: a razão de correr é a saída do ônibus. Como justifica uma ordem ou afirmação, e não a causa de um fato, é coordenada sindética explicativa. A subordinada causal indicaria a causa de um fato, como em perdeu o ônibus porque não correu.\n\nQue, aí, é conjunção, e não pronome relativo. O tempo do verbo não define a classificação. Há sujeito: o ônibus. E a conjunção não é adversativa, porque não há oposição.",
   },
@@ -802,13 +802,13 @@ export const questoes = [
     enunciado:
       "No período “Chegou cedo, mas ninguém o viu, pois estava distraído”, como se classificam, respectivamente, as três orações?",
     opcoes: [
+      "Assindética, sindética adversativa e sindética explicativa",
       "Assindética, sindética aditiva e sindética conclusiva",
       "Sindética adversativa, assindética e sindética aditiva",
       "Assindética, sindética explicativa e sindética adversativa",
       "Principal, subordinada e subordinada",
-      "Assindética, sindética adversativa e sindética explicativa",
     ],
-    correta: 4,
+    correta: 0,
     explicacao:
       "A primeira oração, chegou cedo, inicia o período e não tem conjunção: assindética. A segunda, mas ninguém o viu, contraria a expectativa de ser visto: sindética adversativa. A terceira, pois estava distraído, justifica o fato anterior de ninguém o ver: sindética explicativa.\n\nTrocar a ordem entre explicativa e adversativa inverte as relações. Dizer aditiva ou conclusiva ignora as conjunções mas e pois. E principal e subordinada não se aplicam, porque as orações são independentes.",
   },
@@ -820,12 +820,12 @@ export const questoes = [
       "Qual afirmação sobre as orações coordenadas está de acordo com a gramática normativa?",
     opcoes: [
       "Dependem sempre de uma oração principal",
+      "São independentes e podem ter ou não conjunção",
       "Só podem ser ligadas por e",
       "Nunca têm conjunção",
       "Exercem função de sujeito na outra",
-      "São independentes e podem ter ou não conjunção",
     ],
-    correta: 4,
+    correta: 1,
     explicacao:
       "As orações coordenadas são sintaticamente independentes: nenhuma exerce função na outra. Podem ser assindéticas, quando não têm conjunção, ou sindéticas, quando são ligadas por conjunção coordenativa, que pode ser aditiva, adversativa, alternativa, conclusiva ou explicativa.\n\nDepender de uma principal é característica da subordinação. Podem ser ligadas por várias conjunções, e não só pelo e. As assindéticas não têm conjunção, mas as sindéticas têm. E exercer função de sujeito na outra é característica das subordinadas substantivas.",
   },
@@ -838,11 +838,11 @@ export const questoes = [
     opcoes: [
       "Introduzem sempre orações subordinadas",
       "Só ligam orações, nunca termos",
+      "Ligam orações ou termos de mesma função, sem criar dependência",
       "São todas variáveis em gênero e número",
       "Todas exprimem a mesma relação de sentido",
-      "Ligam orações ou termos de mesma função, sem criar dependência",
     ],
-    correta: 4,
+    correta: 2,
     explicacao:
       "As conjunções coordenativas ligam orações ou termos de mesma função sintática, sem criar dependência entre eles: e, mas, ou, logo, pois. Dividem-se em aditivas, adversativas, alternativas, conclusivas e explicativas, conforme a relação de sentido que estabelecem.\n\nIntroduzir subordinadas é função das conjunções subordinativas. As coordenativas também ligam termos, como em pão e leite. São invariáveis, como toda conjunção. E exprimem relações diferentes, e não uma só.",
   },
@@ -855,11 +855,11 @@ export const questoes = [
     opcoes: [
       "Têm sempre uma conjunção aditiva entre elas",
       "Dependem sempre de uma oração principal",
+      "Não têm conjunção e se ligam pela pontuação",
       "São sempre introduzidas pela conjunção ou",
       "Só ocorrem no início de um texto longo",
-      "Não têm conjunção e se ligam pela pontuação",
     ],
-    correta: 4,
+    correta: 2,
     explicacao:
       "As orações coordenadas assindéticas não são introduzidas por conjunção e se ligam à anterior apenas pela pontuação: vírgula (chegou, viu, venceu), ponto e vírgula ou dois-pontos. Cada uma é independente, e a pontuação ocupa o lugar da conjunção.\n\nNão têm conjunção aditiva, nem de qualquer outro tipo. Não dependem de principal, porque são coordenadas. Não são introduzidas por ou, que forma as alternativas. E podem ocorrer em qualquer ponto de um texto, e não só no início.",
   },
